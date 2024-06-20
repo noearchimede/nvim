@@ -1,0 +1,90 @@
+
+snippet today "Today's Date"
+`date +%d.%m.%y`
+endsnippet
+
+
+snippet "(//|#|'|"|%|–|--|\$)?box" "Box" br
+`!p
+if match.group(1) is None: prefix = '' # no comment markers
+else: prefix = match.group(1) + ' ' # box will be commented out
+snip.rv = prefix + '┌' + '─' * (len(t[1]) + 2) + '┐' + '\n'
+snip.rv += prefix + '│ '
+`$1`!p
+snip.rv = ' │\n'
+snip.rv += prefix + '└' + '─' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+
+# "box" without option to be commented out (now included as special case above)
+#snippet box "Box"
+#`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+#│ $1 │
+#`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+#$0
+#endsnippet
+
+
+snippet "(//|#|'|"|%|–|--|\$)?cbox" "Center Box" br
+`!p
+if match.group(1) is None: prefix = '' # no comment markers
+else: prefix = match.group(1) # box will be commented out
+textwidth = int(vim.eval('&tw'))
+if textwidth == 0: textwidth = 80
+boxwidth = len(t[1]) + 4
+nr_spaces = max(int((textwidth - boxwidth) / 2) - 1, 0)
+snip.rv = prefix + ' ' * nr_spaces + '┌' + '─' * (len(t[1]) + 2) + '┐' + '\n'
+snip.rv += prefix + ' ' * nr_spaces + '│ '
+`$1`!p
+snip.rv = ' │' + '\n'
+snip.rv += prefix + ' ' * nr_spaces + '└' + '─' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+
+
+snippet box# "Hash Box"
+`!p snip.rv = '#' + '#' * (len(t[1]) + 2) + '#'`
+# $1 #
+`!p snip.rv = '#' + '#' * (len(t[1]) + 2) + '#'`
+$0
+endsnippet
+
+
+# the options in the regex should be all possible comment leaders (followed by a single dash)
+snippet "(//|#|'|"|%|–|--|\$)-" "Comment Line" br
+`!p
+line_char = '–'
+textwidth = int(vim.eval('&tw'))
+if textwidth == 0: textwidth = 80
+text_len = len(t[1])
+prefix = match.group(1) + ' '
+snip.rv = prefix + line_char
+if text_len != 0:
+    snip.rv += ' '
+`$1`!p
+if text_len == 0:
+	snip.rv = line_char * (textwidth - len(prefix) - 1)
+else:
+	snip.rv = ' ' + line_char * (textwidth - text_len - len(prefix) - 2 - 1) # "- 2" are the spaces around text
+`
+$0
+endsnippet
+
+# the options in the regex should be all possible comment leaders (followed by a single dash)
+snippet "(//|#|'|"|%|–|--|\$)--" "Comment Line" br
+`!p
+line_char = '–'
+prefix = match.group(1) + ' '
+textwidth = int(vim.eval('&tw'))
+if textwidth == 0: textwidth = 80
+snip.rv = prefix + line_char * (textwidth - len(prefix)) + '\n'
+snip.rv += prefix + ' ' 
+`$1`!p
+snip.rv = '\n'
+snip.rv += prefix + line_char * (textwidth - len(prefix)) + '\n'
+`
+$0
+endsnippet
+
+
+

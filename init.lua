@@ -11,6 +11,11 @@ vim.g.maplocalleader = '\\'
 
 
 
+-- – Plugins ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+require("plugins")
+
+
 -- – Main global settings –––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 require("mappings")

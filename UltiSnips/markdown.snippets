@@ -1,0 +1,68 @@
+
+
+snippet partit "Paragraph title" b
+**$1** $0
+endsnippet
+
+snippet sref "reference to slide" bwA
+**|Slide $1|** $0
+endsnippet
+
+snippet bref "reference to book" bw
+**|Book $1|** $0
+endsnippet
+
+snippet ddd "dot dot dot" wA
+[...] $0
+endsnippet
+
+snippet DDD "bold dot dot dot" wA
+**[...]** $0
+endsnippet
+
+snippet kk "inline code block" wA
+\`$1\` $0
+endsnippet
+
+
+snippet mtnotes "Master Thesis: header of a daily notes file" b
+`!p
+import datetime
+date_formatted = "{:%A, %d %B %Y}".format(datetime.datetime.now())
+date_stamp = "{:%Y%m%d}".format(datetime.datetime.now())
+text = []
+text.append(date_formatted)
+text.append("-" * len(date_formatted))
+text.append("")
+text.append("")
+text.append("### Summary")
+text.append("")
+text.append("")
+text.append("")
+text.append("### Files")
+text.append("")
+text.append("[measurements/" + date_stamp + "/](/Users/noe/Personale/Poli/Masterarbeit/measurements/" + date_stamp + "/)")
+text.append("")
+text.append("")
+text.append("### Notes")
+text.append("")
+snip.rv = "\n".join(text)
+`
+endsnippet
+
+
+snippet mtfile "Master Thesis: file/folder link"
+[$1]`!p
+snip.rv = "(/Users/noe/Personale/Poli/Masterarbeit/" + t[1] + ")"
+`
+endsnippet
+
+snippet mtfilemeas "Master Thesis: link to the measurements folder corresponding to the current note name"
+[`!p
+import os
+note_name = os.path.splitext(os.path.basename(path))[0]
+snip.rv = note_name + "/"
+`$1]`!p
+snip.rv = "(/Users/noe/Personale/Poli/Masterarbeit/measurements/" + note_name + "/" + t[1] + ")"
+`
+endsnippet

@@ -1,8 +1,10 @@
---                              ┌─────────┐
---                              │ Plugins │
---                              └─────────┘
+--                             ┌─────────┐
+--                             │ Plugins │
+--                             └─────────┘
 --
--- Plugins managed by lazy.nvim
+-- Plugins managed by lazy-nvim. The actual plugin specs are defined in the
+-- 'plugins' folder, where each plugin or group of plugins is defined in its
+-- own file.
 
 
 -- install lazy.nvim
@@ -13,18 +15,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
 
-require("lazy").setup({
+-- load plugins
+require("lazy").setup("plugins")
 
-    {
-        "MarcoKorinth/onehalf.nvim",
-        lazy = false
-    }
-
-})

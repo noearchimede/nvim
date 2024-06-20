@@ -35,7 +35,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 
-
 -- – Main global settings –––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 require("mappings")

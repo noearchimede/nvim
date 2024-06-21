@@ -1,0 +1,124 @@
+*config.txt*  Help page for this Vim configuration.
+*conf* *confi*
+
+This help file contains a list of the main features implemented in my Vim
+configuration.
+
+For solutions to known problems see |troubleshooting|.
+For hints about using Vim see |hints|.
+
+
+=============================================================================
+TABLE OF CONTENTS
+
+    1. Keyboard layout                  |config-keyboard|
+    2. Mappings                         |config-mappings|
+        2.1. Global leader mappings     |config-leader|
+        2.2. Filetype mappings          |config-filetype-mappings|
+    3. Commands                         |config-commands|
+    4. Vim-plug plugins                 |config-plugins|
+    5. Custom plugins                   |config-plugins-custom|
+
+
+=============================================================================
+KEYBOARD                                                      *config-keyboard* 
+
+
+
+Standard normal mode layout                               *StandardizeKeyboard*
+                                                     *StandardizeKeyboardReset*
+
+In many keyboard layouts the placement of some symbols is not ideal for Vim.
+This configuration provides the |StandardizeKeyboard| command, which allows to
+interactively create a set of 'langmap' pairs to effectively provide the
+following keyboard layout in Normal mode (Insert mode is not affected by
+langmap). The settings created with this command will then be loaded
+automatically at startup until they are deleted with |StandardizeKeyboardReset|.
+
+|StandardizeKeyboard| will also help create a mapping for ESC, if desired, to
+be used instead of the physical ESC key if it is not easily accessible (a
+commonly used mapping for this is `jk`).
+
+Note: 'langmap' has some known bugs which may among other things break some
+mappings. Moreover it doesn't work in all situations where the "normal mode
+layout" may be expected. Changing the keyboard layout outside of Vim is thus
+preferred, especially if a lot of symbols (as opposed to letters) must be
+remapped.
+
+                                                       *config-keyboard-normal*
+┌────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬──────┐
+│ CL │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │     │   BS │
+│    │     │     │     │  $  │     │     │     │     │     │     │     │     │      │
+├────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬────┤
+│ TAB  │  q  │  w  │  e  │  r  │  t  │  z  │  u  │  i  │  o  │  p  │  [  │  ]  │ CR │
+│      │     │     │     │     │     │     │     │     │     │     │  {  │  }  │    │
+├──────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┐  │
+│  esc   │  a  │  s  │  d  │  f  │  g  │  h  │  j  │  k  │  l  │  :  │  '  │  \  │  │
+│        │     │     │     │     │     │     │     │     │     │  ;  │  "  │  |  │  │
+├─────┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┴──┤
+│  S  │     │  y  │  x  │  c  │  v  │  b  │  n  │  m  │  ,  │  .  │  /  │        S  │
+│     │     │     │     │     │     │     │     │     │  <  │  >  │  ?  │           │
+├────┬┴────┬┴────┬┴────┬┴─────┴─────┴─────┴─────┴─────┴┬────┴┬────┴┬────┴┬────┬─────┤
+│    │  C  │     │     │                               │     │     │  C  │    │     │
+│    │     │     │     │                               │     │     │     │    │     │
+└────┴─────┴─────┴─────┴───────────────────────────────┴─────┴─────┴─────┴────┴─────┘
+Note: this based on a US layout, but:
+- the physical layout is ISO (not ANSI)
+- `:` and `;` are swapped (usually the non-shifted character is `;`, but `:`
+  is used far more often in Vim)
+- the layout of the letter keys is QWERTZ (instead of QWERTY)
+- special characters that are not often used in Vim are not remapped
+
+
+                                                  *config-keyboard-standardize*
+
+The custom |StandardizeKeyboard| plugin allows to quickly create a list of
+mappings to get this layout in Normal mode regardless of the actual layout.
+Use >
+    :StandardizeKeyboard
+<to redefine the mappings file, which will then be loaded automatically along
+with the rest of the configuration, and >
+    :StandardizeKeyboardReset
+<to delete that file and revert to the actual keyboard layout.
+Note: the mappings it produces only work in some cases!!
+
+
+                                                          *config-keyboard-esc*
+
+Note: the position of Caps Lock (CL) and esc is inverted in most modern
+keyboards. It is not possible to swap these keys from within Vim, an
+external program must be used to do so (e.g. Karabiner on macOS). Similarly an
+external remapping program is required to obtain a right Control key (C) on
+Macs that only have cmd, alt and the arrow keys on the right hand side of the
+spacebar.
+
+
+
+=============================================================================
+MAPPINGS                                                      *config-mappings*
+
+
+Insert-mode mappings                                   *config-insert-mappings*
+
+
+Mapping   Description~
+
+<tab>     Insert next completion suggestion or move to next snippet tag
+<s-Tab>   Insert previous completion or move to previous snippet tag
+
+<c-n>     Select next completion suggestion
+<c-p>     Select previous completion suggestion
+<CR>      If a completion is selected insert it, otherwise insert newline
+
+<c-b>     Scroll the documentation popup upwards
+<c-b>     Scroll the documentation popup downwards
+
+<c-e>     Close the autocompletion popup
+
+<c-l>     Confirm the current autocompletion suggestion or expand the current
+          snippet
+
+
+-----------------------------------------------------------------------------
+_____________________________________________________________________________
+vim:noro:ma:tw=78:ts=4:ft=help

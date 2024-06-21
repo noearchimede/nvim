@@ -129,18 +129,18 @@ vim.opt.nrformats:remove { "octal" }
 local flp_value = [[\m]] -- set magic mode
 -- bullet list:
 -- optional spaces | one of *-–+>•# | optional extra -–> | at least one space
-flp_value = flp_value .. [['^\s*[\-–>\*•#+]\[\-–>]+\s\+']]
--- numbered list (potentially long numbers or letters):
+flp_value = flp_value .. [[^\s*[\-–>\*•#+]\[\-–>]+\s\+]]
+-- numbered list 1 (potentially long numbers or letters):
 -- optional spaces | optional ([{< | at least one of [0-9a-zA-Z] | mandatory )]}>.: | at least two spaces
-flp_value = flp_value .. [['\|' . '^\s*[(\[{<]\?[0-9a-zA-Z]\+[:.)\]}>]\+\s\{2,\}']]
--- numbered list (only one number but does not require two spaces):
+flp_value = flp_value .. [[\|]] .. [[^\s*[(\[{<]\?[0-9a-zA-Z]\+[:.)\]}>]\+\s\{2,\}]]
+-- numbered list 2 (only one number but does not require two spaces):
 -- optional spaces | exactly one number | mandatory )]}>.: | at least one space
-flp_value = flp_value .. [['\|' . '^\s*[0-9][:.)\]}>]\s\+']]
--- labelled list:
--- at least one space | label (max two words) | one of the follwing:
+flp_value = flp_value .. [[\|]] .. [[^\s*[0-9][:.)\]}>]\s\+]]
+-- labelled list 1: label (max two words) | one of the follwing:
 --   - at least one space | one or more of -=:– | at least one space
---   - optional : | at least two spaces
-flp_value = flp_value .. [['\|' . '^\s*\S\+[ ]\?\S\+\%(\s\+[\-=:–]\+\s\+\|:\?\s\{2,\}\)']]
+--   - optionally, one or more of :.)}]> | at least two spaces
+flp_value = flp_value .. [[\|]] .. [[^\S\+\%(\s\+[\-=:–]\+\s\+\|[:.)}\]>]\?\s\{2,\}\)]]
+
 
 -- set flp val
 vim.opt.formatlistpat = flp_value

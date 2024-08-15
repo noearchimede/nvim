@@ -54,8 +54,10 @@ function M.get_visual_selection()
     -- information about this in the documentation)
     vim.cmd.normal(vim.api.nvim_replace_termcodes('<esc>', true, true, true))
     -- get start and end of visual selection
-    local _, ls, cs, _ = unpack(vim.fn.getpos("'<"))
-    local _, le, ce, _ = unpack(vim.fn.getpos("'>"))
+    ---@diagnostic disable-next-line: deprecated
+    table.unpack = table.unpack or unpack -- 5.1 compatibility
+    local _, ls, cs, _ = table.unpack(vim.fn.getpos("'<"))
+    local _, le, ce, _ = table.unpack(vim.fn.getpos("'>"))
     -- get text
     local text_array = vim.api.nvim_buf_get_text(0, ls-1, cs-1, le-1, ce, {})
     -- concatenate lines

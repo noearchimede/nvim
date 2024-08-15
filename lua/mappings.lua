@@ -10,7 +10,8 @@
 --   Searching
 --   Editing
 --   Quick settings
-
+--   Abbreviations
+--   Debug
 
 
 -- – Leader ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -22,21 +23,22 @@ vim.keymap.set({'n', 'v', 'x'}, '<space>', '\\', { remap = true })
 vim.keymap.set({'n', 'v', 'x'}, '\\<space>', '\\\\', { remap = true })
 
 
+
 -- – Text navigation –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
 -- when moving between search results, move the current match to the center
-vim.keymap.set('n', 'n', 'nzz')
-vim.keymap.set('n', 'N', 'Nzz')
-vim.keymap.set('n', '*', '*zt')
-vim.keymap.set('n', '#', '#zt')
+-- vim.keymap.set('n', 'n', 'nzz')
+-- vim.keymap.set('n', 'N', 'Nzz')
+-- vim.keymap.set('n', '*', '*zt')
+-- vim.keymap.set('n', '#', '#zt')
 
 -- make single quote work as backtick, i.e. jump to exact position
-vim.keymap.set({'n', 'v', 'x'}, '\'', '`', { remap = true })
+vim.keymap.set({'n', 'v', 'x', 'o'}, '\'', '`', { remap = true })
 
 -- move up or down to next non-blank character in same column
-vim.keymap.set('n', '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
-vim.keymap.set('n', '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
+vim.keymap.set({'n', 'v'}, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
+vim.keymap.set({'n', 'v'}, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
 
 
 
@@ -49,8 +51,21 @@ vim.keymap.set({'n', 't'}, '<c-j>', '<c-w>j')
 vim.keymap.set({'n', 't'}, '<c-k>', '<c-w>k')
 vim.keymap.set({'n', 't'}, '<c-l>', '<c-w>l')
 
+-- open a new terminal in a split
+vim.keymap.set('n', '<leader>qo', '<cmd>terminal<cr>')
+vim.keymap.set('n', '<leader>qv', '<cmd>vertical terminal<cr>')
+vim.keymap.set('n', '<leader>qh', '<cmd>horizontal terminal<cr>')
 -- exit terminal with esc-esc
 vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
+
+
+
+-- – Directories –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+-- Tab cd to the parent of the current file
+vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end)
+-- Tab cd up one directory
+vim.keymap.set('n', "<leader>to", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end)
 
 
 
@@ -81,7 +96,8 @@ vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>")
 
 
 -- yank to system clipboard
-vim.keymap.set({'n', 'v'}, '<s-y>', '"*y')
+vim.keymap.set({'n', 'v'}, 'Y', '"*y')
+vim.keymap.set('n', 'YY', '"*yy')
 
 
 
@@ -96,6 +112,41 @@ vim.keymap.set('n', '<leader>xa', ':set invautoread<CR>:set autoread?<CR>')
 vim.keymap.set('n', '<leader>xs', ':set invspell<CR>:set spell?<CR>')
 -- toggle list mode
 vim.keymap.set('n', '<leader>xl', ':set invlist<CR>:set list?<CR>')
+-- toggle signcolumn visibility when no signs are present
+vim.keymap.set('n', '<leader>xg', function ()
+    if vim.opt.signcolumn:get() == 'auto' then ---@diagnostic disable-line: undefined-field
+        vim.opt.signcolumn = 'yes'
+    elseif vim.opt.signcolumn:get() == 'yes' then ---@diagnostic disable-line: undefined-field
+        vim.opt.signcolumn = 'auto'
+    end
+end)
 
+
+-- – Abbreviations -––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+vim.cmd('cabbrev v vert')
+
+
+
+
+-- – Debugging –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+vim.keymap.set("n", "<leader>xys", function()
+	vim.cmd([[
+		:profile start /tmp/nvim-profile.log
+		:profile func *
+		:profile file *
+        :echo "Started profiling"
+	]])
+end, { desc = "Profile Start" })
+
+vim.keymap.set("n", "<leader>xye", function()
+	vim.cmd([[
+		:profile stop
+		:e /tmp/nvim-profile.log
+        :echo "Ended profiling"
+	]])
+end, { desc = "Profile End" })
 
 

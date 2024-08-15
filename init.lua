@@ -39,6 +39,7 @@ require("lazy").setup("plugins")
 
 require("mappings")
 require("settings")
+require("commands")
 
 
 

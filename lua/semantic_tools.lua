@@ -1,6 +1,22 @@
 local M = {}
 
 
+-- Treesitter parsers
+M.treesitter_parsers = {
+    "c",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "cpp",
+    "python",
+    "html",
+    "latex",
+    "markdown",
+    "markdown_inline"
+}
+
+
 -- Tools that mason-tool-installer will install automatically if missing
 M.mason_tools = {
     "prettier", -- prettier formatter

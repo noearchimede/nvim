@@ -1,0 +1,51 @@
+{
+
+  "partit": {
+    "prefix": "partit",
+    "description": "Paragraph title",
+    "body": "**$1** $0"
+  },
+
+  "sref": {
+    "prefix": "sref",
+    "description": "reference to slide",
+    "body": "**|Slide $1|** $0",
+    "luasnip": {
+      "autotrigger": true
+    }
+  },
+
+  "bref": {
+    "prefix": "bref",
+    "description": "reference to book",
+    "body": "**|Book $1|** $0"
+  },
+
+  "ddd": {
+    "prefix": "ddd",
+    "description": "dot dot dot",
+    "body": "[...] $0",
+    "luasnip": {
+      "autotrigger": true
+    }
+  },
+
+  "DDD": {
+    "prefix": "DDD",
+    "description": "bold dot dot dot",
+    "body": "**[...]** $0",
+    "luasnip": {
+      "autotrigger": true
+    }
+  },
+
+  "kk": {
+    "prefix": "kk",
+    "description": "inline code block",
+    "body": "`$1` $0",
+    "luasnip": {
+      "autotrigger": true
+    }
+  }
+
+}

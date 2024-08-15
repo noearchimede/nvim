@@ -53,7 +53,7 @@ return {
                 -- /Users/noe/.local/share/nvim/lazy/onedark.nvim/lua/onedark/palette.lua
 
                 -- highlight for markdown
-                ["@markup.strong"] = { fg = '$orange' },
+                ["@markup.strong"] = { fg = '$red' },
                 ["@markup.italic"] = { fg = '$yellow' },
 
                 -- higlight for neogit

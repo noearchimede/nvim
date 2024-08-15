@@ -1,0 +1,126 @@
+*hints.txt*  List of hints about doing specific things in Vim
+*hin* *hint*
+
+This help file contains a random list of tips to use Vim in a more efficient
+way and ideas on how to perform specific actions.
+
+For details about this Vim configuration and its plugins see |config|.
+For solutions to known problems see |troubleshooting|.
+
+=============================================================================
+TABLE OF CONTENTS
+
+    1. Mappings                        |hints-mappings|
+    2. Settings                        |hints-settings|
+    3. Macros                          |hints-macros|
+    4. Substitute commands             |hints-substitute|
+    5. Using plugins                   |hints-plugins|
+    6. Configuring Vim                 |hints-vimrc|
+    7. Help pages                      |hints-help|
+
+
+=============================================================================
+MAPPINGS                                                       *hints-mappings*
+
+Links ~
+    gf       start editing file under cursor
+    gx       open link under cursor in default browser
+
+Indentation ~
+    CTRL-T   increase indentation while in Insert mode
+    CTRL-D   decrease indentation while in Insert mode
+
+Command line ~
+    CTRL-A   expand glob patterns to a list of file names (e.g. after `:bd dir/*`)
+    
+
+=============================================================================
+SETTINGS                                                       *hints-settings*
+
+Settings that are not enabled in the configuration but may be useful in
+specific cases
+
+
+-----------------------------------------------------------------------------
+Indentation ~
+Set arbitrary tab stops >
+    :set vts=a,b,...
+<The first tab is 'a' columns wide, the second one 'b', etc.
+-----------------------------------------------------------------------------
+Concealing ~
+Disable concealing >
+    :set cole=0
+<The most common conceal level is 2 (conceal text but show replacement
+characters if available). Level 0 completely disables concealing
+-----------------------------------------------------------------------------
+Autoread ~
+Work with a document that is also open elsewhere >
+    :set autoread
+<This stops Vim from asking wheter it must load the file every time it is
+changed externally.
+-----------------------------------------------------------------------------
+Fixing window parametres ~
+Window height and width can be (partially) fixed using 'winfixheight' and
+'winfixwidth' (or unfixed using the `no-` variants of those commands): >
+    :set wfh
+    :set wfw
+<This protects a window from resizing after opening or closing window or using
+|CTRL-W_=|.
+
+
+=============================================================================
+MACROS                                                           *hints-macros*
+
+Groups of commands that could e.g. be registered as a macro or saved as a
+mapping but are not used often enough to justify doing so
+
+
+=============================================================================
+PLUGINS                                                         *hints-plugins*
+
+Hints about using third-party plugins
+
+
+=============================================================================
+SUBSTITUTE COMMANDS                                          *hints-substitute*
+
+Strings for `:substitute` and similar commands or other regex strings that may
+be useful for search or replace operations
+
+
+-----------------------------------------------------------------------------
+Replace repeated spaces with underscore~
+Useful for tables of content. Transforms e.g. `$title            page nr^` to
+`$title ____________ page nr^`: >
+    s/\v( )@<= ( )@=/_/g
+< 
+
+
+=============================================================================
+CONFIGURING VIM                                                   *hints-vimrc*
+
+Hints about writing and editing Vim configuration files
+
+
+Syntax~
+
+    Vim comes with a script to show all higlight groups that are currently
+    loaded. Simply run `:so $VIMRUNTIME/syntax/hitest.vim` to see a full list.
+
+
+
+=============================================================================
+HELP PAGES                                                         *hints-help*
+
+List of help pages that may need to be consulted often
+
+
+ |help-writing|        Formatting rules and conventions of Vim help pages
+                       (such as this one)
+
+
+
+
+
+_____________________________________________________________________________
+vim:noro:ma:tw=78:ts=4:ft=help:nowrap

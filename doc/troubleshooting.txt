@@ -1,0 +1,134 @@
+*troubleshooting.txt*  List of solutions to problems that may occur in Vim
+*tro* *trouble*
+
+This help file contains a random list of problems and the solutions I found.
+
+For details about this Vim configuration and its plugins see |config|.
+For hints about using Vim see |hints|.
+
+=============================================================================
+TABLE OF CONTENTS
+
+    1. General                         |troubleshooting-general|
+    2. Plugins                         |troubleshooting-plugins|
+        2.1 VimTeX                     |troubleshooting-vimtex|
+        2.2 Livedown                   |troubleshooting-livedown|
+
+
+
+=============================================================================
+GENERAL                                               *troubleshooting-general*
+
+
+
+-----------------------------------------------------------------------------
+Python-related errors are raised
+
+    Make sure that the pytho3 package `pynvim` is installed in the current
+    virtualenv
+
+
+-----------------------------------------------------------------------------
+Some help pages don't show up in `:h ___`
+
+    Run `:helptags ALL` to rebuild the tag lists
+
+    Run `:helptags ~/.../doc` to add the tags in a `.../doc` directory
+
+
+-----------------------------------------------------------------------------
+Vim is slow while typing
+
+    There obviously are a lot of possible causes for this. The following list
+    shows some possible solutions or troubleshooting steps, in no particular
+    order.
+
+    1. Run `set fdm=manual` ('foldmethod') to disable folding.
+       -> If this solves the problem, the current folding method may be too
+          inefficient. This may occur with `expr` folding when Vim must check
+          a lot of lines to determine the fold level of the current one.
+       -> The |FastFold| plugin provides an automatic solution to this problem
+          by keeping the `fdm=manual` most of the time and only enabling the
+          actual foldmethod when necessary. If this plugin is being used you
+          may need to use `zuz` (|FastFoldUpdate!|) to refresh the folds or if
+          it gets stuck in the wrong `fdm` for some reason.
+
+    2. Temporarily set `:syntax off`. If this solves the problem, type
+       `:syntime on`, then move around the file for a while and then call
+       `:syntime report`. All syntax rules will be listes ordered by the time
+       they each took. The problem may be solved definitevly by manually
+       disabling some syntax highlighting rules for a specific filetype.
+
+    3. Check if a plugin is responsible. Some that have been found to cause
+       problems are:
+       - UltiSnips: if |g:UltiSnipsSnippetDirectories| is incorrectly set to
+         single value (instead of being a list) UltiSnips will cause Vim to
+         lag considerably in Insert mode
+
+
+
+
+
+
+=============================================================================
+PLUGINS                                               *troubleshooting-plugins*
+
+
+=============================================================================
+VimTeX~
+                                                       *troubleshooting-vimtex*
+
+help: |VimTeX| (vim-plug only loads this when a .tex file is opened!)
+
+
+-----------------------------------------------------------------------------
+Vimtex does not appear to be loaded. Only the command `VimtexInverseSearch` is
+available.
+
+    Run `:call vimtex#init()` . If the problem is solved (temporarily), then
+    check that there is not a ftplugin for Vim which prevents Vimtex from
+    loading its own.
+
+
+
+
+=============================================================================
+Livedown~
+                                                     *troubleshooting-livedown*
+
+help: no help page available, see https://github.com/shime/vim-livedown
+
+
+-----------------------------------------------------------------------------
+Livedown doesn't work but also doesn't display any error.
+
+    Run Livedown from the terminal, e.g. `!livedown start %` . There any error
+    should be printed out.
+    -> If the error is `Error: listen EADDRINUSE: address already in use :::1337` open a terminal and run `lsof -i :1337`, which among other
+       returns a PID, and kill that process with `kill -9 {PID}` (check that
+       this does not do any harm before killing)
+
+
+
+=============================================================================
+Coc.nvim~
+                                                          *troubleshooting-coc*
+
+Coc is a highly featured and complex plugin. Always refer to the main GitHub
+page in case of issues, which has a Wiki and many discussion threads:
+https://github.com/neoclide/coc.nvim/
+
+Some settings may interfere with the operation of Coc:
+- |nobackup| and |nowritebackup| are suggested as workarounds to solve bugs with
+  some language servers. However, be creful if you choose to apply this
+  workaround (especially when disabling write backups) and read the
+  documentation before doing so.
+- |encoding|: the documentation (and the example configuration on the GitHub
+  page) suggests putting `set encoding=utf8` in Vimrc "since coc.nvim calculates
+  byte offset by count utf-8 byte sequence".
+- |updatetime|: coc.nvim may not work well for long updatetime. Suggested
+  value is 300.
+
+
+_____________________________________________________________________________
+vim:noro:ma:tw=78:ts=4:ft=help:nowrap

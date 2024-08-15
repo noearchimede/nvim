@@ -45,6 +45,12 @@ if not colo_ok then
 	vim.cmd 'colorscheme default'
 end
 
+-- keep undo history across nvim sessions
+vim.opt.undofile = true
+
+-- always show signcolumn by default
+vim.opt.signcolumn = 'yes'
+
 
 
 -- – Text-Display –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

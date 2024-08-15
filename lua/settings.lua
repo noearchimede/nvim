@@ -40,8 +40,8 @@ if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
 end
 
 -- set colorscheme; if not available, fail silently and keep the default one
-local colo_ok, _ = pcall(vim.cmd, 'colorscheme onehalfdark')
-if not colo_ok then 
+local colo_ok, _ = pcall(vim.cmd, 'colorscheme onedark')
+if not colo_ok then
 	vim.cmd 'colorscheme default'
 end
 

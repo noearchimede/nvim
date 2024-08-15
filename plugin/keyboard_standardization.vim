@@ -6,7 +6,7 @@
 " (such as colon, quotes, square brackets, etc) to a standard position
 " regardless of the actual keyboard layout.
 "
-" An ISO qwertz (or qwerty) keyboard layout is assumed.
+" An ISO qwertz keyboard layout is assumed.
 
 
 " – Settings –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -27,15 +27,15 @@
 let s:default_schematic = [ 
             \ "┌────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬──────┐",
             \ "│    │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │     │      │",
-            \ "│    │     │     │     │     │     │     │     │     │     │     │     │     │      │",
+            \ "│    │     │     │     │  $  │     │     │     │     │     │     │     │     │      │",
             \ "├────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬────┤",
-            \ "│      │  q  │  w  │  e  │  r  │  t  │  z  │  u  │  i  │  o  │  p  │     │     │    │",
-            \ "│      │     │     │     │     │     │     │     │     │     │     │     │     │    │",
+            \ "│      │  q  │  w  │  e  │  r  │  t  │  z  │  u  │  i  │  o  │  p  │  [  │  ]  │    │",
+            \ "│      │     │     │     │     │     │     │     │     │     │     │  {  │  }  │    │",
             \ "├──────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┐  │",
-            \ "│        │  a  │  s  │  d  │  f  │  g  │  h  │  j  │  k  │  l  │  :  │     │     │  │",
-            \ "│        │     │     │     │     │     │     │     │     │     │     │     │     │  │",
+            \ "│        │  a  │  s  │  d  │  f  │  g  │  h  │  j  │  k  │  l  │  :  │  '  │  \\  │  │",
+            \ "│        │     │     │     │     │     │     │     │     │     │  ;  │ \"  │  |  │  │",
             \ "├─────┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┴──┤",
-            \ "│     │     │  y  │  x  │  c  │  v  │  b  │  n  │  m  │     │     │     │           │",
+            \ "│     │     │  y  │  x  │  c  │  v  │  b  │  n  │  m  │  ,  │  .  │     │           │",
             \ "│     │     │     │     │     │     │     │     │     │     │     │     │           │",
             \ "├────┬┴────┬┴────┬┴────┬┴─────┴─────┴─────┴─────┴─────┴┬────┴┬────┴┬────┴┬────┬─────┤",
             \ "│    │     │     │     │                               │     │     │     │    │     │",
@@ -249,7 +249,7 @@ function! s:standardizeKeyboard()
         " set langremap option
         if mode == 'langmap'
             redraw
-            echo "Would you like to set 'langremap'? (the alternative is nolangremap) [y/–]\nYou can change this later manually in the output file\n"
+            echo "Would you like to set 'langremap'? (if unsure answer 'n') [y/–]\nYou can change this later manually in the output file\n"
             while 1 
                 let use_langmap_answ = nr2char(getchar()) 
                 if (use_langmap_answ == 'y' || use_langmap_answ == 'n') | break | endif
@@ -373,7 +373,7 @@ function! s:standardizeKeyboard()
             resize +4
             call append(line('$'), ["",
                         \ "A previous mappings file was overwitten. Its contents are shown in the 'nowrite'",
-                        \ "buffer on the right. If you close it they will be lost"])
+                        \ "buffer on the right. If closed its contents will be lost."])
         endif
 
         call win_gotoid(source_layout_winid)

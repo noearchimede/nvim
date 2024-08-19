@@ -68,25 +68,19 @@ return {
                 -- if oil is not found do nothing
             end
 
-            -- helper function for integration with Spectre
-            local function open_spectre()
+            -- helper function for integration with grug-far
+            local function open_grug()
                 local node = api.tree.get_node_under_cursor()
-                local path = ''
-                if node.type == 'directory' then
-                    path = node.absolute_path .. '/**'
-                else
-                    path = node.absolute_path
-                end
-                -- convert path to relative
-                local relpath = require("plenary.path"):new(path):make_relative(vim.fn.getcwd())
-
-                local ok, spectre = pcall(require, 'spectre')
+                local abspath = node.absolute_path
+                local relpath = require("plenary.path"):new(abspath):make_relative(vim.fn.getcwd())
+                local ok, grug = pcall(require, 'grug-far')
                 if ok then
-                    spectre.open({
-                        path = relpath,
+                    grug.grug_far({
+                        prefills = { paths = relpath },
+                        windowCreationCommand = 'tabnew %',
                     })
                 end
-                -- if spectre is not found do nothing
+                -- if grug-far is not found do nothing
             end
 
             -- Currently unused letters:

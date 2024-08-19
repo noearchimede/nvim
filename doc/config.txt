@@ -426,13 +426,12 @@ Options ~
 *mymap_leader_sh*  n  \sh   toggle Highlighting of search results
 *mymap_leader_si*  n  \si   toggle Incremental search
 
-Spectre.nvim ~
-*mymap_leader_sp*  n  \sp   toggle Spectre
-*mymap_leader_sw*  n  \sw   search Word under cursor
-                 v  \sw   search current visual selection
-*mymap_leader_sf*  n  \sf   search in current File
-within spectre: ~
-*mymap_leader_sq*  n  \sq   close Spectre
+Grug-far ~
+*mymap_leader_sg*  n  \sg   launch Grug-far
+                 v  \sg   launch Grug-far with the current visual selection
+*mymap_leader_sf*  n  \sf   launch grug-far on current File
+                 v  \sf   launch grug-far on current File with visual sel.
+
 
 
 -----------------------------------------------------------------------------

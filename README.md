@@ -1,7 +1,7 @@
 # NeoVim configuration
 
 
-## FILE STRUCTURE
+## Files
 
 ```markdown
 ├── README.md                     *this file*
@@ -36,18 +36,10 @@
 ```
 
 
-## DEPENDENCIES
+## Dependencies
 
 
 - **ripgrep** (for telescope): `brew install ripgrep`
 
 - **fd** (for telescope): `brew install fd`
 
-
-
---- 
-
-*Noè Archimede Pezzoli*
-*Started in June 2024 based on my previous Vim configuration*
-
----

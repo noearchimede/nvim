@@ -62,6 +62,10 @@ return {
                 ["NeogitUnstagedchanges"] = { fg = '$black', bg = '$blue' },
                 ["NeogitStagedchanges"] = { fg = '$black', bg = '$yellow' },
 
+                -- custom higlight for terminal buffer background
+                -- this is used in the autocmd defined in the 'init' field below
+                ["TerminalBaground"] = { bg = '$bg_d' },
+
             },
 
             -- Plugins Config --

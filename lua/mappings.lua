@@ -19,8 +19,8 @@
 -- NOTE: the leader itself is defined directly in init.lua
 
 -- allow using space as leader in normal, visual and op. pending modes
-vim.keymap.set({'n', 'v', 'x'}, '<space>', '\\', { remap = true })
-vim.keymap.set({'n', 'v', 'x'}, '\\<space>', '\\\\', { remap = true })
+vim.keymap.set({ 'n', 'v', 'x' }, '<space>', '\\', { remap = true })
+vim.keymap.set({ 'n', 'v', 'x' }, '\\<space>', '\\\\', { remap = true })
 
 
 
@@ -34,11 +34,11 @@ vim.keymap.set({'n', 'v', 'x'}, '\\<space>', '\\\\', { remap = true })
 -- vim.keymap.set('n', '#', '#zt')
 
 -- make single quote work as backtick, i.e. jump to exact position
-vim.keymap.set({'n', 'v', 'x', 'o'}, '\'', '`', { remap = true })
+vim.keymap.set({ 'n', 'v', 'x', 'o' }, '\'', '`', { remap = true })
 
 -- move up or down to next non-blank character in same column
-vim.keymap.set({'n', 'v'}, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
-vim.keymap.set({'n', 'v'}, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
+vim.keymap.set({ 'n', 'v' }, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
+vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
 
 
 
@@ -46,10 +46,10 @@ vim.keymap.set({'n', 'v'}, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.')
 
 
 -- navigate between splits with a single keybinding, even from terminal windows
-vim.keymap.set({'n', 't'}, '<c-h>', '<c-w>h')
-vim.keymap.set({'n', 't'}, '<c-j>', '<c-w>j')
-vim.keymap.set({'n', 't'}, '<c-k>', '<c-w>k')
-vim.keymap.set({'n', 't'}, '<c-l>', '<c-w>l')
+vim.keymap.set({ 'n', 't' }, '<c-h>', '<c-w>h')
+vim.keymap.set({ 'n', 't' }, '<c-j>', '<c-w>j')
+vim.keymap.set({ 'n', 't' }, '<c-k>', '<c-w>k')
+vim.keymap.set({ 'n', 't' }, '<c-l>', '<c-w>l')
 
 -- open a new terminal in a split
 vim.keymap.set('n', '<leader>qo', '<cmd>terminal<cr>')
@@ -75,12 +75,14 @@ vim.keymap.set('n', "<leader>to", function() vim.cmd("tcd " .. vim.fn.getcwd() .
 -- Search: higlight all matches of word under cursor
 vim.keymap.set('n', '<leader>ss', ":let @/ = '\\C\\<' . expand('<cword>') . '\\>' | set hls<CR>")
 -- -> visual: higlight all matches of selected text
-vim.keymap.set('v', '<leader>ss', ":<C-u>let @/ = '\\C\\V' . escape(luaeval(\"require('utils').get_visual_selection()\"), '\\') | set hls<CR>")
+vim.keymap.set('v', '<leader>ss',
+               ":<C-u>let @/ = '\\C\\V' . escape(luaeval(\"require('utils').get_visual_selection()\"), '\\') | set hls<CR>")
 
 -- Search Replace: replace word under cursor, then return to starting position
 vim.keymap.set('n', '<leader>sr', function() require("utils").replace_in_file(vim.fn.expand('<cword>'), true) end)
 -- -> visual: replace the sected text, then return to starting position
-vim.keymap.set('v', '<leader>sr', function() require("utils").replace_in_file(require("utils").get_visual_selection(), false) end)
+vim.keymap.set('v', '<leader>sr',
+               function() require("utils").replace_in_file(require("utils").get_visual_selection(), false) end)
 
 -- Search Clear: clear the contents of the search register
 -- Note that this is not the same as ':set nohlsearch'
@@ -96,7 +98,7 @@ vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>")
 
 
 -- yank to system clipboard
-vim.keymap.set({'n', 'v'}, 'Y', '"*y')
+vim.keymap.set({ 'n', 'v' }, 'Y', '"*y')
 vim.keymap.set('n', 'YY', '"*yy')
 
 
@@ -113,7 +115,7 @@ vim.keymap.set('n', '<leader>xs', ':set invspell<CR>:set spell?<CR>')
 -- toggle list mode
 vim.keymap.set('n', '<leader>xl', ':set invlist<CR>:set list?<CR>')
 -- toggle signcolumn visibility when no signs are present
-vim.keymap.set('n', '<leader>xg', function ()
+vim.keymap.set('n', '<leader>xg', function()
     if vim.opt.signcolumn:get() == 'auto' then ---@diagnostic disable-line: undefined-field
         vim.opt.signcolumn = 'yes'
     elseif vim.opt.signcolumn:get() == 'yes' then ---@diagnostic disable-line: undefined-field
@@ -133,20 +135,18 @@ vim.cmd('cabbrev v vert')
 
 
 vim.keymap.set("n", "<leader>xys", function()
-	vim.cmd([[
+                   vim.cmd([[
 		:profile start /tmp/nvim-profile.log
 		:profile func *
 		:profile file *
         :echo "Started profiling"
 	]])
-end, { desc = "Profile Start" })
+               end, { desc = "Profile Start" })
 
 vim.keymap.set("n", "<leader>xye", function()
-	vim.cmd([[
+                   vim.cmd([[
 		:profile stop
 		:e /tmp/nvim-profile.log
         :echo "Ended profiling"
 	]])
-end, { desc = "Profile End" })
-
-
+               end, { desc = "Profile End" })

@@ -122,6 +122,16 @@ vim.keymap.set('n', '<leader>xg', function()
         vim.opt.signcolumn = 'auto'
     end
 end)
+-- toggle mouse integration between 'all' and disabled
+vim.keymap.set('n', '<leader>xm', function()
+    if vim.opt.mouse:get()['a'] == nil then ---@diagnostic disable-line: undefined-field
+        vim.opt.mouse = 'a'
+        vim.print("Mouse enabled")
+    else
+        vim.opt.mouse = ''
+        vim.print("Mouse disabled")
+    end
+end)
 
 
 -- – Abbreviations -––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

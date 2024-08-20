@@ -13,6 +13,9 @@
 -- – Editor settings –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
+-- disable mouse integration by default
+vim.opt.mouse = ''
+
 -- after this delay the CursorHold action is triggered and the swap file is
 -- written to disk
 vim.opt.updatetime = 300

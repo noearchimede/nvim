@@ -493,6 +493,7 @@ Settings ~
 *mymap_leader_xa*  n  \xa   toggle 'autoread'
 *mymap_leader_xg*  n  \xg   toggle signcolumn visibility when there are no signs
 *mymap_leader_xl*  n  \xl   toggle 'list'
+*mymap_leader_xm*  n  \xm   toggle mouse mode between "all" and disabled
 *mymap_leader_xs*  n  \xs   toggle 'spell'
 *mymap_leader_xw*  n  \xw   toggle 'wrap'
 

@@ -32,6 +32,7 @@ return {
 
         { "<leader>tc", "<cmd>NvimTreeClose<cr>" },
         { "<leader>tf", "<cmd>NvimTreeFindFile<cr>" },
+        { "<leader>tF", "<cmd>NvimTreeFindFile!<cr>" },
 
     },
 

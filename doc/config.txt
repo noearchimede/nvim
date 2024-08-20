@@ -446,6 +446,7 @@ File tree ~
 *mymap_leader_tt*  n  \tt   open file Tree (nvim-tree)
 *mymap_leader_tc*  n  \tc   Close file tree (nvim-tree)
 *mymap_leader_tf*  n  \tf   Find current file in tree (nvim-tree)
+*mymap_leader_tF*  n  \tF   Find current file in tree and update root (nvim-tree)
 
 Undo history ~
 *mymap_leader_tu*  n  \tu   toggle Undo history (undotree)

@@ -129,6 +129,10 @@ vim.opt.expandtab = true  -- tabs are made of spaces
 -- -  q: automatically wrap with `gq`
 -- -  j: when it makes sense, remove the comment leader when joining lines
 vim.opt.formatoptions = "bcnqj"
+-- Many ftplugins add the 'o' options. This autocmd removes it for all filetypes.
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function() vim.opt_local.formatoptions:remove("o") end,
+})
 
 -- behaviour of ctrl-A and ctrl-X: treat numbers starting with 0 as decimal, not octal
 vim.opt.nrformats:remove { "octal" }

@@ -472,12 +472,17 @@ Terminals ~
 Workspace and sessions                                         *mymap_leader_w*
 -----------------------------------------------------------------------------
 
+Possession ~
 *mymap_leader_wl*  n  \wl   show List of sessions
 *mymap_leader_ww*  n  \ww   load latest session for current Working directory
 *mymap_leader_wt*  n  \wr   load most Recent session
 *mymap_leader_ws*  n  \ws   Save current session
 *mymap_leader_ws*  n  \wu   Update current session (i.e. overwite)
 *mymap_leader_wi*  n  \wi   get name (Info) of current session
+
+Workspaces ~
+*mymap_leader_wp*  n  \wp   Pick workspace
+*mymap_leader_wa*  n  \wa   prefill command line to perform a workspace Action
 
 
 -----------------------------------------------------------------------------

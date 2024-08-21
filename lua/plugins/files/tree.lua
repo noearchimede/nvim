@@ -222,12 +222,8 @@ return {
             highlight_clipboard = "name",
             icons = {
                 web_devicons = {
-                    file = {
-                        enable = false,
-                    },
-                    folder = {
-                        enable = false,
-                    },
+                    file = { enable = false, },
+                    folder = { enable = false, },
                 },
                 git_placement = "after",
                 modified_placement = "before",
@@ -283,12 +279,12 @@ return {
         git = {
             enable = true,
             show_on_dirs = true,
-            show_on_open_dirs = true,
+            show_on_open_dirs = false,
         },
         diagnostics = {
             enable = true,
             show_on_dirs = true,
-            show_on_open_dirs = true,
+            show_on_open_dirs = false,
             severity = {
                 min = vim.diagnostic.severity.WARNING,
                 max = vim.diagnostic.severity.ERROR,
@@ -297,7 +293,7 @@ return {
         modified = {
             enable = true,
             show_on_dirs = true,
-            show_on_open_dirs = true,
+            show_on_open_dirs = false,
         },
         filters = {
             enable = true,

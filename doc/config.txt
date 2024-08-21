@@ -56,7 +56,7 @@ Leader mappings ~
 |mymap_leader_s| ........ Search
 |mymap_leader_t| ........ File tree, sidebars and terminals
 |mymap_leader_u|
-|mymap_leader_v|
+|mymap_leader_v| ........ Interface (view)
 |mymap_leader_w| ........ Workspace and sessions
 |mymap_leader_x| ........ Quick Settings
 |mymap_leader_y|
@@ -465,6 +465,12 @@ Terminals ~
                                                       *mylev*  *mymap_leader_v*
 -----------------------------------------------------------------------------
 
+Notifications (fidget) ~
+*mymap_leader_vc*  n  \vc   Clear notifications
+*mymap_leader_vh*  n  \vh   show notification History
+
+Editor view ~
+*mymap_leader_vz*  n  \vz   toggle Zen mode (zen-mode)
 
 
 -----------------------------------------------------------------------------
@@ -498,7 +504,6 @@ Settings ~
 
 Theme ~
 *mymap_leader_xt*  n  \xt   change Theme
-*mymap_leader_xx*  n  \xx   toggle focus mode (zen-mode)
 
 Plugin toggles ~
 *mymap_leader_xc*  n  \xc   toggle Completion (nvim-cmp)
@@ -523,6 +528,7 @@ Unused ~
 *mymap_leader_xr*
 *mymap_leader_xu*
 *mymap_leader_xv*
+*mymap_leader_xx*
 *mymap_leader_xz*
 
 

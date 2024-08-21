@@ -50,3 +50,8 @@ vim.g.vimrc_keyboard_remappings_path = vim.fn.stdpath("config") .. "/.vimrc_keyb
 if vim.fn.filereadable(vim.fn.expand(vim.g.vimrc_keyboard_remappings_path)) ~= 0 then
     vim.cmd('source ' ..  vim.g.vimrc_keyboard_remappings_path)
 end
+
+
+-- – Load neovide config ––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+require("gui")

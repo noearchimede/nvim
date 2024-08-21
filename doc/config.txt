@@ -339,7 +339,6 @@ Unused ~
 *mymap_leader_gt*
 *mymap_leader_gw*
 *mymap_leader_gy*
-*mymap_leader_gz*
 
 
 -----------------------------------------------------------------------------
@@ -477,7 +476,7 @@ Possession ~
 *mymap_leader_ww*  n  \ww   load latest session for current Working directory
 *mymap_leader_wt*  n  \wr   load most Recent session
 *mymap_leader_ws*  n  \ws   Save current session
-*mymap_leader_ws*  n  \wu   Update current session (i.e. overwite)
+*mymap_leader_wu*  n  \wu   Update current session (i.e. overwite)
 *mymap_leader_wi*  n  \wi   get name (Info) of current session
 
 Workspaces ~
@@ -514,19 +513,16 @@ Unused ~
 *mymap_leader_xb*
 *mymap_leader_xd*
 *mymap_leader_xf*
-*mymap_leader_xg*
 *mymap_leader_xh*
 *mymap_leader_xi*
 *mymap_leader_xj*
 *mymap_leader_xk*
-*mymap_leader_xm*
 *mymap_leader_xn*
 *mymap_leader_xo*
 *mymap_leader_xq*
 *mymap_leader_xr*
 *mymap_leader_xu*
 *mymap_leader_xv*
-*mymap_leader_xx*
 *mymap_leader_xz*
 
 

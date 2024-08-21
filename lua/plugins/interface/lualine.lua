@@ -41,21 +41,21 @@ return {
                 symbols = { modified = '●' },
             } },
             lualine_x = { 'encoding' , 'filetype'},
-            lualine_y = { 'progress' , 'searchcount'},
-            lualine_z = { 'location' }
+            lualine_y = { 'progress' },
+            lualine_z = { 'searchcount', 'location' }
         },
 
         inactive_sections = {
             lualine_a = {},
-            lualine_b = {},
-            lualine_c = { {
+            lualine_b = { {
                 'filename',
                 path = 1,
                 shorting_target = 40,
                 symbols = { modified = '●' },
             } },
+            lualine_c = {},
             lualine_x = {},
-            lualine_y = {},
+            lualine_y = { 'progress' },
             lualine_z = {}
         },
 

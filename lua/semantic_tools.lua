@@ -69,8 +69,6 @@ M.lsp_settings = function(lspconfig, capabilities)
                                 align_continuous_rect_table_field = "false",
                                 align_array_table = "false",
                                 align_continuous_inline_comment = "false",
-                                -- enable alignemt of multiline function arguments under first argument
-                                align_call_args = "true",
 
                                 -- always prevent the formatter from adding/removing blank lines
                                 line_space_after_function_statement = "keep",

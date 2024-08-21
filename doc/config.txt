@@ -499,6 +499,7 @@ Settings ~
 
 Theme ~
 *mymap_leader_xt*  n  \xt   change Theme
+*mymap_leader_xx*  n  \xx   toggle focus mode (zen-mode)
 
 Plugin toggles ~
 *mymap_leader_xc*  n  \xc   toggle Completion (nvim-cmp)

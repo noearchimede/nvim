@@ -15,7 +15,7 @@ return {
 
             { '<leader>ff', builtin.find_files, desc = "Telescope: find files in CWD" },
 
-            { '<leader>fd', function() builtin.find_files({ search_dirs = { vim.fn.input("Search in: ", vim.fn.getcwd(), "file") } }) end, desc = "Telescope: find files in selected directory" },
+            { '<leader>fa', function() builtin.find_files({ search_dirs = { vim.fn.input("Search in: ", vim.fn.getcwd(), "file") } }) end, desc = "Telescope: find files in selected directory" },
             -- ^^^ note: the autocompletion for input() seems to be breoken by nvim-cmp, see https://github.com/hrsh7th/nvim-cmp/issues/1794
 
             { '<leader>fg', builtin.live_grep, desc = "Telescope: live grep" },
@@ -41,9 +41,9 @@ return {
 
             { "<leader>ft", builtin.lsp_type_definitions, desc = "Telescope: LSP type definitions" },
 
-            { "<leader>fa", function() builtin.diagnostics({bufnr = 0}) end, desc = "Telescope: LSP document diagnostics" },
+            { "<leader>fe", function() builtin.diagnostics({bufnr = 0}) end, desc = "Telescope: LSP document diagnostics" },
 
-            { "<leader>fe", builtin.diagnostics, desc = "Telescope: LSP workspace diagnostics" },
+            { "<leader>fw", builtin.diagnostics, desc = "Telescope: LSP workspace diagnostics" },
         }
 
 

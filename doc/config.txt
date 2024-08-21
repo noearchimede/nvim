@@ -255,7 +255,7 @@ File and buffer navigation                            *mylef*  *mymap_leader_f*
 
 File navigation ~
 *mymap_leader_ff*  n  \ff   Files
-*mymap_leader_fu*  n  \fd   files in User-selected directory (promts for name)
+*mymap_leader_fa*  n  \fa   files in Any directory (promts for name)
 *mymap_leader_fb*  n  \fb   Buffers
 *mymap_leader_fo*  n  \fo   Old files
 
@@ -272,7 +272,7 @@ LSP objects ~
 *mymap_leader_fr*  n  \fr   lsp: References
 *mymap_leader_fd*  n  \fd   lsp: Definitions
 *mymap_leader_fe*  n  \fe   lsp: diagnostics (Errors)
-*mymap_leader_fa*  n  \fa   lsp: diagnostics for All open files
+*mymap_leader_fw*  n  \fa   lsp: diagnostics for entire Workspace
 
 Documentation  ~
 *mymap_leader_fh*  n  \fh   Help tags

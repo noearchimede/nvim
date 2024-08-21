@@ -27,12 +27,12 @@ This section contains all custom mappings in this nvim configuration.
 The leader key is `\` (backslash) with `<space>` as alias. Any one of those
 two keys can be used in place of <leader> in all "leader mappings".
 
-                                                                      *mymap_i*
+                                                               *myi*  *mymap_i*
 Insert mode mappings ~
-|mymap_i_complese| ...... Autocompletion and snippets
+|mymap_i_complete| ...... Autocompletion and snippets
 |mymap_i_lsp| ........... LSP tools
 |mymap_i_surround| ...... Quotes, brackets, etc.
-                                                                 *mymap_leader*
+                                                         *myle*  *mymap_leader*
 Leader mappings ~
 |mymap_leader_leader| ... LSP
 |mymap_leader_a|
@@ -48,27 +48,27 @@ Leader mappings ~
 |mymap_leader_k|
 |mymap_leader_l| ........ Compilation/execution/visualization of file
 |mymap_leader_m| ........ Motions
-|mymap_leader_n|
+|mymap_leader_n| ........ Notifications
 |mymap_leader_o|
 |mymap_leader_p|
 |mymap_leader_q| ........ Terminal
 |mymap_leader_r|
 |mymap_leader_s| ........ Search
-|mymap_leader_t| ........ File tree, sidebars and terminals
+|mymap_leader_t| ........ File tree, sidebars, tabs
 |mymap_leader_u|
-|mymap_leader_v|
+|mymap_leader_v| ........ Interface (view)
 |mymap_leader_w| ........ Workspace and sessions
 |mymap_leader_x| ........ Quick Settings
 |mymap_leader_y|
 |mymap_leader_z|
-                                                                      *mymap_g*
+                                                               *myg*  *mymap_g*
 G mappings ~
 |mymap_gb| .............. Comments
 |mymap_gc| .............. Comments
 |mymap_gl|
 |mymap_gy|
 |mymap_gz| .............. Brackets and quotes (surround)
-                                                                  *mymap_other*
+                                                           *myo*  *mymap_other*
 Other mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
 |mymap_misc| ............ All other mappings
@@ -85,7 +85,7 @@ List of custom mappings in Insert mode.
 
 
 -----------------------------------------------------------------------------
-Autocompletion and snippets                                  *mymap_i_complete*
+Autocompletion and snippets                          *myic*  *mymap_i_complete*
 -----------------------------------------------------------------------------
 
 Selection ~
@@ -110,14 +110,15 @@ General ~
 
 
 -----------------------------------------------------------------------------
-LSP                                                               *mymap_i_lsp*
+LSP                                                       *myil*  *mymap_i_lsp*
 -----------------------------------------------------------------------------
 
-*mymap_i_CTRL-J*   i  <C-J>        signature help
+*mymap_i_CTRL-S*   i  <C-S>        signature help (same as |mymap_CTRL-S| in
+                                 normal mode)
 
 
 -----------------------------------------------------------------------------
-Surrounds: quotes, parentheses, etc.                         *mymap_i_surround*
+Surrounds: quotes, parentheses, etc.                 *myis*  *mymap_i_surround*
 -----------------------------------------------------------------------------
 
 Surround ~
@@ -132,7 +133,7 @@ Autopair ~
 -----------------------------------------------------------------------------
 
 Other keys that could potentially be used for normal mode mappings:
-*mymap_i_CTRL-S*
+*mymap_i_CTRL-J*
 *mymap_i_CTRL-Z* [unix: suspend shell process]
 
 
@@ -145,7 +146,7 @@ LEADER MAPPINGS                                                  |mymap_leader|
 
 
 -----------------------------------------------------------------------------
-LSP                                                       *mymap_leader_leader*
+LSP                                             *mylele*  *mymap_leader_leader*
 -----------------------------------------------------------------------------
 
 *mymap_leader_leader_n*  n  \\n  Next diagnostic
@@ -183,33 +184,34 @@ LSP                                                       *mymap_leader_leader*
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_a*
+                                                      *mylea*  *mymap_leader_a*
 -----------------------------------------------------------------------------
 
 
 
 -----------------------------------------------------------------------------
-Buffers                                                        *mymap_leader_b*
+Buffers                                               *myleb*  *mymap_leader_b*
 -----------------------------------------------------------------------------
 
 Change buffer ~
 *mymap_leader_bo*  n  \bo   Move backwards in the buffer history for the current window
 *mymap_leader_bi*  n  \bi   Move forwards in the buffer history for the current window
 
-Delete buffer ~
+Delete buffers ~
+*mymap_leader_bu*  n  \bu   delete all "Untouched" buffers (hbac)
 *mymap_leader_bd*  n  \bd   Same as |bd| but without closing window
 *mymap_leader_bw*  n  \bw   Same as |bw| but without closing window
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_c*
+                                                      *mylec*  *mymap_leader_c*
 -----------------------------------------------------------------------------
 
 
 
 
 -----------------------------------------------------------------------------
-Trouble                                                        *mymap_leader_d*
+Trouble                                               *myled*  *mymap_leader_d*
 -----------------------------------------------------------------------------
 
 Toggle Trouble panes ~
@@ -244,18 +246,18 @@ Unused ~
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_e*
+                                                      *mylee*  *mymap_leader_e*
 -----------------------------------------------------------------------------
 
 
 
 -----------------------------------------------------------------------------
-File and buffer navigation                                     *mymap_leader_f*
+File and buffer navigation                            *mylef*  *mymap_leader_f*
 -----------------------------------------------------------------------------
 
 File navigation ~
 *mymap_leader_ff*  n  \ff   Files
-*mymap_leader_fu*  n  \fd   files in User-selected directory (promts for name)
+*mymap_leader_fa*  n  \fa   files in Any directory (promts for name)
 *mymap_leader_fb*  n  \fb   Buffers
 *mymap_leader_fo*  n  \fo   Old files
 
@@ -272,7 +274,7 @@ LSP objects ~
 *mymap_leader_fr*  n  \fr   lsp: References
 *mymap_leader_fd*  n  \fd   lsp: Definitions
 *mymap_leader_fe*  n  \fe   lsp: diagnostics (Errors)
-*mymap_leader_fa*  n  \fa   lsp: diagnostics for All open files
+*mymap_leader_fl*  n  \fl   lsp: diagnostics for Local file
 
 Documentation  ~
 *mymap_leader_fh*  n  \fh   Help tags
@@ -281,7 +283,6 @@ Unused ~
 *mymap_leader_fc*
 *mymap_leader_fj*
 *mymap_leader_fk*
-*mymap_leader_fl*
 *mymap_leader_fn*
 *mymap_leader_fp*
 *mymap_leader_fq*
@@ -293,7 +294,7 @@ Unused ~
 
 
 -----------------------------------------------------------------------------
-Git                                                            *mymap_leader_g*
+Git                                                   *myleg*  *mymap_leader_g*
 -----------------------------------------------------------------------------
 
 Git status (neogit) ~
@@ -321,10 +322,8 @@ Inline indicators (gitsigns) ~
 *mymap_leader_gx*  n  \gx   toggle inline view of deleted (X) lines
 
 Diff (diffview) ~
-*mymap_leader_gdi*  n  \gdi  Diff against the Index
-*mymap_leader_gdc*  n  \gdc  Diff against the last Commit
-*mymap_leader_gdd*  n  \gdd  Type arbitrary Diffview command
-
+*mymap_leader_gdd*  n  \gdd  open Diffview
+*mymap_leader_gdc*  n  \gdc  type arbitrary Diffview Command
 
 Unused ~
 *mymap_leader_gd*
@@ -339,16 +338,15 @@ Unused ~
 *mymap_leader_gt*
 *mymap_leader_gw*
 *mymap_leader_gy*
-*mymap_leader_gz*
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_h*
+                                                      *myleh*  *mymap_leader_h*
 -----------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------
-Alignment and Indentation                                      *mymap_leader_i*
+Alignment and Indentation                             *mylei*  *mymap_leader_i*
 -----------------------------------------------------------------------------
 
 Join/split objects ~
@@ -356,17 +354,17 @@ Join/split objects ~
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_j*
+                                                      *mylej*  *mymap_leader_j*
 -----------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_k*
+                                                      *mylek*  *mymap_leader_k*
 -----------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------
-Compile/Execute/View file (filetype-specific)                  *mymap_leader_l*
+Compile/Execute/View file (filetype-specific)         *mylel*  *mymap_leader_l*
 -----------------------------------------------------------------------------
 
 Markdown ~
@@ -374,7 +372,7 @@ Markdown ~
 
 
 -----------------------------------------------------------------------------
-Motions                                                        *mymap_leader_m*
+Motions                                               *mylem*  *mymap_leader_m*
 -----------------------------------------------------------------------------
 
 *mymap_leader_mj*  n  \mj   Move down to next non-whitespace character in column
@@ -382,22 +380,26 @@ Motions                                                        *mymap_leader_m*
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_n*
+                                                      *mylen*  *mymap_leader_n*
+-----------------------------------------------------------------------------
+
+Notifications (fidget) ~
+*mymap_leader_nc*  n  \nc   Clear notifications
+*mymap_leader_nh*  n  \nh   show notification History
+
+
+-----------------------------------------------------------------------------
+                                                      *myleo*  *mymap_leader_o*
 -----------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_o*
+                                                      *mylep*  *mymap_leader_p*
 -----------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_p*
------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------
-Terminal                                                       *mymap_leader_q*
+Terminal                                              *myleq*  *mymap_leader_q*
 -----------------------------------------------------------------------------
 
 *mymap_leader_qo*  n  \qo   Open a new terminal in the current window
@@ -406,13 +408,13 @@ Terminal                                                       *mymap_leader_q*
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_r*
+                                                      *myler*  *mymap_leader_r*
 -----------------------------------------------------------------------------
 
 
 
 -----------------------------------------------------------------------------
-Search and replace                                             *mymap_leader_s*
+Search and replace                                    *myles*  *mymap_leader_s*
 -----------------------------------------------------------------------------
 
 Basic file search and replace ~
@@ -435,7 +437,7 @@ Grug-far ~
 
 
 -----------------------------------------------------------------------------
-File tree and other sidebar-based elements                     *mymap_leader_t*
+File tree and other sidebar-based elements            *mylet*  *mymap_leader_t*
 -----------------------------------------------------------------------------
 
 Directory ~
@@ -451,25 +453,25 @@ File tree ~
 Undo history ~
 *mymap_leader_tu*  n  \tu   toggle Undo history (undotree)
 
-Terminals ~
-*mymap_leader_ts*  n  \ts   open a new terminal in a Split
-*mymap_leader_tv*  n  \tv   open a new terminal in a Vertical split
-*mymap_leader_th*  n  \th   open a new terminal Here, in the current window
-
-
------------------------------------------------------------------------------
-                                                               *mymap_leader_u*
------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------
-                                                               *mymap_leader_v*
------------------------------------------------------------------------------
+Tabs ~
+*mymap_leader_tn*  n  \tn   set Tab Name (tabby)
+*mymap_leader_tmn* n  \tmn  Move Tab to Next position (tabby)
+*mymap_leader_tmp* n  \tmp  Move Tab to Previous position (tabby)
 
 
 
 -----------------------------------------------------------------------------
-Workspace and sessions                                         *mymap_leader_w*
+                                                      *myleu*  *mymap_leader_u*
+-----------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+                                                      *mylev*  *mymap_leader_v*
+-----------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+Workspace and sessions                                *mylew*  *mymap_leader_w*
 -----------------------------------------------------------------------------
 
 Possession ~
@@ -477,7 +479,7 @@ Possession ~
 *mymap_leader_ww*  n  \ww   load latest session for current Working directory
 *mymap_leader_wt*  n  \wr   load most Recent session
 *mymap_leader_ws*  n  \ws   Save current session
-*mymap_leader_ws*  n  \wu   Update current session (i.e. overwite)
+*mymap_leader_wu*  n  \wu   Update current session (i.e. overwite)
 *mymap_leader_wi*  n  \wi   get name (Info) of current session
 
 Workspaces ~
@@ -486,12 +488,12 @@ Workspaces ~
 
 
 -----------------------------------------------------------------------------
-Quick settings                                                 *mymap_leader_x*
+Quick settings                                        *mylex*  *mymap_leader_x*
 -----------------------------------------------------------------------------
 
 Settings ~
 *mymap_leader_xa*  n  \xa   toggle 'autoread'
-*mymap_leader_xg*  n  \xg   toggle signcolumn visibility when there are no signs
+*mymap_leader_xg*  n  \xg   toggle signcolumn (Gutter) when there are no signs
 *mymap_leader_xl*  n  \xl   toggle 'list'
 *mymap_leader_xm*  n  \xm   toggle mouse mode between "all" and disabled
 *mymap_leader_xs*  n  \xs   toggle 'spell'
@@ -499,7 +501,7 @@ Settings ~
 
 Theme ~
 *mymap_leader_xt*  n  \xt   change Theme
-*mymap_leader_xx*  n  \xx   toggle focus mode (zen-mode)
+*mymap_leader_xx*  n  \xx   toggle Zen mode (zen-mode)
 
 Plugin toggles ~
 *mymap_leader_xc*  n  \xc   toggle Completion (nvim-cmp)
@@ -514,29 +516,26 @@ Unused ~
 *mymap_leader_xb*
 *mymap_leader_xd*
 *mymap_leader_xf*
-*mymap_leader_xg*
 *mymap_leader_xh*
 *mymap_leader_xi*
 *mymap_leader_xj*
 *mymap_leader_xk*
-*mymap_leader_xm*
 *mymap_leader_xn*
 *mymap_leader_xo*
 *mymap_leader_xq*
 *mymap_leader_xr*
 *mymap_leader_xu*
 *mymap_leader_xv*
-*mymap_leader_xx*
 *mymap_leader_xz*
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_y*
+                                                      *myley*  *mymap_leader_y*
 -----------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------
-                                                               *mymap_leader_z*
+                                                      *mylez*  *mymap_leader_z*
 -----------------------------------------------------------------------------
 
 
@@ -547,9 +546,9 @@ G MAPPINGS                                                            |mymap_g|
 
 
 -----------------------------------------------------------------------------
-Comments                                                             *mymap-gc*
+Comments                                                     *mygc*  *mymap-gc*
+                                                             *mygb*  *mymap-gb*
 -----------------------------------------------------------------------------
-                                                                     *mymap-gb*
 
 The following commands use a 'g' mapping instead of a leader mapping because
 they can work with a Vim motion, which is not used in any of my leader
@@ -570,7 +569,7 @@ Implemented by the 'comment.nvim' plugin.
 
 
 -----------------------------------------------------------------------------
-Brackets and quotes                                                  *mymap-gz*
+Brackets and quotes                                          *mygz*  *mymap-gz*
 -----------------------------------------------------------------------------
 
 Implemented by the 'nvim-surround' plugin.
@@ -608,7 +607,7 @@ OTHER MAPPINGS                                                    |mymap_other|
 
 
 -----------------------------------------------------------------------------
-Overwritten defaults                                        *mymap_overwritten*
+Overwritten defaults                                *myoo*  *mymap_overwritten*
 -----------------------------------------------------------------------------
 
 
@@ -621,14 +620,17 @@ Marks ~
 *mymap_'*         n   '          remapped to |`|
 
 Window navigation  ~
-*mymap_CTRL-H*    n   CTRL_H     remap to |CTRL-W_h|
-*mymap_CTRL-J*    n   CTRL_J     remap to |CTRL-W_j|
-*mymap_CTRL-K*    n   CTRL_K     remap to |CTRL-W_k|
-*mymap_CTRL-L*    n   CTRL_L     remap to |CTRL-W_l|
+*mymap_CTRL-H*    n   <C-H>      remap to |CTRL-W_h|
+*mymap_CTRL-J*    n   <C-J>      remap to |CTRL-W_j|
+*mymap_CTRL-K*    n   <C-K>      remap to |CTRL-W_k|
+*mymap_CTRL-L*    n   <C-L>      remap to |CTRL-W_l|
+
+LSP ~
+*mymap_CTRL-S*    n   <C-S>      show Signature help (same as |mymap_i_CTRL-S|)
 
 
 -----------------------------------------------------------------------------
-Miscellaneous                                                      *mymap_misc*
+Miscellaneous                                              *myom*  *mymap_misc*
 -----------------------------------------------------------------------------
 
 Terminal ~

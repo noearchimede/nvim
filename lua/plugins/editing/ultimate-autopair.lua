@@ -12,9 +12,9 @@ return {
             function()
                 require('ultimate-autopair').toggle()
                 if require('ultimate-autopair').isenabled() then
-                    print("Autopair enabled")
+                    vim.notify("Autopair enabled", vim.log.levels.INFO)
                 else
-                    print("Autopair disabled")
+                    vim.notify("Autopair disabled", vim.log.levels.INFO)
                 end
             end,
             desc = "Autopair: toggle"

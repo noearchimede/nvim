@@ -23,7 +23,7 @@ return {
                 end
 
                 -- Insert mode mappings
-                map("i", "<C-j>", vim.lsp.buf.signature_help, "LSP: show signature help")
+                map({"i", "n"}, "<C-s>", vim.lsp.buf.signature_help, "LSP: show signature help")
 
                 -- Normal and Visual mode mappings
                 map("n", "<leader><leader>n", vim.diagnostic.goto_next, "Diagnostics: previous")

@@ -21,10 +21,15 @@ return {
 
     opts = {
         disable_hint = true,
+
+        disable_context_highlighting = true,
+
         kind = "tab",
+
         status = {
-            recent_commit_count = 20,
+            recent_commit_count = 30,
         },
+
         mappings = {
             status = {
                 ["="] = "Toggle",

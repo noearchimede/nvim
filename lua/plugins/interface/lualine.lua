@@ -1,5 +1,6 @@
 return {
 
+    event = 'VeryLazy',
     'nvim-lualine/lualine.nvim',
 
     dependencies = {
@@ -15,8 +16,8 @@ return {
         options = {
             icons_enabled = false,
             theme = 'auto',
-            component_separators = { left = '', right = ''},
-            section_separators = { left = '', right = ''},
+            component_separators = { left = '', right = '' },
+            section_separators = { left = '', right = '' },
             disabled_filetypes = {
                 statusline = { 'NvimTree' },
                 winbar = {},
@@ -32,30 +33,30 @@ return {
         },
 
         sections = {
-            lualine_a = { 'mode'},
-            lualine_b = { 'branch' , 'diff', 'diagnostics'},
+            lualine_a = { 'mode' },
+            lualine_b = { 'branch', 'diff', 'diagnostics' },
             lualine_c = { {
                 'filename',
                 path = 1,
                 shorting_target = 40,
                 symbols = { modified = '●' },
             } },
-            lualine_x = { 'encoding' , 'filetype'},
-            lualine_y = { 'progress' , 'searchcount'},
-            lualine_z = { 'location' }
+            lualine_x = { 'encoding', 'filetype' },
+            lualine_y = { 'progress' },
+            lualine_z = { 'searchcount', 'location' }
         },
 
         inactive_sections = {
             lualine_a = {},
-            lualine_b = {},
-            lualine_c = { {
+            lualine_b = { {
                 'filename',
                 path = 1,
                 shorting_target = 40,
                 symbols = { modified = '●' },
             } },
+            lualine_c = {},
             lualine_x = {},
-            lualine_y = {},
+            lualine_y = { 'progress' },
             lualine_z = {}
         },
 

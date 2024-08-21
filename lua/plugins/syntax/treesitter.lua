@@ -32,20 +32,28 @@ return {
             sync_install = false,
 
             highlight = {
+
                 -- enable for all files
                 enable = true,
-                -- disable treesitter highlighting for files larger than 100 KB
-                disable = function(_, buf)
+
+                -- conditions where tresitter will be disabled by default
+                disable = function(lang, buf)
+                    -- disable treesitter highlighting for files larger than 100 KB
                     local max_filesize = 100 * 1024 -- 100 KB
                     local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
                     if ok and stats and stats.size > max_filesize then
-                        vim.print("TreeSitter is disabled for this file. Enable with :TSStart.")
+                        vim.notify("TreeSitter is disabled for this file. Enable with :TSStart.", vim.log.levels.INFO)
                         return true
                     end
+                    -- disable treesitter in latex files. See ':h vimtex-faq-treesitter'
+                    if lang == "latex" then return true end
                 end,
+
                 -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
                 -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                -- It may be useful to add "latex" here, see ':h vimtex-faq-treesitter'
                 additional_vim_regex_highlighting = false, -- can also be a list of languages
+
             },
 
             indent = {

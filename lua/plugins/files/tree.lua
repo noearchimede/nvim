@@ -21,7 +21,6 @@ return {
 
     },
 
-
     keys = {
 
         -- NOTE: this is a hack to avoid the problem of the rhs vertical split
@@ -34,6 +33,14 @@ return {
         { "<leader>tf", "<cmd>NvimTreeFindFile<cr>" },
         { "<leader>tF", "<cmd>NvimTreeFindFile!<cr>" },
 
+    },
+
+    cmd = {
+        'NvimTreeOpen',
+        'NvimTreeFocus',
+        'NvimTreeFindFile',
+        'NvimTreeToggle',
+        'NvimTreeFindFileToggle',
     },
 
     opts = {
@@ -76,9 +83,19 @@ return {
                 local relpath = require("plenary.path"):new(abspath):make_relative(vim.fn.getcwd())
                 local ok, grug = pcall(require, 'grug-far')
                 if ok then
+                    -- note: copied from my config for grug-far (in grug-far.lua)
+                    vim.cmd('tabnew')
+                    vim.opt_local.buflisted = false
+                    vim.opt_local.buftype = "nofile"
+                    vim.opt_local.bufhidden = "wipe"
+                    vim.opt_local.swapfile = true
+                    local winCmd = 'aboveleft vsplit'
+                    winCmd = winCmd ..
+                    ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
+                    -- launch grug-far
                     grug.grug_far({
                         prefills = { paths = relpath },
-                        windowCreationCommand = 'tabnew %',
+                        windowCreationCommand = winCmd
                     })
                 end
                 -- if grug-far is not found do nothing
@@ -222,12 +239,8 @@ return {
             highlight_clipboard = "name",
             icons = {
                 web_devicons = {
-                    file = {
-                        enable = false,
-                    },
-                    folder = {
-                        enable = false,
-                    },
+                    file = { enable = false, },
+                    folder = { enable = false, },
                 },
                 git_placement = "after",
                 modified_placement = "before",
@@ -283,21 +296,21 @@ return {
         git = {
             enable = true,
             show_on_dirs = true,
-            show_on_open_dirs = true,
+            show_on_open_dirs = false,
         },
         diagnostics = {
             enable = true,
             show_on_dirs = true,
-            show_on_open_dirs = true,
+            show_on_open_dirs = false,
             severity = {
-                min = vim.diagnostic.severity.WARNING,
+                min = vim.diagnostic.severity.WARN,
                 max = vim.diagnostic.severity.ERROR,
             },
         },
         modified = {
             enable = true,
             show_on_dirs = true,
-            show_on_open_dirs = true,
+            show_on_open_dirs = false,
         },
         filters = {
             enable = true,

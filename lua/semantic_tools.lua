@@ -3,15 +3,16 @@ local M = {}
 
 -- Treesitter parsers
 M.treesitter_parsers = {
+    "regex",
     "c",
     "lua",
     "vim",
     "vimdoc",
+    "bash",
     "query",
     "cpp",
     "python",
     "html",
-    "latex",
     "markdown",
     "markdown_inline"
 }

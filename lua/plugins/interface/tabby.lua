@@ -4,6 +4,12 @@ return {
 
     event = 'VeryLazy',
 
+    keys = {
+        { "<leader>tn", function() vim.cmd("Tabby rename_tab " .. vim.fn.input("Rename tab: ")) end, desc = "Tabby: rename tab" },
+        { "<leader>tmp", "<cmd>-tabmove<cr>", desc = "Tabby: move tab right" },
+        { "<leader>tmn", "<cmd>+tabmove<cr>", desc = "Tabby: move tab left" },
+    },
+
     dependencies = 'nvim-tree/nvim-web-devicons',
 
     opts = {
@@ -49,15 +55,22 @@ return {
                 return true
             end
 
-            -- windows renamer
+            -- custom window renamer function
             local function win_rename(win_name)
-                if string.match(win_name, '%[Scratch.+%]') then
-                    return ''
-                end
-                if string.match(win_name, '%[No Name%]') then
-                    return '✎'
-                end
+                if string.match(win_name, '%[Scratch.+%]') then return '' end
+                if string.match(win_name, '%[No Name%]') then return '' end
+                if string.match(win_name, 'NvimTree_%d') then return '' end
+                if string.match(win_name, 'NeogitStatus') then return 'NEOGIT' end
+                if string.match(win_name, 'COMMIT_EDITMSG') then return 'COMMIT' end
+                if string.match(win_name, 'DiffviewFilePanel') then return 'DIFF' end
                 return win_name
+            end
+
+            -- custom tab renamer function
+            local function tab_rename(tab_name)
+                -- default name is "<focused buffer>[X+]", where X is the number of windows in the tab and the [] is only present if X > 1
+                local tab_name_no_win_count = string.gsub(tab_name,"%[(..)%]","")
+                return win_rename(tab_name_no_win_count)
             end
 
             -- tabs renderer: only display tabs if there are more than one
@@ -70,8 +83,8 @@ return {
                         return {
                             line.sep('', hl, theme.fill),
                             tab.number(),
-                            win_rename(tab.name()),
-                            tab.close_btn(''),
+                            tab_rename(tab.name()),
+                            -- tab.close_btn(''),
                             line.sep('', hl, theme.fill),
                             hl = hl,
                             margin = ' ',

@@ -456,6 +456,8 @@ Undo history ~
 
 Tabs ~
 *mymap_leader_tn*  n  \tn   set Tab Name (tabby)
+*mymap_leader_tmn* n  \tmn  Move Tab to Next position (tabby)
+*mymap_leader_tmp* n  \tmp  Move Tab to Previous position (tabby)
 
 
 

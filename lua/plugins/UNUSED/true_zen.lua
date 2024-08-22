@@ -3,7 +3,7 @@ return {
     "pocco81/true-zen.nvim",
 
     keys = {
-        { '<leader>vz', ':TZAtaraxis<CR>', desc = 'TrueZen: toggle' }
+        { '<leader>xx', ':TZAtaraxis<CR>', desc = 'TrueZen: toggle' }
     },
 
     opts = {

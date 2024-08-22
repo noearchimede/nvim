@@ -48,13 +48,13 @@ Leader mappings ~
 |mymap_leader_k|
 |mymap_leader_l| ........ Compilation/execution/visualization of file
 |mymap_leader_m| ........ Motions
-|mymap_leader_n|
+|mymap_leader_n| ........ Notifications
 |mymap_leader_o|
 |mymap_leader_p|
 |mymap_leader_q| ........ Terminal
 |mymap_leader_r|
 |mymap_leader_s| ........ Search
-|mymap_leader_t| ........ File tree, sidebars and terminals
+|mymap_leader_t| ........ File tree, sidebars, tabs
 |mymap_leader_u|
 |mymap_leader_v| ........ Interface (view)
 |mymap_leader_w| ........ Workspace and sessions
@@ -384,6 +384,10 @@ Motions                                               *mylem*  *mymap_leader_m*
                                                       *mylen*  *mymap_leader_n*
 -----------------------------------------------------------------------------
 
+Notifications (fidget) ~
+*mymap_leader_nc*  n  \nc   Clear notifications
+*mymap_leader_nh*  n  \nh   show notification History
+
 
 -----------------------------------------------------------------------------
                                                       *myleo*  *mymap_leader_o*
@@ -450,10 +454,9 @@ File tree ~
 Undo history ~
 *mymap_leader_tu*  n  \tu   toggle Undo history (undotree)
 
-Terminals ~
-*mymap_leader_ts*  n  \ts   open a new terminal in a Split
-*mymap_leader_tv*  n  \tv   open a new terminal in a Vertical split
-*mymap_leader_th*  n  \th   open a new terminal Here, in the current window
+Tabs ~
+*mymap_leader_tn*  n  \tn   set Tab Name (tabby)
+
 
 
 -----------------------------------------------------------------------------
@@ -464,13 +467,6 @@ Terminals ~
 -----------------------------------------------------------------------------
                                                       *mylev*  *mymap_leader_v*
 -----------------------------------------------------------------------------
-
-Notifications (fidget) ~
-*mymap_leader_vc*  n  \vc   Clear notifications
-*mymap_leader_vh*  n  \vh   show notification History
-
-Editor view ~
-*mymap_leader_vz*  n  \vz   toggle Zen mode (zen-mode)
 
 
 -----------------------------------------------------------------------------
@@ -504,6 +500,7 @@ Settings ~
 
 Theme ~
 *mymap_leader_xt*  n  \xt   change Theme
+*mymap_leader_xx*  n  \xx   toggle Zen mode (zen-mode)
 
 Plugin toggles ~
 *mymap_leader_xc*  n  \xc   toggle Completion (nvim-cmp)

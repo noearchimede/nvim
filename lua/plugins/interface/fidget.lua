@@ -5,8 +5,8 @@ return {
     event = "VeryLazy",
 
     keys = {
-        { "<leader>vc", "<cmd>Fidget clear<cr>", desc = "Fidget: clear notifications" },
-        { "<leader>vh", "<cmd>Fidget history<cr>", desc = "Fidget: show history" },
+        { "<leader>nc", "<cmd>Fidget clear<cr>", desc = "Fidget: clear notifications" },
+        { "<leader>nh", "<cmd>Fidget history<cr>", desc = "Fidget: show history" },
     },
 
     opts = {

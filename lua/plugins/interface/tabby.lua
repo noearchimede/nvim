@@ -2,7 +2,8 @@ return {
 
     'nanozuki/tabby.nvim',
 
-    -- event = 'VimEnter', -- if you want lazy load, see below
+    event = 'VeryLazy',
+
     dependencies = 'nvim-tree/nvim-web-devicons',
 
     opts = {

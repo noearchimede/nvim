@@ -33,7 +33,7 @@ return {
             remove = {},
             rename = {},
             open_pre = {},
-            open = { "NvimTreeOpen" },
+            open = { "NvimTreeOpen", "wincmd l" },
         },
     },
 

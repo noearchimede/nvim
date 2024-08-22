@@ -21,7 +21,6 @@ return {
 
     },
 
-
     keys = {
 
         -- NOTE: this is a hack to avoid the problem of the rhs vertical split
@@ -34,6 +33,14 @@ return {
         { "<leader>tf", "<cmd>NvimTreeFindFile<cr>" },
         { "<leader>tF", "<cmd>NvimTreeFindFile!<cr>" },
 
+    },
+
+    cmd = {
+        'NvimTreeOpen',
+        'NvimTreeFocus',
+        'NvimTreeFindFile',
+        'NvimTreeToggle',
+        'NvimTreeFindFileToggle',
     },
 
     opts = {

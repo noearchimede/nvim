@@ -35,7 +35,7 @@ if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = true
 
     -- float window shadow settings
-    vim.g.neovide_floating_shadow = true
+    vim.g.neovide_floating_shadow = false
 
     -- blur settings
     vim.g.neovide_window_blurred = false

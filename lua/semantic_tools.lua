@@ -13,7 +13,6 @@ M.treesitter_parsers = {
     "cpp",
     "python",
     "html",
-    "latex",
     "markdown",
     "markdown_inline"
 }

@@ -293,7 +293,7 @@ return {
             show_on_dirs = true,
             show_on_open_dirs = false,
             severity = {
-                min = vim.diagnostic.severity.WARNING,
+                min = vim.diagnostic.severity.WARN,
                 max = vim.diagnostic.severity.ERROR,
             },
         },

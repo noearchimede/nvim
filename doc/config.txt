@@ -273,7 +273,7 @@ LSP objects ~
 *mymap_leader_fr*  n  \fr   lsp: References
 *mymap_leader_fd*  n  \fd   lsp: Definitions
 *mymap_leader_fe*  n  \fe   lsp: diagnostics (Errors)
-*mymap_leader_fw*  n  \fa   lsp: diagnostics for entire Workspace
+*mymap_leader_fl*  n  \fl   lsp: diagnostics for Local file
 
 Documentation  ~
 *mymap_leader_fh*  n  \fh   Help tags
@@ -282,7 +282,6 @@ Unused ~
 *mymap_leader_fc*
 *mymap_leader_fj*
 *mymap_leader_fk*
-*mymap_leader_fl*
 *mymap_leader_fn*
 *mymap_leader_fp*
 *mymap_leader_fq*

@@ -30,8 +30,8 @@ return {
             { "<leader>fd", builtin.lsp_definitions, desc = "Telescope: LSP definitions" },
             { "<leader>fi", builtin.lsp_implementations, desc = "Telescope: LSP implementations" },
             { "<leader>ft", builtin.lsp_type_definitions, desc = "Telescope: LSP type definitions" },
-            { "<leader>fe", function() builtin.diagnostics({bufnr = 0}) end, desc = "Telescope: LSP document diagnostics" },
-            { "<leader>fw", builtin.diagnostics, desc = "Telescope: LSP workspace diagnostics" },
+            { "<leader>fl", function() builtin.diagnostics({bufnr = 0}) end, desc = "Telescope: LSP document diagnostics" },
+            { "<leader>fe", builtin.diagnostics, desc = "Telescope: LSP workspace diagnostics" },
         }
 
 

@@ -113,7 +113,8 @@ General ~
 LSP                                                       *myil*  *mymap_i_lsp*
 -----------------------------------------------------------------------------
 
-*mymap_i_CTRL-J*   i  <C-J>        signature help
+*mymap_i_CTRL-S*   i  <C-S>        signature help (same as |mymap_CTRL-S| in
+                                 normal mode)
 
 
 -----------------------------------------------------------------------------
@@ -132,7 +133,7 @@ Autopair ~
 -----------------------------------------------------------------------------
 
 Other keys that could potentially be used for normal mode mappings:
-*mymap_i_CTRL-S*
+*mymap_i_CTRL-J*
 *mymap_i_CTRL-Z* [unix: suspend shell process]
 
 
@@ -626,6 +627,9 @@ Window navigation  ~
 *mymap_CTRL-J*    n   CTRL_J     remap to |CTRL-W_j|
 *mymap_CTRL-K*    n   CTRL_K     remap to |CTRL-W_k|
 *mymap_CTRL-L*    n   CTRL_L     remap to |CTRL-W_l|
+
+LSP ~
+*mymap_CTRL-S*    n   <C-S>      show Signature help (same as |mymap_i_CTRL-S|)
 
 
 -----------------------------------------------------------------------------

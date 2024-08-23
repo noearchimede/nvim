@@ -2,30 +2,69 @@ return {
 
     'MagicDuck/grug-far.nvim',
 
-    keys = {
-        {
-            "<leader>sg",
-            function() require('grug-far').grug_far() end,
-            desc = "Grug-far: launch"
-        },
-        {
-            "<leader>sg",
-            function() require('grug-far').with_visual_selection() end,
-            mode = 'v',
-            desc = "Grug-far: launch",
-        },
-        {
-            "<leader>sf",
-            function() require('grug-far').grug_far({ prefills = { paths = vim.fn.expand("%") } }) end,
-            desc = "Grug-far: launch on current file"
-        },
-        {
-            "<leader>sf",
-            function() require('grug-far').with_visual_selection({ prefills = { paths = vim.fn.expand("%") } }) end,
-            mode = 'v',
-            desc = "Grug-far: launch on current file",
-        },
-    },
+    keys = function()
+
+        -- function to create a window where search results can be inspected before launching Grug.
+        -- this is a hack to circumvent the default behaviour, which is to open files in the last used window
+        -- I did not find a setting to do this natively.
+        -- NOTE: this function is copy-pasted in the nvim-tree 'open_grug' custom action (in tree.lua)
+        local function preOpenGrug()
+            vim.cmd('tabnew')
+            vim.opt_local.buflisted = false
+            vim.opt_local.buftype = "nofile"
+            vim.opt_local.bufhidden = "wipe"
+            vim.opt_local.swapfile = true
+        end
+        local winCmd = 'aboveleft vsplit'
+        winCmd = winCmd .. ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
+
+        return {
+            {
+                "<leader>sg",
+                function()
+                    preOpenGrug()
+                    require('grug-far').grug_far({
+                        windowCreationCommand = winCmd,
+                    })
+                end,
+                desc = "Grug-far: launch"
+            },
+            {
+                "<leader>sg",
+                function()
+                    preOpenGrug()
+                    require('grug-far').with_visual_selection({
+                        windowCreationCommand = winCmd,
+                    })
+                end,
+                mode = 'v',
+                desc = "Grug-far: launch",
+            },
+            {
+                "<leader>sf",
+                function()
+                    preOpenGrug()
+                    require('grug-far').grug_far({
+                        windowCreationCommand = winCmd,
+                        prefills = { paths = vim.fn.expand("%") },
+                    })
+                end,
+                desc = "Grug-far: launch on current file"
+            },
+            {
+                "<leader>sf",
+                function()
+                    preOpenGrug()
+                    require('grug-far').with_visual_selection({
+                        windowCreationCommand = winCmd,
+                        prefills = { paths = vim.fn.expand("%") },
+                    })
+                end,
+                mode = 'v',
+                desc = "Grug-far: launch on current file",
+            },
+        }
+    end,
 
 
     config = function()

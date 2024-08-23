@@ -7,6 +7,10 @@ if vim.g.neovide then
     -- NEOVIDE SETTINGS
     -- documentented on the official page: https://neovide.dev/configuration.html
 
+
+    -- – mappings ––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
     -- mappings to change font size
     vim.g.neovide_scale_factor = 1.0
     vim.keymap.set("n", "<D-+>", function()
@@ -29,7 +33,11 @@ if vim.g.neovide then
     -- mapping to open a new Neovide instance. This is a workaround from
     -- [https://github.com/neovide/neovide/issues/2020#issuecomment-1714042856];
     -- use until the feature is implemented directly.
-    vim.keymap.set("n", "<D-n>", ":silent exec '!neovide'<cr>")
+    vim.keymap.set("n", "<D-n>", ":silent exec '!neovide &'<cr>")
+
+
+    -- – neovide settings ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 
     -- mouse settings
     vim.g.neovide_hide_mouse_when_typing = true
@@ -60,4 +68,13 @@ if vim.g.neovide then
 
     -- enable this to show a frametime graph in the upper left corner
     -- vim.g.neovide_profiler = true
+
+
+    -- – modified nvim settings  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+    -- show the deleted lines in diffs as vertical lines, as the horizontal
+    -- ones I use normally don't line up in neovide
+    vim.opt.fillchars:append { diff = "│" }
+
 end

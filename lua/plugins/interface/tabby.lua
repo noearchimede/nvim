@@ -67,11 +67,11 @@ return {
             end
 
             -- custom tab renamer function
-            local function tab_rename(tab_name)
-                -- default name is "<focused buffer>[X+]", where X is the number of windows in the tab and the [] is only present if X > 1
-                local tab_name_no_win_count = string.gsub(tab_name,"%[(..)%]","")
-                return win_rename(tab_name_no_win_count)
-            end
+            -- local function tab_rename(tab_name)
+            --     -- default name is "<focused buffer>[X+]", where X is the number of windows in the tab and the [] is only present if X > 1
+            --     local tab_name_no_win_count = string.gsub(tab_name,"%[(..)%]","")
+            --     return win_rename(tab_name_no_win_count)
+            -- end
 
             -- tabs renderer: only display tabs if there are more than one
             local function display_tabs()
@@ -83,7 +83,7 @@ return {
                         return {
                             line.sep('', hl, theme.fill),
                             tab.number(),
-                            tab_rename(tab.name()),
+                            -- tab_rename(tab.name()),
                             -- tab.close_btn(''),
                             line.sep('', hl, theme.fill),
                             hl = hl,

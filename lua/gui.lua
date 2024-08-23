@@ -26,6 +26,11 @@ if vim.g.neovide then
     vim.keymap.set('c', '<D-v>', '<C-r>+') -- Paste command mode
     vim.keymap.set('i', '<D-v>', '<esc>"+pa') -- Paste insert mode
 
+    -- mapping to open a new Neovide instance. This is a workaround from
+    -- [https://github.com/neovide/neovide/issues/2020#issuecomment-1714042856];
+    -- use until the feature is implemented directly.
+    vim.keymap.set("n", "<D-n>", ":silent exec '!neovide'<cr>")
+
     -- mouse settings
     vim.g.neovide_hide_mouse_when_typing = true
 

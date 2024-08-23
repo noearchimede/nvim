@@ -322,10 +322,8 @@ Inline indicators (gitsigns) ~
 *mymap_leader_gx*  n  \gx   toggle inline view of deleted (X) lines
 
 Diff (diffview) ~
-*mymap_leader_gdi*  n  \gdi  Diff against the Index
-*mymap_leader_gdc*  n  \gdc  Diff against the last Commit
-*mymap_leader_gdd*  n  \gdd  Type arbitrary Diffview command
-
+*mymap_leader_gdd*  n  \gdd  open Diffview
+*mymap_leader_gdc*  n  \gdc  type arbitrary Diffview Command
 
 Unused ~
 *mymap_leader_gd*

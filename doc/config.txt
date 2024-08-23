@@ -495,7 +495,7 @@ Quick settings                                        *mylex*  *mymap_leader_x*
 
 Settings ~
 *mymap_leader_xa*  n  \xa   toggle 'autoread'
-*mymap_leader_xg*  n  \xg   toggle signcolumn visibility when there are no signs
+*mymap_leader_xg*  n  \xg   toggle signcolumn (Gutter) when there are no signs
 *mymap_leader_xl*  n  \xl   toggle 'list'
 *mymap_leader_xm*  n  \xm   toggle mouse mode between "all" and disabled
 *mymap_leader_xs*  n  \xs   toggle 'spell'
@@ -528,7 +528,6 @@ Unused ~
 *mymap_leader_xr*
 *mymap_leader_xu*
 *mymap_leader_xv*
-*mymap_leader_xx*
 *mymap_leader_xz*
 
 
@@ -623,10 +622,10 @@ Marks ~
 *mymap_'*         n   '          remapped to |`|
 
 Window navigation  ~
-*mymap_CTRL-H*    n   CTRL_H     remap to |CTRL-W_h|
-*mymap_CTRL-J*    n   CTRL_J     remap to |CTRL-W_j|
-*mymap_CTRL-K*    n   CTRL_K     remap to |CTRL-W_k|
-*mymap_CTRL-L*    n   CTRL_L     remap to |CTRL-W_l|
+*mymap_CTRL-H*    n   <C-H>      remap to |CTRL-W_h|
+*mymap_CTRL-J*    n   <C-J>      remap to |CTRL-W_j|
+*mymap_CTRL-K*    n   <C-K>      remap to |CTRL-W_k|
+*mymap_CTRL-L*    n   <C-L>      remap to |CTRL-W_l|
 
 LSP ~
 *mymap_CTRL-S*    n   <C-S>      show Signature help (same as |mymap_i_CTRL-S|)

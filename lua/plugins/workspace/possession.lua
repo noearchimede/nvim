@@ -18,7 +18,7 @@ return {
             desc = "Possession: save session" },
         { "<leader>wu", function() vim.cmd("PSSave " .. require('possession.session').get_session_name()) end,
             desc = "Possession: update session" },
-        { "<leader>wi", function() vim.print("Session: " .. (require('possession.session').get_session_name() or "–")) end,
+        { "<leader>wi", function() vim.notify("Session: " .. (require('possession.session').get_session_name() or "–"), vim.log.levels.INFO) end,
             desc = "Possession: save session" },
     },
 

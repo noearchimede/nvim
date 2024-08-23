@@ -126,10 +126,10 @@ end)
 vim.keymap.set('n', '<leader>xm', function()
     if vim.opt.mouse:get()['a'] == nil then ---@diagnostic disable-line: undefined-field
         vim.opt.mouse = 'a'
-        vim.print("Mouse enabled")
+        vim.notify("Mouse enabled", vim.log.levels.INFO)
     else
         vim.opt.mouse = ''
-        vim.print("Mouse disabled")
+        vim.notify("Mouse disabled", vim.log.levels.INFO)
     end
 end)
 

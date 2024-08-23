@@ -10,9 +10,9 @@ return {
                 table.insert(out_text, client['name'])
             end
             if out_text == {} then
-                vim.print("Unable to extract workspace diagnostics: no language server for current buffer")
+                vim.notify("Unable to extract workspace diagnostics: no language server for current buffer", vim.log.levels.WARN)
             else
-                vim.fn.confirm("Extracted workspace diagnostics for: " .. table.concat(out_text, ", "))
+                vim.notify("Extracted workspace diagnostics for: " .. table.concat(out_text, ", "), vim.log.levels.INFO)
             end
         end
         return {

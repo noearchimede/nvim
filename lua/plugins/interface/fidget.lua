@@ -24,9 +24,9 @@ return {
             override_vim_notify = true, -- Automatically override vim.notify() with Fidget
             window = {
                 winblend = 0, -- Background color opacity in the notification window
-                normal_hl = 'Comment', -- default highlight for messages, unless another highlight is specified; this also sets the background.
+                normal_hl = 'Normal', -- default highlight for messages, unless another highlight is specified; this also sets the background.
                 border = 'rounded', -- border of the notification window
-                border_hl = 'Comment' -- highlight of the border
+                border_hl = 'Normal' -- highlight of the border
             },
         },
     },

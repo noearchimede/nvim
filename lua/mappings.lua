@@ -46,10 +46,10 @@ vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.
 
 
 -- navigate between splits with a single keybinding, even from terminal windows
-vim.keymap.set({ 'n', 't' }, '<c-h>', '<c-w>h')
-vim.keymap.set({ 'n', 't' }, '<c-j>', '<c-w>j')
-vim.keymap.set({ 'n', 't' }, '<c-k>', '<c-w>k')
-vim.keymap.set({ 'n', 't' }, '<c-l>', '<c-w>l')
+vim.keymap.set({ 'n', 't' }, '<c-h>', '<cmd>wincmd h<cr>')
+vim.keymap.set({ 'n', 't' }, '<c-j>', '<cmd>wincmd j<cr>')
+vim.keymap.set({ 'n', 't' }, '<c-k>', '<cmd>wincmd k<cr>')
+vim.keymap.set({ 'n', 't' }, '<c-l>', '<cmd>wincmd l<cr>')
 
 -- open a new terminal in a split
 vim.keymap.set('n', '<leader>qo', '<cmd>terminal<cr>')

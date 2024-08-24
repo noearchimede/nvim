@@ -7,7 +7,7 @@ return {
     ft = { 'markdown' },
 
     keys = {
-        { '<leader>lr', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown' }
+        { '<localleader>r', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown' }
     },
 
     cmd = { 'RenderMarkdown' },
@@ -247,6 +247,19 @@ return {
             -- Applies to background of sign text
             highlight = 'RenderMarkdownSign',
         },
+
+        -- Window options to use that change between rendered and raw view
+        win_options = {
+            -- See :h 'conceallevel'
+            conceallevel = {
+                -- Used when being rendered, concealed text is completely hidden
+                rendered = 2, -- default is 3, but that breaks (among others) many UI features of obsidian.nvim
+            },
+            concealcursor = {
+                rendered = 'n' -- enable concealing of the cursor line in Normal mode only
+            }
+        }
+
     },
 
 }

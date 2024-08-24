@@ -110,7 +110,7 @@ return {
                     local hl = win.is_current() and theme.current_window or theme.window
                     return {
                         line.sep('', hl, theme.fill),
-                        win_rename(win.buf_name()),
+                        shorten_path(win_rename(win.buf_name()), '/', 30),
                         line.sep('', hl, theme.fill),
                         hl = hl,
                         margin = ' ',

@@ -101,9 +101,17 @@ return {
                 -- if grug-far is not found do nothing
             end
 
+            -- helper function for "reveal in Finder"
+            local function reveal_in_finder()
+                local node = api.tree.get_node_under_cursor()
+                local abspath = node.absolute_path
+                vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
+            end
+
+
             -- Currently unused letters:
-            -- lowercase: a (j and k are used as main motions, s is used for Leap.nvim)
-            -- uppercase: A G P Q T U V X Y Z
+            -- lowercase: <none> (j and k are used as main motions, s is used for Leap.nvim)
+            -- uppercase: G O P Q T U V X Y Z
 
             -- open nodes
             map('<CR>', function(node)
@@ -186,7 +194,8 @@ return {
 
             map('q', api.tree.close, 'Close') -- 'q'
             map('R', api.tree.reload, 'Refresh') -- 'R'
-            map('O', api.node.run.system, 'Run system') -- 's'
+            map('A', api.node.run.system, 'Run system') -- 's'
+            map('a', reveal_in_finder, 'Reveal in Finder') -- custom action, no default
             map('g?', api.tree.toggle_help, 'Help') -- 'g?'
 
 
@@ -216,34 +225,26 @@ return {
         view = {
             cursorline = true,
             preserve_window_proportions = true,
-            -- There are issues with this setting both enabled and disabled.
+            -- ^^^ There are issues with this setting both enabled and disabled.
             -- Problem when enabled: open two vertical splits of same width, open tree -> the rhs one will become way too narrow
             -- Problem when disabled: open two unequally sized vertical splits, open tree, make a diagnostic error appear in one buffer -> the buffer sizes will equalize
             width = {
-                min = 20,
-                max = 40,
+                min = 15,
+                max = 35,
                 padding = 1,
             },
         },
         renderer = {
-            group_empty = false,
-            full_name = false,
-            indent_width = 2,
-            special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+            special_files = { "README.md", "readme.md" },
+            hidden_display = "simple",
             symlink_destination = false,
-            highlight_git = "none",
-            highlight_diagnostics = "none",
-            highlight_opened_files = "none",
-            highlight_modified = "none",
-            highlight_bookmarks = "none",
-            highlight_clipboard = "name",
             icons = {
                 web_devicons = {
                     file = { enable = false, },
                     folder = { enable = false, },
                 },
-                git_placement = "after",
-                modified_placement = "before",
+                git_placement = "before",
+                modified_placement = "after",
                 diagnostics_placement = "signcolumn",
                 bookmarks_placement = "signcolumn",
                 padding = " ",
@@ -289,9 +290,6 @@ return {
             update_root = {
                 enable = false,
             },
-        },
-        system_open = {
-            cmd = "",
         },
         git = {
             enable = true,

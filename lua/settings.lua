@@ -165,16 +165,3 @@ flp_value = flp_value .. [[\|]] .. [[^\S\+\%(\s\+[\-=:–]\+\s\+\|[:.)}\]>]\?\s\
 vim.opt.formatlistpat = flp_value
 
 
-
-
--- – Terminal buffers –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
--- start terminals in insert mode
-vim.api.nvim_create_autocmd('TermOpen',  { command = "startinsert" })
--- disable number column and signcolumn in all terminal buffers
-vim.api.nvim_create_autocmd('TermOpen',  { command = "setlocal nonumber" })
-vim.api.nvim_create_autocmd('TermEnter',  { command = "setlocal signcolumn=no" })
--- NOTE: the darker background in terminal windows is implemented as an
--- autocommand in my plugin spec for the 'onehalf' colorscheme
-

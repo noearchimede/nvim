@@ -37,7 +37,7 @@ Leader mappings ~
 |mymap_leader_leader| ... LSP
 |mymap_leader_a|
 |mymap_leader_b| ........ Buffer navigation
-|mymap_leader_c|
+|mymap_leader_c| ........ Compilers and tasks
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
 |mymap_leader_f| ........ Telescope
@@ -73,6 +73,11 @@ Other global mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
 |mymap_ctrl| ............ CTRL keybindings
 |mymap_misc| ............ Miscellaneous
+
+                                                        *myft* *mymap_filetype*
+Filetype mappings ~
+|mymap_ft_markdown| ..... Mappings for markdown
+-> |mymap_ft_obsidian| .. Mappings for markdown files in an Obsidian vault
 
 
 
@@ -150,8 +155,9 @@ LEADER MAPPINGS                                                  |mymap_leader|
 LSP                                             *mylele*  *mymap_leader_leader*
 -----------------------------------------------------------------------------
 
-*mymap_leader_leader_n*  n  \\n  Next diagnostic
-*mymap_leader_leader_p*  n  \\p  Previous diagnostic
+*mymap_leader_leader_n*  n  \\n  Next diagnostic (alias: |mymap_]d|)
+*mymap_leader_leader_p*  n  \\p  Previous diagnostic (alias: |mymap_[d|)
+Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 
 *mymap_leader_leader_v*  n  \\v  View line diagnostic
 
@@ -208,7 +214,42 @@ Delete buffers ~
                                                       *mylec*  *mymap_leader_c*
 -----------------------------------------------------------------------------
 
+Overseer ~
+*mymap_leader_ct*  n  \ct   run overseer Task
+*mymap_leader_co*  n  \co   toggle overseer Overview
 
+Iron ~
+*mymap_leader_cs*  n  \ci   start repl
+*mymap_leader_cr*  n  \cr   restart repl
+*mymap_leader_cq*  n  \cq   exit repl
+*mymap_leader_cj*  n  \cj   Jump to iron window
+*mymap_leader_ch*  n  \ch   hide iron window
+
+*mymap_leader_c_*  n  \c{motion} run {motion}
+*mymap_leader_cc*  n  \cc   run current line
+                 v  \cc   run visual selection
+*mymap_leader_ca*  n  \ca   run all lines Above cursor
+*mymap_leader_cf*  n  \cf   run file
+*mymap_leader_c_cr* n \c<cr> send <CR>
+*mymap_leader_cx*  n  \cx   send stop signal
+*mymap_leader_ci*  n  \ci   send arbitrary command
+
+
+Unused ~
+*mymap_leader_cb*  
+*mymap_leader_cd*
+*mymap_leader_ce*
+*mymap_leader_cg*
+*mymap_leader_ck*
+*mymap_leader_cl*
+*mymap_leader_cm*
+*mymap_leader_cn*
+*mymap_leader_cp*
+*mymap_leader_cu*
+*mymap_leader_cv*
+*mymap_leader_cw*
+*mymap_leader_cy*
+*mymap_leader_cz*
 
 
 -----------------------------------------------------------------------------
@@ -218,9 +259,9 @@ Trouble                                               *myled*  *mymap_leader_d*
 Toggle Trouble panes ~
 *mymap_leader_dd*  n  \dd   Diagnostics
 *mymap_leader_db*  n  \db   diagnostics for Buffer
-*mymap_leader_di*  n  \di   lsp Info
+*mymap_leader_dl*  n  \dl   lsp Info
 *mymap_leader_ds*  n  \ds   Symbols
-*mymap_leader_dl*  n  \dl   Location list
+*mymap_leader_dw*  n  \dw   Location list
 *mymap_leader_dq*  n  \dq   Quickfix list
 
 Unused ~
@@ -304,7 +345,7 @@ Git status (neogit) ~
 *mymap_leader_gh*  n  \gh   show commit log (History)
 
 Hunk navigation (gitsigns) ~
-*mymap_leader_gn*  n  \gn   move to Previous hunk; equivalent to |mymap_]c|
+*mymap_leader_gn*  n  \gn   move to Previous hunk; equivalent to |mymap_c|
 *mymap_leader_gp*  n  \gp   move to Next hunk; equivalent to |mymap_[c|
 
 Hunk operations... (gitsigns) ~
@@ -599,7 +640,7 @@ The following aliases are available for {char}:
     r: Rectangle brackets  `]`
     t: Backtick            (backtick, i.e. grave accent)
     q: Quotes              `"'` (and backtick)
-    s: Surround            `]}>"'` (and backtick)
+    s: Surround            `}>"'` (and backtick)
 
 
 
@@ -644,10 +685,55 @@ Terminal ~
 *mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 Git ~
-*mymap_]c*        n   ]c    move to Previous hunk; equivalent to |mymap_leader_gp|
-*mymap_[c*        n   [c    move to Next hunk; equivalent to |mymap_leader_gn|
+*mymap_]c*        n   ]c    move to next hunk (Change)
+                          (same as |mymap_leader_gn|)
+*mymap_[c*        n   [c    move to previous hunk (Change)
+                          (same as |mymap_leader_gp|)
 
-The ]c and [c mappings are analoguous to the default mappings in diff mode.
+The c and [c mappings are analoguous to the default mappings in diff mode.
+
+Diagnostics ~
+*mymap_]d*        n   ]d   move to next Diagnostic message
+                         (same as |mymap_leader_leader_n|)
+*mymap_[d*        n   [d   move to previous Diagnostic message
+                         (same as |mymap_leader_leader_p|)
+*mymap_]e*        n   ]e   move to next diagnostic Error
+*mymap_[e*        n   [e   move to previous diagnostic Error
+*mymap_]w*        n   ]w   move to next diagnostic Warning or error
+*mymap_[w*        n   [w   move to previous diagnostic Warning or error
+
+
+=============================================================================
+OTHER MAPPINGS                                                    |mymap_other|
+-----------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+Markdown files                                    *myftmd*  *mymap_ft_markdown*
+-----------------------------------------------------------------------------
+
+Rendering ~
+*mymap_ftmd_locle_r*  n  ,r   toggle Render (render-markdown)
+
+                                                  *myftob*  *mymap_ft_obsidian*
+Obsidian ~
+The following mappings only work in buffers containing a file in an Obsidian
+vault. The directories containing Obsidian vaults are listed in the
+configuration file for the obsidian.nvim plugin.
+
+*mymap_ftob_locle_o*  n  ,o   Open note picker
+*mymap_ftob_locle_s*  n  ,s   Search
+
+*mymap_ftob_locle_n*  n  ,n   New note
+*mymap_ftob_locle_t*  n  ,t   insert Template
+*mymap_ftob_locle_i*  n  ,i   paste Image from system clipboard
+
+*mymap_ftob_locle_c*  n  ,c   show table of Contents for note
+*mymap_ftob_locle_l*  n  ,l   open list of Links in note
+*mymap_ftob_locle_b*  n  ,b   open list of Backlinks in note
+*mymap_ftob_locle_g*  n  ,g   show all occurrences of taG under cursor
+
+*mymap_ftob_locle_a*  n  ,a   open the current note in the obsidian App
 
 
 

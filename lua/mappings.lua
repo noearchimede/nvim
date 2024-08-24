@@ -46,21 +46,15 @@ vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.
 
 
 -- navigate between splits with a single keybinding, even from terminal windows
-vim.keymap.set({ 'n', 't' }, '<c-h>', '<c-w>h')
-vim.keymap.set({ 'n', 't' }, '<c-j>', '<c-w>j')
-vim.keymap.set({ 'n', 't' }, '<c-k>', '<c-w>k')
-vim.keymap.set({ 'n', 't' }, '<c-l>', '<c-w>l')
-
--- open a new terminal in a split
-vim.keymap.set('n', '<leader>qo', '<cmd>terminal<cr>')
-vim.keymap.set('n', '<leader>qv', '<cmd>vertical terminal<cr>')
-vim.keymap.set('n', '<leader>qh', '<cmd>horizontal terminal<cr>')
--- exit terminal with esc-esc
-vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
+vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>')
+vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>')
+vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>')
+vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>')
 
 
 
 -- – Directories –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 
 -- Tab cd to the parent of the current file
 vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end)

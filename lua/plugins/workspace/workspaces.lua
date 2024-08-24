@@ -32,8 +32,26 @@ return {
             add = {},
             remove = {},
             rename = {},
-            open_pre = {},
-            open = { "NvimTreeOpen", "wincmd l" },
+            open_pre = function()
+                if require("utils").tab_is_empty(0) then
+                    -- if the current tab is empty use it
+                    vim.g.workspaces_opened_new_tab = false
+                else
+                    -- otherwise create a new tab before switching workspace
+                    vim.cmd("tabe")
+                    vim.g.workspaces_opened_new_tab = true
+                end
+            end,
+            open = function()
+                -- open tree
+                vim.cmd("NvimTreeOpen")
+                -- focus main window, not tree, which would lead to problems if
+                -- a file is opened from outside the tree (e.g. with Telescope)
+                vim.cmd("wincmd l")
+                -- notify
+                local tab_mess = (vim.g.workspaces_opened_new_tab and " in new tab" or "")
+                vim.notify("Workspace " .. (require('workspaces').name() or "???") .. " loaded" .. tab_mess)
+            end
         },
     },
 

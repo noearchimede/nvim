@@ -30,7 +30,7 @@ function M.replace_in_file(text, whole_word)
     print(":%s" .. sep .. search_string .. sep .. "___" .. sep .. "gc")
     -- ask the user for the replacement text
     local repl_text = vim.fn.input("Replace all occurrences of \"" .. text .. "\" in this file with: ", text)
-        -- execute the replacement
+    -- execute the replacement
     if repl_text ~= "" then
         local replace_string = vim.fn.escape(repl_text, sep .. '\\')
         local replace_command = ":%s" .. sep .. search_string .. sep .. replace_string .. sep .. "gc"
@@ -59,11 +59,39 @@ function M.get_visual_selection()
     local _, ls, cs, _ = table.unpack(vim.fn.getpos("'<"))
     local _, le, ce, _ = table.unpack(vim.fn.getpos("'>"))
     -- get text
-    local text_array = vim.api.nvim_buf_get_text(0, ls-1, cs-1, le-1, ce, {})
+    local text_array = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
     -- concatenate lines
     return table.concat(text_array, '\n')
 
 end
+
+
+
+--- Check if the current tab is empty
+---
+--- An empty tab may contain special windows such as a NvimTree instance
+--- @param tabpage integer tabpage handle, use 0 for current tab
+function M.tab_is_empty(tabpage)
+
+    -- iterate over all windows in tab
+    local wins_in_tab = vim.api.nvim_tabpage_list_wins(tabpage)
+    for _, winid in ipairs(wins_in_tab) do
+        -- get filetype of each open buffer
+        local ft = vim.api.nvim_get_option_value(
+            'filetype',
+            { buf = vim.api.nvim_win_get_buf(winid) }
+        )
+        -- compare filetype against a list of allowed types
+        if not (ft == '' or ft == 'NvimTree') then
+            -- if a "non-trivial" filetype is detected the tab is not empty
+            return false
+        end
+    end
+    -- if no window triggered the 'return false' condition the tab is empty
+    return true
+
+end
+
 
 
 return M

@@ -60,7 +60,20 @@ return {
                     i = {
                         -- actions.which_key shows the mappings for your picker,
                         -- Note: here "name" is a shortcut for telescope.actions.name
-                        ["<C-h>"] = "select_horizontal",  -- default: show help, also available with ? in normal mode
+                        ["<C-h>"] = "select_horizontal",  -- default: show help
+                        ["<C-x>"] = false, -- default: select horizontal
+                        ["<C-?>"] = "which_key",  -- default: show help
+
+                        ["<C-j>"] = "move_selection_next",
+                        ["<C-k>"] = "move_selection_previous",
+
+                        ["<C-n>"] = "cycle_history_next",
+                        ["<C-p>"] = "cycle_history_prev",
+                    },
+                    n = {
+                        -- actions.which_key shows the mappings for your picker,
+                        -- Note: here "name" is a shortcut for telescope.actions.name
+                        ["<C-h>"] = "select_horizontal",
                         ["<C-x>"] = false, -- default: select horizontal
 
                         ["<C-j>"] = "move_selection_next",

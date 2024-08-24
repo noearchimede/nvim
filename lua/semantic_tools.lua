@@ -31,6 +31,7 @@ M.mason_lsp = {
     "lua_ls",
     "pyright",
     "clangd",
+    "bashls"
 }
 
 

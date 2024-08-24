@@ -37,7 +37,7 @@ Leader mappings ~
 |mymap_leader_leader| ... LSP
 |mymap_leader_a|
 |mymap_leader_b| ........ Buffer navigation
-|mymap_leader_c|
+|mymap_leader_c| ........ Compilers and tasks
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
 |mymap_leader_f| ........ Telescope
@@ -207,7 +207,9 @@ Delete buffers ~
                                                       *mylec*  *mymap_leader_c*
 -----------------------------------------------------------------------------
 
-
+Overseer ~
+*mymap_leader_ct*  n  \ct   run overseer Task
+*mymap_leader_co*  n  \co   toggle overseer Overview
 
 
 -----------------------------------------------------------------------------

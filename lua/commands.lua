@@ -5,7 +5,7 @@
 
 
 -- show current file in finder
-vim.api.nvim_create_user_command("Finder", "silent exe '!open -R ' . expand('%:p')", {})
+vim.api.nvim_create_user_command("Finder", "silent exe '!open -R ' . escape(expand('%:p'), ' \\')", {})
 
 -- open current file with default app
 vim.api.nvim_create_user_command("Open", "silent exe '!open ' . expand('%:p')", {})

@@ -74,6 +74,11 @@ Other global mappings ~
 |mymap_ctrl| ............ CTRL keybindings
 |mymap_misc| ............ Miscellaneous
 
+                                                        *myft* *mymap_filetype*
+Filetype mappings ~
+|mymap_ft_markdown| ..... Mappings for markdown
+-> |mymap_ft_obsidian| .. Mappings for markdown files in an Obsidian vault
+
 
 
 
@@ -654,6 +659,38 @@ The ]c and [c mappings are analoguous to the default mappings in diff mode.
 
 
 
+=============================================================================
+OTHER MAPPINGS                                                    |mymap_other|
+-----------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+Markdown files                                    *myftmd*  *mymap_ft_markdown*
+-----------------------------------------------------------------------------
+
+                                                  *myftob*  *mymap_ft_obsidian*
+Obsidian ~
+The following mappings only work in buffers containing a file in an Obsidian
+vault. The directories containing Obsidian vaults are listed in the
+configuration file for the obsidian.nvim plugin.
+
+*mymap_ftob_locle_o*  n  ,o   Open note picker
+*mymap_ftob_locle_s*  n  ,s   Search
+
+*mymap_ftob_locle_n*  n  ,n   New note
+*mymap_ftob_locle_t*  n  ,t   insert Template
+*mymap_ftob_locle_i*  n  ,i   paste Image from system clipboard
+
+*mymap_ftob_locle_c*  n  ,c   show table of Contents for note
+*mymap_ftob_locle_l*  n  ,l   open list of Links in note
+*mymap_ftob_locle_b*  n  ,b   open list of Backlinks in note
+*mymap_ftob_locle_g*  n  ,g   show all occurrences of taG under cursor
+
+*mymap_ftob_locle_a*  n  ,a   open the current note in the obsidian App
+
+
+
+
 
 =============================================================================
 KEYBOARD                                                      *config-keyboard*
@@ -751,3 +788,5 @@ Debugging ~
 
 _____________________________________________________________________________
 vim:noro:tw=78:ts=4:ft=help:ma:nowrap
+
+

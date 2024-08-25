@@ -33,7 +33,8 @@ return {
         mappings = {
             status = {
                 ["="] = "Toggle",
-                ["o"] = "VSplitOpen",
+                ["o"]  = "GoToFile",
+                ["<cr>"] = "VSplitOpen",
             }
         }
     },

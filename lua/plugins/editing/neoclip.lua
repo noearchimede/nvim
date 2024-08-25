@@ -6,6 +6,9 @@ return {
         "nvim-telescope/telescope.nvim"
     },
 
+    -- neoclip needs to run before its keybinding is used, otherwise it can't track the yank history
+    event = "VeryLazy",
+
     keys = {
         { '<leader>fy', "<cmd>Telescope neoclip<CR>", desc = "Telescope: yank registers" },
     },

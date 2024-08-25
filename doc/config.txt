@@ -69,9 +69,10 @@ G mappings ~
 |mymap_gy|
 |mymap_gz| .............. Brackets and quotes (surround)
                                                            *myo*  *mymap_other*
-Other mappings ~
+Other global mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
-|mymap_misc| ............ All other mappings
+|mymap_ctrl| ............ CTRL keybindings
+|mymap_misc| ............ Miscellaneous
 
 
 
@@ -139,10 +140,10 @@ Other keys that could potentially be used for normal mode mappings:
 
 
 
-
 =============================================================================
 LEADER MAPPINGS                                                  |mymap_leader|
 -----------------------------------------------------------------------------
+
 
 
 -----------------------------------------------------------------------------
@@ -540,9 +541,11 @@ Unused ~
 
 
 
+
 =============================================================================
 G MAPPINGS                                                            |mymap_g|
 -----------------------------------------------------------------------------
+
 
 
 -----------------------------------------------------------------------------
@@ -600,16 +603,15 @@ The following aliases are available for {char}:
 
 
 
+
 =============================================================================
 OTHER MAPPINGS                                                    |mymap_other|
 -----------------------------------------------------------------------------
 
 
-
 -----------------------------------------------------------------------------
 Overwritten defaults                                *myoo*  *mymap_overwritten*
 -----------------------------------------------------------------------------
-
 
 Copy-paste ~
 *mymap_Y*         n   Y{motion}  remapped to `"*y`: yank text to system clipboard
@@ -618,6 +620,11 @@ Copy-paste ~
 
 Marks ~
 *mymap_'*         n   '          remapped to |`|
+
+
+-----------------------------------------------------------------------------
+CTRL mappings                                              *myct*  *mymap_ctrl*
+-----------------------------------------------------------------------------
 
 Window navigation  ~
 *mymap_CTRL-H*    n   <C-H>      remap to |CTRL-W_h|

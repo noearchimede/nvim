@@ -28,7 +28,11 @@ return {
             change = "gzc",
             change_line = "gZc",
 
-        }
+        },
+
+        -- keep the cursor where it is
+        move_cursor = "sticky",
+
     },
 
     aliases = {

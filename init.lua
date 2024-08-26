@@ -35,12 +35,14 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 
--- – Main global settings –––––––––––––––––––––––––––––––––––––––––––––––––––––
+-- – Main settings files ––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 require("mappings")
 require("settings")
 require("commands")
 
+require("terminal")
+require("gui")
 
 
 -- – Additional settings ––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -54,4 +56,3 @@ end
 
 -- – Load neovide config ––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-require("gui")

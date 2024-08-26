@@ -26,10 +26,17 @@ return {
                 map({"i", "n"}, "<C-s>", vim.lsp.buf.signature_help, "LSP: show signature help")
 
                 -- Normal and Visual mode mappings
-                map("n", "<leader><leader>n", vim.diagnostic.goto_next, "Diagnostics: previous")
-                map("n", "<leader><leader>p", vim.diagnostic.goto_prev, "Diagnostics: next")
+                map("n", "<leader><leader>n", vim.diagnostic.goto_next, "Diagnostics: next")
+                map("n", "<leader><leader>p", vim.diagnostic.goto_prev, "Diagnostics: previous")
+                map("n", "]d", vim.diagnostic.goto_next, "Diagnostics: next") -- overwrite :h ]d-default to also show the diagnostic text
+                map("n", "[d", vim.diagnostic.goto_prev, "Diagnostics: previous") -- see above
+                map("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Diagnostics: next error")
+                map("n", "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Diagnostics: previous error")
+                map("n", "]w", function() vim.diagnostic.goto_next({ severity = { min =vim.diagnostic.severity.WARN } }) end, "Diagnostics: next error or warning")
+                map("n", "[w", function() vim.diagnostic.goto_prev({ severity = { min =vim.diagnostic.severity.WARN } }) end, "Diagnostics: previous error or warning")
+
                 map("n", "<leader><leader>v", vim.diagnostic.open_float, "Diagnostics: show line diagnostics")
-                map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- this is equivalent to K in most (all?) contexts
+                map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to K, see :h K-lsp-default
                 map("n", "<leader><leader>j", vim.lsp.buf.signature_help, "LSP: show signature help")
                 map("n", "<leader><leader>d", vim.lsp.buf.definition, "LSP: go to definition")
                 map("n", "<leader><leader>l", vim.lsp.buf.declaration, "LSP: go to declaration")

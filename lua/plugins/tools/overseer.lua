@@ -4,7 +4,6 @@ return {
 
     dependencies = {
         "stevearc/dressing.nvim", -- nicer UI
-        config = true,
     },
 
     cmd = { "OverseerOpen", "OverseerToggle", "OverseerRunCmd", "OverseerRun", "OverseerInfo", "OverseerBuild" },

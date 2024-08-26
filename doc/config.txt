@@ -218,6 +218,21 @@ Overseer ~
 *mymap_leader_ct*  n  \ct   run overseer Task
 *mymap_leader_co*  n  \co   toggle overseer Overview
 
+Iron ~
+*mymap_leader_cs*  n  \ci   start Iron repl
+*mymap_leader_cr*  n  \cr   restart Iron repl
+*mymap_leader_cq*  n  \cq   exit Iron
+
+*mymap_leader_c_*  n  \c{motion} run {motion} with Iron
+*mymap_leader_cc*  n  \cc   run current line with Iron
+                 v  \cc   run visual selection with Iron
+*mymap_leader_ca*  n  \ca   run all lines Above cursor with Iron
+*mymap_leader_c_cr* n \c<cr> send <CR> to Iron
+*mymap_leader_c.*  n  \c.   send <C-C> to Iron
+
+*mymap_leader_cf*  n  \cf   focus Iron window
+*mymap_leader_ch*  n  \ch   hide Iron window
+
 
 -----------------------------------------------------------------------------
 Trouble                                               *myled*  *mymap_leader_d*
@@ -607,7 +622,7 @@ The following aliases are available for {char}:
     r: Rectangle brackets  `]`
     t: Backtick            (backtick, i.e. grave accent)
     q: Quotes              `"'` (and backtick)
-    s: Surround            `]}>"'` (and backtick)
+    s: Surround            `}>"'` (and backtick)
 
 
 

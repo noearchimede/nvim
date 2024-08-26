@@ -8,13 +8,14 @@ return {
         {
             "<leader>bu",
             function()
-                vim.print("HBAC: close all unpinned buffers? [y/N] ")
-                if vim.fn.nr2char(vim.fn.getchar()) == 'y' then
-                    require("hbac").close_unpinned()
-                    vim.print("HBAC: closed unpinned buffers")
-                else
-                    vim.print("HBAC: operation interrupted")
-                end
+                vim.ui.input({ prompt = "HBAC: close all unpinned buffers? [y/N]" }, function(input)
+                    if input == 'y' then
+                        require("hbac").close_unpinned()
+                        vim.notify("HBAC: closed unpinned buffers")
+                    else
+                        vim.notify("HBAC: operation interrupted")
+                    end
+                end)
             end,
             desc = "HBAC: close all unpinned buffers"
         }

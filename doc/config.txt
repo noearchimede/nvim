@@ -694,6 +694,9 @@ OTHER MAPPINGS                                                    |mymap_other|
 Markdown files                                    *myftmd*  *mymap_ft_markdown*
 -----------------------------------------------------------------------------
 
+Rendering ~
+*mymap_ftmd_locle_r*  n  ,r   toggle Render (render-markdown)
+
                                                   *myftob*  *mymap_ft_obsidian*
 Obsidian ~
 The following mappings only work in buffers containing a file in an Obsidian
@@ -814,5 +817,3 @@ Debugging ~
 
 _____________________________________________________________________________
 vim:noro:tw=78:ts=4:ft=help:ma:nowrap
-
-

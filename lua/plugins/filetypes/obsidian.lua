@@ -1,3 +1,13 @@
+local my_vaults = {
+    {
+        -- keys required for the obsidian.nvim "workspaces" setting
+        name = "personal",
+        path = "~/Personale/Appunti",
+        -- keys used in my custom functions
+        index = "@Index.md"
+    }
+}
+
 return {
 
     "epwalsh/obsidian.nvim",
@@ -13,14 +23,13 @@ return {
     -- inside the 'workspaces' defined in the options below
     ft = "markdown",
 
+    event = "User EnteredObsidianVault",
+
+    cmd = { "ObsidianQuickSwitch", "ObsidianNew" },
+
     opts = {
 
-        workspaces = {
-            {
-                name = "personal",
-                path = "~/Personale/Appunti",
-            },
-        },
+        workspaces = my_vaults,
 
         templates = {
             folder = "_templates",
@@ -127,5 +136,41 @@ return {
             end,
         })
 
+        -- load Obsidian if CWD is changed to a vault directory
+        vim.api.nvim_create_autocmd('DirChanged', {
+            callback = function()
+                local vault = nil
+                for _, v in ipairs(my_vaults) do
+                    if vim.v.event.cwd == vim.fn.fnamemodify(v.path, ':p:h') then
+                        vault = v
+                        break
+                    end
+                end
+                if vault then
+                    vim.g.obsidian_current_vault_spec = vault
+                    vim.notify("Entered Obsidian Vault")
+                    vim.api.nvim_exec_autocmds("User", { pattern = "EnteredObsidianVault" })
+                    vim.api.nvim_exec_autocmds("User", { pattern = "EnteredObsidianVaultAfterLoad" })
+                end
+            end
+        })
+
+        -- autocmd executed after the DirChanged autocmd above is triggered
+        -- EnteredObsidianVault, which loads Obsidian.nvim
+        vim.api.nvim_create_autocmd('User', {
+            pattern = "EnteredObsidianVaultAfterLoad",
+            callback = function()
+                if require("utils").tab_is_empty(0) then
+                    if vim.g.obsidian_current_vault_spec.index then
+                        -- if the vault setting table contains an "index" file open it
+                        vim.cmd.edit(vim.g.obsidian_current_vault_spec.index)
+                        -- set filetype markdown, as it is not set automatically
+                        vim.bo.filetype = 'markdown'
+                    end
+                end
+            end
+        })
+
     end
+
 }

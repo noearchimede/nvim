@@ -5,8 +5,15 @@ return {
     keys = {
         { '<leader>cs', '<cmd>IronRepl<cr>', desc = "Iron: start" },
         { '<leader>cr', '<cmd>IronRestart<cr>', desc = "Iron: restart" },
-        { '<leader>cf', '<cmd>IronFocus<cr>', desc = "Iron: focus" },
+        { '<leader>cj', '<cmd>IronFocus<cr>', desc = "Iron: jump to repl window" },
         { '<leader>ch', '<cmd>IronHide<cr>', desc = "Iron: hide" },
+        { '<leader>ci', function()
+            vim.ui.input({ prompt = "Enter command (" .. vim.bo.filetype .. ")" }, function(input)
+                if input then
+                    vim.cmd('IronSend ' .. input)
+                end
+            end)
+        end, desc = "Iron: send arbitrary command" },
     },
 
     config = function()
@@ -27,9 +34,23 @@ return {
                 close_window_on_exit = false,
 
                 repl_definition = {
-                    -- forcing a default
+
+                    sh = {
+                        command = function(meta)
+                            local first_line = vim.api.nvim_buf_get_lines(meta.current_bufnr, 0, 2, false)[1]
+                            if string.sub(first_line, 1, 2) == '#!' then
+                                -- the first line is a shebang; try to use it
+                                vim.notify("REPL started with " .. first_line)
+                                return string.sub(first_line, 3, -1)
+                            end
+                            vim.notify("REPL started with default shell (no shebang found)")
+                            -- if nothing is specified use zsh
+                            return "$SHELL"
+                        end
+                    },
+
                     python = {
-                        -- (from the README)
+                        -- use a single ipython input for each input block (instead of an input for each line)
                         command = { "ipython", "--no-autoindent" },
                         format = require("iron.fts.common").bracketed_paste,
                     },
@@ -51,11 +72,11 @@ return {
                 send_motion = "<leader>c",
                 send_line = "<leader>cc",
                 visual_send = "<leader>cc",
-                -- 'send_file' not mapped; use a visual selection if really needed
+                send_file = "<leader>cf",
                 send_until_cursor = "<leader>ca", -- "a" as in "above"
 
                 cr = "<leader>c<cr>",
-                interrupt = "<leader>c.",
+                interrupt = "<leader>cx",
                 exit = "<leader>cq",
                 -- 'clear' not mapped to prevent accidental clearing
 

@@ -59,6 +59,21 @@ return {
             },
         })
 
+        require("overseer").register_template({
+            name = "shell run",
+            builder = function()
+                -- Full path to current file (see :help expand())
+                local file = vim.fn.expand("%")
+                return {
+                    cmd = { './' .. file },
+                    components = { "default" },
+                }
+            end,
+            condition = {
+                filetype = { "sh" },
+            },
+        })
+
         -- create a Make command to run :make as an overseer process (similar to tpope/vim-dispatch)
         -- copied from https://github.com/stevearc/overseer.nvim/blob/master/doc/recipes.md#make-similar-to-vim-dispatch
         vim.api.nvim_create_user_command(

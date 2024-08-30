@@ -101,9 +101,17 @@ return {
                 -- if grug-far is not found do nothing
             end
 
+            -- helper function for "reveal in Finder"
+            local function reveal_in_finder()
+                local node = api.tree.get_node_under_cursor()
+                local abspath = node.absolute_path
+                vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
+            end
+
+
             -- Currently unused letters:
-            -- lowercase: a (j and k are used as main motions, s is used for Leap.nvim)
-            -- uppercase: A G P Q T U V X Y Z
+            -- lowercase: <none> (j and k are used as main motions, s is used for Leap.nvim)
+            -- uppercase: G O P Q T U V X Y Z
 
             -- open nodes
             map('<CR>', function(node)
@@ -186,7 +194,8 @@ return {
 
             map('q', api.tree.close, 'Close') -- 'q'
             map('R', api.tree.reload, 'Refresh') -- 'R'
-            map('O', api.node.run.system, 'Run system') -- 's'
+            map('A', api.node.run.system, 'Run system') -- 's'
+            map('a', reveal_in_finder, 'Reveal in Finder') -- custom action, no default
             map('g?', api.tree.toggle_help, 'Help') -- 'g?'
 
 

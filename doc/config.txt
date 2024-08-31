@@ -259,9 +259,9 @@ Trouble                                               *myled*  *mymap_leader_d*
 Toggle Trouble panes ~
 *mymap_leader_dd*  n  \dd   Diagnostics
 *mymap_leader_db*  n  \db   diagnostics for Buffer
-*mymap_leader_di*  n  \di   lsp Info
+*mymap_leader_dl*  n  \dl   lsp Info
 *mymap_leader_ds*  n  \ds   Symbols
-*mymap_leader_dl*  n  \dl   Location list
+*mymap_leader_dw*  n  \dw   Location list
 *mymap_leader_dq*  n  \dq   Quickfix list
 
 Unused ~

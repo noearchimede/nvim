@@ -87,7 +87,11 @@ M.lsp_settings = function(lspconfig, capabilities)
         ["clangd"] = function()
             lspconfig["clangd"].setup({
                 capabilities = capabilities,
-                settings = {}
+                cmd = {
+                    "clangd",
+                    -- use the WebKit format if there is no .clangd-format file in the project root
+                    "--fallback-style=WebKit",
+                }
             })
         end,
 

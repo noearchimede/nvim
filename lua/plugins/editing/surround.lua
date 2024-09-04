@@ -2,13 +2,12 @@ return {
 
     "kylechui/nvim-surround",
 
-    tag = "*",
-
     event = "VeryLazy",
 
     opts = {
 
         -- custom keymappings to avoind using s, as that key is dedicated to leap.nvim
+        -- NOTE: using the opening character of a pair will also insert a space, using the closing one won't
         keymaps = {
 
             normal = "gz",

@@ -29,6 +29,12 @@ return {
                 border_hl = 'Normal' -- highlight of the border
             },
         },
+        integration = {
+            -- the nvim-tree is useful to avoid pacing fidget notifications
+            -- above the tree buffer, but that can't happen as I keep the tree
+            -- on the left and fidged on the right hand side
+            ["nvim-tree"] = { enable = false, },
+        }
     },
 
 }

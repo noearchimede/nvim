@@ -6,8 +6,7 @@ return {
         "nvim-telescope/telescope.nvim"
     },
 
-    -- neoclip needs to run before its keybinding is used, otherwise it can't track the yank history
-    event = "VeryLazy",
+    event = "TextYankPost",
 
     keys = {
         { '<leader>fy', "<cmd>Telescope neoclip<CR>", desc = "Telescope: yank registers" },
@@ -41,26 +40,35 @@ return {
         keys = {
             telescope = {
                 i = {
-                    select = '<c-r>',       -- default: '<cr>',
-                    paste = '<cr>',         -- default: '<c-p>',
+                    select = '<c-r>', -- default: '<cr>',
+                    paste = '<cr>', -- default: '<c-p>',
                     paste_behind = '<c-k>', -- default: '<c-k>',
-                    replay = '<c-q>',       -- default: '<c-q>',  -- replay a macro
-                    delete = '<bs>',        -- default: '<c-d>',  -- delete an entry
-                    edit = '<c-e>',         -- default: '<c-e>',  -- edit an entry
+                    replay = '<c-q>', -- default: '<c-q>',  -- replay a macro
+                    delete = '<c-d>', -- default: '<c-d>',  -- delete an entry
+                    edit = '<c-e>', -- default: '<c-e>',  -- edit an entry
                     custom = {},
                 },
                 n = {
                     select = '<cr>', -- default: '<cr>',
-                    paste = 'p',     -- default: 'p',
+                    paste = 'p', -- default: 'p',
                     --- It is possible to map to more than one key.
                     -- paste = { 'p', '<c-p>' },
                     paste_behind = 'P', -- default: 'P',
-                    replay = 'q',       -- default: 'q',
-                    delete = '<bs>',    -- default: 'd',
-                    edit = 'e',         -- default: 'e',
+                    replay = 'q', -- default: 'q',
+                    delete = 'd', -- default: 'd',
+                    edit = 'e', -- default: 'e',
                     custom = {},
                 },
             },
         },
-    }
+    },
+
+    config = function(_, opts)
+
+        require('neoclip').setup(opts)
+
+        -- load telescope extension
+        require('telescope').load_extension('neoclip')
+
+    end
 }

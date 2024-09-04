@@ -1,0 +1,18 @@
+*repl.txt* Help page about using REPLS in neovim
+
+This file contains a collection of hints about using the interactive REPLs
+available trhough iron.nvim.
+
+
+-----------------------------------------------------------------------------
+C++: cling                                                         *repl_cling*
+-----------------------------------------------------------------------------
+
+Documentation: https://root.cern/manual/cling/
+
+Add an include path: `.I <path>`
+
+
+_____________________________________________________________________________
+
+vim:noro:tw=78:ts=4:ft=help:ma:nowrap

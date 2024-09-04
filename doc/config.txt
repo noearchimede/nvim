@@ -35,31 +35,32 @@ Insert mode mappings ~
                                                          *myle*  *mymap_leader*
 Leader mappings ~
 |mymap_leader_leader| ... LSP
-|mymap_leader_a|
+|mymap_leader_a| ........ Code outline
 |mymap_leader_b| ........ Buffer navigation
-|mymap_leader_c| ........ Compilers and tasks
+-> |mymap_leader_#| ..... Quick buffer navigation
+|mymap_leader_c| ........ Compilers and visualizers
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
 |mymap_leader_f| ........ Telescope
-|mymap_leader_g| ........ Git (GitGutter and Vim Fugitive)
+|mymap_leader_g| ........ Git
 |mymap_leader_h|
-|mymap_leader_i| ........ Alignement and Indentation
+|mymap_leader_i| ........ Alignement and indentation
 |mymap_leader_j|
 |mymap_leader_k|
-|mymap_leader_l| ........ Compilation/execution/visualization of file
+|mymap_leader_l| ........ Location list 
 |mymap_leader_m| ........ Motions
 |mymap_leader_n| ........ Notifications
 |mymap_leader_o|
 |mymap_leader_p|
-|mymap_leader_q| ........ Terminal
-|mymap_leader_r|
+|mymap_leader_q| ........ Quickfix lists and terminal
+|mymap_leader_r| ........ REPL
 |mymap_leader_s| ........ Search
 |mymap_leader_t| ........ File tree, sidebars, tabs
 |mymap_leader_u|
-|mymap_leader_v| ........ Interface (view)
+|mymap_leader_v| ........ Interface ("View")
 |mymap_leader_w| ........ Workspace and sessions
 |mymap_leader_x| ........ Quick Settings
-|mymap_leader_y|
+|mymap_leader_y| ........ Plugin toggles
 |mymap_leader_z|
                                                                *myg*  *mymap_g*
 G mappings ~
@@ -67,13 +68,18 @@ G mappings ~
 |mymap_gc| .............. Comments
 |mymap_gl|
 |mymap_gy|
-|mymap_gz| .............. Brackets and quotes (surround)
+|mymap_gz| .............. Brackets and quotes
                                                            *myo*  *mymap_other*
 Other global mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
-|mymap_ctrl| ............ CTRL keybindings
+|mymap_m| ............... Extensions to the built-in marks system
+|mymap_ctrl| ............ CTRL mappings
+|mymap_bracket| ......... [] mappings
 |mymap_misc| ............ Miscellaneous
-
+                                                         *mysp* *mymap_special*
+Mappings for special buffers ~
+|mymap_quickfix| ........ Mappings in quickfix and location lists
+|mymap_terminal| ........ Mappings in terminal buffers
                                                         *myft* *mymap_filetype*
 Filetype mappings ~
 |mymap_ft_markdown| ..... Mappings for markdown
@@ -128,8 +134,8 @@ Surrounds: quotes, parentheses, etc.                 *myis*  *mymap_i_surround*
 -----------------------------------------------------------------------------
 
 Surround ~
-*mymap_i_CTRL-G_z* i  <C-G>z{ch}  insert pair of {ch} (surround)
-*mymap_i_CTRL-G_Z* i  <C-G>Z{ch}  insert multiline pair of {ch} (surround)
+*mymap_i_CTRL-G_z* i  <C-G>z{ch}  insert pair of {ch} [surround]
+*mymap_i_CTRL-G_Z* i  <C-G>Z{ch}  insert multiline pair of {ch} [surround]
 
 Autopair ~
 *mymap_i_CTRL-K*   i  <C-K>       fastpair: move further
@@ -165,18 +171,30 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 *mymap_leader_leader_j*  n  \\j  show signature help
 
 *mymap_leader_leader_d*  n  \\d  go to Definition
+*mymap_leader_leader_D*  n  \\D  go to Definition in selected window
+
 *mymap_leader_leader_l*  n  \\l  go to decLaration
+*mymap_leader_leader_L*  n  \\L  go to decLaration in selected window
+
 *mymap_leader_leader_i*  n  \\i  go to Implementation
+*mymap_leader_leader_I*  n  \\I  go to Implementation in selected window
+
 *mymap_leader_leader_t*  n  \\t  go to Type definition
-*mymap_leader_leader_r*  n  \\r  go to References
+*mymap_leader_leader_T*  n  \\T  go to Type definition in selected window
+
+*mymap_leader_leader_r*  n  \\r  list References in quicfix list
 
 *mymap_leader_leader_a*  n  \\a  code Actions
 *mymap_leader_leader_c*  n  \\c  Change name
 *mymap_leader_leader_f*  n  \\f  Format
 
-*mymap_leader_leader_q*  n  \\q  restart LSP
-*mymap_leader_leader_w*  n  \\w  get Workspace diagnostics (worksp.-dia.-nvim)
+*mymap_leader_leader_w*  n  \\w  get Workspace diagnostics [workspace-diagnostics]
 
+*mymap_leader_leader_qr* n  \\qr Restart LSP
+*mymap_leader_leader_qq* n  \\qq stop (Quit) LSP
+*mymap_leader_leader_qs* n  \\qs Start LSP
+
+Unused ~
 *mymap_leader_leader_b*
 *mymap_leader_leader_e*
 *mymap_leader_leader_g*
@@ -191,8 +209,18 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 
 
 -----------------------------------------------------------------------------
-                                                      *mylea*  *mymap_leader_a*
+Code outline                                          *mylea*  *mymap_leader_a*
 -----------------------------------------------------------------------------
+
+Aerial ~
+*mymap_leader_aa*  n  \aa   open Aerial (without focusing)
+*mymap_leader_af*  n  \af   open aerial and Focus
+*mymap_leader_aA*  n  \aA   close Aerial
+
+*mymap_leader_ag*  n  \ag   open navigator ("Go to")
+
+*mymap_leader_an*  n  \an   jump to Next symbol (alias: |mymap_]a|)
+*mymap_leader_ap*  n  \ap   jump to Previous symbol (alias: |mymap_[a|)
 
 
 
@@ -201,13 +229,28 @@ Buffers                                               *myleb*  *mymap_leader_b*
 -----------------------------------------------------------------------------
 
 Change buffer ~
-*mymap_leader_bo*  n  \bo   Move backwards in the buffer history for the current window
-*mymap_leader_bi*  n  \bi   Move forwards in the buffer history for the current window
+*mymap_leader_bo*  n  \bo   Move backwards in the window buffer history [bufsurf]
+*mymap_leader_bi*  n  \bi   Move forwards in the window buffer history [bufsurf]
 
 Delete buffers ~
-*mymap_leader_bu*  n  \bu   delete all "Untouched" buffers (hbac)
-*mymap_leader_bd*  n  \bd   Same as |bd| but without closing window
-*mymap_leader_bw*  n  \bw   Same as |bw| but without closing window
+*mymap_leader_bu*  n  \bu   delete all "Untouched" buffers [hbac]
+*mymap_leader_bd*  n  \bd   Same as |bd| but without closing window [bufdelete]
+*mymap_leader_bw*  n  \bw   Same as |bw| but without closing window [bufdelete]
+
+Grapple ~
+*mymap_leader_ba*  n  \ba   Add tag to current buffer
+*mymap_leader_br*  n  \br   Remove tag from current buffer
+*mymap_leader_bg*  n  \bg   show Grapple window
+*mymap_leader_be*  n  \be   Erase tag list for current scope
+*mymap_leader_bn*  n  \bn   go to Next tagged buffer
+*mymap_leader_bp*  n  \bp   go to Previous tagged buffer
+
+The |mymap_leader_#| (leader + number) mappings are also mapped to Grapple
+actions:
+                                                      *myle#*  *mymap_leader_#*
+*mymap_leader_0*  n  \0    Jump to the next tagged buffer
+*mymap_leader_{nr}* n \{nr} Jump to the tagged buffer number {nr} (1 to 9)
+
 
 
 -----------------------------------------------------------------------------
@@ -215,54 +258,24 @@ Delete buffers ~
 -----------------------------------------------------------------------------
 
 Overseer ~
-*mymap_leader_ct*  n  \ct   run overseer Task
-*mymap_leader_co*  n  \co   toggle overseer Overview
-
-Iron ~
-*mymap_leader_cs*  n  \ci   start repl
-*mymap_leader_cr*  n  \cr   restart repl
-*mymap_leader_cq*  n  \cq   exit repl
-*mymap_leader_cj*  n  \cj   Jump to iron window
-*mymap_leader_ch*  n  \ch   hide iron window
-
-*mymap_leader_c_*  n  \c{motion} run {motion}
-*mymap_leader_cc*  n  \cc   run current line
-                 v  \cc   run visual selection
-*mymap_leader_ca*  n  \ca   run all lines Above cursor
-*mymap_leader_cf*  n  \cf   run file
-*mymap_leader_c_cr* n \c<cr> send <CR>
-*mymap_leader_cx*  n  \cx   send stop signal
-*mymap_leader_ci*  n  \ci   send arbitrary command
-
-
-Unused ~
-*mymap_leader_cb*  
-*mymap_leader_cd*
-*mymap_leader_ce*
-*mymap_leader_cg*
-*mymap_leader_ck*
-*mymap_leader_cl*
-*mymap_leader_cm*
-*mymap_leader_cn*
-*mymap_leader_cp*
-*mymap_leader_cu*
-*mymap_leader_cv*
-*mymap_leader_cw*
-*mymap_leader_cy*
-*mymap_leader_cz*
+*mymap_leader_cc*  n  \ct   run overseer task
+*mymap_leader_co*  n  \co   open overseer Overview
+*mymap_leader_cO*  n  \cO   close overseer Overview
 
 
 -----------------------------------------------------------------------------
 Trouble                                               *myled*  *mymap_leader_d*
 -----------------------------------------------------------------------------
 
-Toggle Trouble panes ~
-*mymap_leader_dd*  n  \dd   Diagnostics
-*mymap_leader_db*  n  \db   diagnostics for Buffer
-*mymap_leader_dl*  n  \dl   lsp Info
-*mymap_leader_ds*  n  \ds   Symbols
-*mymap_leader_dw*  n  \dw   Location list
-*mymap_leader_dq*  n  \dq   Quickfix list
+*mymap_leader_dd*  n  \dd   focus trouble (if closed does nothing)
+*mymap_leader_dD*  n  \dD   close trouble
+
+*mymap_leader_db*  n  \db   show diagnostics for Buffer
+*mymap_leader_dw*  n  \dw   show diagnostics for Workspace
+*mymap_leader_dr*  n  \dr   force Refresh
+
+*mymap_leader_dn*  n  \dn   jump to Next item
+*mymap_leader_dp*  n  \dp   jump to Previous item
 
 Unused ~
 *mymap_leader_da*  n  \da   
@@ -271,17 +284,17 @@ Unused ~
 *mymap_leader_df*  n  \df   
 *mymap_leader_dg*  n  \dg   
 *mymap_leader_dh*  n  \dh   
+*mymap_leader_di*  n  \di   
 *mymap_leader_dj*  n  \dj   
 *mymap_leader_dk*  n  \dk   
+*mymap_leader_dl*  n  \dl
 *mymap_leader_dm*  n  \dm   
-*mymap_leader_dn*  n  \dn   
 *mymap_leader_do*  n  \do   
-*mymap_leader_dp*  n  \dp   
-*mymap_leader_dr*  n  \dr   
+*mymap_leader_dq*  n  \dq   
+*mymap_leader_ds*  n  \ds
 *mymap_leader_dt*  n  \dt   
 *mymap_leader_du*  n  \du   
 *mymap_leader_dv*  n  \dv   
-*mymap_leader_dw*  n  \dw   
 *mymap_leader_dx*  n  \dx   
 *mymap_leader_dy*  n  \dy   
 *mymap_leader_dz*  n  \dz   
@@ -308,23 +321,23 @@ Search ~
 *mymap_leader_fw*  n  \fw   live grep on Word under cursor
 
 Clibboard and jump anchors ~
-*mymap_leader_fy*  n  \fy   Yank history (neoclip)
+*mymap_leader_fy*  n  \fy   Yank history [neoclip]
 *mymap_leader_fm*  n  \fm   navigate file Marks
 
 LSP objects ~
 *mymap_leader_fi*  n  \fi   lsp: Implementations
 *mymap_leader_fr*  n  \fr   lsp: References
 *mymap_leader_fd*  n  \fd   lsp: Definitions
-*mymap_leader_fe*  n  \fe   lsp: diagnostics (Errors)
+*mymap_leader_fe*  n  \fe   lsp: diagnostics ("Errors")
 *mymap_leader_fl*  n  \fl   lsp: diagnostics for Local file
 
 Documentation  ~
 *mymap_leader_fh*  n  \fh   Help tags
+*mymap_leader_fk*  n  \fk   Keymaps
 
 Unused ~
 *mymap_leader_fc*
 *mymap_leader_fj*
-*mymap_leader_fk*
 *mymap_leader_fn*
 *mymap_leader_fp*
 *mymap_leader_fq*
@@ -342,20 +355,19 @@ Git                                                   *myleg*  *mymap_leader_g*
 Git status (neogit) ~
 *mymap_leader_gg*  n  \gg   open Git status viewer
 *mymap_leader_gc*  n  \gc   Commit staged changes
-*mymap_leader_gh*  n  \gh   show commit log (History)
+*mymap_leader_gl*  n  \gl   show Log
 
 Hunk navigation (gitsigns) ~
-*mymap_leader_gn*  n  \gn   move to Previous hunk; equivalent to |mymap_c|
-*mymap_leader_gp*  n  \gp   move to Next hunk; equivalent to |mymap_[c|
+*mymap_leader_gn*  n  \gn   move to Previous hunk (alias: |mymap_]c|)
+*mymap_leader_gp*  n  \gp   move to Next hunk (alias: |mymap_[c|)
 
-Hunk operations... (gitsigns) ~
+Hunk operations (gitsigns) ~
 *mymap_leader_gs*  n  \gs   toggle Stage hunk under cursor
                  v  \gs   toggle Stage (partial) hunk(s) in visual selection
 *mymap_leader_gr*  n  \gr   Reset hunk under cursor
                  v  \gr   Reset (partial) hunk(s) in visual selection
 *mymap_leader_gv*  n  \gv   preView hunk under cursor
-*mymap_leader_gz*  n  \gz   undo last stage hunk (like cmd-Z)
-... on buffers ~
+*mymap_leader_gu*  n  \gu   Undo last stage hunk
 *mymap_leader_gS*  n  \gS   Stage all hunks in file
 *mymap_leader_gR*  n  \gR   Reset all hunks in file
 
@@ -364,11 +376,11 @@ Inline indicators (gitsigns) ~
 *mymap_leader_gx*  n  \gx   toggle inline view of deleted (X) lines
 
 Diff (diffview) ~
-*mymap_leader_gdd*  n  \gdd  open Diffview
-*mymap_leader_gdc*  n  \gdc  type arbitrary Diffview Command
+*mymap_leader_gd*  n  \gd   open Diffview
+*mymap_leader_gh*  n  \gh   open file History
 
 Unused ~
-*mymap_leader_gd*
+*mymap_leader_ga*
 *mymap_leader_ge*
 *mymap_leader_gf*
 *mymap_leader_gi*
@@ -380,6 +392,7 @@ Unused ~
 *mymap_leader_gt*
 *mymap_leader_gw*
 *mymap_leader_gy*
+*mymap_leader_gz*
 
 
 -----------------------------------------------------------------------------
@@ -392,7 +405,7 @@ Alignment and Indentation                             *mylei*  *mymap_leader_i*
 -----------------------------------------------------------------------------
 
 Join/split objects ~
-*mymap_leader_ij*  n  \ij   Join or split arrays, functions, ... (treesj)
+*mymap_leader_ij*  n  \ij   Join or split arrays, functions, ... [treesj]
 
 
 -----------------------------------------------------------------------------
@@ -406,11 +419,18 @@ Join/split objects ~
 
 
 -----------------------------------------------------------------------------
-Compile/Execute/View file (filetype-specific)         *mylel*  *mymap_leader_l*
+Location list                                         *mylel*  *mymap_leader_l*
 -----------------------------------------------------------------------------
 
-Markdown ~
-*mymap_leader_lr*  n  \lr   Toggle inline renderer (render-markdown)
+Note: analoguous mappings for the quickfix list listed in |mymap_leader_q|
+*mymap_leader_ll*  n  \ll   open Location list
+*mymap_leader_lL*  n  \lL   close Location list
+*mymap_leader_ln*  n  \ln   move to next location item (alias: |mymap_]q|)
+*mymap_leader_lp*  n  \lp   move to previous location item (alias: |mymap_[q|)
+*mymap_leader_lf*  n  \lf   move to first location item
+*mymap_leader_le*  n  \le   move to last location item
+*mymap_leader_lN*  n  \lN   move to first location item in the next file
+*mymap_leader_lP*  n  \lP   move to last location item in the previous file
 
 
 -----------------------------------------------------------------------------
@@ -441,9 +461,21 @@ Notifications (fidget) ~
 
 
 -----------------------------------------------------------------------------
-Terminal                                              *myleq*  *mymap_leader_q*
+Quickfix list and terminal                            *myleq*  *mymap_leader_q*
 -----------------------------------------------------------------------------
 
+Quickfix list ~
+Note: analoguous mappings for the location list listed in |mymap_leader_l|
+*mymap_leader_qq*  n  \qq   open Quickfix list
+*mymap_leader_qQ*  n  \qQ   close Quickfix list
+*mymap_leader_qn*  n  \qn   move to next quickfix item (alias: |mymap_]q|)
+*mymap_leader_qp*  n  \qp   move to previous quickfix item (alias: |mymap_[q|)
+*mymap_leader_qf*  n  \qf   move to first quickfix item
+*mymap_leader_qe*  n  \qe   move to last quickfix item
+*mymap_leader_qN*  n  \qN   move to first quickfix item in the next file
+*mymap_leader_qP*  n  \qP   move to last quickfix item in the previous file
+
+Terminal ~
 *mymap_leader_qo*  n  \qo   Open a new terminal in the current window
 *mymap_leader_qh*  n  \qh   open a new terminal in a Horizontal split
 *mymap_leader_qv*  n  \qv   open a new terminal in a Vertical split
@@ -453,6 +485,24 @@ Terminal                                              *myleq*  *mymap_leader_q*
                                                       *myler*  *mymap_leader_r*
 -----------------------------------------------------------------------------
 
+Iron: set-up ~
+*mymap_leader_rs*  n  \rr   Start repl
+*mymap_leader_rn*  n  \rn   restart repl ("New")
+*mymap_leader_rc*  n  \rc   Close repl
+*mymap_leader_rj*  n  \rj   Jump to repl window
+*mymap_leader_rh*  n  \rh   hide repl window
+
+Iron: run ~
+*mymap_leader_r_*  n  \r{motion} run {motion}
+*mymap_leader_rr*  n  \rr   run current line
+                 v  \rr   run visual selection
+*mymap_leader_ra*  n  \ra   run all lines Above cursor
+*mymap_leader_rf*  n  \rf   run file
+*mymap_leader_r_cr* n \r<cr> send <CR>
+*mymap_leader_rx*  n  \rx   send stop signal
+*mymap_leader_ri*  n  \ri   send arbitrary command
+
+For help on the specific languages, see the |repl| help page.
 
 
 -----------------------------------------------------------------------------
@@ -486,19 +536,22 @@ Directory ~
 *mymap_leader_td*  n  \td   change the Tab Directory to current file parent
 *mymap_leader_to*  n  \to   move the Tab directory Out by one level
 
-File tree ~
-*mymap_leader_tt*  n  \tt   open file Tree (nvim-tree)
-*mymap_leader_tc*  n  \tc   Close file tree (nvim-tree)
-*mymap_leader_tf*  n  \tf   Find current file in tree (nvim-tree)
-*mymap_leader_tF*  n  \tF   Find current file in tree and update root (nvim-tree)
+Nvim-tree ~
+*mymap_leader_tt*  n  \tt   open file Tree
+*mymap_leader_tT*  n  \tT   close file Tree
+*mymap_leader_tf*  n  \tf   show (Find) current file in tree, but only in CWD
+*mymap_leader_tF*  n  \tF   show (Find) current file in tree, even outside CWD
+*mymap_leader_tj*  n  \tj   Jump to current file in tree, but only in CWD
+*mymap_leader_tJ*  n  \tJ   Jump to current file in tree, even outside CWD
 
-Undo history ~
-*mymap_leader_tu*  n  \tu   toggle Undo history (undotree)
+Undotree ~
+*mymap_leader_tu*  n  \tu   open Undo history
+*mymap_leader_tU*  n  \tU   close Undo history
 
-Tabs ~
-*mymap_leader_tn*  n  \tn   set Tab Name (tabby)
-*mymap_leader_tmn* n  \tmn  Move Tab to Next position (tabby)
-*mymap_leader_tmp* n  \tmp  Move Tab to Previous position (tabby)
+Tabby ~
+*mymap_leader_tr*  n  \tr   Rename tab
+*mymap_leader_tn*  n  \tn   
+*mymap_leader_tp*  n  \tp   move Tab to Previous position
 
 
 
@@ -517,12 +570,12 @@ Workspace and sessions                                *mylew*  *mymap_leader_w*
 -----------------------------------------------------------------------------
 
 Possession ~
-*mymap_leader_wl*  n  \wl   show List of sessions
-*mymap_leader_ww*  n  \ww   load latest session for current Working directory
-*mymap_leader_wt*  n  \wr   load most Recent session
-*mymap_leader_ws*  n  \ws   Save current session
+*mymap_leader_ws*  n  \ws   show list of Sessions
+*mymap_leader_wl*  n  \wl   load Latest session
+*mymap_leader_wd*  n  \wd   load latest session for current Directory
+*mymap_leader_wm*  n  \wm   save session ("Mksession") 
 *mymap_leader_wu*  n  \wu   Update current session (i.e. overwite)
-*mymap_leader_wi*  n  \wi   get name (Info) of current session
+*mymap_leader_wi*  n  \wi   get name ("Info") of current session
 
 Workspaces ~
 *mymap_leader_wp*  n  \wp   Pick workspace
@@ -540,15 +593,10 @@ Settings ~
 *mymap_leader_xm*  n  \xm   toggle mouse mode between "all" and disabled
 *mymap_leader_xs*  n  \xs   toggle 'spell'
 *mymap_leader_xw*  n  \xw   toggle 'wrap'
+*mymap_leader_xe*  n  \xe   toggle visibility of signcolumn ("Gutter")
 
 Theme ~
 *mymap_leader_xt*  n  \xt   change Theme
-*mymap_leader_xx*  n  \xx   toggle Zen mode (zen-mode)
-
-Plugin toggles ~
-*mymap_leader_xc*  n  \xc   toggle Completion (nvim-cmp)
-*mymap_leader_xe*  n  \xe   toggle visibility of signcolumn (Gutter)
-*mymap_leader_xp*  n  \xp   toggle Autopair (ultimate-autopair)
 
 Debugging ~
 *mymap_leader_xys*  n  \xys  Start performance Profiniling
@@ -556,6 +604,7 @@ Debugging ~
 
 Unused ~
 *mymap_leader_xb*
+*mymap_leader_xc*
 *mymap_leader_xd*
 *mymap_leader_xf*
 *mymap_leader_xh*
@@ -564,16 +613,54 @@ Unused ~
 *mymap_leader_xk*
 *mymap_leader_xn*
 *mymap_leader_xo*
+*mymap_leader_xp*
 *mymap_leader_xq*
 *mymap_leader_xr*
 *mymap_leader_xu*
 *mymap_leader_xv*
+*mymap_leader_xx*
 *mymap_leader_xz*
 
 
 -----------------------------------------------------------------------------
-                                                      *myley*  *mymap_leader_y*
+Plugin toggles                                        *myley*  *mymap_leader_y*
 -----------------------------------------------------------------------------
+
+Zen-mode ~
+*mymap_leader_yz*  n  \yx   toggle Zen mode
+
+Cmp ~
+*mymap_leader_yc*  n  \yc   toggle Completion
+
+Autoclose ~
+*mymap_leader_yp*  n  \yp   toggle Autopair
+
+Indent-blankline ~
+*mymap_leader_yi*  n  \yi   toggle Indent guides
+*mymap_leader_ys*  n  \ys   toggle Scope guides
+
+
+Unused ~
+*mymap_leader_ya*
+*mymap_leader_yb*
+*mymap_leader_yd*
+*mymap_leader_ye*
+*mymap_leader_yf*
+*mymap_leader_yg*
+*mymap_leader_yh*
+*mymap_leader_yj*
+*mymap_leader_yk*
+*mymap_leader_yl*
+*mymap_leader_ym*
+*mymap_leader_yn*
+*mymap_leader_yo*
+*mymap_leader_yq*
+*mymap_leader_yr*
+*mymap_leader_yt*
+*mymap_leader_yu*
+*mymap_leader_yv*
+*mymap_leader_yw*
+*mymap_leader_yy*
 
 
 -----------------------------------------------------------------------------
@@ -618,7 +705,7 @@ Brackets and quotes                                          *mygz*  *mymap-gz*
 
 Implemented by the 'nvim-surround' plugin.
 
-*mymap_gz_*  n  gz{motion}{char}   insert pair of {char}
+*mymap_gz_*  n  gz{motion}{char}   insert pair of {char} (see note below)
            v  gz{char}           in sert pair of {char} around selection
 *mymap_gZ_*  n  gZ{motion}{char}   insert multiline pair of {char} 
            v  gZ{char}           in sert multiline pair of {char} around selection
@@ -632,6 +719,8 @@ Implemented by the 'nvim-surround' plugin.
 *mymap_gzc*  n  gzr{char1}{char2}  Change a pair of {char1} to {char2}
 *mymap_gZc*  n  gZr{char1}{char2}  same as above, but multiline
 
+NOTE: when inserting a pair, using the opening character will also insert a
+space, while using the closing one will only insert the pair.
 
 The following aliases are available for {char}:
     a: Angle brackets      `>`
@@ -661,6 +750,32 @@ Copy-paste ~
 
 Marks ~
 *mymap_'*         n   '          remapped to |`|
+*mymap_'{nr}*     n   '{nr}      jump to bookmark [marks] (alias: |mymap_]{nr}|)
+
+
+-----------------------------------------------------------------------------
+Marks                                                          *mym*  *mymap_m*
+-----------------------------------------------------------------------------
+
+Alphabetical marks ~
+*mymap_m{char}*   n  m{char}  set the mark {char} (emulates |m|)
+*mymap_m,*        n  m,       set the next free alphabetical mark
+*mymap_dm{char}*  n  dm{char} remove the mark {char}
+*mymap_dm-*       n  dm-      remove marks on current line
+*mymap_dm_*       n  dm_      remove marks in current buffer
+*mymap_m}*        n  m}       go to the next mark in buffer
+*mymap_m{*        n  m{       go to the previous mark in buffer
+*mymap_m:*        n  m:       preview mark (prompts for {char})
+
+Bookmarks ~
+*mymap_m{nr}*     n  m{nr}    set a bookmark of type {nr}
+*mymap_m=*        n  m=       delete bookmark on current line
+*mymap_dm{nr}*    n  m{nr}    delete all bookmarks of type {nr}
+*mymap_m]]*       n  m]]      go to next bookmark in the same group
+*mymap_m[[*       n  m[[      go to previous bookmark in the same group
+*mymap_m]{nr}*    n  m]{nr}   go to next bookmark of type {nr} (alias: |mymap_'{nr}|')
+*mymap_m[{nr}*    n  m[{nr}   go to previous bookmark of type {nr}
+*mymap_m\*        n  m\       annotate current bookmark
 
 
 -----------------------------------------------------------------------------
@@ -673,34 +788,113 @@ Window navigation  ~
 *mymap_CTRL-K*    n   <C-K>      remap to |CTRL-W_k|
 *mymap_CTRL-L*    n   <C-L>      remap to |CTRL-W_l|
 
+Window motions ~
+*mymap_CTRL-W_m*  n   <C-W>m     Move window (interactively) [winshift]
+                    <C-W><C-M>
+*mymap_CTRL-W_x*  n   <C-W>x     Swap window (interactively) [winshift]
+                    <C-W><C-X>
+
 LSP ~
-*mymap_CTRL-S*    n   <C-S>      show Signature help (same as |mymap_i_CTRL-S|)
+*mymap_CTRL-S*    n   <C-S>      show Signature help (alias: |mymap_i_CTRL-S|)
 
 
 -----------------------------------------------------------------------------
-Miscellaneous                                              *myom*  *mymap_misc*
+Bracket mappings                                         *my[*  *mymap_bracket*
 -----------------------------------------------------------------------------
-
-Terminal ~
-*mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 Git ~
-*mymap_]c*        n   ]c    move to next hunk (Change)
-                          (same as |mymap_leader_gn|)
-*mymap_[c*        n   [c    move to previous hunk (Change)
-                          (same as |mymap_leader_gp|)
-
-The c and [c mappings are analoguous to the default mappings in diff mode.
+*mymap_]c*        n   ]c    move to next hunk ("Change") (alias: |mymap_leader_gn|)
+*mymap_[c*        n   [c    move to previous hunk (alias: |mymap_leader_gp|)
+Note: these mappings are analoguous to the equivalent mappings in diff mode.
 
 Diagnostics ~
-*mymap_]d*        n   ]d   move to next Diagnostic message
-                         (same as |mymap_leader_leader_n|)
-*mymap_[d*        n   [d   move to previous Diagnostic message
-                         (same as |mymap_leader_leader_p|)
+*mymap_]d*        n   ]d   move to next Diagnostic message (alias: |mymap_leader_leader_n|)
+*mymap_[d*        n   [d   move to previous Diagnostic message (alias: |mymap_leader_leader_p|)
 *mymap_]e*        n   ]e   move to next diagnostic Error
 *mymap_[e*        n   [e   move to previous diagnostic Error
 *mymap_]w*        n   ]w   move to next diagnostic Warning or error
 *mymap_[w*        n   [w   move to previous diagnostic Warning or error
+
+Symbols ~
+*mymap_]a*        n   ]a    move to next Aerial symbol (alias: |mymap_leader_an|)
+*mymap_[a*        n   [a    move to previous Aerial symbol (alias: |mymap_leader_ap|)
+
+Quickfix/location list ~
+*mymap_]q*        n   ]q    move to next quickfix item (alias: |mymap_leader_qn|)
+*mymap_[q*        n   [q    move to previous quickfix item (alias: |mymap_leader_qp|)
+*mymap_]l*        n   ]l    move to next location item (alias: |mymap_leader_qn|)
+*mymap_[l*        n   [l    move to previous location item (alias: |mymap_leader_qp|)
+
+-----------------------------------------------------------------------------
+Miscellaneous                                              *mymi*  *mymap_misc*
+-----------------------------------------------------------------------------
+
+Buffer navigation ~
+*mymap_bs*        n   <bs> jump to alternate buffer (alias: |CTRL-^|)
+
+
+
+=============================================================================
+SPECIAL BUFFERS                                                 |mymap_special|
+-----------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+Quickfix and location lists                            *myqf*  *mymap_quickfix*
+-----------------------------------------------------------------------------
+
+Window ~
+*mymap_qf_q*      n   q     Quit quickfix window
+
+Open items ~
+*mymap_qf_<cr>*   n   <cr>  Open item under cursor
+*mymap_qf_o*      n   o     Open item under cursor without losing focus
+
+Motions with auto-open ~
+*mymap_qf_P*      n   P     toggle auto-open mode for mappings below
+*mymap_qf_j*      n   j     go to next item (optional auto-open)
+*mymap_qf_k*      n   k     go to previous item (optional auto-open)
+*mymap_qf_gg*     n   gg    go to first item (optional auto-open)
+*mymap_qf_G*      n   G     go to last item (optional auto-open)
+
+Other motions [bqf] ~
+*mymap_qf_J*      n   J     go to first item in next file
+*mymap_qf_K*      n   K     go to last item in previous file
+*mymap_qf_locle_l* n  ,l    go to the last selected item
+
+Lists history ~
+*mymap_qf_ctrl_n* n   <c-n> switch to the next quickfix list (|cnewer|)
+*mymap_qf_ctrl_p* n   <c-p> switch to the previous quickfix list (|colder|)
+
+Signs [bqf] ~
+*mymap_qf_tab*    n   <tab> toggle the sign of the current item
+                  v   <tab> toggle the sign of the selected items
+*mymap_qf_S-tab*  n   <s-tab> toggle the sign of all items in the current file
+*mymap_qf_locle_c* n  ,c    Clear all signs
+*mymap_qf_locle_f* n  ,f    Filter all items with sign
+*mymap_qf_locle_F* n  ,F    Filter all items without sign
+
+Preview [bqf] ~
+*mymap_qf_p*       n   p    toggle preview
+*mymap_qf_locle_p* n  ,p    toggle preview for a single item
+*mymap_qf_locle_z* n  ,h    toggle zoom level of the preview
+*mymap_qf_ctrl-f*  n   <c-f> scroll up in the preview
+*mymap_qf_ctrl-b*  n   <c-b> scroll down in the preview
+*mymap_qf_locle_r* n  ,r    reset position of the preview
+
+Inline preview [quicker] ~
+*mymap_qf_zr*      n   zr   expand inline context aroune all items ("Reduce fold")
+*mymap_qf_zm*      n   zm   collapse inline context aroune all items ("More fold")
+
+Sync [quicker] ~
+*mymap_qf_ctrl-r*  n   <c-r> Refresh current quickfix
+
+
+-----------------------------------------------------------------------------
+Terminal                                              *myter*  *mymap_terminal*
+-----------------------------------------------------------------------------
+
+*mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 
 =============================================================================
@@ -713,7 +907,7 @@ Markdown files                                    *myftmd*  *mymap_ft_markdown*
 -----------------------------------------------------------------------------
 
 Rendering ~
-*mymap_ftmd_locle_r*  n  ,r   toggle Render (render-markdown)
+*mymap_ftmd_locle_r*  n  ,r   toggle Render [render-markdown]
 
                                                   *myftob*  *mymap_ft_obsidian*
 Obsidian ~
@@ -723,6 +917,7 @@ configuration file for the obsidian.nvim plugin.
 
 *mymap_ftob_locle_o*  n  ,o   Open note picker
 *mymap_ftob_locle_s*  n  ,s   Search
+*mymap_ftob_locle_f*  n  ,f   Follow closest link to cursor
 
 *mymap_ftob_locle_n*  n  ,n   New note
 *mymap_ftob_locle_t*  n  ,t   insert Template
@@ -834,4 +1029,5 @@ Debugging ~
 
 
 _____________________________________________________________________________
+
 vim:noro:tw=78:ts=4:ft=help:ma:nowrap

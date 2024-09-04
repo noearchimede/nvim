@@ -2,6 +2,8 @@ return {
 
     "stevearc/dressing.nvim",
 
+    lazy = true,
+
     opts = {
         input = {
             -- default is 'cursor' to have the input field next to the cursor,

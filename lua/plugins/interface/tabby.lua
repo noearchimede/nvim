@@ -2,18 +2,32 @@ return {
 
     'nanozuki/tabby.nvim',
 
-    event = 'VeryLazy',
+    lazy = false,
 
     keys = {
-        { "<leader>tn", function() vim.cmd("Tabby rename_tab " .. vim.fn.input("Rename tab: ")) end, desc = "Tabby: rename tab" },
-        { "<leader>tmp", "<cmd>-tabmove<cr>", desc = "Tabby: move tab right" },
-        { "<leader>tmn", "<cmd>+tabmove<cr>", desc = "Tabby: move tab left" },
+        { "<leader>tr", function() vim.cmd("Tabby rename_tab " .. vim.fn.input("Rename tab: ")) end, desc = "Tabby: rename tab" },
+        { "<leader>tp", "<cmd>-tabmove<cr>", desc = "Tabby: move tab to next position" },
+        { "<leader>tn", "<cmd>+tabmove<cr>", desc = "Tabby: move tab to previous position" },
     },
 
     dependencies = 'nvim-tree/nvim-web-devicons',
 
     opts = {
+
+        option = {
+            -- default tab name (used unless tab renamed by user via mapping)
+            tab_name = {
+                name_fallback = function(tabid)
+                    -- The 'display_tabs' function defined below relies on this
+                    -- setting returning the tab number to detect if a tab has
+                    -- been renamed.
+                    return vim.api.nvim_tabpage_get_number(tabid)
+                end
+            },
+        },
+
         line = function(line)
+
             -- colors
             local theme = {
                 -- use lualine highlightings for consistency
@@ -66,25 +80,22 @@ return {
                 return win_name
             end
 
-            -- custom tab renamer function
-            -- local function tab_rename(tab_name)
-            --     -- default name is "<focused buffer>[X+]", where X is the number of windows in the tab and the [] is only present if X > 1
-            --     local tab_name_no_win_count = string.gsub(tab_name,"%[(..)%]","")
-            --     return win_rename(tab_name_no_win_count)
-            -- end
-
             -- tabs renderer: only display tabs if there are more than one
             local function display_tabs()
-                if #line.api.get_tabs() == 1 then
+                if #line.api.get_tabs() == 1
+                    -- this condition checks if the tab has been renamed (we alread checked that there is only one)
+                    and line.tabs().foreach(function(tab)
+                        if tab.number() == tab.name() then return 'default' else return 'renamed' end
+                    end)[1][1] == 'default'
+                then
                     return {}
                 else
                     return line.tabs().foreach(function(tab)
                         local hl = tab.is_current() and theme.current_tab or theme.tab
                         return {
                             line.sep('', hl, theme.fill),
-                            tab.number(),
-                            -- tab_rename(tab.name()),
-                            -- tab.close_btn(''),
+                            -- tab.number(),
+                            tab.name(),
                             line.sep('', hl, theme.fill),
                             hl = hl,
                             margin = ' ',
@@ -95,7 +106,10 @@ return {
 
             -- tabline layout
             return {
+
+                -- main background
                 hl = theme.fill,
+
                 -- leftmost element: total number of open buffers
                 {
                     { ' ' .. #vim.split(vim.fn.execute("ls"), "\n") - 1 .. ' ', hl = theme.head },
@@ -108,9 +122,16 @@ return {
                 -- windows in tab
                 line.wins_in_tab(line.api.get_current_tab(), win_filter).foreach(function(win)
                     local hl = win.is_current() and theme.current_window or theme.window
+                    -- grapple integration
+                    local grapple_component = ''
+                    if package.loaded["grapple"] then
+                        local grapple_handle = require("grapple").name_or_index({ buffer = win.buf().id })
+                        if grapple_handle then grapple_component = '' .. grapple_handle .. '' end
+                    end
                     return {
                         line.sep('', hl, theme.fill),
                         shorten_path(win_rename(win.buf_name()), '/', 30),
+                        grapple_component,
                         line.sep('', hl, theme.fill),
                         hl = hl,
                         margin = ' ',
@@ -123,22 +144,22 @@ return {
                         local lcwd = vim.fn.getcwd()
                         local print_cwd = shorten_path(vim.fn.fnamemodify(lcwd, ':~'), '/', 30)
                         if tcwd == lcwd then
-                        return {
-                            line.sep('█', theme.tail_color, theme.tail_grey),
-                            { ' ' .. print_cwd .. ' ', hl = theme.tail_grey },
-                            line.sep('█', theme.tail_color, theme.tail_grey),
-                        }
+                            return {
+                                line.sep('█', theme.tail_color, theme.tail_grey),
+                                { ' ' .. print_cwd .. ' ', hl = theme.tail_grey },
+                                line.sep('█', theme.tail_color, theme.tail_grey),
+                            }
                         else
-                        return {
-                            line.sep('██', theme.tail_color, theme.tail_grey),
-                            { print_cwd, hl = theme.tail_color },
-                            line.sep('██', theme.tail_color, theme.tail_grey),
-                        }
+                            return {
+                                line.sep('██', theme.tail_color, theme.tail_grey),
+                                { print_cwd, hl = theme.tail_color },
+                                line.sep('██', theme.tail_color, theme.tail_grey),
+                            }
                         end
                     end)(),
                 }
             }
         end,
-        -- option = {}, -- setup modules' option,
+
     }
 }

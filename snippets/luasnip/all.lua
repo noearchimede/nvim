@@ -41,7 +41,7 @@ table.insert(M,
 
 -- insert an horizontal line as wide as 'tw' above and below the snippet text
 table.insert(M,
-    s({ trig = '___' },
+    s({ trig = '===' },
         fmt('{hline}\n{prefix}  {text}\n{prefix}{hline}\n', {
             prefix = f(function(_, parent)
                 return string.gsub (parent.snippet.env.TM_CURRENT_LINE, parent.snippet.trigger .. '$', '')

@@ -22,7 +22,7 @@ return {
             -- Determines how the icon fills the available space:
             --  inline: underlying '#'s are concealed resulting in a left aligned icon
             --  overlay: result is left padded with spaces to hide any additional '#'
-            position = 'inline',
+            position = 'overlay',
             -- Replaces '#+' of 'atx_h._marker'
             -- The number of '#' in the heading determines the 'level'
             -- The 'level' is used to index into the array using a cycle
@@ -256,7 +256,7 @@ return {
                 rendered = 2, -- default is 3, but that breaks (among others) many UI features of obsidian.nvim
             },
             concealcursor = {
-                rendered = 'n' -- enable concealing of the cursor line in Normal mode only
+                rendered = 'nc' -- enable concealing of the cursor line in Normal mode only
             }
         }
 

@@ -7,6 +7,12 @@ return {
         -- icons
         "nvim-tree/nvim-web-devicons",
 
+        -- nicer UI for input fields (optional, not even mentioned in readme!)
+        "stevearc/dressing.nvim",
+
+        -- nicer window picker
+        "s1n7ax/nvim-window-picker",
+
         -- add support for file operations using built-in LSP support.
         {
             "antosha417/nvim-lsp-file-operations",
@@ -22,26 +28,77 @@ return {
     },
 
     keys = {
-
-        -- NOTE: this is a hack to avoid the problem of the rhs vertical split
-        -- being made narrower than necessary when the tree is opened. If
-        -- 'preserve_window_proportions' worked as expected the second command
-        -- would not be necesssary.
-        { "<leader>tt", "<cmd>NvimTreeOpen<cr><cmd>horizontal wincmd =<cr>" },
-
-        { "<leader>tc", "<cmd>NvimTreeClose<cr>" },
-        { "<leader>tf", "<cmd>NvimTreeFindFile<cr>" },
-        { "<leader>tF", "<cmd>NvimTreeFindFile!<cr>" },
-
+        "<leader>tt",
+        "<leader>tT",
+        "<leader>tf",
+        "<leader>tF",
     },
 
     cmd = {
         'NvimTreeOpen',
         'NvimTreeFocus',
-        'NvimTreeFindFile',
         'NvimTreeToggle',
+        'NvimTreeFindFile',
         'NvimTreeFindFileToggle',
     },
+
+
+    config = function(_, opts)
+
+        require('nvim-tree').setup(opts)
+
+        local api = require('nvim-tree.api')
+
+        -- Helper function to keep the window proportions then NvimTree is opened or closed
+        local resize_wrapper = function(api_func)
+            local wid_ui = vim.api.nvim_list_uis()[1].width
+            local tot_wid_before = wid_ui
+            if api.tree.is_visible() then
+                tot_wid_before = tot_wid_before - vim.api.nvim_win_get_width(api.tree.winid())
+            end
+            local win_wids_before = {}
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
+                if win ~= api.tree.winid() then -- api.tree.winid returns 'nil' if the tree is not visible
+                    win_wids_before[win] = vim.api.nvim_win_get_width(win)
+                end
+            end
+            api_func()
+            local tot_wid_after = wid_ui
+            if api.tree.is_visible() then
+                tot_wid_after = tot_wid_after - vim.api.nvim_win_get_width(api.tree.winid())
+            end
+            if tot_wid_after ~= tot_wid_before then
+                for win, win_wid_before in pairs(win_wids_before) do
+                    local new_width = math.floor(win_wid_before / tot_wid_before * tot_wid_after + 0.5)
+                    vim.api.nvim_win_set_width(win, new_width)
+                end
+            end
+        end
+
+        -- mappings defined using the helper above.
+        -- I prefer this implementation over the default for
+        -- 'preserve_window_proportions = true', which leads to the right hand
+        -- side vertical split becoming too small and does not reset to the
+        -- previous proportions after the tree is opened and closed, and
+        -- 'preserve_window_proportions = false', which just equalizes all
+        -- windows
+        vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
+        vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end)
+        vim.keymap.set('n', '<leader>tf', function()
+            resize_wrapper(function() api.tree.find_file({ open = true, focus = false }) end)
+        end)
+        vim.keymap.set('n', '<leader>tF', function()
+            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = false }) end)
+        end)
+
+        vim.keymap.set('n', '<leader>tj', function()
+            resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
+        end)
+        vim.keymap.set('n', '<leader>tJ', function()
+            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = true }) end)
+        end)
+
+    end,
 
     opts = {
 
@@ -73,7 +130,6 @@ return {
                     -- otherwise open with netrw or any other default file explorer
                     vim.cmd(':e' .. path)
                 end
-                -- if oil is not found do nothing
             end
 
             -- helper function for integration with grug-far
@@ -91,7 +147,7 @@ return {
                     vim.opt_local.swapfile = true
                     local winCmd = 'aboveleft vsplit'
                     winCmd = winCmd ..
-                    ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
+                        ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
                     -- launch grug-far
                     grug.grug_far({
                         prefills = { paths = relpath },
@@ -108,17 +164,16 @@ return {
                 vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
             end
 
-
             -- Currently unused letters:
             -- lowercase: <none> (j and k are used as main motions, s is used for Leap.nvim)
-            -- uppercase: G O P Q T U V X Y Z
+            -- uppercase: G O Q T U V X Y Z
 
             -- open nodes
-            map('<CR>', function(node)
-                api.node.open.edit(node); api.tree.focus()
+            map('o', function(node)
+                api.node.open.edit(node)
+                api.tree.focus()
             end, 'Open file (keep focus)') -- 'O'
-            map('o', api.node.open.edit, 'Open') -- '<CR>' and 'o'
-            map('<Tab>', api.node.open.preview, 'Open: preview') -- '<Tab>'
+            map('<cr>', api.node.open.edit, 'Open') -- '<CR>' and 'o'
             map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>'
             map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>'
             map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' -- not using 's' as that is used by leap
@@ -194,27 +249,37 @@ return {
 
             map('q', api.tree.close, 'Close') -- 'q'
             map('R', api.tree.reload, 'Refresh') -- 'R'
+            map('<C-R>', api.tree.reload, 'Refresh') -- 'R'
             map('A', api.node.run.system, 'Run system') -- 's'
             map('a', reveal_in_finder, 'Reveal in Finder') -- custom action, no default
+            map('?', api.tree.toggle_help, 'Help') -- 'g?'
             map('g?', api.tree.toggle_help, 'Help') -- 'g?'
 
 
             -- Configuration of the float file preview extension
             local preview = require('nvim-tree-preview')
-
-            map('<Tab>', function()
-                local ok, node = pcall(api.tree.get_node_under_cursor)
-                if ok and preview.is_watching() then
-                    preview.node(node, { toggle_focus = true })
+            -- helper function for "preview: toggle"
+            map('P', function()
+                if preview.is_watching() then
+                    preview.unwatch()
                 else
                     preview.watch()
                 end
-            end, 'Preview: watch')
+            end, 'Preview: toggle')
+            -- tab: if no preview open node, if preview toggle focus between tree and preview
+            map('<Tab>', function()
+                if preview.is_watching() then
+                    local node = api.tree.get_node_under_cursor()
+                    preview.node(node, { toggle_focus = true })
+                else
+                    api.node.open.edit()
+                end
+            end, 'Open | Preview: focus')
             map('<Esc>', preview.unwatch, 'Preview: close')
         end,
 
         hijack_cursor = true, -- keep the cursor on the first letter of the filename
-        disable_netrw = false, -- see :h nvim-tree-netrw
+        disable_netrw = true, -- see :h nvim-tree-netrw
         hijack_netrw = true, -- see :h nvim-tree-netrw
         hijack_unnamed_buffer_when_opening = false,
         sync_root_with_cwd = true,
@@ -320,7 +385,7 @@ return {
             always_show_folders = false,
         },
         actions = {
-            use_system_clipboard = true,
+            use_system_clipboard = false,
             change_dir = {
                 enable = true,
                 global = false,
@@ -330,13 +395,19 @@ return {
                 resize_window = true,
                 window_picker = {
                     enable = true,
-                    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    picker = function() return require('window-picker').pick_window() end,
                 },
             },
         },
         trash = {
             cmd = "trash",
         },
-    }
+    },
+
+    init = function()
+        -- disable netrw
+        vim.g.loaded_netrw = 1
+        vim.g.loaded_netrwPlugin = 1
+    end
 
 }

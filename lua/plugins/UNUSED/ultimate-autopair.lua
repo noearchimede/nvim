@@ -8,7 +8,7 @@ return {
 
     keys = {
         {
-            "<leader>xp",
+            "<leader>yp",
             function()
                 require('ultimate-autopair').toggle()
                 if require('ultimate-autopair').isenabled() then
@@ -22,7 +22,6 @@ return {
     },
 
     opts = {
-        profile = 'default', --what profile to use
 
         map = true, --whether to allow any insert map
         cmap = false, --cmap stands for cmd-line map whether to allow any cmd-line map
@@ -81,7 +80,7 @@ return {
             cond = {
                 cond = function(fn)
                     -- disable in comments, while registering macros and in replace mode
-                    return not fn.in_node('comment') and not fn.in_macro() and not fn.get_mode()~='R'
+                    return not fn.in_node('comment') and not fn.in_macro() and not fn.get_mode() ~= 'R'
                 end,
             },
         },

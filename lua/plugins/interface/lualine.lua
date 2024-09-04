@@ -1,7 +1,8 @@
 return {
 
-    event = 'VeryLazy',
     'nvim-lualine/lualine.nvim',
+
+    lazy = false,
 
     dependencies = {
         'nvim-tree/nvim-web-devicons',
@@ -19,7 +20,10 @@ return {
             component_separators = { left = '', right = '' },
             section_separators = { left = '', right = '' },
             disabled_filetypes = {
-                statusline = { 'NvimTree' },
+                statusline = {
+                    'NvimTree',
+                    'alpha'
+                },
                 winbar = {},
             },
             ignore_focus = {},
@@ -40,6 +44,17 @@ return {
                 path = 1,
                 shorting_target = 40,
                 symbols = { modified = '●' },
+                separator = '' -- disable separator between filename and grapple handle
+            },
+            { -- Grapple integration (1/2)
+                padding = { left = 0 },
+                function()
+                    local grapple = require("grapple").name_or_index()
+                    if grapple then return '' .. grapple .. '' else return '' end
+                end,
+                cond = function()
+                    return package.loaded["grapple"] and require("grapple").exists()
+                end
             } },
             lualine_x = { 'encoding', 'filetype' },
             lualine_y = { 'progress' },
@@ -53,6 +68,16 @@ return {
                 path = 1,
                 shorting_target = 40,
                 symbols = { modified = '●' },
+                separator = '' -- disable separator between filename and grapple handle
+            },
+            { -- Grapple integration (2/2)
+                function()
+                    local grapple = require("grapple").name_or_index()
+                    if grapple then return '' .. grapple .. '' else return '' end
+                end,
+                cond = function()
+                    return package.loaded["grapple"] and require("grapple").exists()
+                end
             } },
             lualine_c = {},
             lualine_x = {},

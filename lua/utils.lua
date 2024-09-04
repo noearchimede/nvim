@@ -82,7 +82,7 @@ function M.tab_is_empty(tabpage)
             { buf = vim.api.nvim_win_get_buf(winid) }
         )
         -- compare filetype against a list of allowed types
-        if not (ft == '' or ft == 'NvimTree') then
+        if not (ft == '' or ft == 'NvimTree' or ft == 'alpha') then
             -- if a "non-trivial" filetype is detected the tab is not empty
             return false
         end

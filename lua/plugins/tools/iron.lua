@@ -3,11 +3,11 @@ return {
     "Vigemus/iron.nvim",
 
     keys = {
-        { '<leader>cs', '<cmd>IronRepl<cr>', desc = "Iron: start" },
-        { '<leader>cr', '<cmd>IronRestart<cr>', desc = "Iron: restart" },
-        { '<leader>cj', '<cmd>IronFocus<cr>', desc = "Iron: jump to repl window" },
-        { '<leader>ch', '<cmd>IronHide<cr>', desc = "Iron: hide" },
-        { '<leader>ci', function()
+        { '<leader>rs', '<cmd>IronRepl<cr>', desc = "Iron: start" },
+        { '<leader>rn', '<cmd>IronRestart<cr>', desc = "Iron: restart" },
+        { '<leader>rj', '<cmd>IronFocus<cr>', desc = "Iron: jump to repl window" },
+        { '<leader>rh', '<cmd>IronHide<cr>', desc = "Iron: hide" },
+        { '<leader>ri', function()
             vim.ui.input({ prompt = "Enter command (" .. vim.bo.filetype .. ")" }, function(input)
                 if input then
                     vim.cmd('IronSend ' .. input)
@@ -55,6 +55,10 @@ return {
                         format = require("iron.fts.common").bracketed_paste,
                     },
 
+                    cpp = {
+                        command = { "cling" }
+                    }
+
                 },
 
                 -- Repl position. Check `iron.view` for more options,
@@ -69,15 +73,15 @@ return {
 
             keymaps = {
 
-                send_motion = "<leader>c",
-                send_line = "<leader>cc",
-                visual_send = "<leader>cc",
-                send_file = "<leader>cf",
-                send_until_cursor = "<leader>ca", -- "a" as in "above"
+                send_motion = "<leader>r",
+                send_line = "<leader>rr",
+                visual_send = "<leader>rr",
+                send_file = "<leader>rf",
+                send_until_cursor = "<leader>ra", -- "a" as in "above"
 
-                cr = "<leader>c<cr>",
-                interrupt = "<leader>cx",
-                exit = "<leader>cq",
+                cr = "<leader>r<cr>",
+                interrupt = "<leader>rx",
+                exit = "<leader>rq",
                 -- 'clear' not mapped to prevent accidental clearing
 
                 -- marks: available but currently not used

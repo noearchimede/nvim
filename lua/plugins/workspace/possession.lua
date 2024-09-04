@@ -7,19 +7,30 @@ return {
         'nvim-telescope/telescope.nvim', -- optional
     },
 
+    events = "DirChangedPre",
+
+    cmd = {
+        "PSSave",
+        "PSSaveCwd",
+        "PSLoad",
+        "PSLoadCwd",
+        "PSList",
+        "PSShow"
+    },
+
     keys = {
-        { "<leader>wr", "<cmd>PSLoad<cr>",
+        { "<leader>wl", "<cmd>PSLoad<cr>",
             desc = "Possession: load latest session" },
-        { "<leader>ww", "<cmd>PSLoadCwd<cr>",
-            desc = "Possession: load latest session for CWD" },
-        { "<leader>wl", "<cmd>Telescope possession<cr>",
-            desc = "Possession: open telescope picker for sessions" },
-        { "<leader>ws", function() vim.cmd("PSSave " .. vim.fn.input("Save session as: ")) end,
+        { "<leader>wd", "<cmd>PSLoadCwd<cr>",
+            desc = "Possession: load latest session for directory" },
+        { "<leader>ws", "<cmd>Telescope possession<cr>",
+            desc = "Possession: show all saved sessions" },
+        { "<leader>wm", function() vim.cmd("PSSave " .. vim.fn.input("Save session as: ")) end,
             desc = "Possession: save session" },
         { "<leader>wu", function() vim.cmd("PSSave " .. require('possession.session').get_session_name()) end,
             desc = "Possession: update session" },
         { "<leader>wi", function() vim.notify("Session: " .. (require('possession.session').get_session_name() or "–"), vim.log.levels.INFO) end,
-            desc = "Possession: save session" },
+            desc = "Possession: get session info" },
     },
 
     opts = {
@@ -30,23 +41,10 @@ return {
             cwd = true,
             tmp = false,
             tmp_name = 'tmp',
-            on_load = false,
+            on_load = true,
             on_quit = true,
         },
-        hooks = {
-            --[[ I tried to implement this hook to always have a CWD session saved but it never worked.
-            before_save = function(name)
-                local cwd_name = require('possession.paths').cwd_session_name()
-                if cwd_name ~= name then
-                    require('possession.session').save(cwd_name, { no_confirm = true })
-                end
-                return {}
-            end, --]]
-            -- after_save = function(name, user_data, aborted) end,
-            -- before_load = function(name, user_data) return user_data end,
-            -- after_load = function(name, user_data) end,
-        },
-        autoload = false, --'last_cwd', -- or 'last' or 'auto_cwd' or 'last_cwd' or fun(): string
+        autoload = false,
         commands = {
             save = 'PSSave',
             load = 'PSLoad',
@@ -62,49 +60,32 @@ return {
         },
         plugins = {
             close_windows = {
-                hooks = {
-                    'before_load',
-                },
-                preserve_layout = true,
+                preserve_layout = false,
                 match = {
                     floating = true,
-                    buftype = {},
-                    filetype = {},
-                    custom = false,  -- or fun(win): boolean
-                },
+                    filetype = {
+                        'qf',
+                        'aerial',
+                        'trouble',
+                        'undotree',
+                    },
+                    buftype = {}
+                }
             },
-            delete_hidden_buffers = {
-                hooks = {
-                    'before_load',
-                },
-                force = false,  -- or fun(buf): boolean
-            },
+            delete_hidden_buffers = false,
+            -- possession has integrations for many third party plugins (full list in the help page)
             nvim_tree = true,
-            neo_tree = false,
-            symbols_outline = false,
-            outline = false,
             tabby = true,
-            dap = true,
-            dapui = true,
-            neotest = true,
-            delete_buffers = false,
             stop_lsp_clients = false,
         },
         telescope = {
             previewer = {
                 enabled = true,
-                previewer = 'pretty', -- or 'raw' or fun(opts): Previewer
-                wrap_lines = true,
-                include_empty_plugin_data = true,
-                cwd_colors = {
-                    cwd = 'Comment',
-                    tab_cwd = { '#cc241d', '#b16286', '#d79921', '#689d6a', '#d65d0e', '#458588' }
-                }
             },
             list = {
                 default_action = 'load',
                 mappings = {
-                    save = nil,
+                    save = '<c-s>',
                     load = nil,
                     delete = '<c-x>',
                     rename = '<c-r>',
@@ -113,9 +94,29 @@ return {
         },
     },
 
-    init = function()
+    config = function(_, opts)
+
+        require('possession').setup(opts)
+
         -- attach telescope extension
         require('telescope').load_extension('possession')
+
+    end,
+
+    init = function()
+
+        -- Create autocommand to save a session named after the cwd when vim is
+        -- closed.
+        -- The autosave.cwd settings doesn't appear to do this in all cases,
+        -- e.g. when cwd is a directory that already has an associated session
+        -- but that session is not explicitly loaded, the cwd session is not
+        -- updated
+        vim.api.nvim_create_autocmd('ExitPre', {
+            callback = function()
+                vim.cmd("PSSave! " .. vim.fn.getcwd(-1, -1))
+            end
+        })
+
     end
 
 }

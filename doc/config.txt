@@ -68,9 +68,11 @@ G mappings ~
 |mymap_gl|
 |mymap_gy|
 |mymap_gz| .............. Brackets and quotes (surround)
+
                                                            *myo*  *mymap_other*
 Other global mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
+|mymap_m| ............... Extensions to the built-in marks system
 |mymap_ctrl| ............ CTRL keybindings
 |mymap_misc| ............ Miscellaneous
 
@@ -664,6 +666,31 @@ Copy-paste ~
 
 Marks ~
 *mymap_'*         n   '          remapped to |`|
+
+
+-----------------------------------------------------------------------------
+Marks                                                          *mym*  *mymap_m*
+-----------------------------------------------------------------------------
+
+Alphabetical marks ~
+*mymap_m{char}*   n  m{char}  set the mark {char} (emulates |m|)
+*mymap_m,*        n  m,       set the next free alphabetical mark
+*mymap_dm{char}*  n  dm{char} remove the mark {char}
+*mymap_dm-*       n  dm-      remove marks on current line
+*mymap_dm_*       n  dm_      remove marks in current buffer
+*mymap_m}*        n  m}       go to the next mark in buffer
+*mymap_m{*        n  m{       go to the previous mark in buffer
+*mymap_m:*        n  m:       preview mark (prompts for {char})
+
+Bookmarks ~
+*mymap_m{nr}*     n  m{nr}    set a bookmark of type {nr}
+*mymap_m=*        n  m=       delete bookmark on current line
+*mymap_dm{nr}*    n  m{nr}    delete all bookmarks of type {nr}
+*mymap_m]*        n  m]       go to next bookmark in the same group
+*mymap_m[*        n  m[       go to previous bookmark in the same group
+*mymap_m{nr}*    n  m{nr}   go to next bookmark of type {nr}
+*mymap_m({nr}*    n  m({nr}   go to previous bookmark of type {nr}
+*mymap_m\*        n  m\       annotate current bookmark
 
 
 -----------------------------------------------------------------------------

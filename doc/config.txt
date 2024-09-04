@@ -174,8 +174,11 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 *mymap_leader_leader_c*  n  \\c  Change name
 *mymap_leader_leader_f*  n  \\f  Format
 
-*mymap_leader_leader_q*  n  \\q  restart LSP
 *mymap_leader_leader_w*  n  \\w  get Workspace diagnostics (worksp.-dia.-nvim)
+
+*mymap_leader_leader_qr* n  \\qr Restart LSP
+*mymap_leader_leader_qq* n  \\qq stop (Quit) LSP
+*mymap_leader_leader_qs* n  \\qs Start LSP
 
 *mymap_leader_leader_b*
 *mymap_leader_leader_e*

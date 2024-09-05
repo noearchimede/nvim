@@ -108,9 +108,16 @@ return {
                 -- windows in tab
                 line.wins_in_tab(line.api.get_current_tab(), win_filter).foreach(function(win)
                     local hl = win.is_current() and theme.current_window or theme.window
+                    -- grapple integration
+                    local grapple_component = ''
+                    if package.loaded["grapple"] then
+                        local grapple_handle = require("grapple").name_or_index({ buffer = win.buf().id })
+                        if grapple_handle then grapple_component = '' .. grapple_handle .. '' end
+                    end
                     return {
                         line.sep('', hl, theme.fill),
                         shorten_path(win_rename(win.buf_name()), '/', 30),
+                        grapple_component,
                         line.sep('', hl, theme.fill),
                         hl = hl,
                         margin = ' ',

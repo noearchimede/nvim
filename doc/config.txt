@@ -37,6 +37,7 @@ Leader mappings ~
 |mymap_leader_leader| ... LSP
 |mymap_leader_a|
 |mymap_leader_b| ........ Buffer navigation
+-> |mymap_leader_#| ..... Quick buffer navigation
 |mymap_leader_c| ........ Compilers and tasks
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
@@ -224,6 +225,28 @@ Delete buffers ~
 *mymap_leader_bu*  n  \bu   delete all "Untouched" buffers (hbac)
 *mymap_leader_bd*  n  \bd   Same as |bd| but without closing window
 *mymap_leader_bw*  n  \bw   Same as |bw| but without closing window
+
+Grapple ~
+*mymap_leader_ba*  n  \ba   Add tag to current buffer
+*mymap_leader_br*  n  \br   Remove tag from current buffer
+*mymap_leader_bg*  n  \bg   show Grapple window
+*mymap_leader_be*  n  \be   Erase tag list for current scope
+*mymap_leader_bn*  n  \bn   go to Next tagged buffer
+*mymap_leader_bp*  n  \bp   go to Previous tagged buffer
+
+The |mymap_leader_#| (leader + number) mappings are also mapped to Grapple
+actions.
+
+
+-----------------------------------------------------------------------------
+                                                      *myle#*  *mymap_leader_#*
+-----------------------------------------------------------------------------
+
+These mappings are an addition to the |mymap_leader_b| mappings for Grapple
+
+*mymap_leader_0*  n  \0    Jump to the next tagged buffer
+*mymap_leader_9*  n  \9    Jump to the previous tagged buffer
+*mymap_leader_{nr}* n \{nr} Jump to the tagged buffer number {nr} (1 to 8)
 
 
 

@@ -61,10 +61,11 @@ return {
             vim.g.gotoprev_ma_state[buf] = vim.api.nvim_get_option_value('modifiable', { buf = buf })
             vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
             -- mappings
-            vim.keymap.set('n', 'q', '<cmd>q<cr>', { buffer = buf })
-            vim.keymap.set('n', '<esc>', '<cmd>q<cr>', { buffer = buf })
-            vim.keymap.set('n', '<C-v>', '<cmd>vs<cr>', { buffer = buf })
-            vim.keymap.set('n', '<C-h>', '<cmd>sp<cr>', { buffer = buf })
+            local gtp = require('goto-preview')
+            vim.keymap.set('n', 'q', function() gtp.close_all_win() end, { buffer = buf })
+            vim.keymap.set('n', '<esc>', function() gtp.close_all_win() end, { buffer = buf })
+            vim.keymap.set('n', '<C-v>', function() gtp.close_all_win(); vim.cmd('vs') end, { buffer = buf })
+            vim.keymap.set('n', '<C-h>', function() gtp.close_all_win(); vim.cmd('sp') end, { buffer = buf })
             -- define autocmd for autoclose on focus lost
             --[[
             This works for a single popup, but fails if a second floating

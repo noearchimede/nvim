@@ -321,7 +321,6 @@ Unused ~
 *mymap_leader_dt*  n  \dt   
 *mymap_leader_du*  n  \du   
 *mymap_leader_dv*  n  \dv   
-*mymap_leader_dw*  n  \dw   
 *mymap_leader_dx*  n  \dx   
 *mymap_leader_dy*  n  \dy   
 *mymap_leader_dz*  n  \dz   

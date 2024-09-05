@@ -790,6 +790,7 @@ configuration file for the obsidian.nvim plugin.
 
 *mymap_ftob_locle_o*  n  ,o   Open note picker
 *mymap_ftob_locle_s*  n  ,s   Search
+*mymap_ftob_locle_f*  n  ,f   Follow closest link to cursor
 
 *mymap_ftob_locle_n*  n  ,n   New note
 *mymap_ftob_locle_t*  n  ,t   insert Template

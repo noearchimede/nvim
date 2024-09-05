@@ -27,101 +27,154 @@ return {
 
     cmd = { "ObsidianQuickSwitch", "ObsidianNew" },
 
-    opts = {
+    config = function()
 
-        workspaces = my_vaults,
+        -- Structure of this config function:
+        --  - helpers used to define mappings
+        --  - obsidian.setup()
+        --     - mappings
+        --     - other settings
 
-        templates = {
-            folder = "_templates",
-            date_format = "%Y-%m-%d",
-            time_format = "%H:%M",
-            -- A map for custom variables, the key should be the variable and the value a function
-            substitutions = {},
-        },
+        -- follow the closest link to the cursor
+        -- adapted from https://github.com/epwalsh/obsidian.nvim/issues/471#issue-2171588399
+        local follow_closest_link = function()
+            local iter = require("obsidian.itertools").iter
+            local search = require("obsidian.search")
+            local client = require("obsidian").get_client()
+            ---@diagnostic disable-next-line: deprecated
+            unpack = table.unpack or unpack -- 5.1 compatibility
 
-        completion = {
-            -- Trigger completion immediately
-            min_chars = 0,
-        },
+            local current_line = vim.api.nvim_get_current_line()
+            local _, cur_col = unpack(vim.api.nvim_win_get_cursor(0))
+            cur_col = cur_col + 1 -- nvim_win_get_cursor returns 0-indexed column
+            local best_match = nil
+            for match in iter(search.find_refs(current_line, { include_naked_urls = true, include_file_urls = true })) do
+                local open, close, _ = unpack(match)
+                if
+                    best_match == nil
+                    or math.abs(cur_col - open) < math.abs(cur_col - best_match[2])
+                    or math.abs(cur_col - close) < math.abs(cur_col - best_match[1])
+                then
+                    best_match = match
+                end
+            end
+            if best_match == nil then
+                return nil
+            end
+            local link = current_line:sub(best_match[1], best_match[2])
+            client:follow_link_async(link, nil)
+        end
 
-        mappings = {
-            -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-            ["gf"] = {
-                action = function() return require("obsidian").util.gf_passthrough() end,
-                opts = { noremap = false, expr = true, buffer = true },
-            },
-            -- Toggle check-boxes: deleted default mapping; only define the more general <cr> below
-            -- Smart action depending on context, either follow link or toggle checkbox.
-            ["<cr>"] = {
-                action = function() return require("obsidian").util.smart_action() end,
-                opts = { buffer = true, expr = true },
-            },
-            ['<localleader>a'] = {
-                action = function() return vim.cmd('ObsidianOpen') end,
-                opts = { buffer = true, desc = "Obsidian: open in app" },
-            },
-            ['<localleader>n'] = {
-                action = function() return vim.cmd('ObsidianNew') end,
-                opts = { buffer = true, desc = "Obsidian: new note" },
-            },
-            ['<localleader>o'] = {
-                action = function() return vim.cmd('ObsidianQuickSwitch') end,
-                opts = { buffer = true, desc = "Obsidian: switch to or open note" },
-            },
-            ['<localleader>b'] = {
-                action = function() return vim.cmd('ObsidianBacklinks') end,
-                opts = { buffer = true, desc = "Obsidian: get list of backlinks" },
-            },
-            ['<localleader>l'] = {
-                action = function() return vim.cmd('ObsidianLinks') end,
-                opts = { buffer = true, desc = "Obsidian: get list of (forward) links in file" },
-            },
-            ['<localleader>g'] = {
-                action = function() return vim.cmd('ObsidianTags') end,
-                opts = { buffer = true, desc = "Obsidian: get list of occurrences of current tag" },
-            },
-            ['<localleader>t'] = {
-                action = function() return vim.cmd('ObsidianTemplate') end,
-                opts = { buffer = true, desc = "Obsidian: insert template" },
-            },
-            ['<localleader>s'] = {
-                action = function() return vim.cmd('ObsidianSearch') end,
-                opts = { buffer = true, desc = "Obsidian: search" },
-            },
-            ['<localleader>i'] = {
-                action = function() return vim.cmd('ObsidianPasteImg') end,
-                opts = { buffer = true, desc = "Obsidian: paste image" },
-            },
-            ['<localleader>c'] = {
-                action = function() return vim.cmd('ObsidianTOC') end,
-                opts = { buffer = true, desc = "Obsidian: get table of contents" },
-            },
-        },
+        -- helpers for other mappings
+        local obsidian = require('obsidian')
+        local function opts(desc)
+            return { buffer = true, desc = desc }
+        end
 
-        -- enable if you use the advanced-uri plugin in the Obsidian app
-        use_advanced_uri = true,
+        obsidian.setup({
 
-        -- do not prepend note id or path to wikilinks
-        wiki_link_func = "use_alias_only",
+            -- mappings ----------------------------------------------------------------------
 
-        -- do not handle frontmatter (I'm not using it at the moment)
-        disable_frontmatter = true,
+            mappings = {
+                -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+                ["gf"] = {
+                    action = function() return obsidian.util.gf_passthrough() end,
+                    opts = { buffer = true, desc = "Obsidian: default gf + resolve links", noremap = false },
+                },
+                -- Toggle check-boxes: deleted default mapping; only define the more general <cr> below
+                -- Smart action depending on context, either follow link or toggle checkbox.
+                ["<cr>"] = {
+                    action = function() return obsidian.util.smart_action() end,
+                    opts = opts("Obsidian: smart action"),
+                },
+                ['<localleader>a'] = {
+                    action = function() return vim.cmd('ObsidianOpen') end,
+                    opts = opts("Obsidian: open in app"),
+                },
+                ['<localleader>n'] = {
+                    action = function() return vim.cmd('ObsidianNew') end,
+                    opts = opts("Obsidian: new note"),
+                },
+                ['<localleader>o'] = {
+                    action = function() return vim.cmd('ObsidianQuickSwitch') end,
+                    opts = opts("Obsidian: switch to or open note"),
+                },
+                ['<localleader>f'] = {
+                    action = follow_closest_link,
+                    opts = opts("Obsidian: follow closest link"),
+                },
+                ['<localleader>b'] = {
+                    action = function() return vim.cmd('ObsidianBacklinks') end,
+                    opts = opts("Obsidian: get list of backlinks"),
+                },
+                ['<localleader>l'] = {
+                    action = function() return vim.cmd('ObsidianLinks') end,
+                    opts = opts("Obsidian: get list of (forward) links in file"),
+                },
+                ['<localleader>g'] = {
+                    action = function() return vim.cmd('ObsidianTags') end,
+                    opts = opts("Obsidian: get list of occurrences of current tag"),
+                },
+                ['<localleader>t'] = {
+                    action = function() return vim.cmd('ObsidianTemplate') end,
+                    opts = opts("Obsidian: insert template"),
+                },
+                ['<localleader>s'] = {
+                    action = function() return vim.cmd('ObsidianSearch') end,
+                    opts = opts("Obsidian: search"),
+                },
+                ['<localleader>i'] = {
+                    action = function() return vim.cmd('ObsidianPasteImg') end,
+                    opts = opts("Obsidian: paste image"),
+                },
+                ['<localleader>c'] = {
+                    action = function() return vim.cmd('ObsidianTOC') end,
+                    opts = opts("Obsidian: get table of contents"),
+                },
+            },
 
-        -- Specify how to handle attachments.
-        attachments = {
-            -- The default folder to place images in via `:ObsidianPasteImg`.
-            -- If this is a relative path it will be interpreted as relative to the vault root.
-            img_folder = "@new_attachments/",
+            -- other settings (besides mappings) ------------------------------------
 
-            -- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
-            ---@return string
-            img_name_func = function()
-                -- Prefix image names with timestamp.
-                return string.format("%s-", os.time())
-            end,
-        },
+            workspaces = my_vaults,
 
-    },
+            templates = {
+                folder = "_templates",
+                date_format = "%Y-%m-%d",
+                time_format = "%H:%M",
+                -- A map for custom variables, the key should be the variable and the value a function
+                substitutions = {},
+            },
+
+            completion = {
+                -- Trigger completion immediately
+                min_chars = 0,
+            },
+
+            -- enable if you use the advanced-uri plugin in the Obsidian app
+            use_advanced_uri = true,
+
+            -- do not prepend note id or path to wikilinks
+            wiki_link_func = "use_alias_only",
+
+            -- do not handle frontmatter (I'm not using it at the moment)
+            disable_frontmatter = true,
+
+            -- Specify how to handle attachments.
+            attachments = {
+                -- The default folder to place images in via `:ObsidianPasteImg`.
+                -- If this is a relative path it will be interpreted as relative to the vault root.
+                img_folder = "@new_attachments/",
+
+                -- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
+                ---@return string
+                img_name_func = function()
+                    -- Prefix image names with timestamp.
+                    return string.format("%s-", os.time())
+                end,
+            },
+
+        })
+    end,
 
     init = function()
 

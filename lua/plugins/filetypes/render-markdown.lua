@@ -256,7 +256,7 @@ return {
                 rendered = 2, -- default is 3, but that breaks (among others) many UI features of obsidian.nvim
             },
             concealcursor = {
-                rendered = 'n' -- enable concealing of the cursor line in Normal mode only
+                rendered = 'nc' -- enable concealing of the cursor line in Normal mode only
             }
         }
 

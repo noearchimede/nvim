@@ -743,7 +743,7 @@ LSP ~
 
 
 -----------------------------------------------------------------------------
-Miscellaneous                                              *myom*  *mymap_misc*
+Miscellaneous                                              *mymi*  *mymap_misc*
 -----------------------------------------------------------------------------
 
 Terminal ~
@@ -766,6 +766,9 @@ Diagnostics ~
 *mymap_[e*        n   [e   move to previous diagnostic Error
 *mymap_]w*        n   ]w   move to next diagnostic Warning or error
 *mymap_[w*        n   [w   move to previous diagnostic Warning or error
+
+Buffer navigation ~
+*mymap_bs*        n   <bs> jump to alternate buffer (alias for |CTRL-^|)
 
 
 =============================================================================

@@ -51,6 +51,8 @@ vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>')
 vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>')
 vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>')
 
+-- jump to the alternate buffer
+vim.keymap.set('n', '<bs>', '<C-^>')
 
 
 -- – Directories –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

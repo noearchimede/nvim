@@ -16,7 +16,7 @@ return {
                 -- (adapted rom https://github.com/stevearc/overseer.nvim/issues/36#issuecomment-1238715487)
                 require('overseer').run_template({ first = false }, function(task)
                     if task then
-                        require('overseer').open({ enter = false })
+                        require('overseer').open({ enter = true })
                     end
                 end)
             end,
@@ -35,6 +35,29 @@ return {
 
         task_list = {
             max_height = { 20, 0.3 },
+            bindings = {
+                ["?"] = "ShowHelp",
+                ["g?"] = "ShowHelp",
+                ["<CR>"] = "RunAction",
+                ["e"] = "Edit",
+                ["o"] = "Open",
+                ["v"] = "OpenVsplit",
+                ["h"] = "OpenSplit",
+                ["f"] = "OpenFloat",
+                ["l"] = "OpenQuickFix",
+                ["p"] = "TogglePreview",
+                ["r"] = "IncreaseDetail",
+                ["m"] = "DecreaseDetail",
+                ["R"] = "IncreaseAllDetail",
+                ["M"] = "DecreaseAllDetail",
+                ["{"] = "DecreaseWidth",
+                ["}"] = "IncreaseWidth",
+                ["["] = "PrevTask",
+                ["]"] = "NextTask",
+                ["K"] = "ScrollOutputUp",
+                ["J"] = "ScrollOutputDown",
+                ["q"] = "Close",
+            },
         },
 
     },

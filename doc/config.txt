@@ -225,6 +225,12 @@ Delete buffers ~
 *mymap_leader_bd*  n  \bd   Same as |bd| but without closing window
 *mymap_leader_bw*  n  \bw   Same as |bw| but without closing window
 
+Harpoon ~
+*mymap_leader_ba*  n  \ba   add current buffer to Harpoon
+*mymap_leader_bl*  n  \bl   List harpoon buffers
+*mymap_leader_bn*  n  \bn   go to Next harpoon buffer
+*mymap_leader_bp*  n  \bp   go to Previous harpoon buffer
+
 
 -----------------------------------------------------------------------------
                                                       *mylec*  *mymap_leader_c*

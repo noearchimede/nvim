@@ -8,7 +8,7 @@ return {
         { "<leader>dd", "<cmd>Trouble diagnostics open<cr>", desc = "Trouble: diagnostics", },
         { "<leader>db", "<cmd>Trouble diagnostics open filter.buf=0<cr>", desc = "Trouble: buffer diagnostics" },
         { "<leader>ds", "<cmd>Trouble symbols open<cr>", desc = "Trouble: symbols" },
-        { "<leader>dl", "<cmd>Trouble lsp open win.position=right<cr>", desc = "Trouble: LSP content" },
+        { "<leader>dl", "<cmd>Trouble lsp open<cr>", desc = "Trouble: LSP content" },
         { "<leader>dw", "<cmd>Trouble loclist open<cr>", desc = "Trouble: location list" },
         { "<leader>dq", "<cmd>Trouble qflist open<cr>", desc = "Trouble: quickfix list" },
     },
@@ -47,6 +47,12 @@ return {
                 desc = "Toggle Severity Filter",
             },
         },
+
+        modes = {
+            symbols = {
+                focus = true
+            }
+        }
     },
 
 }

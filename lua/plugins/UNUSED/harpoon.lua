@@ -1,3 +1,11 @@
+--[[ for config.txt
+Harpoon ~
+*mymap_leader_ba*  n  \ba   add current buffer to Harpoon
+*mymap_leader_bl*  n  \bl   List harpoon buffers
+*mymap_leader_bn*  n  \bn   go to Next harpoon buffer
+*mymap_leader_bp*  n  \bp   go to Previous harpoon buffer
+]]
+
 return {
 
     "ThePrimeagen/harpoon",
@@ -9,7 +17,7 @@ return {
     keys = function()
         local harpoon = require('harpoon')
         return {
-            { "<leader>bh", function() harpoon:list():add() end },
+            { "<leader>ba", function() harpoon:list():add() end },
             { "<leader>bl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end },
 
             { "<leader>b1", function() harpoon:list():select(1) end },

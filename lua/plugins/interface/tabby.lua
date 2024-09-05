@@ -2,7 +2,7 @@ return {
 
     'nanozuki/tabby.nvim',
 
-    event = 'VeryLazy',
+    lazy = false,
 
     keys = {
         { "<leader>tn", function() vim.cmd("Tabby rename_tab " .. vim.fn.input("Rename tab: ")) end, desc = "Tabby: rename tab" },

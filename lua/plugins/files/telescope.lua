@@ -22,6 +22,7 @@ return {
             { '<leader>fw', builtin.grep_string, desc = "Telescope: live grep" },
             { '<leader>fb', builtin.buffers, desc = "Telescope: buffers" },
             { '<leader>fh', builtin.help_tags, desc = "Telescope: help tags" },
+            { '<leader>fk', builtin.keymaps, desc = "Telescope: keymaps" },
             { '<leader>fo', builtin.oldfiles, desc = "Telescope: old files" },
             { '<leader>fm', builtin.marks, desc = "Telescope: marks" },
 

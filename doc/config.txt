@@ -359,11 +359,11 @@ LSP objects ~
 
 Documentation  ~
 *mymap_leader_fh*  n  \fh   Help tags
+*mymap_leader_fk*  n  \fk   Keymaps
 
 Unused ~
 *mymap_leader_fc*
 *mymap_leader_fj*
-*mymap_leader_fk*
 *mymap_leader_fn*
 *mymap_leader_fp*
 *mymap_leader_fq*

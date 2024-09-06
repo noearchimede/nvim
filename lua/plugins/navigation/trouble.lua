@@ -22,7 +22,7 @@ return {
         warn_no_results = false, -- show a warning when there are no results
         open_no_results = true, -- open the trouble window when there are no results
         -- Window options for the preview window
-        preview = { type = "float", -- default: "main"; alternatives: "split", "float", ...
+        preview = { type = "main", -- default: "main"; alternatives: "split", "float", ...
         },
         -- Key mappings can be set to the name of a builtin action, or you can define your own custom action.
         keys = {
@@ -54,5 +54,21 @@ return {
             }
         }
     },
+
+    init = function()
+
+        -- completely replace the quickfix list (from readme, but not recommended!)
+        vim.api.nvim_create_autocmd("BufRead", {
+            callback = function(ev)
+                if vim.bo[ev.buf].buftype == "quickfix" then
+                    vim.schedule(function()
+                        vim.cmd("cclose")
+                        vim.cmd("Trouble qflist open")
+                    end)
+                end
+            end,
+        })
+
+    end
 
 }

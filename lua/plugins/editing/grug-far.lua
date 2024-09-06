@@ -126,10 +126,10 @@ return {
                 syncLocations = { n = '<localleader>s' },
                 syncLine = { n = '<localleader>l' },
 
-                qflist = { n = '<localleader>q' },
+                qflist = { n = '<localleader>c' },
 
                 refresh = { n = '<localleader>f' },
-                close = { n = '<localleader>c' },
+                close = { n = '<localleader>q' },
 
                 historyOpen = { n = '<localleader>t' },
                 historyAdd = { n = '<localleader>a' },

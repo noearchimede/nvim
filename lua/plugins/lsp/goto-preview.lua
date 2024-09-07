@@ -2,8 +2,6 @@ return {
 
     "rmagatti/goto-preview",
 
-    event = "BufEnter",
-
     keys = {
         {
             '<leader><leader>D',

@@ -8,7 +8,7 @@ return {
 
     keys = {
         {
-            "<leader>xp",
+            "<leader>yp",
             function()
                 require('ultimate-autopair').toggle()
                 if require('ultimate-autopair').isenabled() then

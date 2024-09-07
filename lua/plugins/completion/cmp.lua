@@ -32,7 +32,7 @@ return {
                 vim.notify('Autocomplete enabled')
             end
         end
-        vim.keymap.set('n', '<Leader>xc', toggle_autocomplete)
+        vim.keymap.set('n', '<Leader>yc', toggle_autocomplete)
 
 
         -- set up nvim-cmp

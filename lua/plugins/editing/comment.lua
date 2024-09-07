@@ -2,7 +2,17 @@ return {
 
     'numToStr/Comment.nvim',
 
-    keys = { 'gcc', 'gbb', 'gc', 'gb', 'gcO', 'gco', 'gca' },
+    keys = {
+        { "gcc", mode = "n", desc = "Comment: linewise on line" },
+        { "gbc", mode = "n", desc = "Comment: blockwise on line" },
+
+        { "gc", mode = "v", desc = "Comment: linewise" },
+        { "gb", mode = "v", desc = "Comment: blockwise" },
+
+        { "gcO", mode = "n", desc = "Comment: add comment above line" },
+        { "gco", mode = "n", desc = "Comment: add comment below line" },
+        { "gcA", mode = "n", desc = "Comment: add comment at end of line" },
+    },
 
     opts = {
         padding = true, ---Add a space b/w comment and the line

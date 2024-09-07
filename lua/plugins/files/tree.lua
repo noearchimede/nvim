@@ -22,26 +22,71 @@ return {
     },
 
     keys = {
-
-        -- NOTE: this is a hack to avoid the problem of the rhs vertical split
-        -- being made narrower than necessary when the tree is opened. If
-        -- 'preserve_window_proportions' worked as expected the second command
-        -- would not be necesssary.
-        { "<leader>tt", "<cmd>NvimTreeOpen<cr><cmd>horizontal wincmd =<cr>" },
-
-        { "<leader>tc", "<cmd>NvimTreeClose<cr>" },
-        { "<leader>tf", "<cmd>NvimTreeFindFile<cr>" },
-        { "<leader>tF", "<cmd>NvimTreeFindFile!<cr>" },
-
+        "<leader>tt",
+        "<leader>tc",
+        "<leader>tf",
+        "<leader>tF",
     },
 
     cmd = {
         'NvimTreeOpen',
         'NvimTreeFocus',
-        'NvimTreeFindFile',
         'NvimTreeToggle',
+        'NvimTreeFindFile',
         'NvimTreeFindFileToggle',
     },
+
+
+    config = function(_, opts)
+
+        require('nvim-tree').setup(opts)
+
+        local api = require('nvim-tree.api')
+
+        -- Helper function to keep the window proportions then NvimTree is opened or closed
+        local resize_wrapper = function(api_func)
+            local wid_ui = vim.api.nvim_list_uis()[1].width
+            local tot_wid_before = wid_ui
+            if api.tree.is_visible() then
+                tot_wid_before = tot_wid_before - vim.api.nvim_win_get_width(api.tree.winid())
+            end
+            local win_wids_before = {}
+            for _, win in ipairs(vim.fn.gettabinfo(vim.api.nvim_get_current_tabpage())[1].windows) do
+                if win ~= api.tree.winid() then -- api.tree.winid returns 'nil' if the tree is not visible
+                    win_wids_before[win] = vim.api.nvim_win_get_width(win)
+                end
+            end
+            api_func()
+            local tot_wid_after = wid_ui
+            if api.tree.is_visible() then
+                tot_wid_after = tot_wid_after - vim.api.nvim_win_get_width(api.tree.winid())
+            end
+            if tot_wid_after ~= tot_wid_before then
+                for win, win_wid_before in pairs(win_wids_before) do
+                    local new_width = math.floor(win_wid_before / tot_wid_before * tot_wid_after + 0.5)
+                    vim.api.nvim_win_set_width(win, new_width)
+                end
+            end
+
+        end
+
+        -- mappings defined using the helper above.
+        -- I prefer this implementation over the default for
+        -- 'preserve_window_proportions = true', which leads to the right hand
+        -- side vertical split becoming too small and does not reset to the
+        -- previous proportions after the tree is opened and closed, and
+        -- 'preserve_window_proportions = false', which just equalizes all
+        -- windows
+        vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
+        vim.keymap.set('n', '<leader>tc', function() resize_wrapper(api.tree.close) end)
+        vim.keymap.set('n', '<leader>tf', function()
+            resize_wrapper(function() api.tree.find_file({ open = true }) end)
+        end)
+        vim.keymap.set('n', '<leader>tF', function()
+            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true }) end)
+        end)
+
+    end,
 
     opts = {
 
@@ -91,7 +136,7 @@ return {
                     vim.opt_local.swapfile = true
                     local winCmd = 'aboveleft vsplit'
                     winCmd = winCmd ..
-                    ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
+                        ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
                     -- launch grug-far
                     grug.grug_far({
                         prefills = { paths = relpath },
@@ -196,6 +241,7 @@ return {
             map('R', api.tree.reload, 'Refresh') -- 'R'
             map('A', api.node.run.system, 'Run system') -- 's'
             map('a', reveal_in_finder, 'Reveal in Finder') -- custom action, no default
+            map('?', api.tree.toggle_help, 'Help') -- 'g?'
             map('g?', api.tree.toggle_help, 'Help') -- 'g?'
 
 

@@ -194,6 +194,7 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 *mymap_leader_leader_qq* n  \\qq stop (Quit) LSP
 *mymap_leader_leader_qs* n  \\qs Start LSP
 
+Unused ~
 *mymap_leader_leader_b*
 *mymap_leader_leader_e*
 *mymap_leader_leader_g*
@@ -384,17 +385,16 @@ Git status (neogit) ~
 *mymap_leader_gh*  n  \gh   show commit log (History)
 
 Hunk navigation (gitsigns) ~
-*mymap_leader_gn*  n  \gn   move to Previous hunk; equivalent to |mymap_c|
+*mymap_leader_gn*  n  \gn   move to Previous hunk; equivalent to |mymap_]c|
 *mymap_leader_gp*  n  \gp   move to Next hunk; equivalent to |mymap_[c|
 
-Hunk operations... (gitsigns) ~
+Hunk operations (gitsigns) ~
 *mymap_leader_gs*  n  \gs   toggle Stage hunk under cursor
                  v  \gs   toggle Stage (partial) hunk(s) in visual selection
 *mymap_leader_gr*  n  \gr   Reset hunk under cursor
                  v  \gr   Reset (partial) hunk(s) in visual selection
 *mymap_leader_gv*  n  \gv   preView hunk under cursor
 *mymap_leader_gz*  n  \gz   undo last stage hunk (like cmd-Z)
-... on buffers ~
 *mymap_leader_gS*  n  \gS   Stage all hunks in file
 *mymap_leader_gR*  n  \gR   Reset all hunks in file
 
@@ -643,7 +643,8 @@ Unused ~
 *mymap_leader_yv*
 *mymap_leader_yw*
 *mymap_leader_yy*
-*mymap_leader_yz*
+
+
 -----------------------------------------------------------------------------
                                                       *mylez*  *mymap_leader_z*
 -----------------------------------------------------------------------------

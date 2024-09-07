@@ -618,6 +618,9 @@ Plugin toggles                                        *myley*  *mymap_leader_y*
 
 *mymap_leader_yp*  n  \yp   toggle Autopair (ultimate-autopair)
 
+*mymap_leader_yi*  n  \yi   toggle Indent guides (ibl)
+*mymap_leader_ys*  n  \ys   toggle Scope guides (ibl)
+
 
 Unused ~
 *mymap_leader_ya*
@@ -627,7 +630,6 @@ Unused ~
 *mymap_leader_yf*
 *mymap_leader_yg*
 *mymap_leader_yh*
-*mymap_leader_yi*
 *mymap_leader_yj*
 *mymap_leader_yk*
 *mymap_leader_yl*
@@ -636,7 +638,6 @@ Unused ~
 *mymap_leader_yo*
 *mymap_leader_yq*
 *mymap_leader_yr*
-*mymap_leader_ys*
 *mymap_leader_yt*
 *mymap_leader_yu*
 *mymap_leader_yv*

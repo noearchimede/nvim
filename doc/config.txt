@@ -35,7 +35,7 @@ Insert mode mappings ~
                                                          *myle*  *mymap_leader*
 Leader mappings ~
 |mymap_leader_leader| ... LSP
-|mymap_leader_a|
+|mymap_leader_a| ........ Code outline (aerial)
 |mymap_leader_b| ........ Buffer navigation
 -> |mymap_leader_#| ..... Quick buffer navigation
 |mymap_leader_c| ........ Compilers and tasks
@@ -209,8 +209,18 @@ Unused ~
 
 
 -----------------------------------------------------------------------------
-                                                      *mylea*  *mymap_leader_a*
+Code outline                                          *mylea*  *mymap_leader_a*
 -----------------------------------------------------------------------------
+
+Aerial ~
+*mymap_leader_aa*  n  \aa   open Aerial
+*mymap_leader_af*  n  \af   open and Focus aerial
+*mymap_leader_ac*  n  \ac   Close aerial
+
+*mymap_leader_ag*  n  \ag   open navigator (Go to ...)
+
+*mymap_leader_an*  n  \an   jump to Next symbol; equivalent to |mymap_]a|
+*mymap_leader_ap*  n  \ap   jump to Previous symbol; equivalent to |mymap_[a|
 
 
 
@@ -795,6 +805,12 @@ Diagnostics ~
 *mymap_[e*        n   [e   move to previous diagnostic Error
 *mymap_]w*        n   ]w   move to next diagnostic Warning or error
 *mymap_[w*        n   [w   move to previous diagnostic Warning or error
+
+Symbols ~
+*mymap_]a*        n   ]a    move to next Aerial symbol
+                          (same as |mymap_leader_an|)
+*mymap_[a*        n   [a    move to previous Aerial symbol
+                          (same as |mymap_leader_ap|)
 
 Buffer navigation ~
 *mymap_bs*        n   <bs> jump to alternate buffer (alias for |CTRL-^|)

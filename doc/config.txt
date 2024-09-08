@@ -778,6 +778,12 @@ Window navigation  ~
 *mymap_CTRL-K*    n   <C-K>      remap to |CTRL-W_k|
 *mymap_CTRL-L*    n   <C-L>      remap to |CTRL-W_l|
 
+Window motions ~
+*mymap_CTRL-W_m*  n   <C-W>m     Move window (interactively) (winshift)
+                    <C-W><C-M>
+*mymap_CTRL-W_x*  n   <C-W>x     Swap window (interactively) (winshift)
+                    <C-W><C-X>
+
 LSP ~
 *mymap_CTRL-S*    n   <C-S>      show Signature help (same as |mymap_i_CTRL-S|)
 

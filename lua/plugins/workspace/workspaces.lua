@@ -55,7 +55,8 @@ return {
         },
     },
 
-    init = function()
+    config = function(_, opts)
+        require("workspaces").setup(opts)
         -- attach telescope extension
         require('telescope').load_extension('workspaces')
     end

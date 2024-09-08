@@ -10,7 +10,7 @@ return {
 
     keys = {
         {
-            '<leader>ct',
+            '<leader>cc',
             function()
                 -- open the task selector and if a task is started open the overseer window to monitor its progress
                 -- (adapted rom https://github.com/stevearc/overseer.nvim/issues/36#issuecomment-1238715487)
@@ -22,11 +22,8 @@ return {
             end,
             desc = "Overseer: run"
         },
-        {
-            '<leader>co',
-            '<cmd>OverseerToggle<cr>',
-            desc = "Overseer: toggle overview",
-        },
+        { '<leader>co', '<cmd>OverseerOpen<cr>', desc = "Overseer: open overview" },
+        { '<leader>ch', '<cmd>OverseerClose<cr>', desc = "Overseer: hide overview" },
     },
 
     opts = {

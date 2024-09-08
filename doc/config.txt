@@ -38,7 +38,7 @@ Leader mappings ~
 |mymap_leader_a| ........ Code outline
 |mymap_leader_b| ........ Buffer navigation
 -> |mymap_leader_#| ..... Quick buffer navigation
-|mymap_leader_c| ........ Compilers and tasks
+|mymap_leader_c| ........ Compilers and visualizers
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
 |mymap_leader_f| ........ Telescope
@@ -47,13 +47,13 @@ Leader mappings ~
 |mymap_leader_i| ........ Alignement and indentation
 |mymap_leader_j|
 |mymap_leader_k|
-|mymap_leader_l| ........ Compilation/execution/visualization of file
+|mymap_leader_l|
 |mymap_leader_m| ........ Motions
 |mymap_leader_n| ........ Notifications
 |mymap_leader_o|
 |mymap_leader_p|
 |mymap_leader_q| ........ Terminal
-|mymap_leader_r|
+|mymap_leader_r| ........ REPL
 |mymap_leader_s| ........ Search
 |mymap_leader_t| ........ File tree, sidebars, tabs
 |mymap_leader_u|
@@ -266,41 +266,9 @@ These mappings are an addition to the |mymap_leader_b| mappings for Grapple
 -----------------------------------------------------------------------------
 
 Overseer ~
-*mymap_leader_ct*  n  \ct   run overseer Task
-*mymap_leader_co*  n  \co   toggle overseer Overview
-
-Iron ~
-*mymap_leader_cs*  n  \ci   start repl
-*mymap_leader_cr*  n  \cr   restart repl
-*mymap_leader_cq*  n  \cq   exit repl
-*mymap_leader_cj*  n  \cj   Jump to iron window
-*mymap_leader_ch*  n  \ch   hide iron window
-
-*mymap_leader_c_*  n  \c{motion} run {motion}
-*mymap_leader_cc*  n  \cc   run current line
-                 v  \cc   run visual selection
-*mymap_leader_ca*  n  \ca   run all lines Above cursor
-*mymap_leader_cf*  n  \cf   run file
-*mymap_leader_c_cr* n \c<cr> send <CR>
-*mymap_leader_cx*  n  \cx   send stop signal
-*mymap_leader_ci*  n  \ci   send arbitrary command
-
-
-Unused ~
-*mymap_leader_cb*  
-*mymap_leader_cd*
-*mymap_leader_ce*
-*mymap_leader_cg*
-*mymap_leader_ck*
-*mymap_leader_cl*
-*mymap_leader_cm*
-*mymap_leader_cn*
-*mymap_leader_cp*
-*mymap_leader_cu*
-*mymap_leader_cv*
-*mymap_leader_cw*
-*mymap_leader_cy*
-*mymap_leader_cz*
+*mymap_leader_cc*  n  \ct   run overseer task
+*mymap_leader_co*  n  \co   Open overseer Overview
+*mymap_leader_ch*  n  \ch   Hide overseer Overview
 
 
 -----------------------------------------------------------------------------
@@ -458,9 +426,6 @@ Join/split objects ~
 Compile/Execute/View file (filetype-specific)         *mylel*  *mymap_leader_l*
 -----------------------------------------------------------------------------
 
-Markdown ~
-*mymap_leader_lr*  n  \lr   Toggle inline renderer [render-markdown]
-
 
 -----------------------------------------------------------------------------
 Motions                                               *mylem*  *mymap_leader_m*
@@ -502,6 +467,22 @@ Terminal                                              *myleq*  *mymap_leader_q*
                                                       *myler*  *mymap_leader_r*
 -----------------------------------------------------------------------------
 
+Iron: set-up ~
+*mymap_leader_rs*  n  \rr   Start repl
+*mymap_leader_rn*  n  \rn   restart repl ("New")
+*mymap_leader_rc*  n  \rc   Close repl
+*mymap_leader_rj*  n  \rj   Jump to repl window
+*mymap_leader_rh*  n  \rh   hide repl window
+
+Iron: run ~
+*mymap_leader_r_*  n  \r{motion} run {motion}
+*mymap_leader_rr*  n  \rr   run current line
+                 v  \rr   run visual selection
+*mymap_leader_ra*  n  \ra   run all lines Above cursor
+*mymap_leader_rf*  n  \rf   run file
+*mymap_leader_r_cr* n \r<cr> send <CR>
+*mymap_leader_rx*  n  \rx   send stop signal
+*mymap_leader_ri*  n  \ri   send arbitrary command
 
 
 -----------------------------------------------------------------------------

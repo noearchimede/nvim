@@ -2,15 +2,26 @@ return {
 
     'm4xshen/autoclose.nvim',
 
-    event = { 'InsertEnter' },
-
     keys = {
         {
             "<leader>yp",
             function() require('autoclose').toggle() end,
             desc = "Autoclose: toggle"
-        }
+        },
+        -- lazy-load on inserting the characters tracked by autoclose (obviously overkill...)
+        { '(', mode = 'i' },
+        { '[', mode = 'i' },
+        { '{', mode = 'i' },
+        { '<', mode = 'i' },
+        { ')', mode = 'i' },
+        { ']', mode = 'i' },
+        { '}', mode = 'i' },
+        { '>', mode = 'i' },
+        { '"', mode = 'i' },
+        -- { "'", mode = 'i' },
+        { '`', mode = 'i' },
     },
+
     opts = {
 
         keys = {
@@ -25,7 +36,10 @@ return {
             ["}"] = { escape = true, close = false, pair = "{}" },
 
             ['"'] = { escape = true, close = true, pair = '""' },
-            ["'"] = { escape = true, close = true, pair = "''" },
+            -- single quote disabled to provent pairing when used as
+            -- apostrophe, see
+            -- https://github.com/m4xshen/autoclose.nvim/issues/55#issue-2203803417
+            -- ["'"] = { escape = true, close = true, pair = "''" },
             ["`"] = { escape = true, close = true, pair = "``" },
         },
 

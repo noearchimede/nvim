@@ -7,6 +7,9 @@ return {
         -- icons
         "nvim-tree/nvim-web-devicons",
 
+        -- nicer UI for input fields (optional, not even mentioned in readme!)
+        "stevearc/dressing.nvim",
+
         -- add support for file operations using built-in LSP support.
         {
             "antosha417/nvim-lsp-file-operations",

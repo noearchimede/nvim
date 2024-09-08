@@ -42,12 +42,6 @@ if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
 	vim.opt.termguicolors = true
 end
 
--- set colorscheme; if not available, fail silently and keep the default one
-local colo_ok, _ = pcall(vim.cmd, 'colorscheme onedark')
-if not colo_ok then
-	vim.cmd 'colorscheme default'
-end
-
 -- keep undo history across nvim sessions
 vim.opt.undofile = true
 

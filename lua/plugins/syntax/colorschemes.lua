@@ -8,7 +8,7 @@ return {
         lazy = false,
         priority = 1000,
 
-        config = {
+        opts = {
 
             -- Main options --
             style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
@@ -83,6 +83,9 @@ return {
             vim.api.nvim_create_autocmd('TermOpen', { command = "setlocal winhighlight=Normal:TerminalBaground" })
             -- hi BlackBg guibg=black
             -- au TermOpen * :set winhighlight=Normal:BlackBg
+
+            -- set colorscheme
+            vim.cmd("colorscheme onedark")
 
         end
 

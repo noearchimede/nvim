@@ -242,6 +242,7 @@ return {
 
             map('q', api.tree.close, 'Close') -- 'q'
             map('R', api.tree.reload, 'Refresh') -- 'R'
+            map('<C-R>', api.tree.reload, 'Refresh') -- 'R'
             map('A', api.node.run.system, 'Run system') -- 's'
             map('a', reveal_in_finder, 'Reveal in Finder') -- custom action, no default
             map('?', api.tree.toggle_help, 'Help') -- 'g?'

@@ -404,7 +404,7 @@ Hunk operations (gitsigns) ~
 *mymap_leader_gr*  n  \gr   Reset hunk under cursor
                  v  \gr   Reset (partial) hunk(s) in visual selection
 *mymap_leader_gv*  n  \gv   preView hunk under cursor
-*mymap_leader_gz*  n  \gz   undo last stage hunk (like cmd-Z)
+*mymap_leader_gu*  n  \gu   Undo last stage hunk
 *mymap_leader_gS*  n  \gS   Stage all hunks in file
 *mymap_leader_gR*  n  \gR   Reset all hunks in file
 

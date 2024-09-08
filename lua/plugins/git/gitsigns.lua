@@ -94,7 +94,7 @@ return {
                         gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
                     end, "reset selection")
 
-                map('n', '<leader>gz', gitsigns.undo_stage_hunk, "undo stage hunk")
+                map('n', '<leader>gu', gitsigns.undo_stage_hunk, "undo stage hunk")
 
                 map('n', '<leader>gv', gitsigns.preview_hunk, "preview hunk")
 

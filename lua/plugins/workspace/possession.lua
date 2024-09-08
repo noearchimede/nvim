@@ -113,9 +113,13 @@ return {
         },
     },
 
-    init = function()
+    config = function(_, opts)
+
+        require('possession').setup(opts)
+
         -- attach telescope extension
         require('telescope').load_extension('possession')
+
     end
 
 }

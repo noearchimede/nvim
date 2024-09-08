@@ -39,32 +39,75 @@ return {
                 ["?"] = "ShowHelp",
                 ["g?"] = "ShowHelp",
                 ["<CR>"] = "RunAction",
-                ["e"] = "Edit",
+                ["e"] = "Edit", -- default <C-e>
                 ["o"] = "Open",
-                ["v"] = "OpenVsplit",
-                ["h"] = "OpenSplit",
-                ["f"] = "OpenFloat",
-                ["l"] = "OpenQuickFix",
+                ["v"] = "OpenVsplit", -- default <C-v>
+                ["h"] = "OpenSplit", -- default <C-s>
+                ["f"] = "OpenFloat", -- default <C-f>
+                ["l"] = "OpenQuickFix", -- default <C-q>
                 ["p"] = "TogglePreview",
-                ["r"] = "IncreaseDetail",
-                ["m"] = "DecreaseDetail",
-                ["R"] = "IncreaseAllDetail",
-                ["M"] = "DecreaseAllDetail",
-                ["{"] = "DecreaseWidth",
-                ["}"] = "IncreaseWidth",
-                ["["] = "PrevTask",
-                ["]"] = "NextTask",
-                ["K"] = "ScrollOutputUp",
-                ["J"] = "ScrollOutputDown",
+                ["r"] = "IncreaseDetail", -- default <C-l>
+                ["m"] = "DecreaseDetail", -- default <C-h>
+                ["R"] = "IncreaseAllDetail", -- default L
+                ["M"] = "DecreaseAllDetail", -- default H
+                ["{"] = "DecreaseWidth", -- default [
+                ["}"] = "IncreaseWidth", -- default ]
+                ["["] = "PrevTask", -- default {
+                ["]"] = "NextTask", -- default }
+                ["K"] = "ScrollOutputUp", -- default <C-k>
+                ["J"] = "ScrollOutputDown", -- default <C-j>
                 ["q"] = "Close",
+                ["<esc>"] = "Close",
+            },
+        },
+
+        task_launcher = {
+            bindings = {
+                i = {
+                    ["<C-s>"] = "Submit",
+                    ["<C-c>"] = "Cancel",
+                },
+                n = {
+                    ["<CR>"] = "Submit",
+                    ["<C-s>"] = "Submit",
+                    ["q"] = "Cancel",
+                    ["<esc>"] = "Cancel",
+                    ["g?"] = "ShowHelp",
+                    ["?"] = "ShowHelp",
+                },
+            },
+        },
+        task_editor = {
+            -- Set keymap to false to remove default behavior
+            -- You can add custom keymaps here as well (anything vim.keymap.set accepts)
+            bindings = {
+                i = {
+                    ["<CR>"] = "NextOrSubmit",
+                    ["<C-s>"] = "Submit",
+                    ["<Tab>"] = "Next",
+                    ["<S-Tab>"] = "Prev",
+                    ["<C-c>"] = "Cancel",
+                },
+                n = {
+                    ["<CR>"] = "NextOrSubmit",
+                    ["<C-s>"] = "Submit",
+                    ["<Tab>"] = "Next",
+                    ["<S-Tab>"] = "Prev",
+                    ["q"] = "Cancel",
+                    ["<esc>"] = "Cancel",
+                    ["g?"] = "ShowHelp",
+                    ["?"] = "ShowHelp",
+                },
             },
         },
 
     },
 
-    init = function()
+    config = function(_, opts)
 
         local overseer = require('overseer')
+
+        overseer.setup(opts)
 
         -- Run python file
         require("overseer").register_template({

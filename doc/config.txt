@@ -35,16 +35,16 @@ Insert mode mappings ~
                                                          *myle*  *mymap_leader*
 Leader mappings ~
 |mymap_leader_leader| ... LSP
-|mymap_leader_a| ........ Code outline (aerial)
+|mymap_leader_a| ........ Code outline
 |mymap_leader_b| ........ Buffer navigation
 -> |mymap_leader_#| ..... Quick buffer navigation
 |mymap_leader_c| ........ Compilers and tasks
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
 |mymap_leader_f| ........ Telescope
-|mymap_leader_g| ........ Git (GitGutter and Vim Fugitive)
+|mymap_leader_g| ........ Git
 |mymap_leader_h|
-|mymap_leader_i| ........ Alignement and Indentation
+|mymap_leader_i| ........ Alignement and indentation
 |mymap_leader_j|
 |mymap_leader_k|
 |mymap_leader_l| ........ Compilation/execution/visualization of file
@@ -57,7 +57,7 @@ Leader mappings ~
 |mymap_leader_s| ........ Search
 |mymap_leader_t| ........ File tree, sidebars, tabs
 |mymap_leader_u|
-|mymap_leader_v| ........ Interface (view)
+|mymap_leader_v| ........ Interface ("View")
 |mymap_leader_w| ........ Workspace and sessions
 |mymap_leader_x| ........ Quick Settings
 |mymap_leader_y| ........ Plugin toggles
@@ -68,7 +68,7 @@ G mappings ~
 |mymap_gc| .............. Comments
 |mymap_gl|
 |mymap_gy|
-|mymap_gz| .............. Brackets and quotes (surround)
+|mymap_gz| .............. Brackets and quotes
 
                                                            *myo*  *mymap_other*
 Other global mappings ~
@@ -131,8 +131,8 @@ Surrounds: quotes, parentheses, etc.                 *myis*  *mymap_i_surround*
 -----------------------------------------------------------------------------
 
 Surround ~
-*mymap_i_CTRL-G_z* i  <C-G>z{ch}  insert pair of {ch} (surround)
-*mymap_i_CTRL-G_Z* i  <C-G>Z{ch}  insert multiline pair of {ch} (surround)
+*mymap_i_CTRL-G_z* i  <C-G>z{ch}  insert pair of {ch} [surround]
+*mymap_i_CTRL-G_Z* i  <C-G>Z{ch}  insert multiline pair of {ch} [surround]
 
 Autopair ~
 *mymap_i_CTRL-K*   i  <C-K>       fastpair: move further
@@ -168,27 +168,27 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 *mymap_leader_leader_j*  n  \\j  show signature help
 
 *mymap_leader_leader_d*  n  \\d  go to Definition
-*mymap_leader_leader_D*  n  \\D  preview Definition (goto-preview)
+*mymap_leader_leader_D*  n  \\D  preview Definition [goto-preview]
 
 *mymap_leader_leader_l*  n  \\l  go to decLaration
-*mymap_leader_leader_L*  n  \\L  preview Definition (goto-preview)
+*mymap_leader_leader_L*  n  \\L  preview Definition [goto-preview]
 
 *mymap_leader_leader_i*  n  \\i  go to Implementation
-*mymap_leader_leader_I*  n  \\I  preview Definition (goto-preview)
+*mymap_leader_leader_I*  n  \\I  preview Definition [goto-preview]
 
 *mymap_leader_leader_t*  n  \\t  go to Type definition
-*mymap_leader_leader_T*  n  \\T  preview Definition (goto-preview)
+*mymap_leader_leader_T*  n  \\T  preview Definition [goto-preview]
 
 *mymap_leader_leader_r*  n  \\r  go to References
-*mymap_leader_leader_R*  n  \\R  preview Definition (goto-preview)
+*mymap_leader_leader_R*  n  \\R  preview Definition [goto-preview]
 
-*mymap_leader_leader_Q*  n  \\Q  close previews (goto-preview)
+*mymap_leader_leader_Q*  n  \\Q  close previews [goto-preview]
 
 *mymap_leader_leader_a*  n  \\a  code Actions
 *mymap_leader_leader_c*  n  \\c  Change name
 *mymap_leader_leader_f*  n  \\f  Format
 
-*mymap_leader_leader_w*  n  \\w  get Workspace diagnostics (worksp.-dia.-nvim)
+*mymap_leader_leader_w*  n  \\w  get Workspace diagnostics [worksp.-diagnostics]
 
 *mymap_leader_leader_qr* n  \\qr Restart LSP
 *mymap_leader_leader_qq* n  \\qq stop (Quit) LSP
@@ -217,10 +217,10 @@ Aerial ~
 *mymap_leader_af*  n  \af   open and Focus aerial
 *mymap_leader_ac*  n  \ac   Close aerial
 
-*mymap_leader_ag*  n  \ag   open navigator (Go to ...)
+*mymap_leader_ag*  n  \ag   open navigator ("Go to")
 
-*mymap_leader_an*  n  \an   jump to Next symbol; equivalent to |mymap_]a|
-*mymap_leader_ap*  n  \ap   jump to Previous symbol; equivalent to |mymap_[a|
+*mymap_leader_an*  n  \an   jump to Next symbol (alias: |mymap_]a|)
+*mymap_leader_ap*  n  \ap   jump to Previous symbol (alias: |mymap_[a|)
 
 
 
@@ -229,13 +229,13 @@ Buffers                                               *myleb*  *mymap_leader_b*
 -----------------------------------------------------------------------------
 
 Change buffer ~
-*mymap_leader_bo*  n  \bo   Move backwards in the buffer history for the current window
-*mymap_leader_bi*  n  \bi   Move forwards in the buffer history for the current window
+*mymap_leader_bo*  n  \bo   Move backwards in the window buffer history [bufsurf]
+*mymap_leader_bi*  n  \bi   Move forwards in the window buffer history [bufsurf]
 
 Delete buffers ~
-*mymap_leader_bu*  n  \bu   delete all "Untouched" buffers (hbac)
-*mymap_leader_bd*  n  \bd   Same as |bd| but without closing window
-*mymap_leader_bw*  n  \bw   Same as |bw| but without closing window
+*mymap_leader_bu*  n  \bu   delete all "Untouched" buffers [hbac]
+*mymap_leader_bd*  n  \bd   Same as |bd| but without closing window [bufdelete]
+*mymap_leader_bw*  n  \bw   Same as |bw| but without closing window [bufdelete]
 
 Grapple ~
 *mymap_leader_ba*  n  \ba   Add tag to current buffer
@@ -358,14 +358,14 @@ Search ~
 *mymap_leader_fw*  n  \fw   live grep on Word under cursor
 
 Clibboard and jump anchors ~
-*mymap_leader_fy*  n  \fy   Yank history (neoclip)
+*mymap_leader_fy*  n  \fy   Yank history [neoclip]
 *mymap_leader_fm*  n  \fm   navigate file Marks
 
 LSP objects ~
 *mymap_leader_fi*  n  \fi   lsp: Implementations
 *mymap_leader_fr*  n  \fr   lsp: References
 *mymap_leader_fd*  n  \fd   lsp: Definitions
-*mymap_leader_fe*  n  \fe   lsp: diagnostics (Errors)
+*mymap_leader_fe*  n  \fe   lsp: diagnostics ("Errors")
 *mymap_leader_fl*  n  \fl   lsp: diagnostics for Local file
 
 Documentation  ~
@@ -392,11 +392,11 @@ Git                                                   *myleg*  *mymap_leader_g*
 Git status (neogit) ~
 *mymap_leader_gg*  n  \gg   open Git status viewer
 *mymap_leader_gc*  n  \gc   Commit staged changes
-*mymap_leader_gh*  n  \gh   show commit log (History)
+*mymap_leader_gl*  n  \gl   show Log
 
 Hunk navigation (gitsigns) ~
-*mymap_leader_gn*  n  \gn   move to Previous hunk; equivalent to |mymap_]c|
-*mymap_leader_gp*  n  \gp   move to Next hunk; equivalent to |mymap_[c|
+*mymap_leader_gn*  n  \gn   move to Previous hunk (alias: |mymap_]c|)
+*mymap_leader_gp*  n  \gp   move to Next hunk (alias: |mymap_[c|)
 
 Hunk operations (gitsigns) ~
 *mymap_leader_gs*  n  \gs   toggle Stage hunk under cursor
@@ -441,7 +441,7 @@ Alignment and Indentation                             *mylei*  *mymap_leader_i*
 -----------------------------------------------------------------------------
 
 Join/split objects ~
-*mymap_leader_ij*  n  \ij   Join or split arrays, functions, ... (treesj)
+*mymap_leader_ij*  n  \ij   Join or split arrays, functions, ... [treesj]
 
 
 -----------------------------------------------------------------------------
@@ -459,7 +459,7 @@ Compile/Execute/View file (filetype-specific)         *mylel*  *mymap_leader_l*
 -----------------------------------------------------------------------------
 
 Markdown ~
-*mymap_leader_lr*  n  \lr   Toggle inline renderer (render-markdown)
+*mymap_leader_lr*  n  \lr   Toggle inline renderer [render-markdown]
 
 
 -----------------------------------------------------------------------------
@@ -535,15 +535,15 @@ Directory ~
 *mymap_leader_td*  n  \td   change the Tab Directory to current file parent
 *mymap_leader_to*  n  \to   move the Tab directory Out by one level
 
-File tree ~
-*mymap_leader_tt*  n  \tt   open file Tree (nvim-tree)
-*mymap_leader_tc*  n  \tc   Close file tree (nvim-tree)
-*mymap_leader_tf*  n  \tf   Find current file in tree (nvim-tree)
-*mymap_leader_tF*  n  \tF   Find current file in tree and update root (nvim-tree)
+Nvim-tree ~
+*mymap_leader_tt*  n  \tt   open file Tree
+*mymap_leader_tc*  n  \tc   Close file tree
+*mymap_leader_tf*  n  \tf   Find current file in tree
+*mymap_leader_tF*  n  \tF   Find current file in tree and update root
 
-Undo history ~
-*mymap_leader_tu*  n  \tu   open Undo history (undotree)
-*mymap_leader_th*  n  \th   close (Hide) Undo history (undotree)
+Undotree ~
+*mymap_leader_tu*  n  \tu   open Undo history
+*mymap_leader_th*  n  \th   close (Hide) Undo history
 
 Tabby ~
 *mymap_leader_tr*  n  \tr   Rename tab
@@ -572,7 +572,7 @@ Possession ~
 *mymap_leader_wt*  n  \wr   load most Recent session
 *mymap_leader_ws*  n  \ws   Save current session
 *mymap_leader_wu*  n  \wu   Update current session (i.e. overwite)
-*mymap_leader_wi*  n  \wi   get name (Info) of current session
+*mymap_leader_wi*  n  \wi   get name ("Info") of current session
 
 Workspaces ~
 *mymap_leader_wp*  n  \wp   Pick workspace
@@ -590,7 +590,7 @@ Settings ~
 *mymap_leader_xm*  n  \xm   toggle mouse mode between "all" and disabled
 *mymap_leader_xs*  n  \xs   toggle 'spell'
 *mymap_leader_xw*  n  \xw   toggle 'wrap'
-*mymap_leader_xe*  n  \xe   toggle visibility of signcolumn (Gutter)
+*mymap_leader_xe*  n  \xe   toggle visibility of signcolumn ("Gutter")
 
 Theme ~
 *mymap_leader_xt*  n  \xt   change Theme
@@ -623,14 +623,18 @@ Unused ~
 Plugin toggles                                        *myley*  *mymap_leader_y*
 -----------------------------------------------------------------------------
 
-*mymap_leader_yz*  n  \yx   toggle Zen mode (zen-mode)
+Zen-mode ~
+*mymap_leader_yz*  n  \yx   toggle Zen mode
 
-*mymap_leader_yc*  n  \yc   toggle Completion (nvim-cmp)
+Cmp ~
+*mymap_leader_yc*  n  \yc   toggle Completion
 
-*mymap_leader_yp*  n  \yp   toggle Autopair (ultimate-autopair)
+Autoclose ~
+*mymap_leader_yp*  n  \yp   toggle Autopair
 
-*mymap_leader_yi*  n  \yi   toggle Indent guides (ibl)
-*mymap_leader_ys*  n  \ys   toggle Scope guides (ibl)
+Indent-blankline ~
+*mymap_leader_yi*  n  \yi   toggle Indent guides
+*mymap_leader_ys*  n  \ys   toggle Scope guides
 
 
 Unused ~
@@ -779,13 +783,13 @@ Window navigation  ~
 *mymap_CTRL-L*    n   <C-L>      remap to |CTRL-W_l|
 
 Window motions ~
-*mymap_CTRL-W_m*  n   <C-W>m     Move window (interactively) (winshift)
+*mymap_CTRL-W_m*  n   <C-W>m     Move window (interactively) [winshift]
                     <C-W><C-M>
-*mymap_CTRL-W_x*  n   <C-W>x     Swap window (interactively) (winshift)
+*mymap_CTRL-W_x*  n   <C-W>x     Swap window (interactively) [winshift]
                     <C-W><C-X>
 
 LSP ~
-*mymap_CTRL-S*    n   <C-S>      show Signature help (same as |mymap_i_CTRL-S|)
+*mymap_CTRL-S*    n   <C-S>      show Signature help (alias: |mymap_i_CTRL-S|)
 
 
 -----------------------------------------------------------------------------
@@ -796,31 +800,27 @@ Terminal ~
 *mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 Git ~
-*mymap_]c*        n   ]c    move to next hunk (Change)
-                          (same as |mymap_leader_gn|)
-*mymap_[c*        n   [c    move to previous hunk (Change)
-                          (same as |mymap_leader_gp|)
+*mymap_]c*        n   ]c    move to next hunk ("Change") (alias: |mymap_leader_gn|)
+*mymap_[c*        n   [c    move to previous hunk (alias: |mymap_leader_gp|)
 
 The c and [c mappings are analoguous to the default mappings in diff mode.
 
 Diagnostics ~
 *mymap_]d*        n   ]d   move to next Diagnostic message
-                         (same as |mymap_leader_leader_n|)
+                         (alias: |mymap_leader_leader_n|)
 *mymap_[d*        n   [d   move to previous Diagnostic message
-                         (same as |mymap_leader_leader_p|)
+                         (alias: |mymap_leader_leader_p|)
 *mymap_]e*        n   ]e   move to next diagnostic Error
 *mymap_[e*        n   [e   move to previous diagnostic Error
 *mymap_]w*        n   ]w   move to next diagnostic Warning or error
 *mymap_[w*        n   [w   move to previous diagnostic Warning or error
 
 Symbols ~
-*mymap_]a*        n   ]a    move to next Aerial symbol
-                          (same as |mymap_leader_an|)
-*mymap_[a*        n   [a    move to previous Aerial symbol
-                          (same as |mymap_leader_ap|)
+*mymap_]a*        n   ]a    move to next Aerial symbol (alias: |mymap_leader_an|)
+*mymap_[a*        n   [a    move to previous Aerial symbol (alias: |mymap_leader_ap|)
 
 Buffer navigation ~
-*mymap_bs*        n   <bs> jump to alternate buffer (alias for |CTRL-^|)
+*mymap_bs*        n   <bs> jump to alternate buffer (alias: |CTRL-^|)
 
 
 =============================================================================
@@ -833,7 +833,7 @@ Markdown files                                    *myftmd*  *mymap_ft_markdown*
 -----------------------------------------------------------------------------
 
 Rendering ~
-*mymap_ftmd_locle_r*  n  ,r   toggle Render (render-markdown)
+*mymap_ftmd_locle_r*  n  ,r   toggle Render [render-markdown]
 
                                                   *myftob*  *mymap_ft_obsidian*
 Obsidian ~

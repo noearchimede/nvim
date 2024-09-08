@@ -114,6 +114,8 @@ vim.opt.wrapscan = false
 -- when searching, ignore case by default unless the query contains uppercase characters
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+-- disable search higlight by default; can be enabled with custom mapping
+vim.opt.hlsearch = false
 -- use the same settings for searching tags (:h tags)
 vim.opt.tagcase = "followscs"
 

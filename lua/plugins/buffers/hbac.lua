@@ -2,7 +2,7 @@ return {
 
     'axkirillov/hbac.nvim',
 
-    lazy = false,
+    event = 'VeryLazy',
 
     keys = {
         {

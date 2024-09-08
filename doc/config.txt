@@ -542,7 +542,8 @@ File tree ~
 *mymap_leader_tF*  n  \tF   Find current file in tree and update root (nvim-tree)
 
 Undo history ~
-*mymap_leader_tu*  n  \tu   toggle Undo history (undotree)
+*mymap_leader_tu*  n  \tu   open Undo history (undotree)
+*mymap_leader_th*  n  \th   close (Hide) Undo history (undotree)
 
 Tabs ~
 *mymap_leader_tn*  n  \tn   set Tab Name (tabby)

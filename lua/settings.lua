@@ -139,22 +139,69 @@ vim.api.nvim_create_autocmd("FileType", {
 -- behaviour of ctrl-A and ctrl-X: treat numbers starting with 0 as decimal, not octal
 vim.opt.nrformats:remove { "octal" }
 
--- formatlistpat: set to a very inclusive value and make it available as a
---                variable e.g. for ftplugins
+
 local flp_value = [[\m]] -- set magic mode
--- bullet list:
--- optional spaces | one of *-–+>•# | optional extra -–> | at least one space
-flp_value = flp_value .. [[^\s*[\-–>\*•#+]\[\-–>]+\s\+]]
--- numbered list 1 (potentially long numbers or letters):
--- optional spaces | optional ([{< | at least one of [0-9a-zA-Z] | mandatory )]}>.: | at least two spaces
-flp_value = flp_value .. [[\|]] .. [[^\s*[(\[{<]\?[0-9a-zA-Z]\+[:.)\]}>]\+\s\{2,\}]]
--- numbered list 2 (only one number but does not require two spaces):
--- optional spaces | exactly one number | mandatory )]}>.: | at least one space
-flp_value = flp_value .. [[\|]] .. [[^\s*[0-9][:.)\]}>]\s\+]]
--- labelled list 1: label (max two words) | one of the follwing:
---   - at least one space | one or more of -=:– | at least one space
---   - optionally, one or more of :.)}]> | at least two spaces
-flp_value = flp_value .. [[\|]] .. [[^\S\+\%(\s\+[\-=:–]\+\s\+\|[:.)}\]>]\?\s\{2,\}\)]]
+-- 1. basic bullet list
+-- (spaces) <space> <*->–+> (-–>) <space>
+flp_value = flp_value .. [[^\s\+[*–>\-+][-–>]*\s]]
+-- 2. basic bullet list in comment
+-- (spaces) <symbols> <space> (spaces) <*->–+> (-–>) <space>
+flp_value = flp_value .. [[\|]] .. [[^\s*[^a-zA-Z0-9 ]\+\s\+[*-\-+>][-–>]*\s\+]]
+-- 3. numbered list 1 (only one number)
+-- (spaces and symbols) <number> <symbol> <space>
+flp_value = flp_value .. [[\|]] .. [[^[^a-zA-Z0-9]*\d[:.)\]}>]\s\+]]
+-- 4. numbered list 2 (more numbers or letters allowd but requires two spaces)
+-- (spaces and symbols) <word> <symbol> <two spaces>
+flp_value = flp_value .. [[\|]] .. [[^[^a-zA-Z0-9]*\w*[:.)\]}>]\s\s\+]]
+-- 5. labelled list (up to two words)
+-- (spaces and symbols) <one or two words> (space) (symbols) <two spaces>
+flp_value = flp_value .. [[\|]] .. [[^[^a-zA-Z0-9]*\w\+\s\?\w*[:.)\]}>]\?\s\s\+]]
+
+--[[
+
+1.
+
+ * start of text that will be wrapped
+    >  start of text that will be wrapped
+ --> start of text that will be wrapped
+
+2.
+
+// * start of text that will be wrapped
+// - start of text that will be wrapped
+  ##  * start of text that will be wrapped
+  //*   -> start of text that will be wrapped
+
+3.
+
+1. start of text that will be wrapped
+2) start of text that will be wrapped
+2] start of text that will be wrapped
+ ## 3. start of text that will be wrapped
+
+4.
+
+12.  start of text that will be wrapped
+label>  start of text that will be wrapped
+(a)  start of text that will be wrapped
+
+5.
+
+two words  start of text that will be wrapped
+// two words  start of text that will be wrapped
+  *  word  start of text that will be wrapped
+
+6: Counter-examples
+
+// start of text that will be wrapped
+// / start of text that will be wrapped
+** start of text that will be wrapped
+]]
+
+
+
+
+
 
 
 -- set flp val

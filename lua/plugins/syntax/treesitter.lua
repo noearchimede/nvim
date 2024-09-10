@@ -58,6 +58,7 @@ return {
 
             indent = {
                 enable = true,
+                disable = { "c", "cpp" }, -- if treesitter is used here cinoptions are not respected
             },
 
             -- extension: add 'end' in languages that use it to close functions etc.

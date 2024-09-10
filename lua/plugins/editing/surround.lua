@@ -2,8 +2,6 @@ return {
 
     "kylechui/nvim-surround",
 
-    tag = "*",
-
     event = "VeryLazy",
 
     opts = {

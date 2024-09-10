@@ -42,7 +42,7 @@ return {
                 ["h"] = "OpenSplit", -- default <C-s>
                 ["f"] = "OpenFloat", -- default <C-f>
                 ["l"] = "OpenQuickFix", -- default <C-q>
-                ["p"] = "TogglePreview",
+                ["P"] = "TogglePreview", -- default p
                 ["r"] = "IncreaseDetail", -- default <C-l>
                 ["m"] = "DecreaseDetail", -- default <C-h>
                 ["R"] = "IncreaseAllDetail", -- default L
@@ -51,10 +51,12 @@ return {
                 ["}"] = "IncreaseWidth", -- default ]
                 ["["] = "PrevTask", -- default {
                 ["]"] = "NextTask", -- default }
+                ["p"] = "PrevTask", -- default {
+                ["n"] = "NextTask", -- default }
                 ["K"] = "ScrollOutputUp", -- default <C-k>
                 ["J"] = "ScrollOutputDown", -- default <C-j>
                 ["q"] = "Close",
-                ["<esc>"] = "Close",
+                -- ["<esc>"] = "Close", // not mapped for now, as due to a bug insert mode is entered after launcing a task
             },
         },
 

@@ -28,9 +28,9 @@ return {
             ["("] = { escape = false, close = true, pair = "()" },
             ["["] = { escape = false, close = true, pair = "[]" },
             ["{"] = { escape = false, close = true, pair = "{}" },
-            ["<"] = { escape = false, close = true, pair = "<>" },
+            -- ["<"] = { escape = false, close = true, pair = "<>" },
 
-            [">"] = { escape = true, close = false, pair = "<>" },
+            [">"] = { escape = true, close = false, pair = "<>" }, -- keep the close sequence but not the open sequence for <>
             [")"] = { escape = true, close = false, pair = "()" },
             ["]"] = { escape = true, close = false, pair = "[]" },
             ["}"] = { escape = true, close = false, pair = "{}" },

@@ -246,18 +246,10 @@ Grapple ~
 *mymap_leader_bp*  n  \bp   go to Previous tagged buffer
 
 The |mymap_leader_#| (leader + number) mappings are also mapped to Grapple
-actions.
-
-
------------------------------------------------------------------------------
+actions:
                                                       *myle#*  *mymap_leader_#*
------------------------------------------------------------------------------
-
-These mappings are an addition to the |mymap_leader_b| mappings for Grapple
-
 *mymap_leader_0*  n  \0    Jump to the next tagged buffer
-*mymap_leader_9*  n  \9    Jump to the previous tagged buffer
-*mymap_leader_{nr}* n \{nr} Jump to the tagged buffer number {nr} (1 to 8)
+*mymap_leader_{nr}* n \{nr} Jump to the tagged buffer number {nr} (1 to 9)
 
 
 

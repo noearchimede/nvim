@@ -476,6 +476,8 @@ Iron: run ~
 *mymap_leader_rx*  n  \rx   send stop signal
 *mymap_leader_ri*  n  \ri   send arbitrary command
 
+For help on the specific languages, see the |repl| help page.
+
 
 -----------------------------------------------------------------------------
 Search and replace                                    *myles*  *mymap_leader_s*
@@ -928,4 +930,5 @@ Debugging ~
 
 
 _____________________________________________________________________________
+
 vim:noro:tw=78:ts=4:ft=help:ma:nowrap

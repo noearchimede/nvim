@@ -55,6 +55,10 @@ return {
                         format = require("iron.fts.common").bracketed_paste,
                     },
 
+                    cpp = {
+                        command = { "cling" }
+                    }
+
                 },
 
                 -- Repl position. Check `iron.view` for more options,

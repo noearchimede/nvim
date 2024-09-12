@@ -139,6 +139,27 @@ return {
             },
         })
 
+        -- Compile and run c++ program
+        require("overseer").register_template({
+            name = "g++ build and run",
+            builder = function()
+                local file = vim.fn.expand("%:p")
+                local outfile = vim.fn.expand("%:p:r") .. ".out"
+                return {
+                    cmd = { outfile },
+                    components = {
+                        -- Note that since we're using the "raw task parameters" format for the dependency,
+                        -- we don't have to define a separate build task.
+                        { "dependencies", task_names = { { cmd = "g++", args = { file, "-o", outfile } } } },
+                        "default"
+                    },
+                }
+            end,
+            condition = {
+                filetype = { "cpp" },
+            },
+        })
+
         -- Export Markdown as PDF
         require("overseer").register_template({
             name = "export to PDF",

@@ -17,6 +17,7 @@ return {
         { "<leader>dl", "<cmd>Trouble lsp open<cr>", desc = "Trouble: LSP content" },
         { "<leader>dv", "<cmd>Trouble loclist open<cr>", desc = "Trouble: location list" },
         { "<leader>dc", "<cmd>Trouble qflist open<cr>", desc = "Trouble: quickfix list" },
+        { "<leader>dq", "<cmd>Trouble close<cr>", desc = "Trouble: close" },
     },
 
     opts = {
@@ -35,15 +36,29 @@ return {
         },
         -- Key mappings can be set to the name of a builtin action, or you can define your own custom action.
         keys = {
+
             -- most keys are left to the default value, here only the ones I changed are listed
+
+            ["o"] = "jump",
+            
+            ["<cr>"] = {
+                action = function()
+                    local trouble = require('trouble')
+                    trouble.jump()
+                    trouble.focus()
+                end,
+                desc = "Jump but keep focus"
+            },
+            
             ["<c-h>"] = "jump_split", -- default: ["<c-s>"]
-            B = { -- toggle the active view filter -- default: gb
+
+            ["B"] = { -- toggle the active view filter -- default: gb
                 action = function(view)
                     view:filter({ buf = 0 }, { toggle = true })
                 end,
                 desc = "Toggle Current Buffer Filter",
             },
-            L = { -- example of a custom action that toggles the severity -- default: s
+            ["L"] = { -- example of a custom action that toggles the severity -- default: s
                 action = function(view)
                     local f = view:get_filter("severity")
                     local severity = ((f and f.filter.severity or 0) + 1) % 5
@@ -55,6 +70,7 @@ return {
                 end,
                 desc = "Toggle Severity Filter",
             },
+
         },
 
         modes = {

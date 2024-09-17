@@ -73,34 +73,52 @@ return {
             delete_bookmark8 = 'dm8',
             delete_bookmark9 = 'dm9',
 
-            next_bookmark = 'm]', -- Moves to the next bookmark having the same type as the bookmark under the cursor.
-            prev_bookmark = 'm[', -- Moves to the previous bookmark having the same type as the bookmark under the cursor.
+            next_bookmark = 'm]]', -- Moves to the next bookmark having the same type as the bookmark under the cursor.
+            prev_bookmark = 'm[[', -- Moves to the previous bookmark having the same type as the bookmark under the cursor.
 
-            next_bookmark0 = 'm)0', -- Moves to the next bookmark of the same group type (by line number then buffer number)
-            next_bookmark1 = 'm)1',
-            next_bookmark2 = 'm)2',
-            next_bookmark3 = 'm)3',
-            next_bookmark4 = 'm)4',
-            next_bookmark5 = 'm)5',
-            next_bookmark6 = 'm)6',
-            next_bookmark7 = 'm)7',
-            next_bookmark8 = 'm)8',
-            next_bookmark9 = 'm)9',
+            next_bookmark0 = 'm]0', -- Moves to the next bookmark of the same group type (by line number then buffer number)
+            next_bookmark1 = 'm]1',
+            next_bookmark2 = 'm]2',
+            next_bookmark3 = 'm]3',
+            next_bookmark4 = 'm]4',
+            next_bookmark5 = 'm]5',
+            next_bookmark6 = 'm]6',
+            next_bookmark7 = 'm]7',
+            next_bookmark8 = 'm]8',
+            next_bookmark9 = 'm]9',
 
-            prev_bookmark0 = 'm(0', -- Moves to the previous bookmark of the same group type (by line number then buffer number)
-            prev_bookmark1 = 'm(1',
-            prev_bookmark2 = 'm(2',
-            prev_bookmark3 = 'm(3',
-            prev_bookmark4 = 'm(4',
-            prev_bookmark5 = 'm(5',
-            prev_bookmark6 = 'm(6',
-            prev_bookmark7 = 'm(7',
-            prev_bookmark8 = 'm(8',
-            prev_bookmark9 = 'm(9',
+            prev_bookmark0 = 'm[0', -- Moves to the previous bookmark of the same group type (by line number then buffer number)
+            prev_bookmark1 = 'm[1',
+            prev_bookmark2 = 'm[2',
+            prev_bookmark3 = 'm[3',
+            prev_bookmark4 = 'm[4',
+            prev_bookmark5 = 'm[5',
+            prev_bookmark6 = 'm[6',
+            prev_bookmark7 = 'm[7',
+            prev_bookmark8 = 'm[8',
+            prev_bookmark9 = 'm[9',
 
             annotate = 'm\\', -- Prompts the user for a virtual line annotation that is then placed above the bookmark.
         },
 
     },
+
+    config = function(_, opts)
+        
+        require('marks').setup(opts)
+
+        -- create aliases to the 'next bookmark' actions
+        -- This is a hacky way to do it, but it appears that the mappings table in 'opts' can only accept one mapping per key
+        vim.keymap.set({ 'n', 'v' }, "'0", "<plug>(Marks-next-bookmark0)")
+        vim.keymap.set({ 'n', 'v' }, "'1", "<plug>(Marks-next-bookmark1)")
+        vim.keymap.set({ 'n', 'v' }, "'2", "<plug>(Marks-next-bookmark2)")
+        vim.keymap.set({ 'n', 'v' }, "'3", "<plug>(Marks-next-bookmark3)")
+        vim.keymap.set({ 'n', 'v' }, "'4", "<plug>(Marks-next-bookmark4)")
+        vim.keymap.set({ 'n', 'v' }, "'5", "<plug>(Marks-next-bookmark5)")
+        vim.keymap.set({ 'n', 'v' }, "'6", "<plug>(Marks-next-bookmark6)")
+        vim.keymap.set({ 'n', 'v' }, "'7", "<plug>(Marks-next-bookmark7)")
+        vim.keymap.set({ 'n', 'v' }, "'8", "<plug>(Marks-next-bookmark8)")
+        vim.keymap.set({ 'n', 'v' }, "'9", "<plug>(Marks-next-bookmark9)")
+    end
 
 }

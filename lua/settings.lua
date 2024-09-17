@@ -38,7 +38,10 @@ vim.opt.wildignorecase = true
 vim.opt.equalalways = false
 
 -- Terminal.app does not support 24-bit colors; for other terminals enable them
-if os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
+if os.getenv("TERM_PROGRAM") == "Apple_Terminal" then
+	vim.opt.termguicolors = false
+    vim.cmd("colorscheme habamax")
+else
 	vim.opt.termguicolors = true
 end
 

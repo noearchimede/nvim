@@ -36,10 +36,8 @@ return {
             ["}"] = { escape = true, close = false, pair = "{}" },
 
             ['"'] = { escape = true, close = true, pair = '""' },
-            -- single quote disabled to provent pairing when used as
-            -- apostrophe, see
-            -- https://github.com/m4xshen/autoclose.nvim/issues/55#issue-2203803417
-            -- ["'"] = { escape = true, close = true, pair = "''" },
+            -- single quote: 'close' disabled to provent pairing when used as apostrophe
+            ["'"] = { escape = true, close = false, pair = "''" },
             ["`"] = { escape = true, close = true, pair = "``" },
         },
 

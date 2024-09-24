@@ -19,7 +19,7 @@ return {
         { "<leader>wu", function() vim.cmd("PSSave " .. require('possession.session').get_session_name()) end,
             desc = "Possession: update session" },
         { "<leader>wi", function() vim.notify("Session: " .. (require('possession.session').get_session_name() or "–"), vim.log.levels.INFO) end,
-            desc = "Possession: save session" },
+            desc = "Possession: get session info" },
     },
 
     opts = {
@@ -30,23 +30,10 @@ return {
             cwd = true,
             tmp = false,
             tmp_name = 'tmp',
-            on_load = false,
+            on_load = true,
             on_quit = true,
         },
-        hooks = {
-            --[[ I tried to implement this hook to always have a CWD session saved but it never worked.
-            before_save = function(name)
-                local cwd_name = require('possession.paths').cwd_session_name()
-                if cwd_name ~= name then
-                    require('possession.session').save(cwd_name, { no_confirm = true })
-                end
-                return {}
-            end, --]]
-            -- after_save = function(name, user_data, aborted) end,
-            -- before_load = function(name, user_data) return user_data end,
-            -- after_load = function(name, user_data) end,
-        },
-        autoload = false, --'last_cwd', -- or 'last' or 'auto_cwd' or 'last_cwd' or fun(): string
+        autoload = false,
         commands = {
             save = 'PSSave',
             load = 'PSLoad',
@@ -61,45 +48,16 @@ return {
             migrate = 'PSMigrate',
         },
         plugins = {
-            close_windows = {
-                hooks = {
-                    'before_load',
-                },
-                preserve_layout = true,
-                match = {
-                    floating = true,
-                    buftype = {},
-                    filetype = {},
-                    custom = false,  -- or fun(win): boolean
-                },
-            },
-            delete_hidden_buffers = {
-                hooks = {
-                    'before_load',
-                },
-                force = false,  -- or fun(buf): boolean
-            },
+            close_windows = false,
+            delete_hidden_buffers = false,
+            -- possession has integrations for many third party plugins (full list in the help page)
             nvim_tree = true,
-            neo_tree = false,
-            symbols_outline = false,
-            outline = false,
             tabby = true,
-            dap = true,
-            dapui = true,
-            neotest = true,
-            delete_buffers = false,
             stop_lsp_clients = false,
         },
         telescope = {
             previewer = {
                 enabled = true,
-                previewer = 'pretty', -- or 'raw' or fun(opts): Previewer
-                wrap_lines = true,
-                include_empty_plugin_data = true,
-                cwd_colors = {
-                    cwd = 'Comment',
-                    tab_cwd = { '#cc241d', '#b16286', '#d79921', '#689d6a', '#d65d0e', '#458588' }
-                }
             },
             list = {
                 default_action = 'load',

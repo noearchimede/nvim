@@ -159,14 +159,15 @@ return {
 
             -- Currently unused letters:
             -- lowercase: <none> (j and k are used as main motions, s is used for Leap.nvim)
-            -- uppercase: G O P Q T U V X Y Z
+            -- uppercase: G O Q T U V X Y Z
 
             -- open nodes
             map('<CR>', function(node)
                 api.node.open.edit(node); api.tree.focus()
             end, 'Open file (keep focus)') -- 'O'
             map('o', api.node.open.edit, 'Open') -- '<CR>' and 'o'
-            map('<Tab>', api.node.open.preview, 'Open: preview') -- '<Tab>'
+            map('<Tab>', api.node.open.edit, 'Open')
+            map('P', api.node.open.preview, 'Open: preview')
             map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>'
             map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>'
             map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' -- not using 's' as that is used by leap

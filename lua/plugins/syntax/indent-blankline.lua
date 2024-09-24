@@ -14,6 +14,10 @@ return {
     opts = {
         scope = {
             show_start = false -- do not uderline start of scope
+        },
+        exclude = {
+            filetypes = {
+            }
         }
     },
 }

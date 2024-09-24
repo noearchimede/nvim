@@ -48,6 +48,11 @@ return {
                 -- focus main window, not tree, which would lead to problems if
                 -- a file is opened from outside the tree (e.g. with Telescope)
                 vim.cmd("wincmd l")
+                -- if this is the only tab, change the global cd to the tcd
+                -- this hack allows to use a cwd-based session manager (e.g. possession.nvim)
+                if #vim.api.nvim_list_tabpages() == 1 then
+                    vim.api.nvim_set_current_dir(vim.fn.getcwd(-1, 0))
+                end
                 -- notify
                 local tab_mess = (vim.g.workspaces_opened_new_tab and " in new tab" or "")
                 vim.notify("Workspace " .. (require('workspaces').name() or "???") .. " loaded" .. tab_mess)

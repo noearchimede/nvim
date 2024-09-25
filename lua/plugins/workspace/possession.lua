@@ -7,6 +7,17 @@ return {
         'nvim-telescope/telescope.nvim', -- optional
     },
 
+    events = "DirChangedPre",
+
+    cmd = {
+        "PSSave",
+        "PSSaveCwd",
+        "PSLoad",
+        "PSLoadCwd",
+        "PSList",
+        "PSShow"
+    },
+
     keys = {
         { "<leader>wr", "<cmd>PSLoad<cr>",
             desc = "Possession: load latest session" },
@@ -77,6 +88,22 @@ return {
 
         -- attach telescope extension
         require('telescope').load_extension('possession')
+
+    end,
+
+    init = function()
+
+        -- Create autocommand to save a session named after the cwd when vim is
+        -- closed.
+        -- The autosave.cwd settings doesn't appear to do this in all cases,
+        -- e.g. when cwd is a directory that already has an associated session
+        -- but that session is not explicitly loaded, the cwd session is not
+        -- updated
+        vim.api.nvim_create_autocmd('ExitPre', {
+            callback = function()
+                vim.cmd("PSSave! " .. vim.fn.getcwd(-1, -1))
+            end
+        })
 
     end
 

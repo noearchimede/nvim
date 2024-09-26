@@ -73,7 +73,7 @@ return {
             list = {
                 default_action = 'load',
                 mappings = {
-                    save = nil,
+                    save = '<c-s>',
                     load = nil,
                     delete = '<c-x>',
                     rename = '<c-r>',

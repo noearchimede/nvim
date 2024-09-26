@@ -34,12 +34,11 @@ return {
             border = "rounded",
             size = { width = 0.7, height = 0.8 },
         },
-        -- Key mappings can be set to the name of a builtin action, or you can define your own custom action.
-        keys = {
 
+        keys = {
             -- most keys are left to the default value, here only the ones I changed are listed
 
-            ["o"] = "jump",
+            o = "jump",
             
             ["<cr>"] = {
                 action = function()
@@ -52,13 +51,13 @@ return {
             
             ["<c-h>"] = "jump_split", -- default: ["<c-s>"]
 
-            ["B"] = { -- toggle the active view filter -- default: gb
+            B = { -- toggle the active view filter -- default: gb
                 action = function(view)
                     view:filter({ buf = 0 }, { toggle = true })
                 end,
                 desc = "Toggle Current Buffer Filter",
             },
-            ["L"] = { -- example of a custom action that toggles the severity -- default: s
+            L = { -- toggle severity -- default: s
                 action = function(view)
                     local f = view:get_filter("severity")
                     local severity = ((f and f.filter.severity or 0) + 1) % 5
@@ -70,6 +69,7 @@ return {
                 end,
                 desc = "Toggle Severity Filter",
             },
+            s = false
 
         },
 
@@ -87,18 +87,6 @@ return {
         -- change background color to use the same as NvimTree
         vim.api.nvim_set_hl(0, "TroubleNormal", { link = "NvimTreeNormal", force = true })
         vim.api.nvim_set_hl(0, "TroubleNormalNC", { link = "NvimTreeNormal", force = true })
-
-        -- completely replace the quickfix list (from readme, but not recommended!)
-        vim.api.nvim_create_autocmd("BufRead", {
-            callback = function(ev)
-                if vim.bo[ev.buf].buftype == "quickfix" then
-                    vim.schedule(function()
-                        vim.cmd("cclose")
-                        vim.cmd("Trouble qflist open")
-                    end)
-                end
-            end,
-        })
 
     end
 

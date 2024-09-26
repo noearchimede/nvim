@@ -52,7 +52,7 @@ Leader mappings ~
 |mymap_leader_n| ........ Notifications
 |mymap_leader_o|
 |mymap_leader_p|
-|mymap_leader_q| ........ Terminal
+|mymap_leader_q| ........ Quickfix/location lists and terminal
 |mymap_leader_r| ........ REPL
 |mymap_leader_s| ........ Search
 |mymap_leader_t| ........ File tree, sidebars, tabs
@@ -271,8 +271,6 @@ Trouble                                               *myled*  *mymap_leader_d*
 *mymap_leader_db*  n  \db   diagnostics for Buffer
 *mymap_leader_dl*  n  \dl   lsp Info
 *mymap_leader_ds*  n  \ds   Symbols
-*mymap_leader_dv*  n  \dv   Location list
-*mymap_leader_dc*  n  \dc   Quickfix list
 *mymap_leader_dq*  n  \dq   Close Trouble
 
 Unused ~
@@ -446,9 +444,14 @@ Notifications (fidget) ~
 
 
 -----------------------------------------------------------------------------
-Terminal                                              *myleq*  *mymap_leader_q*
+Quickfix/location lists and terminal                  *myleq*  *mymap_leader_q*
 -----------------------------------------------------------------------------
 
+Quickfix and location list ~
+*mymap_leader_qq*  n  \qq   Toggle quickfix list [quicker]
+*mymap_leader_qc*  n  \ql   Toggle location list [quicker]
+
+Terminal ~
 *mymap_leader_qo*  n  \qo   Open a new terminal in the current window
 *mymap_leader_qh*  n  \qh   open a new terminal in a Horizontal split
 *mymap_leader_qv*  n  \qv   open a new terminal in a Vertical split

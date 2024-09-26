@@ -15,8 +15,6 @@ return {
         { "<leader>db", "<cmd>Trouble diagnostics open filter.buf=0<cr>", desc = "Trouble: buffer diagnostics" },
         { "<leader>ds", "<cmd>Trouble symbols open<cr>", desc = "Trouble: symbols" },
         { "<leader>dl", "<cmd>Trouble lsp open<cr>", desc = "Trouble: LSP content" },
-        { "<leader>dv", "<cmd>Trouble loclist open<cr>", desc = "Trouble: location list" },
-        { "<leader>dc", "<cmd>Trouble qflist open<cr>", desc = "Trouble: quickfix list" },
         { "<leader>dq", "<cmd>Trouble close<cr>", desc = "Trouble: close" },
     },
 

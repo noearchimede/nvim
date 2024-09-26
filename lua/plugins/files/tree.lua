@@ -156,7 +156,6 @@ return {
                 vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
             end
 
-
             -- Currently unused letters:
             -- lowercase: <none> (j and k are used as main motions, s is used for Leap.nvim)
             -- uppercase: G O Q T U V X Y Z
@@ -166,8 +165,6 @@ return {
                 api.node.open.edit(node); api.tree.focus()
             end, 'Open file (keep focus)') -- 'O'
             map('o', api.node.open.edit, 'Open') -- '<CR>' and 'o'
-            map('<Tab>', api.node.open.edit, 'Open')
-            map('P', api.node.open.preview, 'Open: preview')
             map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>'
             map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>'
             map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' -- not using 's' as that is used by leap
@@ -252,15 +249,23 @@ return {
 
             -- Configuration of the float file preview extension
             local preview = require('nvim-tree-preview')
-
-            map('<Tab>', function()
-                local ok, node = pcall(api.tree.get_node_under_cursor)
-                if ok and preview.is_watching() then
-                    preview.node(node, { toggle_focus = true })
+            -- helper function for "preview: toggle"
+            map('P', function()
+                if preview.is_watching() then
+                    preview.unwatch()
                 else
                     preview.watch()
                 end
-            end, 'Preview: watch')
+            end, 'Preview: toggle')
+            -- tab: if no preview open node, if preview toggle focus between tree and preview
+            map('<Tab>', function()
+                if preview.is_watching() then
+                    local node = api.tree.get_node_under_cursor()
+                    preview.node(node, { toggle_focus = true })
+                else
+                    api.node.open.edit()
+                end
+            end, 'Open | Preview: focus')
             map('<Esc>', preview.unwatch, 'Preview: close')
         end,
 

@@ -54,7 +54,7 @@ return {
                 tot_wid_before = tot_wid_before - vim.api.nvim_win_get_width(api.tree.winid())
             end
             local win_wids_before = {}
-            for _, win in ipairs(vim.fn.gettabinfo(vim.api.nvim_get_current_tabpage())[1].windows) do
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
                 if win ~= api.tree.winid() then -- api.tree.winid returns 'nil' if the tree is not visible
                     win_wids_before[win] = vim.api.nvim_win_get_width(win)
                 end

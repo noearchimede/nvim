@@ -259,8 +259,8 @@ actions:
 
 Overseer ~
 *mymap_leader_cc*  n  \ct   run overseer task
-*mymap_leader_co*  n  \co   Open overseer Overview
-*mymap_leader_ch*  n  \ch   Hide overseer Overview
+*mymap_leader_co*  n  \co   Toggle overseer Overview
+*mymap_leader_cf*  n  \cf   Focus overseer overview
 
 
 -----------------------------------------------------------------------------

@@ -213,9 +213,8 @@ Code outline                                          *mylea*  *mymap_leader_a*
 -----------------------------------------------------------------------------
 
 Aerial ~
-*mymap_leader_aa*  n  \aa   open Aerial
-*mymap_leader_af*  n  \af   open and Focus aerial
-*mymap_leader_ac*  n  \ac   Close aerial
+*mymap_leader_aa*  n  \aa   toggle Aerial
+*mymap_leader_af*  n  \af   Focus aerial
 
 *mymap_leader_ag*  n  \ag   open navigator ("Go to")
 

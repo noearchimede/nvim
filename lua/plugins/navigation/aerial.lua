@@ -28,6 +28,10 @@ return {
             win_opts = {
                 winhighlight = 'Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer'
             },
+            -- Determines the default direction to open the aerial window. The 'prefer'
+            -- options will open the window in the other direction *if* there is a
+            -- different buffer in the way of the preferred direction
+            default_direction = "prefer_right",
             -- Determines where the aerial window will be opened
             --   edge   - open aerial at the far right/left of the editor
             --   window - open aerial to the right/left of the current window

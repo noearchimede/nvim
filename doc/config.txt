@@ -678,7 +678,7 @@ Brackets and quotes                                          *mygz*  *mymap-gz*
 
 Implemented by the 'nvim-surround' plugin.
 
-*mymap_gz_*  n  gz{motion}{char}   insert pair of {char}
+*mymap_gz_*  n  gz{motion}{char}   insert pair of {char} (see note below)
            v  gz{char}           in sert pair of {char} around selection
 *mymap_gZ_*  n  gZ{motion}{char}   insert multiline pair of {char} 
            v  gZ{char}           in sert multiline pair of {char} around selection
@@ -692,6 +692,8 @@ Implemented by the 'nvim-surround' plugin.
 *mymap_gzc*  n  gzr{char1}{char2}  Change a pair of {char1} to {char2}
 *mymap_gZc*  n  gZr{char1}{char2}  same as above, but multiline
 
+NOTE: when inserting a pair, using the opening character will also insert a
+space, while using the closing one will only insert the pair.
 
 The following aliases are available for {char}:
     a: Angle brackets      `>`

@@ -47,12 +47,12 @@ Leader mappings ~
 |mymap_leader_i| ........ Alignement and indentation
 |mymap_leader_j|
 |mymap_leader_k|
-|mymap_leader_l|
+|mymap_leader_l| ........ Location list 
 |mymap_leader_m| ........ Motions
 |mymap_leader_n| ........ Notifications
 |mymap_leader_o|
 |mymap_leader_p|
-|mymap_leader_q| ........ Quickfix/location lists and terminal
+|mymap_leader_q| ........ Quickfix lists and terminal
 |mymap_leader_r| ........ REPL
 |mymap_leader_s| ........ Search
 |mymap_leader_t| ........ File tree, sidebars, tabs
@@ -74,7 +74,8 @@ G mappings ~
 Other global mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
 |mymap_m| ............... Extensions to the built-in marks system
-|mymap_ctrl| ............ CTRL keybindings
+|mymap_ctrl| ............ CTRL mappings
+|mymap_bracket| ......... [] mappings
 |mymap_misc| ............ Miscellaneous
 
                                                         *myft* *mymap_filetype*
@@ -411,8 +412,17 @@ Join/split objects ~
 
 
 -----------------------------------------------------------------------------
-Compile/Execute/View file (filetype-specific)         *mylel*  *mymap_leader_l*
+Location list                                         *mylel*  *mymap_leader_l*
 -----------------------------------------------------------------------------
+
+Note: analoguous mappings for the quickfix list listed in |mymap_leader_q|
+*mymap_leader_lq*  n  \lq   Toggle location list
+*mymap_leader_ln*  n  \ln   move to next location item (alias: |mymap_]q|)
+*mymap_leader_lp*  n  \lp   move to previous location item (alias: |mymap_[q|)
+*mymap_leader_lf*  n  \lf   move to first location item
+*mymap_leader_le*  n  \le   move to last location item
+*mymap_leader_lN*  n  \lN   move to first location item in the next file
+*mymap_leader_lP*  n  \lP   move to last location item in the previous file
 
 
 -----------------------------------------------------------------------------
@@ -443,12 +453,18 @@ Notifications (fidget) ~
 
 
 -----------------------------------------------------------------------------
-Quickfix/location lists and terminal                  *myleq*  *mymap_leader_q*
+Quickfix list and terminal                            *myleq*  *mymap_leader_q*
 -----------------------------------------------------------------------------
 
-Quickfix and location list ~
-*mymap_leader_qq*  n  \qq   Toggle quickfix list [quicker]
-*mymap_leader_qc*  n  \ql   Toggle location list [quicker]
+Quickfix list ~
+Note: analoguous mappings for the location list listed in |mymap_leader_l|
+*mymap_leader_qq*  n  \qq   Toggle quickfix list
+*mymap_leader_qn*  n  \qn   move to next quickfix item (alias: |mymap_]q|)
+*mymap_leader_qp*  n  \qp   move to previous quickfix item (alias: |mymap_[q|)
+*mymap_leader_qf*  n  \qf   move to first quickfix item
+*mymap_leader_qe*  n  \qe   move to last quickfix item
+*mymap_leader_qN*  n  \qN   move to first quickfix item in the next file
+*mymap_leader_qP*  n  \qP   move to last quickfix item in the previous file
 
 Terminal ~
 *mymap_leader_qo*  n  \qo   Open a new terminal in the current window
@@ -772,23 +788,17 @@ LSP ~
 
 
 -----------------------------------------------------------------------------
-Miscellaneous                                              *mymi*  *mymap_misc*
+Bracket mappings                                         *my[*  *mymap_bracket*
 -----------------------------------------------------------------------------
-
-Terminal ~
-*mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 Git ~
 *mymap_]c*        n   ]c    move to next hunk ("Change") (alias: |mymap_leader_gn|)
 *mymap_[c*        n   [c    move to previous hunk (alias: |mymap_leader_gp|)
-
-The c and [c mappings are analoguous to the default mappings in diff mode.
+Note: these mappings are analoguous to the equivalent mappings in diff mode.
 
 Diagnostics ~
-*mymap_]d*        n   ]d   move to next Diagnostic message
-                         (alias: |mymap_leader_leader_n|)
-*mymap_[d*        n   [d   move to previous Diagnostic message
-                         (alias: |mymap_leader_leader_p|)
+*mymap_]d*        n   ]d   move to next Diagnostic message (alias: |mymap_leader_leader_n|)
+*mymap_[d*        n   [d   move to previous Diagnostic message (alias: |mymap_leader_leader_p|)
 *mymap_]e*        n   ]e   move to next diagnostic Error
 *mymap_[e*        n   [e   move to previous diagnostic Error
 *mymap_]w*        n   ]w   move to next diagnostic Warning or error
@@ -797,6 +807,19 @@ Diagnostics ~
 Symbols ~
 *mymap_]a*        n   ]a    move to next Aerial symbol (alias: |mymap_leader_an|)
 *mymap_[a*        n   [a    move to previous Aerial symbol (alias: |mymap_leader_ap|)
+
+Quickfix/location list ~
+*mymap_]q*        n   ]q    move to next quickfix item (alias: |mymap_leader_qn|)
+*mymap_[q*        n   [q    move to previous quickfix item (alias: |mymap_leader_qp|)
+*mymap_]l*        n   ]l    move to next location item (alias: |mymap_leader_qn|)
+*mymap_[l*        n   [l    move to previous location item (alias: |mymap_leader_qp|)
+
+-----------------------------------------------------------------------------
+Miscellaneous                                              *mymi*  *mymap_misc*
+-----------------------------------------------------------------------------
+
+Terminal ~
+*mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 Buffer navigation ~
 *mymap_bs*        n   <bs> jump to alternate buffer (alias: |CTRL-^|)

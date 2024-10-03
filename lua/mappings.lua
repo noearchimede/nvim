@@ -42,6 +42,55 @@ vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.
 
 
 
+-- – Quickfix and location list ––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+-- toggle quickfix and location lists
+vim.keymap.set('n', '<leader>qq', function()
+    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+    local action = qf_winid > 0 and 'cclose' or 'copen'
+    vim.cmd('botright '..action)
+end, { noremap = true, silent = true, desc = "Toggle quickfix list" })
+vim.keymap.set('n', '<leader>ll', function()
+    local win = vim.api.nvim_get_current_win()
+    local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
+    local action = qf_winid > 0 and 'lclose' or 'lopen'
+    vim.cmd(action)
+end, { noremap = true, silent = true, desc = "Toggle location list" })
+
+-- jump to next/previous elements (wihtout opening the quickfix list)
+vim.keymap.set('n', ']q', "<cmd>cnext<cr>", { desc = "Quickfix: next" })
+vim.keymap.set('n', '[q', "<cmd>cprevious<cr>", { desc = "Quickfix: previous" })
+vim.keymap.set('n', ']l', "<cmd>lnext<cr>", { desc = "Location list: next" })
+vim.keymap.set('n', '[l', "<cmd>lprevious<cr>", { desc = "Location list: previous" })
+-- aliases for the mappings above for consistency with the other leader mappings
+vim.keymap.set('n', '<leader>qn', "]q", { remap = true })
+vim.keymap.set('n', '<leader>qp', "[q", { remap = true })
+vim.keymap.set('n', '<leader>ln', "]l", { remap = true })
+vim.keymap.set('n', '<leader>lp', "[l", { remap = true })
+-- jump to first and last elements
+vim.keymap.set('n', '<leader>qf', "<cmd>cfirst<cr>", { desc = "Quickfix: first" })
+vim.keymap.set('n', '<leader>qe', "<cmd>clast<cr>", { desc = 'Quickfix: last ("end")' })
+vim.keymap.set('n', '<leader>lf', "<cmd>lfirst<cr>", { desc = "Location list: first" })
+vim.keymap.set('n', '<leader>le', "<cmd>llast<cr>", { desc = 'Location list: last ("end")' })
+-- jumpt to next/previous file
+vim.keymap.set('n', '<leader>qN', "<cmd>cnfile<cr>", { desc = "Quickfix: next file" })
+vim.keymap.set('n', '<leader>qP', "<cmd>cpfile<cr>", { desc = "Quickfix: previous file" })
+vim.keymap.set('n', '<leader>lN', "<cmd>lnfile<cr>", { desc = "Location list: next file" })
+vim.keymap.set('n', '<leader>lP', "<cmd>lpfile<cr>", { desc = "Location list: previous file" })
+
+-- autocmd to define a 'q' mapping to close quickfix/location windows when focused
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = 'qf',
+    callback = function()
+        -- to differentiate between quickfix and location list use this:
+        -- if vim.fn.getwininfo(vim.fn.win_getid()).loclist ~= 1 then ...... end
+        vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true, desc = "Close" })
+    end
+})
+
+
+
 -- – Editor navigation –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 

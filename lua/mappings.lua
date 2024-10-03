@@ -46,17 +46,10 @@ vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.
 
 
 -- toggle quickfix and location lists
-vim.keymap.set('n', '<leader>qq', function()
-    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
-    local action = qf_winid > 0 and 'cclose' or 'copen'
-    vim.cmd('botright '..action)
-end, { noremap = true, silent = true, desc = "Toggle quickfix list" })
-vim.keymap.set('n', '<leader>ll', function()
-    local win = vim.api.nvim_get_current_win()
-    local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
-    local action = qf_winid > 0 and 'lclose' or 'lopen'
-    vim.cmd(action)
-end, { noremap = true, silent = true, desc = "Toggle location list" })
+vim.keymap.set('n', '<leader>qq', "<cmd>copen<cr>", { desc = "Quickfix: open" })
+vim.keymap.set('n', '<leader>qQ', "<cmd>cclose<cr>", { desc = "Quickfix: close" })
+vim.keymap.set('n', '<leader>ll', "<cmd>lopen<cr>", { desc = "Location list: open" })
+vim.keymap.set('n', '<leader>lL', "<cmd>lclose<cr>", { desc = "Location list: close" })
 
 -- jump to next/previous elements (wihtout opening the quickfix list)
 vim.keymap.set('n', ']q', "<cmd>cnext<cr>", { desc = "Quickfix: next" })

@@ -22,8 +22,8 @@ return {
             end,
             desc = "Overseer: run"
         },
-        { '<leader>co', '<cmd>OverseerToggle<cr>', desc = "Overseer: toggle overview" },
-        { '<leader>cf', '<cmd>OverseerOpen<cr>', desc = "Overseer: focus overview" },
+        { '<leader>co', '<cmd>OverseerOpen<cr>', desc = "Overseer: toggle overview" },
+        { '<leader>cO', '<cmd>OverseerClose<cr>', desc = "Overseer: focus overview" },
     },
 
     opts = {

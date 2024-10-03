@@ -12,6 +12,7 @@ return {
 
     keys = {
         { "<leader>dd", "<cmd>Trouble diagnostics open<cr>", desc = "Trouble: diagnostics", },
+        { "<leader>dD", "<cmd>Trouble close<cr>", desc = "Trouble: close", },
         { "<leader>db", "<cmd>Trouble diagnostics open filter.buf=0<cr>", desc = "Trouble: buffer diagnostics" },
         { "<leader>ds", "<cmd>Trouble symbols open<cr>", desc = "Trouble: symbols" },
         { "<leader>dl", "<cmd>Trouble lsp open<cr>", desc = "Trouble: LSP content" },

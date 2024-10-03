@@ -26,7 +26,7 @@ return {
 
     keys = {
         "<leader>tt",
-        "<leader>tc",
+        "<leader>tT",
         "<leader>tf",
         "<leader>tF",
     },
@@ -81,7 +81,7 @@ return {
         -- 'preserve_window_proportions = false', which just equalizes all
         -- windows
         vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
-        vim.keymap.set('n', '<leader>tc', function() resize_wrapper(api.tree.close) end)
+        vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end)
         vim.keymap.set('n', '<leader>tf', function()
             resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
         end)

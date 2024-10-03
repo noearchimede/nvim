@@ -214,8 +214,9 @@ Code outline                                          *mylea*  *mymap_leader_a*
 -----------------------------------------------------------------------------
 
 Aerial ~
-*mymap_leader_aa*  n  \aa   toggle Aerial
-*mymap_leader_af*  n  \af   Focus aerial
+*mymap_leader_aa*  n  \aa   open Aerial (without focusing)
+*mymap_leader_af*  n  \af   open aerial and Focus
+*mymap_leader_aA*  n  \aA   close Aerial
 
 *mymap_leader_ag*  n  \ag   open navigator ("Go to")
 
@@ -259,8 +260,8 @@ actions:
 
 Overseer ~
 *mymap_leader_cc*  n  \ct   run overseer task
-*mymap_leader_co*  n  \co   Toggle overseer Overview
-*mymap_leader_cf*  n  \cf   Focus overseer overview
+*mymap_leader_co*  n  \co   open overseer Overview
+*mymap_leader_cO*  n  \cO   close overseer Overview
 
 
 -----------------------------------------------------------------------------
@@ -268,10 +269,11 @@ Trouble                                               *myled*  *mymap_leader_d*
 -----------------------------------------------------------------------------
 
 *mymap_leader_dd*  n  \dd   Diagnostics
+*mymap_leader_dD*  n  \dD   Close Trouble (alias: |mymap_leader_dq|)
 *mymap_leader_db*  n  \db   diagnostics for Buffer
 *mymap_leader_dl*  n  \dl   lsp Info
 *mymap_leader_ds*  n  \ds   Symbols
-*mymap_leader_dq*  n  \dq   Close Trouble
+*mymap_leader_dq*  n  \dq   Close Trouble (alias: |mymap_leader_dD|)
 
 Unused ~
 *mymap_leader_da*  n  \da   
@@ -416,7 +418,8 @@ Location list                                         *mylel*  *mymap_leader_l*
 -----------------------------------------------------------------------------
 
 Note: analoguous mappings for the quickfix list listed in |mymap_leader_q|
-*mymap_leader_lq*  n  \lq   Toggle location list
+*mymap_leader_ll*  n  \ll   open Location list
+*mymap_leader_lL*  n  \lL   close Location list
 *mymap_leader_ln*  n  \ln   move to next location item (alias: |mymap_]q|)
 *mymap_leader_lp*  n  \lp   move to previous location item (alias: |mymap_[q|)
 *mymap_leader_lf*  n  \lf   move to first location item
@@ -458,7 +461,8 @@ Quickfix list and terminal                            *myleq*  *mymap_leader_q*
 
 Quickfix list ~
 Note: analoguous mappings for the location list listed in |mymap_leader_l|
-*mymap_leader_qq*  n  \qq   Toggle quickfix list
+*mymap_leader_qq*  n  \qq   open Quickfix list
+*mymap_leader_qQ*  n  \qQ   close Quickfix list
 *mymap_leader_qn*  n  \qn   move to next quickfix item (alias: |mymap_]q|)
 *mymap_leader_qp*  n  \qp   move to previous quickfix item (alias: |mymap_[q|)
 *mymap_leader_qf*  n  \qf   move to first quickfix item
@@ -529,7 +533,7 @@ Directory ~
 
 Nvim-tree ~
 *mymap_leader_tt*  n  \tt   open file Tree
-*mymap_leader_tc*  n  \tc   Close file tree
+*mymap_leader_tT*  n  \tT   close file Tree
 *mymap_leader_tf*  n  \tf   Find current file in tree
 *mymap_leader_tF*  n  \tF   Find current file in tree and update root
 

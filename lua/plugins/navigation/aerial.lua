@@ -8,8 +8,9 @@ return {
     },
 
     keys = {
-        { '<leader>aa', '<cmd>AerialToggle<cr>', desc = "Aerial: toggle" },
+        { '<leader>aa', '<cmd>AerialOpen<cr>', desc = "Aerial: open (no focus)" },
         { '<leader>af', '<cmd>AerialOpen<cr>', desc = "Aerial: open and focus" },
+        { '<leader>aA', '<cmd>AerialClose<cr>', desc = "Aerial: close" },
         { '<leader>ag', '<cmd>AerialNavOpen<cr>', desc = "Aerial: open navigator" },
         { '<leader>an', '<cmd>AerialNext<cr>', desc = "Aerial: next" },
         { '[a', '<cmd>AerialNext<cr>', desc = "Aerial: next" },

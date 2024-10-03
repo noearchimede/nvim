@@ -44,7 +44,7 @@ return {
                     paste = '<cr>', -- default: '<c-p>',
                     paste_behind = '<c-k>', -- default: '<c-k>',
                     replay = '<c-q>', -- default: '<c-q>',  -- replay a macro
-                    delete = '<bs>', -- default: '<c-d>',  -- delete an entry
+                    delete = '<c-d>', -- default: '<c-d>',  -- delete an entry
                     edit = '<c-e>', -- default: '<c-e>',  -- edit an entry
                     custom = {},
                 },
@@ -55,7 +55,7 @@ return {
                     -- paste = { 'p', '<c-p>' },
                     paste_behind = 'P', -- default: 'P',
                     replay = 'q', -- default: 'q',
-                    delete = '<bs>', -- default: 'd',
+                    delete = 'd', -- default: 'd',
                     edit = 'e', -- default: 'e',
                     custom = {},
                 },

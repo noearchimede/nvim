@@ -159,11 +159,11 @@ return {
             -- uppercase: G O Q T U V X Y Z
 
             -- open nodes
-            map('<CR>', function(node)
+            map('o', function(node)
                 api.node.open.edit(node)
                 api.tree.focus()
             end, 'Open file (keep focus)') -- 'O'
-            map('o', api.node.open.edit, 'Open') -- '<CR>' and 'o'
+            map('<cr>', api.node.open.edit, 'Open') -- '<CR>' and 'o'
             map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>'
             map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>'
             map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' -- not using 's' as that is used by leap

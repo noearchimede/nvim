@@ -374,11 +374,11 @@ Inline indicators (gitsigns) ~
 *mymap_leader_gx*  n  \gx   toggle inline view of deleted (X) lines
 
 Diff (diffview) ~
-*mymap_leader_gdd*  n  \gdd  open Diffview
-*mymap_leader_gdc*  n  \gdc  type arbitrary Diffview Command
+*mymap_leader_gd*  n  \gd   open Diffview
+*mymap_leader_gh*  n  \gh   open file History
 
 Unused ~
-*mymap_leader_gd*
+*mymap_leader_ga*
 *mymap_leader_ge*
 *mymap_leader_gf*
 *mymap_leader_gi*
@@ -390,6 +390,7 @@ Unused ~
 *mymap_leader_gt*
 *mymap_leader_gw*
 *mymap_leader_gy*
+*mymap_leader_gz*
 
 
 -----------------------------------------------------------------------------

@@ -70,7 +70,6 @@ return {
                     vim.api.nvim_win_set_width(win, new_width)
                 end
             end
-
         end
 
         -- mappings defined using the helper above.
@@ -121,7 +120,6 @@ return {
                     -- otherwise open with netrw or any other default file explorer
                     vim.cmd(':e' .. path)
                 end
-                -- if oil is not found do nothing
             end
 
             -- helper function for integration with grug-far
@@ -162,7 +160,8 @@ return {
 
             -- open nodes
             map('<CR>', function(node)
-                api.node.open.edit(node); api.tree.focus()
+                api.node.open.edit(node)
+                api.tree.focus()
             end, 'Open file (keep focus)') -- 'O'
             map('o', api.node.open.edit, 'Open') -- '<CR>' and 'o'
             map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>'
@@ -270,7 +269,7 @@ return {
         end,
 
         hijack_cursor = true, -- keep the cursor on the first letter of the filename
-        disable_netrw = false, -- see :h nvim-tree-netrw
+        disable_netrw = true, -- see :h nvim-tree-netrw
         hijack_netrw = true, -- see :h nvim-tree-netrw
         hijack_unnamed_buffer_when_opening = false,
         sync_root_with_cwd = true,
@@ -376,7 +375,7 @@ return {
             always_show_folders = false,
         },
         actions = {
-            use_system_clipboard = true,
+            use_system_clipboard = false,
             change_dir = {
                 enable = true,
                 global = false,
@@ -393,6 +392,12 @@ return {
         trash = {
             cmd = "trash",
         },
-    }
+    },
+
+    init = function()
+        -- disable netrw
+        vim.g.loaded_netrw = 1
+        vim.g.loaded_netrwPlugin = 1
+    end
 
 }

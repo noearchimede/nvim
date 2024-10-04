@@ -10,6 +10,9 @@ return {
         -- nicer UI for input fields (optional, not even mentioned in readme!)
         "stevearc/dressing.nvim",
 
+        -- nicer window picker
+        "s1n7ax/nvim-window-picker",
+
         -- add support for file operations using built-in LSP support.
         {
             "antosha417/nvim-lsp-file-operations",
@@ -385,7 +388,7 @@ return {
                 resize_window = true,
                 window_picker = {
                     enable = true,
-                    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    picker = function() return require('window-picker').pick_window() end,
                 },
             },
         },

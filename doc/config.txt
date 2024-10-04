@@ -563,10 +563,10 @@ Workspace and sessions                                *mylew*  *mymap_leader_w*
 -----------------------------------------------------------------------------
 
 Possession ~
-*mymap_leader_wl*  n  \wl   show List of sessions
-*mymap_leader_ww*  n  \ww   load latest session for current Working directory
-*mymap_leader_wt*  n  \wr   load most Recent session
-*mymap_leader_ws*  n  \ws   Save current session
+*mymap_leader_ws*  n  \ws   show list of Sessions
+*mymap_leader_wl*  n  \wl   load Latest session
+*mymap_leader_wd*  n  \wd   load latest session for current Directory
+*mymap_leader_wm*  n  \wm   save session ("Mksession") 
 *mymap_leader_wu*  n  \wu   Update current session (i.e. overwite)
 *mymap_leader_wi*  n  \wi   get name ("Info") of current session
 

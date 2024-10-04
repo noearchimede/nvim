@@ -541,7 +541,7 @@ Nvim-tree ~
 
 Undotree ~
 *mymap_leader_tu*  n  \tu   open Undo history
-*mymap_leader_th*  n  \th   close (Hide) Undo history
+*mymap_leader_tU*  n  \tU   close Undo history
 
 Tabby ~
 *mymap_leader_tr*  n  \tr   Rename tab

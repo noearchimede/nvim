@@ -5,7 +5,8 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
 
     keys = {
-       { "<leader>tu", function() require('undotree').toggle() end, desc = "Toggle Undotree" },
+       { "<leader>tu", function() require('undotree').open() end, desc = "Undotree: open" },
+       { "<leader>tU", function() require('undotree').close() end, desc = "Undotree: close" },
     },
 
     opts = {

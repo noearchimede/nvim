@@ -171,27 +171,24 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 *mymap_leader_leader_j*  n  \\j  show signature help
 
 *mymap_leader_leader_d*  n  \\d  go to Definition
-*mymap_leader_leader_D*  n  \\D  preview Definition [goto-preview]
+*mymap_leader_leader_D*  n  \\D  go to Definition in selected window
 
 *mymap_leader_leader_l*  n  \\l  go to decLaration
-*mymap_leader_leader_L*  n  \\L  preview Definition [goto-preview]
+*mymap_leader_leader_L*  n  \\L  go to decLaration in selected window
 
 *mymap_leader_leader_i*  n  \\i  go to Implementation
-*mymap_leader_leader_I*  n  \\I  preview Definition [goto-preview]
+*mymap_leader_leader_I*  n  \\I  go to Implementation in selected window
 
 *mymap_leader_leader_t*  n  \\t  go to Type definition
-*mymap_leader_leader_T*  n  \\T  preview Definition [goto-preview]
+*mymap_leader_leader_T*  n  \\T  go to Type definition in selected window
 
-*mymap_leader_leader_r*  n  \\r  go to References
-*mymap_leader_leader_R*  n  \\R  preview Definition [goto-preview]
-
-*mymap_leader_leader_Q*  n  \\Q  close previews [goto-preview]
+*mymap_leader_leader_r*  n  \\r  list References in quicfix list
 
 *mymap_leader_leader_a*  n  \\a  code Actions
 *mymap_leader_leader_c*  n  \\c  Change name
 *mymap_leader_leader_f*  n  \\f  Format
 
-*mymap_leader_leader_w*  n  \\w  get Workspace diagnostics [worksp.-diagnostics]
+*mymap_leader_leader_w*  n  \\w  get Workspace diagnostics [workspace-diagnostics]
 
 *mymap_leader_leader_qr* n  \\qr Restart LSP
 *mymap_leader_leader_qq* n  \\qq stop (Quit) LSP

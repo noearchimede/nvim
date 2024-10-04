@@ -35,7 +35,7 @@ return {
             -- Determines where the aerial window will be opened
             --   edge   - open aerial at the far right/left of the editor
             --   window - open aerial to the right/left of the current window
-            placement = "window",
+            placement = "edge",
             -- Preserve window size equality with (:help CTRL-W_=)
             preserve_equality = true,
         },
@@ -43,7 +43,7 @@ return {
         -- Determines how the aerial window decides which buffer to display symbols for
         --   window - aerial window will display symbols for the buffer in the window from which it was opened
         --   global - aerial window will display symbols for the current window
-        attach_mode = "window",
+        attach_mode = "global",
         -- Keymaps in aerial window. Can be any value that `vim.keymap.set` accepts OR a table of keymap
         -- options with a `callback` (e.g. { callback = function() ... end, desc = "", nowait = true })
         -- Additionally, if it is a string that matches "actions.<name>",

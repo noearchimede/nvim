@@ -59,7 +59,17 @@ return {
             migrate = 'PSMigrate',
         },
         plugins = {
-            close_windows = false,
+            close_windows = {
+                preserve_layout = false,
+                match = {
+                    floating = true,
+                    filetype = {
+                        'qf',
+                        'aerial'
+                    },
+                    buftype = {}
+                }
+            },
             delete_hidden_buffers = false,
             -- possession has integrations for many third party plugins (full list in the help page)
             nvim_tree = true,

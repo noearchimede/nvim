@@ -13,35 +13,42 @@ return {
             winblend = 0
         },
         func_map = {
-            -- copied all default mappings. Must be explicitly set to '' to disable.
-            open = '<CR>',
-            openc = 'o',
-            drop = '',
-            tabdrop = '',
-            tab = '',
-            tabb = '<c-t>', -- tab background
-            tabc = '',
-            split = '<c-x>',
-            vsplit = '<c-v>',
+            -- must be explicitly set to '' to disable
+
+            open = '', -- handled externally
+            openc = '', -- handled externally
+            drop = '', -- not used
+            tabdrop = '', -- not used
+            tab = '', -- not used
+            tabb = '', -- handled externally
+            tabc = '', -- not used
+            split = '', -- handled externally
+            vsplit = '', -- handled externally
+
             prevfile = 'K',
             nextfile = 'J',
-            prevhist = '<c-p>',
-            nexthist = '<c-n>',
-            lastleave = '"',
-            stoggleup = '<s-Tab>',
+
+            prevhist = '', -- handled externally
+            nexthist = '', -- handled externally
+
+            lastleave = '<localleader>l',
+
+            stoggleup = '',
             stoggledown = '<Tab>',
             stogglevm = '<Tab>',
-            stogglebuf = "'<Tab>",
-            sclear = 'z<Tab>',
+            stogglebuf = '<s-Tab>',
+            sclear = '<localleader>c',
+            filter = '<localleader>f',
+            filterr = '<localleader>F',
+
             pscrollup = '<c-b>',
             pscrolldown = '<c-f>',
-            pscrollorig = 'zz',
-            ptogglemode = 'P',
-            ptoggleitem = '',
+            pscrollorig = '<localleader>r',
+            ptogglemode = '<localleader>z',
+            ptoggleitem = '<localleader>p',
             ptoggleauto = 'p',
-            filter = 'zn',
-            filterr = 'zN',
-            fzffilter = '',
+
+            fzffilter = '', -- fzf not installed
         }
     }
 }

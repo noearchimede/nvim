@@ -46,7 +46,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.
 
 
 -- toggle quickfix and location lists
-vim.keymap.set('n', '<leader>qq', "<cmd>copen<cr>", { desc = "Quickfix: open" })
+vim.keymap.set('n', '<leader>qq', "<cmd>botright copen<cr>", { desc = "Quickfix: open" })
 vim.keymap.set('n', '<leader>qQ', "<cmd>cclose<cr>", { desc = "Quickfix: close" })
 vim.keymap.set('n', '<leader>ll', "<cmd>lopen<cr>", { desc = "Location list: open" })
 vim.keymap.set('n', '<leader>lL', "<cmd>lclose<cr>", { desc = "Location list: close" })
@@ -72,13 +72,37 @@ vim.keymap.set('n', '<leader>qP', "<cmd>cpfile<cr>", { desc = "Quickfix: previou
 vim.keymap.set('n', '<leader>lN', "<cmd>lnfile<cr>", { desc = "Location list: next file" })
 vim.keymap.set('n', '<leader>lP', "<cmd>lpfile<cr>", { desc = "Location list: previous file" })
 
--- autocmd to define a 'q' mapping to close quickfix/location windows when focused
+-- autocmd to define mappings local to quickfix/location windows
 vim.api.nvim_create_autocmd("FileType", {
     pattern = 'qf',
     callback = function()
-        -- to differentiate between quickfix and location list use this:
+
+        -- if needed, use this to differentiate between quickfix and location list:
         -- if vim.fn.getwininfo(vim.fn.win_getid()).loclist ~= 1 then ...... end
-        vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true, desc = "Close" })
+        vim.keymap.set('n', 'q', "<cmd>close<cr>", { buffer = true, desc = "Close" })
+        vim.keymap.set('n', 'o', "<cr><c-w>p", { buffer = true, desc = "Jump but keep focus" })
+        vim.keymap.set('n', '<cr>', "<cr>", { buffer = true, desc = "Jump" })
+        
+        -- motions
+        local function motion(key)
+            if vim.g.quickfix_auto_jump == true then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key .. '<cr><c-w>p', true, true, true), 'n', true)
+            else -- this includes 'nil' when the control variable is not yet set
+                vim.g.quickfix_auto_jump = false -- set variable on first use
+                vim.api.nvim_feedkeys(key, 'n', true)
+            end
+        end
+
+        -- note: 'not nil' is 'true', so this works even if the control variable is not yet set
+        vim.keymap.set('n', 'P', function() vim.g.quickfix_auto_jump = not vim.g.quickfix_auto_jump end, { buffer = true, desc = "Toggle autojump" })
+        vim.keymap.set('n', 'j', function() motion('j') end, { buffer = true, desc = "Next" })
+        vim.keymap.set('n', 'k', function() motion('k') end, { buffer = true, desc = "Previous" })
+        vim.keymap.set('n', 'gg', function() motion('gg') end, { buffer = true, desc = "First" })
+        vim.keymap.set('n', 'G', function() motion('G') end, { buffer = true, desc = "Last" })
+
+        -- quickfix history
+        vim.keymap.set('n', '<C-n>', '<cmd>cnewer<cr>', { buffer = true, desc = "Next list" })
+        vim.keymap.set('n', '<C-p>', '<cmd>colder<cr>', { buffer = true, desc = "Previous list" })
     end
 })
 

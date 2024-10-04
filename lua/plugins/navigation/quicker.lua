@@ -7,8 +7,8 @@ return {
     opts = {
 
         keys = {
-            { ">", function() require("quicker").expand() end },
-            { "<", function() require("quicker").collapse() end },
+            { "zr", function() require("quicker").expand() end },
+            { "zm", function() require("quicker").collapse() end },
             { "<c-r>", function() require("quicker").refresh() end }
         },
 

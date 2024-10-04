@@ -69,7 +69,6 @@ G mappings ~
 |mymap_gl|
 |mymap_gy|
 |mymap_gz| .............. Brackets and quotes
-
                                                            *myo*  *mymap_other*
 Other global mappings ~
 |mymap_overwritten| ..... Mappings that overwrite a Vim mapping
@@ -77,7 +76,10 @@ Other global mappings ~
 |mymap_ctrl| ............ CTRL mappings
 |mymap_bracket| ......... [] mappings
 |mymap_misc| ............ Miscellaneous
-
+                                                         *mysp* *mymap_special*
+Mappings for special buffers ~
+|mymap_quickfix| ........ Mappings in quickfix and location lists
+|mymap_terminal| ........ Mappings in terminal buffers
                                                         *myft* *mymap_filetype*
 Filetype mappings ~
 |mymap_ft_markdown| ..... Mappings for markdown
@@ -822,11 +824,72 @@ Quickfix/location list ~
 Miscellaneous                                              *mymi*  *mymap_misc*
 -----------------------------------------------------------------------------
 
-Terminal ~
-*mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
-
 Buffer navigation ~
 *mymap_bs*        n   <bs> jump to alternate buffer (alias: |CTRL-^|)
+
+
+
+=============================================================================
+SPECIAL BUFFERS                                                 |mymap_special|
+-----------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+Quickfix and location lists                            *myqf*  *mymap_quickfix*
+-----------------------------------------------------------------------------
+
+Window ~
+*mymap_qf_q*      n   q     Quit quickfix window
+
+Open items ~
+*mymap_qf_<cr>*   n   <cr>  Open item under cursor
+*mymap_qf_o*      n   o     Open item under cursor without losing focus
+
+Motions with auto-open ~
+*mymap_qf_P*      n   P     toggle auto-open mode for mappings below
+*mymap_qf_j*      n   j     go to next item (optional auto-open)
+*mymap_qf_k*      n   k     go to previous item (optional auto-open)
+*mymap_qf_gg*     n   gg    go to first item (optional auto-open)
+*mymap_qf_G*      n   G     go to last item (optional auto-open)
+
+Other motions [bqf] ~
+*mymap_qf_J*      n   J     go to first item in next file
+*mymap_qf_K*      n   K     go to last item in previous file
+*mymap_qf_locle_l* n  ,l    go to the last selected item
+
+Lists history ~
+*mymap_qf_ctrl_n* n   <c-n> switch to the next quickfix list (|cnewer|)
+*mymap_qf_ctrl_p* n   <c-p> switch to the previous quickfix list (|colder|)
+
+Signs [bqf] ~
+*mymap_qf_tab*    n   <tab> toggle the sign of the current item
+                  v   <tab> toggle the sign of the selected items
+*mymap_qf_S-tab*  n   <s-tab> toggle the sign of all items in the current file
+*mymap_qf_locle_c* n  ,c    Clear all signs
+*mymap_qf_locle_f* n  ,f    Filter all items with sign
+*mymap_qf_locle_F* n  ,F    Filter all items without sign
+
+Preview [bqf] ~
+*mymap_qf_p*       n   p    toggle preview
+*mymap_qf_locle_p* n  ,p    toggle preview for a single item
+*mymap_qf_locle_z* n  ,h    toggle zoom level of the preview
+*mymap_qf_ctrl-f*  n   <c-f> scroll up in the preview
+*mymap_qf_ctrl-b*  n   <c-b> scroll down in the preview
+*mymap_qf_locle_r* n  ,r    reset position of the preview
+
+Inline preview [quicker] ~
+*mymap_qf_zr*      n   zr   expand inline context aroune all items ("Reduce fold")
+*mymap_qf_zm*      n   zm   collapse inline context aroune all items ("More fold")
+
+Sync [quicker] ~
+*mymap_qf_ctrl-r*  n   <c-r> Refresh current quickfix
+
+
+-----------------------------------------------------------------------------
+Terminal                                              *myter*  *mymap_terminal*
+-----------------------------------------------------------------------------
+
+*mymap_t_esc-esc* t   <esc><esc> exit terminal mode (into normal mode)
 
 
 =============================================================================

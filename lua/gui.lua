@@ -28,7 +28,7 @@ if vim.g.neovide then
     vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
     vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
     vim.keymap.set('c', '<D-v>', '<C-r>+') -- Paste command mode
-    vim.keymap.set('i', '<D-v>', '<esc>"+pa') -- Paste insert mode
+    vim.keymap.set('i', '<D-v>', '<C-r>+') -- Paste insert mode
 
     -- mapping to open a new Neovide instance. This is a workaround from
     -- [https://github.com/neovide/neovide/issues/2020#issuecomment-1714042856];

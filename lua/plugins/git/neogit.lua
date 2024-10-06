@@ -35,6 +35,7 @@ return {
                 ["="] = "Toggle",
                 ["o"]  = "GoToFile",
                 ["<cr>"] = "VSplitOpen",
+                ["<localleader>q"] = "Close",
             }
         }
     },

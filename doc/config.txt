@@ -539,8 +539,10 @@ Directory ~
 Nvim-tree ~
 *mymap_leader_tt*  n  \tt   open file Tree
 *mymap_leader_tT*  n  \tT   close file Tree
-*mymap_leader_tf*  n  \tf   Find current file in tree
-*mymap_leader_tF*  n  \tF   Find current file in tree and update root
+*mymap_leader_tf*  n  \tf   show (Find) current file in tree, but only in CWD
+*mymap_leader_tF*  n  \tF   show (Find) current file in tree, even outside CWD
+*mymap_leader_tj*  n  \tj   Jump to current file in tree, but only in CWD
+*mymap_leader_tJ*  n  \tJ   Jump to current file in tree, even outside CWD
 
 Undotree ~
 *mymap_leader_tu*  n  \tu   open Undo history

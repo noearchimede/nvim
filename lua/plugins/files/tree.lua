@@ -85,9 +85,16 @@ return {
         vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
         vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end)
         vim.keymap.set('n', '<leader>tf', function()
-            resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
+            resize_wrapper(function() api.tree.find_file({ open = true, focus = false }) end)
         end)
         vim.keymap.set('n', '<leader>tF', function()
+            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = false }) end)
+        end)
+
+        vim.keymap.set('n', '<leader>tj', function()
+            resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
+        end)
+        vim.keymap.set('n', '<leader>tJ', function()
             resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = true }) end)
         end)
 

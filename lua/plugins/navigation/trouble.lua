@@ -11,17 +11,60 @@ return {
     event = "BufRead",
 
     keys = {
-        { "<leader>dd", "<cmd>Trouble diagnostics open<cr>", desc = "Trouble: diagnostics", },
-        { "<leader>dD", "<cmd>Trouble close<cr>", desc = "Trouble: close", },
-        { "<leader>db", "<cmd>Trouble diagnostics open filter.buf=0<cr>", desc = "Trouble: buffer diagnostics" },
-        { "<leader>ds", "<cmd>Trouble symbols open<cr>", desc = "Trouble: symbols" },
-        { "<leader>dl", "<cmd>Trouble lsp open<cr>", desc = "Trouble: LSP content" },
-        { "<leader>dq", "<cmd>Trouble close<cr>", desc = "Trouble: close" },
+        {
+            "<leader>dd",
+            function()
+                require('trouble').focus()
+                -- it would be nice to have this reopen the last trouble view if there is none open
+            end,
+            desc = "Trouble: focus",
+        },
+        {
+            "<leader>dD",
+            function() require('trouble').close() end,
+            desc = "Trouble: focus",
+        },
+        {
+            "<leader>dr",
+            function() require('trouble').refresh() end,
+            desc = "Trouble: refresh",
+        },
+        {
+            "<leader>dw",
+            function()
+                require('trouble').open({ mode = 'diagnostics', refresh = 'false' })
+            end,
+            desc = "Trouble: workspace diagnostics",
+        },
+        {
+            "<leader>db",
+            function()
+                require('trouble').open({mode = 'diagnostics', refresh = 'false', filter = { buf = 0}})
+            end,
+            desc = "Trouble: buffer diagnostics",
+        },
+        {
+            "<leader>dn",
+            function()
+                require('trouble').next()
+                require('trouble').jump()
+            end,
+            desc = "Trouble: jump to next item",
+        },
+        {
+            "<leader>dp",
+            function()
+                require('trouble').prev()
+                require('trouble').jump()
+            end,
+            desc = "Trouble: jump to previous item",
+        },
     },
 
     opts = {
 
         auto_preview = false, -- automatically open preview when on an item
+        auto_refresh = true, -- auto refresh when open
         focus = true, -- Focus the window when opened
         follow = true, -- Follow the current item
         multiline = false, -- render multi-line messages

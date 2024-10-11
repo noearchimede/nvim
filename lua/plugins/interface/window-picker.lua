@@ -19,8 +19,17 @@ return {
             include_current_win = true,
             -- filter using buffer options
             bo = {
-                filetype = { 'NvimTree', 'neo-tree', 'notify' },
-                buftype = { 'terminal' },
+                filetype = {
+                    'NvimTree',
+                    'trouble',
+                    'aerial',
+                    'fidget',
+                    'undotree',
+                    'qf',
+                },
+                buftype = {
+                    'terminal',
+                },
             },
             -- filter using window options
             wo = {},

@@ -65,7 +65,9 @@ return {
                     floating = true,
                     filetype = {
                         'qf',
-                        'aerial'
+                        'aerial',
+                        'trouble',
+                        'undotree',
                     },
                     buftype = {}
                 }

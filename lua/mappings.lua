@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("n", "<leader><leader>c", vim.lsp.buf.rename, "LSP: rename")
         map({ "n", "v" }, "<leader><leader>a", vim.lsp.buf.code_action, "LSP: code actions")
-        map({ "n", "v" }, "<leader><leader>f", vim.lsp.buf.format, "LSP: format")
+        -- map({ "n", "v" }, "<leader><leader>f", vim.lsp.buf.format, "LSP: format") <<< handled by conform.nvim
 
         -- stop/start/restart LPS
         map("n", "<leader><leader>qq", ":LspStop<CR>", "LSP: stop")

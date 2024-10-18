@@ -7,18 +7,9 @@ return {
     dependencies = {
         -- mason
         "williamboman/mason.nvim",
-        -- interface with cmp-nvim
-        "hrsh7th/cmp-nvim-lsp",
     },
 
     config = function()
-
-        local lspconfig = require('lspconfig')
-
-        -- language servers configuration
-        local my_config = require('semantic_tools')
-        my_config.lsp_settings(lspconfig)
-
 
         -- customise the way diagnostics are shown
         vim.diagnostic.config({
@@ -36,6 +27,11 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
 
+        -- Note: normally at this point there would be calls to the 'setup()'
+        -- function of each server. In this Neovim config that's handled in the
+        -- setup of mason-lspconfig. Doing it throug mason-lspconfig allows to
+        -- provide a default trivial setup for servers installed with Mason
+        -- that don't need a custom configuration.
 
     end,
 }

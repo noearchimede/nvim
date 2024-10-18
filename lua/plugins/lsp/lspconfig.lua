@@ -13,6 +13,13 @@ return {
 
     config = function()
 
+        local lspconfig = require('lspconfig')
+
+        -- language servers configuration
+        local my_config = require('semantic_tools')
+        my_config.lsp_settings(lspconfig)
+
+
         -- customise the way diagnostics are shown
         vim.diagnostic.config({
             virtual_text = false,
@@ -23,7 +30,6 @@ return {
         })
 
         -- customise diagnostics symbols in the gutter
-        -- (from https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed)
         local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type

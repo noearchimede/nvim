@@ -27,11 +27,6 @@ return {
             ensure_installed = my_config.mason_lsp,
         })
 
-        -- setup individual language servers
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        local lspconfig = require("lspconfig")
-        require("mason-lspconfig").setup_handlers(my_config.lsp_settings(lspconfig, capabilities))
-
     end
 
 }

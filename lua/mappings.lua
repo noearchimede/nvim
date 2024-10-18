@@ -199,13 +199,13 @@ vim.keymap.set('n', "<leader>to", function() vim.cmd("tcd " .. vim.fn.getcwd() .
 vim.keymap.set('n', '<leader>ss', ":let @/ = '\\C\\<' . expand('<cword>') . '\\>' | set hls<CR>")
 -- -> visual: higlight all matches of selected text
 vim.keymap.set('v', '<leader>ss',
-               ":<C-u>let @/ = '\\C\\V' . escape(luaeval(\"require('utils').get_visual_selection()\"), '\\') | set hls<CR>")
+    ":<C-u>let @/ = '\\C\\V' . escape(luaeval(\"require('utils').get_visual_selection()\"), '\\') | set hls<CR>")
 
 -- Search Replace: replace word under cursor, then return to starting position
 vim.keymap.set('n', '<leader>sr', function() require("utils").replace_in_file(vim.fn.expand('<cword>'), true) end)
 -- -> visual: replace the sected text, then return to starting position
 vim.keymap.set('v', '<leader>sr',
-               function() require("utils").replace_in_file(require("utils").get_visual_selection(), false) end)
+    function() require("utils").replace_in_file(require("utils").get_visual_selection(), false) end)
 
 -- Search Clear: clear the contents of the search register
 -- Note that this is not the same as ':set nohlsearch'
@@ -262,18 +262,18 @@ end)
 
 
 vim.keymap.set("n", "<leader>xys", function()
-                   vim.cmd([[
+    vim.cmd([[
 		:profile start /tmp/nvim-profile.log
 		:profile func *
 		:profile file *
         :echo "Started profiling"
 	]])
-               end, { desc = "Profile Start" })
+end, { desc = "Profile Start" })
 
 vim.keymap.set("n", "<leader>xye", function()
-                   vim.cmd([[
+    vim.cmd([[
 		:profile stop
 		:e /tmp/nvim-profile.log
         :echo "Ended profiling"
 	]])
-               end, { desc = "Profile End" })
+end, { desc = "Profile End" })

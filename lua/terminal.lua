@@ -9,10 +9,10 @@
 
 
 -- always start terminals in insert mode
-vim.api.nvim_create_autocmd('TermOpen',  { command = "startinsert" })
+vim.api.nvim_create_autocmd('TermOpen', { command = "startinsert" })
 -- disable number column and signcolumn in all terminal buffers
-vim.api.nvim_create_autocmd('TermOpen',  { command = "setlocal nonumber" })
-vim.api.nvim_create_autocmd('TermEnter',  { command = "setlocal signcolumn=no" })
+vim.api.nvim_create_autocmd('TermOpen', { command = "setlocal nonumber" })
+vim.api.nvim_create_autocmd('TermEnter', { command = "setlocal signcolumn=no" })
 -- NOTE: the darker background in terminal windows is implemented as an
 -- autocommand in my plugin spec for the 'onehalf' colorscheme
 
@@ -37,4 +37,3 @@ vim.keymap.set('t', '<c-esc>', '<esc>')
 vim.keymap.set('n', '<leader>qo', '<cmd>terminal<cr>')
 vim.keymap.set('n', '<leader>qv', '<cmd>vertical terminal<cr>')
 vim.keymap.set('n', '<leader>qh', '<cmd>horizontal terminal<cr>')
-

@@ -39,10 +39,10 @@ vim.opt.equalalways = false
 
 -- Terminal.app does not support 24-bit colors; for other terminals enable them
 if os.getenv("TERM_PROGRAM") == "Apple_Terminal" then
-	vim.opt.termguicolors = false
+    vim.opt.termguicolors = false
     vim.cmd("colorscheme habamax")
 else
-	vim.opt.termguicolors = true
+    vim.opt.termguicolors = true
 end
 
 -- keep undo history across nvim sessions
@@ -95,7 +95,7 @@ vim.cmd([[hi clear SpellCap]])
 vim.cmd([[hi clear SpellLocal]])
 
 -- listchars: characters used to show invisible characters if 'list' is set
-vim.opt.listchars = { eol = "¶", tab = "–>" ,space = "•", trail = "~", extends = ">", precedes = "<", nbsp = "°" }
+vim.opt.listchars = { eol = "¶", tab = "–>", space = "•", trail = "~", extends = ">", precedes = "<", nbsp = "°" }
 
 -- filler characters: in diff mode show diagonal lines insted of horizontal dashes
 vim.opt.fillchars:append { diff = "╱" }
@@ -122,9 +122,9 @@ vim.opt.tagcase = "followscs"
 
 
 -- tabs (using the second option suggested in `:h tabstop`)
-vim.opt.tabstop = 4  -- number of spaces used to render a `tab` character
-vim.opt.shiftwidth = 4  -- numebr of spaces for (auto)indent
-vim.opt.expandtab = true  -- tabs are made of spaces
+vim.opt.tabstop = 4 -- number of spaces used to render a `tab` character
+vim.opt.shiftwidth = 4 -- numebr of spaces for (auto)indent
+vim.opt.expandtab = true -- tabs are made of spaces
 
 -- text wrapping:
 -- -  b: only wrap text inserted in the current mode and only if the line was
@@ -136,7 +136,7 @@ vim.opt.expandtab = true  -- tabs are made of spaces
 vim.opt.formatoptions = "bcnqj"
 -- Many ftplugins add the 'o' options. This autocmd removes it for all filetypes.
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function() vim.opt_local.formatoptions:remove("o") end,
+    callback = function() vim.opt_local.formatoptions:remove("o") end,
 })
 
 -- behaviour of ctrl-A and ctrl-X: treat numbers starting with 0 as decimal, not octal
@@ -209,5 +209,3 @@ two words  start of text that will be wrapped
 
 -- set flp val
 vim.opt.formatlistpat = flp_value
-
-

@@ -94,7 +94,7 @@ end
 
 
 --- Run a 'vim.lsp.<...>' function and select the output window with a window picker
---- 
+---
 --- This function is intended to be used to create mappings
 --- @param lsp_func function from the 'vim.lsp' module
 function M.lsp_goto_with_picker(lsp_func)

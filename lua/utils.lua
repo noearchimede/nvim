@@ -93,5 +93,55 @@ function M.tab_is_empty(tabpage)
 end
 
 
+--- Run a 'vim.lsp.<...>' function and select the output window with a window picker
+--- 
+--- This function is intended to be used to create mappings
+--- @param lsp_func function from the 'vim.lsp' module
+function M.lsp_goto_with_picker(lsp_func)
+    local ok, picker = pcall(require, "window-picker")
+    if not ok then
+        vim.notify("Unable to load the 'window-picker' module ('s1n7ax/nvim-window-picker' plugin not installed?)")
+    end
+    lsp_func({
+        on_list = function(options)
+            -- if there are multiple items, warn the user
+            if #options.items > 1 then vim.notify("Multiple items found, opening first one", vim.log.levels.WARN) end
+            -- get id of current window
+            local win_origin = vim.api.nvim_get_current_win()
+            -- create temporary horizontal and vertical splits as additional choices for the user
+            local buf = vim.api.nvim_create_buf(true, true)
+            vim.cmd('vsplit')
+            vim.cmd('vert resize 5')
+            local win_tmp_ver = vim.api.nvim_get_current_win()
+            vim.api.nvim_win_set_buf(win_tmp_ver, buf)
+            vim.api.nvim_set_current_win(win_origin)
+            vim.cmd('split')
+            vim.cmd('resize 5')
+            local win_tmp_hor = vim.api.nvim_get_current_win()
+            vim.api.nvim_win_set_buf(win_tmp_hor, buf)
+            vim.api.nvim_set_current_win(win_origin)
+            -- pick window
+            local win_selected = picker.pick_window()
+            -- close the temporary windows if not selected, otherwise resize
+            if win_selected ~= win_tmp_hor then
+                vim.api.nvim_win_close(win_tmp_hor, false)
+            else
+                local height = vim.api.nvim_win_get_height(win_origin)
+                vim.api.nvim_win_set_height(win_tmp_hor, math.floor(height / 2))
+            end
+            if win_selected ~= win_tmp_ver then
+                vim.api.nvim_win_close(win_tmp_ver, false)
+            else
+                local width = vim.api.nvim_win_get_width(win_origin)
+                vim.api.nvim_win_set_width(win_tmp_ver, math.floor(width / 2))
+            end
+            -- focus the selected window and open the documentation there
+            vim.api.nvim_set_current_win(win_selected)
+            local item = options.items[1]
+            vim.cmd("e +" .. item.lnum .. " " .. item.filename .. "|" .. "normal " .. item.col .. "|")
+        end
+    })
+end
+
 
 return M

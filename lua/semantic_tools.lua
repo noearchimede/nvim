@@ -31,6 +31,7 @@ M.treesitter_parsers = {
 M.mason_tools_ensure_installed = {
     "prettier", -- prettier formatter
     "black", -- python formatter
+    "shfmt" -- shell scripting formatter
 }
 
 -- Formatters used by Conform (they must also be added to to the 'mason_tools' list to enforce installation)
@@ -38,6 +39,7 @@ M.conform_formatters_by_ft = function()
     return {
         lua = { lsp_format = "prefer" }, -- use lua_ls (lsp)
         python = { "black" },
+        sh = { "shfmt" },
     }
 end
 

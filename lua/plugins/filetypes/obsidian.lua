@@ -4,7 +4,7 @@ local my_vaults = {
         name = "personal",
         path = "~/Personale/Appunti",
         -- keys used in my custom functions
-        index = "@Index.md"
+        index = "@Indice.md"
     }
 }
 

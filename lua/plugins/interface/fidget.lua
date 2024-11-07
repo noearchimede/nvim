@@ -14,6 +14,11 @@ return {
         progress = {
             display = {
                 done_ttl = 5, -- How long a message should persist after completion
+            },
+            ignore = {
+                function(msg)
+                    return msg.lsp_client.name == "pylsp" and string.find(msg.title, "lint:")
+                end,
             }
         },
         -- Options related to notification subsystem

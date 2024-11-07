@@ -40,6 +40,7 @@ M.conform_formatters_by_ft = function()
         lua = { lsp_format = "prefer" }, -- use lua_ls (lsp)
         python = { "black" },
         sh = { "shfmt" },
+        markdown = { "prettier" },
     }
 end
 

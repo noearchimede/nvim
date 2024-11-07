@@ -7,7 +7,25 @@ return {
     ft = { 'markdown' },
 
     keys = {
-        { '<localleader>r', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown' }
+        {
+            '<localleader>r',
+            function()
+                if require('render-markdown.state').enabled then
+                    vim.cmd('RenderMarkdown disable')
+                    -- setting the conceal level immediately does not work
+                    -- for some reason, but doing so 200 ms after
+                    -- disabling RenderMarkdown appears to work fine
+                    vim.defer_fn(function()
+                        vim.opt_local.conceallevel = 0
+                    end, 200)
+                else
+                    vim.cmd('RenderMarkdown enable')
+                end
+            end,
+            ft = 'markdown'
+        },
+        { '<localleader>e', '<cmd>RenderMarkdown expand<cr>', ft = 'markdown' },
+        { '<localleader>d', '<cmd>RenderMarkdown contract<cr>', ft = 'markdown' },
     },
 
     cmd = { 'RenderMarkdown' },
@@ -237,7 +255,7 @@ return {
             --   'icon': Gets inlined before the link text
             --   'highlight': Highlight for the 'icon'
             custom = {
-                web = { pattern = '^http[s]?://', icon = '' , highlight = 'RenderMarkdownLink' }, -- default icon: '󰖟 '
+                web = { pattern = '^http[s]?://', icon = '', highlight = 'RenderMarkdownLink' }, -- default icon: '󰖟 '
             },
         },
 
@@ -252,15 +270,16 @@ return {
         win_options = {
             -- See :h 'conceallevel'
             conceallevel = {
+                -- Used when not rendered, which includes Insert mode
+                default = 2,
                 -- Used when being rendered, concealed text is completely hidden
                 rendered = 2, -- default is 3, but that breaks (among others) many UI features of obsidian.nvim
             },
             concealcursor = {
-                rendered = 'nc' -- enable concealing of the cursor line in Normal mode only
+                rendered = 'nc' -- enable concealing of the cursor line in Normal and Command-line mode
             }
         }
 
     },
 
 }
-

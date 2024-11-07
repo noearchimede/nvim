@@ -395,7 +395,15 @@ return {
                 resize_window = true,
                 window_picker = {
                     enable = true,
-                    picker = function() return require('window-picker').pick_window() end,
+                    picker = function()
+                        local picked = require('window-picker').pick_window()
+                        if picked ~= nil then
+                            return picked
+                        else
+                            vim.cmd.vsplit()
+                            return vim.fn.win_getid()
+                        end
+                    end,
                 },
             },
         },

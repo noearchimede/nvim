@@ -108,6 +108,7 @@ return {
         -- alpha options
         local opts = {
             margin = 5,
+            redraw_on_resize = false -- added to remove an error raised on line 535 of alpha-nvim/lua/alpha.lua
         }
 
         -- Send config to alpha

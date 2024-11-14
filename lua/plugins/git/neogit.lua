@@ -31,12 +31,28 @@ return {
         },
 
         mappings = {
+
             status = {
                 ["="] = "Toggle",
-                ["o"]  = "GoToFile",
+                ["o"] = "GoToFile",
                 ["<cr>"] = "VSplitOpen",
                 ["<localleader>q"] = "Close",
+            },
+
+            rebase_editor = {
+                -- The following keys by default map to 'pick', 'reword', ecc.
+                -- (see 'neogit_setup_mappings'), but they interfere with normal editing
+                ["p"] = false,
+                ["r"] = false,
+                ["e"] = false,
+                ["s"] = false,
+                ["f"] = false,
+                ["x"] = false,
+                ["d"] = false,
+                ["b"] = false,
+                ["q"] = false,
             }
+
         }
     },
 

@@ -100,16 +100,7 @@ return {
 
                 ),
                 -- close completion menu
-                ['<C-e>'] = cmp.mapping(
-                    function(fallback)
-                        if cmp.visible() then
-                            cmp.close()
-                        else
-                            fallback()
-                        end
-                    end,
-                    { 'i', 'c' }
-                ),
+                ['<C-c>'] = cmp.mapping(cmp.mapping.close(), { 'i', 'c' }),
                 -- navigate quick documentation window
                 ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
                 ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),

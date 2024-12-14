@@ -37,7 +37,7 @@ return {
 
         -- set up nvim-cmp
         local cmp = require('cmp')
-        local luasnip  = require('luasnip')
+        local luasnip = require('luasnip')
 
         cmp.setup({
 
@@ -102,8 +102,8 @@ return {
                 -- close completion menu
                 ['<C-c>'] = cmp.mapping(cmp.mapping.close(), { 'i', 'c' }),
                 -- navigate quick documentation window
-                ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-                ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+                ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+                ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
 
                 -- expand snippets
                 ["<CR>"] = cmp.mapping(
@@ -161,7 +161,8 @@ return {
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     -- completion from all buffers (see :h cmp-buffer-all-buffers)
-                    { name = 'buffer',
+                    {
+                        name = 'buffer',
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }
                     }
                 }
@@ -191,7 +192,8 @@ return {
         cmp.setup.cmdline(':', {
             sources = cmp.config.sources(
                 {
-                    { name = 'path',
+                    {
+                        name = 'path',
                         option = { trailing_slash = false }
                     },
                 }, {
@@ -211,7 +213,8 @@ return {
                 {
                     { name = 'git' },
                 }, {
-                    { name = 'buffer',
+                    {
+                        name = 'buffer',
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end },
                     }
                 }
@@ -227,7 +230,8 @@ return {
                     { name = 'luasnip' },
                     { name = 'nvim_lua' },
                     -- completion from all buffers (see :h cmp-buffer-all-buffers)
-                    { name = 'buffer',
+                    {
+                        name = 'buffer',
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end },
                     }
                 }

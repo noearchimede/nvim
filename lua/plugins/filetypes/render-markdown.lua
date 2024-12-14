@@ -7,7 +7,9 @@ return {
     ft = { 'markdown' },
 
     keys = {
-        { '<localleader>r', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown' }
+        { '<localleader>r', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown' },
+        { '<localleader>e', '<cmd>RenderMarkdown expand<cr>', ft = 'markdown' },
+        { '<localleader>d', '<cmd>RenderMarkdown contract<cr>', ft = 'markdown' },
     },
 
     cmd = { 'RenderMarkdown' },

@@ -908,6 +908,8 @@ Markdown files                                    *myftmd*  *mymap_ft_markdown*
 
 Rendering ~
 *mymap_ftmd_locle_r*  n  ,r   toggle Render [render-markdown]
+*mymap_ftmd_locle_e*  n  ,e   Expand unconcealded context [render-markdown]
+*mymap_ftmd_locle_d*  n  ,d   Decrease unconcealded context [render-markdown]
 
                                                   *myftob*  *mymap_ft_obsidian*
 Obsidian ~

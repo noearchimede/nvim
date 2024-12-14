@@ -29,9 +29,11 @@ two keys can be used in place of <leader> in all "leader mappings".
 
                                                                *myi*  *mymap_i*
 Insert mode mappings ~
-|mymap_i_complete| ...... Autocompletion and snippets
+|mymap_i_overview| ...... Overview of mappings in insert mode
+|mymap_i_autocomplete| .. Autocompletion and snippets
 |mymap_i_lsp| ........... LSP tools
 |mymap_i_surround| ...... Quotes, brackets, etc.
+
                                                          *myle*  *mymap_leader*
 Leader mappings ~
 |mymap_leader_leader| ... LSP
@@ -95,30 +97,90 @@ INSERT MODE MAPPINGS                                                  |mymap_i|
 
 List of custom mappings in Insert mode.
 
+-----------------------------------------------------------------------------
+Overview of mappings in insert modes                *myiow*  *mymap_i_overview*
+-----------------------------------------------------------------------------
+
+The following table is an overview of the function of every CTRL sequence in
+Vim and in Unix terminals. The `Syn` column shows default synonims.
+The detailed function of most keys is in |ins-special-keys|, except for the
+ones marked with `(iss)` which are in |ins-special-special| and CTRL-F in
+in |cinoptions|.
+
+The `config` column indicates keys that are remapped in this Vim
+configuration. A `+` is added when the custom mappings are added to the
+existing ones without removing the default functionality.
+
+The `?` column displays `X` for keys that are completely free and `/` for keys
+that have a function I don't need.
+
+
+Key      | Config.    | ? | Syn | Terminal          | Vim
+–––––––––|––––––––––––|–––|–––––|–––––––––––––––––––|–––––––––––––––––––––––––
+|i_<esc>|  |            |   | [   |                   | Go back to Normal mode
+|i_<bs>|   |            |   | H   |                   | Delete char before cursor
+|i_<tab>|  | +next cmp  |   | I   |                   | Insert a tab
+i_S-<tab>| +prev cmp  |   | sI  |                   | Insert a tab (ignores shift)
+|i_<cr>|   |            |   | M J |                   | Begin a new line
+|i_<del>|  |            |   |     |                   | Delete char under cursor
+|i_CTRL-A| |            | / |     |                   | Insert previous text
+i_CTRL-B | scroll doc | X |     |                   |            
+|i_CTRL-C| | +close cmp |   |     |                   | Quit insert mode
+|i_CTRL-D| |            |   |     |                   | Decrease indent
+|i_CTRL-E| |            |   |     |                   | Insert character below
+|i_CTRL-F| | scroll doc | / |     |                   | (cinoptions) Indent
+|i_CTRL-G| | +surround   |   |     |                   | (iss) CTRL-G mappings
+|i_CTRL-H| |            |   | bs  | Backspace         | Delete before cursor
+|i_CTRL-I| | next cmp   |   | tab | Tab               | Insert a tab
+|i_CTRL-J| |            |   | M lf| Line feed         | Begin new line
+|i_CTRL-K| |            |   |     |                   | Insert digraph
+i_CTRL-L | snip exp   | X |     |                   |            
+|i_CTRL-M| |            | X | J cr| Carriage return   | Begin new line
+|i_CTRL-N| | snip jump  | / |     |                   | Find next keyword
+|i_CTRL-O| |            |   |     |                   | (iss) Run one command
+|i_CTRL-P| | snip jump  | / |     |                   | Find previous keyword
+|i_CTRL-Q| |            |   | V   | Flow ctrl: start  | Insert literally
+|i_CTRL-R| |            |   |     |                   | Paste from register
+i_CTRL-S |            |   |     | Flow ctrl: stop   |            
+|i_CTRL-T| |            |   |     |                   | Increase indent
+|i_CTRL-U| |            |   |     |                   | Clear line up to cursor
+|i_CTRL-V| |            | / | Q   |                   | Insert literally
+|i_CTRL-W| |            |   |     |                   | Delete preceding word
+|i_CTRL-X| |            |   |     |                   | CTRL-X mappings
+|i_CTRL-Y| |            |   |     |                   | Insert character above
+i_CTRL-Z |            |   |     | Suspend process   |            
+|i_CTRL-@| |            |   |     |                   | Like CTRL-A, then exit
+|i_CTRL-[| |            |   | esc | Escape            | Exit Insert mode
+|i_CTRL-\| |            |   |     |                   | + CTRL-N: Normal mode
+|i_CTRL-_| |            | X |     |                   |            
+|i_CTRL-^| |            |   |     |                   | Toggle lang typing mode
+|i_CTRL-]| |            |   |     |                   | Trigger abbreviation
+–––––––––|––––––––––––|–––|–––––|–––––––––––––––––––|–––––––––––––––––––––––––
+
+
 
 -----------------------------------------------------------------------------
-Autocompletion and snippets                          *myic*  *mymap_i_complete*
+Autocompletion and snippets                      *myic*  *mymap_i_autocomplete*
 -----------------------------------------------------------------------------
 
 Selection ~
-*mymap_i_tab*      i  <tab>       Select next completion | jump to next snippet tag
-*mymap_i_S-tab*    i  <S-tab>     Select previous compl. | jump to prev. snippet tag
+*mymap_i_tab*      i  <tab>       select next completion or jump to snippet tag
+*mymap_i_S-tab*    i  <S-tab>     select previous completion
 
-*mymap_i_CTRL-N*   i  <C-N>       \
-*mymap_i_Up*       i  <Down>      Select next completion
-*mymap_i_CTRL-P*   i  <C-P>       \
-*mymap_i_Down*     i  <Up>        Select previous completion
+*mymap_i_Down*     i  <Down>      select next completion (go down in menu)
+*mymap_i_Up*       i  <Up>        select previous completion (go up in menu)
 
 Snipptes ~
-*mymap_i_CR*       i  <CR>        Expand snippet
-*mymap_i_CTRL-L*   i  <C-L>       Jump to next snippet tag 
+*mymap_i_CTRL-L*   i  <C-L>       expand snippet ("Luasnip")
+*mymap_i_CTRL-N*   i  <C-N>       jump to Next snippet tag
+*mymap_i_CTRL-P*   i  <C-P>       jump to Previous snippet tag
 
 Documentation ~
-*mymap_i_CTRL-B*   i  <C-B>       Scroll the documentation popup upwards
-*mymap_i_CTRL-F*   i  <C-F>       Scroll the documentation popup downwards
+*mymap_i_CTRL-B*   i  <C-B>       scroll the doc popup upwards ("Backwards")
+*mymap_i_CTRL-F*   i  <C-F>       scroll the doc popup downwards ("Forwards")
 
-General ~
-*mymap_i_CTRL-E*   i  <C-E>       Close autocompletion menu
+Completion menu ~
+*mymap_i_CTRL-C*   i  <C-C>       Close autocompletion menu
 
 
 -----------------------------------------------------------------------------
@@ -134,69 +196,9 @@ Surrounds: quotes, parentheses, etc.                 *myis*  *mymap_i_surround*
 -----------------------------------------------------------------------------
 
 Surround ~
-*mymap_i_CTRL-G_z* i  <C-G>z{ch}  insert pair of {ch} [surround]
+*mymap_i_CTRL-G**_z* i  <C-G>z{ch}  insert pair of {ch} [surround]
 *mymap_i_CTRL-G_Z* i  <C-G>Z{ch}  insert multiline pair of {ch} [surround]
 
-Autopair ~
-*mymap_i_CTRL-K*   i  <C-K>       fastpair: move further
-*mymap_i_CTRL-H*   i  <C-H>       fastpair: move closer
-
-
-
------------------------------------------------------------------------------
-Overview of CTRL mappings in insert modes              *myctrl*  *mymap_i_ctrl*
------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------
-
-Availability of CTRL mappings in insert mode ~
-
-The following table is an overview of the function of every CTRL sequence in
-Vim and in Unix terminals. The `Syn` column shows default synonims.
-
-The `?` column displays `X` for keys that are completely free and `~` for keys
-that have a function I don't need.
-
-The detailed function of most keys is in |ins-special-keys|, except for the
-ones marked with `(iss)` which are in |ins-special-special| and CTRL-F in
-in |cinoptions|.
-
-
-Key    | ? | Syn | Terminal             | Vim
-–––––––|–––|–––––|––––––––––––––––––––––|–––––––––––––––––––––––––––––––––––––
-CTRL-A | ~ |     |                      | Insert previously inserted text
-CTRL-B | X |     |                      |            
-CTRL-C |   |     |                      | Quit insert mode
-CTRL-D |   |     |                      | Decrease indent by one level
-CTRL-E |   |     |                      | Insert character below cursor
-CTRL-F | ~ |     |                      | (cinoptions) Default indent key
-CTRL-G |   |     |                      | (iss) Leader for CTRL-G mappings
-CTRL-H |   |     | Backspace            | Delete character before cursor
-CTRL-I |   |     | Tab                  | Insert a tab
-CTRL-J |   | C-M | Line feed            | Begin new line
-CTRL-K |   |     |                      | Insert digraph
-CTRL-L | X |     |                      |            
-CTRL-M | X | C-J | Carriage return      | Begin new line
-CTRL-N | ~ |     |                      | Find next keyword
-CTRL-O |   |     |                      | (iss) Execute one Normal command
-CTRL-P | ~ |     |                      | Find previous keyword
-CTRL-Q |   | C-V | Flow control: start  | Insert next non-digit literally
-CTRL-R |   |     |                      | Paste from register
-CTRL-S |   |     | Flow control: stop   |            
-CTRL-T |   |     |                      | Increase indent by one level
-CTRL-U |   |     |                      | Clear line up to cursor position
-CTRL-V | ~ | C-Q |                      | Insert next non-digit literally
-CTRL-W |   |     |                      | Delete the word before the cursor
-CTRL-X |   |     |                      | Leader for CTRL-X mappings
-CTRL-Y |   |     |                      | Insert character above cursor
-CTRL-Z |   |     | Suspend vim process  |            
-CTRL-@ |   |     |                      | Like CTRL-A, then exit
-CTRL-[ |   |     | Escape               | Exit Insert mode
-CTRL-\ |   |     |                      | Followed by CTRL-N: enter Normal mode
-CTRL-] |   |     |                      | Trigger abbreviation with no char.
-CTRL-_ | X |     |                      |            
-–––––––|–––|–––––|––––––––––––––––––––––|––––––––––––––––––––––––––––––––––––––––––
 
 
 

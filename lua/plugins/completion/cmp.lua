@@ -37,7 +37,7 @@ return {
 
         -- set up nvim-cmp
         local cmp = require('cmp')
-        local luasnip  = require('luasnip')
+        local luasnip = require('luasnip')
 
         cmp.setup({
 
@@ -53,35 +53,12 @@ return {
                 -- documentation = cmp.config.window.bordered(),
             },
 
-            -- The following mappings are adapted from the wiki of nvim-cmp. Summary:
-            --
-            -- i_(S-)Tab   cmp menu visible ? insert next/prev entry  :  jump to next/prev snippet tag
-            -- i_CR        cmp menu visible ? select completion or expand snippet  :  <CR>
-            -- i_CTRL_n/p  cmp menu visible ? select next/prev completion item  :  <C-n>/<C-p>
-            --
-            -- c_(S-)Tab   cmp menu visible ? insert next/prev entry  :  starts completion
-            -- c_CR        completion selected ? insert completion  :  accept line (i.e. <CR>)
-            -- c_CTRL_n/p  cmp menu visible ? select next/prev completion item  :  filter history (<Up>, <Down>)
             mapping = {
+                -- see :h cmp-mapping for help
 
-                ['<CR>'] = cmp.mapping({
-                    i = function(fallback)
-                        if luasnip.expandable() then
-                            luasnip.expand()
-                        else
-                            fallback()
-                        end
-                    end
-                }),
-                ["<Tab>"] = cmp.mapping({
-                    c = function()
-                        if cmp.visible() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                        else
-                            cmp.complete()
-                        end
-                    end,
-                    i = function(fallback)
+                -- select suggestions
+                ["<Tab>"] = cmp.mapping(
+                    function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                         elseif luasnip.locally_jumpable(1) then
@@ -90,23 +67,10 @@ return {
                             fallback()
                         end
                     end,
-                    s = function(fallback)
-                        if luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
-                        else
-                            fallback()
-                        end
-                    end
-                }),
-                ["<S-Tab>"] = cmp.mapping({
-                    c = function()
-                        if cmp.visible() then
-                            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                        else
-                            cmp.complete()
-                        end
-                    end,
-                    i = function(fallback)
+                    { 'i', 'c' }
+                ),
+                ["<S-Tab>"] = cmp.mapping(
+                    function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
                         elseif luasnip.locally_jumpable(-1) then
@@ -115,26 +79,8 @@ return {
                             fallback()
                         end
                     end,
-                    s = function(fallback)
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end
-                }),
-                ['<C-l>'] = cmp.mapping({
-                    -- jump to next snippet position; confirm autocompletion only
-                    -- if selected (e.g. with <C-n>); if nothing is selected CR
-                    -- works as usual
-                    i = function()
-                        if luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
-                        end
-                        -- extra functionality: detect if a snipped was deleted and if so remove it
-                        luasnip.unlink_current_if_deleted()
-                    end,
-                }),
+                    { 'i', 'c' }
+                ),
                 ['<Down>'] = cmp.mapping(
                     function(fallback)
                         if cmp.visible() then
@@ -143,7 +89,7 @@ return {
                             fallback()
                         end
                     end,
-                    { 'i' }
+                    { 'i' } -- in command line mode up and down are used to get the previous/next command
 
                 ),
                 ['<Up>'] = cmp.mapping(
@@ -154,35 +100,63 @@ return {
                             fallback()
                         end
                     end,
-                    { 'i' }
+                    { 'i' } -- in command line mode up and down are used to get the previous/next command
 
                 ),
-                ['<C-n>'] = cmp.mapping(
+                -- close completion menu
+                ['<C-c>'] = cmp.mapping(cmp.mapping.close(), { 'i', 'c' }),
+                -- navigate quick documentation window
+                ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+                ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+
+                -- expand snippets
+                ["<CR>"] = cmp.mapping(
                     function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                        -- only expand with CR if the snippet has been actively selected in the menu
+                        if luasnip.expandable() and cmp.get_active_entry() ~= nil then
+                            -- if an item is selected and a snippet is expandable then the item must be a snippet
+                            luasnip.expand()
                         else
                             fallback()
                         end
                     end,
                     { 'i', 'c' }
+                ),
+                ['<C-l>'] = cmp.mapping(
+                    function(fallback)
+                        if luasnip.expandable() then
+                            luasnip.expand()
+                        else
+                            fallback()
+                        end
+                    end,
+                    { 'i' }
+                ),
+                -- jump to snippet marks
+                ['<C-n>'] = cmp.mapping(
+                    function(fallback)
+                        if luasnip.locally_jumpable(1) then
+                            luasnip.jump(1)
+                        else
+                            fallback()
+                        end
+                        -- detect if a snipped was deleted and if so remove it
+                        luasnip.unlink_current_if_deleted()
+                    end,
+                    { 'i' }
                 ),
                 ['<C-p>'] = cmp.mapping(
                     function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
                         else
                             fallback()
                         end
+                        -- detect if a snipped was deleted and if so remove it
+                        luasnip.unlink_current_if_deleted()
                     end,
-                    { 'i', 'c' }
-
+                    { 'i' }
                 ),
-                -- navigate quick documentation window
-                ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-                ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-                -- close completion menu
-                ['<C-e>'] = cmp.mapping(cmp.mapping.close(), {'i', 'c'})
             },
 
             sources = cmp.config.sources(
@@ -191,7 +165,8 @@ return {
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     -- completion from all buffers (see :h cmp-buffer-all-buffers)
-                    { name = 'buffer',
+                    {
+                        name = 'buffer',
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }
                     }
                 }
@@ -221,7 +196,8 @@ return {
         cmp.setup.cmdline(':', {
             sources = cmp.config.sources(
                 {
-                    { name = 'path',
+                    {
+                        name = 'path',
                         option = { trailing_slash = false }
                     },
                 }, {
@@ -241,7 +217,8 @@ return {
                 {
                     { name = 'git' },
                 }, {
-                    { name = 'buffer',
+                    {
+                        name = 'buffer',
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end },
                     }
                 }
@@ -257,7 +234,8 @@ return {
                     { name = 'luasnip' },
                     { name = 'nvim_lua' },
                     -- completion from all buffers (see :h cmp-buffer-all-buffers)
-                    { name = 'buffer',
+                    {
+                        name = 'buffer',
                         option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end },
                     }
                 }

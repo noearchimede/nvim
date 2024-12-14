@@ -142,12 +142,61 @@ Autopair ~
 *mymap_i_CTRL-H*   i  <C-H>       fastpair: move closer
 
 
+
+-----------------------------------------------------------------------------
+Overview of CTRL mappings in insert modes              *myctrl*  *mymap_i_ctrl*
 -----------------------------------------------------------------------------
 
-Other keys that could potentially be used for normal mode mappings:
-*mymap_i_CTRL-J*
-*mymap_i_CTRL-Z* [unix: suspend shell process]
 
+-----------------------------------------------------------------------------
+
+Availability of CTRL mappings in insert mode ~
+
+The following table is an overview of the function of every CTRL sequence in
+Vim and in Unix terminals. The `Syn` column shows default synonims.
+
+The `?` column displays `X` for keys that are completely free and `~` for keys
+that have a function I don't need.
+
+The detailed function of most keys is in |ins-special-keys|, except for the
+ones marked with `(iss)` which are in |ins-special-special| and CTRL-F in
+in |cinoptions|.
+
+
+Key    | ? | Syn | Terminal             | Vim
+–––––––|–––|–––––|––––––––––––––––––––––|–––––––––––––––––––––––––––––––––––––
+CTRL-A | ~ |     |                      | Insert previously inserted text
+CTRL-B | X |     |                      |            
+CTRL-C |   |     |                      | Quit insert mode
+CTRL-D |   |     |                      | Decrease indent by one level
+CTRL-E |   |     |                      | Insert character below cursor
+CTRL-F | ~ |     |                      | (cinoptions) Default indent key
+CTRL-G |   |     |                      | (iss) Leader for CTRL-G mappings
+CTRL-H |   |     | Backspace            | Delete character before cursor
+CTRL-I |   |     | Tab                  | Insert a tab
+CTRL-J |   | C-M | Line feed            | Begin new line
+CTRL-K |   |     |                      | Insert digraph
+CTRL-L | X |     |                      |            
+CTRL-M | X | C-J | Carriage return      | Begin new line
+CTRL-N | ~ |     |                      | Find next keyword
+CTRL-O |   |     |                      | (iss) Execute one Normal command
+CTRL-P | ~ |     |                      | Find previous keyword
+CTRL-Q |   | C-V | Flow control: start  | Insert next non-digit literally
+CTRL-R |   |     |                      | Paste from register
+CTRL-S |   |     | Flow control: stop   |            
+CTRL-T |   |     |                      | Increase indent by one level
+CTRL-U |   |     |                      | Clear line up to cursor position
+CTRL-V | ~ | C-Q |                      | Insert next non-digit literally
+CTRL-W |   |     |                      | Delete the word before the cursor
+CTRL-X |   |     |                      | Leader for CTRL-X mappings
+CTRL-Y |   |     |                      | Insert character above cursor
+CTRL-Z |   |     | Suspend vim process  |            
+CTRL-@ |   |     |                      | Like CTRL-A, then exit
+CTRL-[ |   |     | Escape               | Exit Insert mode
+CTRL-\ |   |     |                      | Followed by CTRL-N: enter Normal mode
+CTRL-] |   |     |                      | Trigger abbreviation with no char.
+CTRL-_ | X |     |                      |            
+–––––––|–––|–––––|––––––––––––––––––––––|––––––––––––––––––––––––––––––––––––––––––
 
 
 

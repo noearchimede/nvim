@@ -140,8 +140,6 @@ return {
                         else
                             fallback()
                         end
-                        -- detect if a snipped was deleted and if so remove it
-                        luasnip.unlink_current_if_deleted()
                     end,
                     { 'i' }
                 ),
@@ -152,8 +150,6 @@ return {
                         else
                             fallback()
                         end
-                        -- detect if a snipped was deleted and if so remove it
-                        luasnip.unlink_current_if_deleted()
                     end,
                     { 'i' }
                 ),

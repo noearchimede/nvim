@@ -26,6 +26,8 @@ return {
         require('luasnip').setup({
             -- enable snippets with 'autotrigger'
             enable_autosnippets = true,
+            -- events where luasnip checks if the cursor is outside the current snippet and if so leaves it
+            region_check_events = "InsertEnter",
 
             -- show a virtual circle next to the jump points
             ext_opts = {

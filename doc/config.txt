@@ -803,6 +803,13 @@ Marks ~
 *mymap_'*         n   '          remapped to |`|
 *mymap_'{nr}*     n   '{nr}      jump to bookmark [marks] (alias: |mymap_]{nr}|)
 
+Jumps (flash) ~
+*mymap_s*         nxo s          jump to position
+*mymap_S*         nxo S          jump to treesitter node
+*mymap_r*         o   {action}r  perform action on remote position
+*mymap_R*         xo  {action}R  perform action on treesitter selection
+
+Note: use <C-s> in command-line mode to toggle flash during / and ? searches
 
 -----------------------------------------------------------------------------
 Marks                                                          *mym*  *mymap_m*
@@ -847,7 +854,6 @@ Window motions ~
 
 LSP ~
 *mymap_CTRL-S*    n   <C-S>      show Signature help (alias: |mymap_i_CTRL-S|)
-
 
 -----------------------------------------------------------------------------
 Bracket mappings                                         *my[*  *mymap_bracket*

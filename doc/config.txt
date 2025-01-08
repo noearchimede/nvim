@@ -164,7 +164,7 @@ Autocompletion and snippets                      *myic*  *mymap_i_autocomplete*
 -----------------------------------------------------------------------------
 
 Selection ~
-*mymap_i_tab*      i  <tab>       select next completion
+*mymap_i_tab*      i  <tab>       select next completion or jump to snippet tag
 *mymap_i_S-tab*    i  <S-tab>     select previous completion
 
 *mymap_i_Down*     i  <Down>      select next completion (go down in menu)

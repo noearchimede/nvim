@@ -530,6 +530,7 @@ Terminal ~
 *mymap_leader_qo*  n  \qo   Open a new terminal in the current window
 *mymap_leader_qh*  n  \qh   open a new terminal in a Horizontal split
 *mymap_leader_qv*  n  \qv   open a new terminal in a Vertical split
+*mymap_leader_qt*  n  \qt   open a new terminal in a new tab
 
 
 -----------------------------------------------------------------------------

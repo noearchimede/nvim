@@ -85,7 +85,7 @@ return {
                 -- Smart action depending on context, either follow link or toggle checkbox.
                 ["<cr>"] = {
                     action = function() return obsidian.util.smart_action() end,
-                    opts = opts("Obsidian: smart action"),
+                    opts = { buffer = true, desc = "Obsidian: smart action", expr = true },
                 },
                 ['<localleader>a'] = {
                     action = function() return vim.cmd('ObsidianOpen') end,

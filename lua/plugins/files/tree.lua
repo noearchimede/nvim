@@ -139,22 +139,15 @@ return {
                 local relpath = require("plenary.path"):new(abspath):make_relative(vim.fn.getcwd())
                 local ok, grug = pcall(require, 'grug-far')
                 if ok then
-                    -- note: copied from my config for grug-far (in grug-far.lua)
-                    vim.cmd('tabnew')
-                    vim.opt_local.buflisted = false
-                    vim.opt_local.buftype = "nofile"
-                    vim.opt_local.bufhidden = "wipe"
-                    vim.opt_local.swapfile = true
-                    local winCmd = 'aboveleft vsplit'
-                    winCmd = winCmd ..
-                        ' | lua vim.api.nvim_win_set_width(0, math.floor(vim.api.nvim_win_get_width(0) * 4 / 3))'
                     -- launch grug-far
                     grug.grug_far({
+                        windowCreationCommand = 'tab split',
+                        openTargetWindow = { preferredLocation = 'right' },
                         prefills = { paths = relpath },
-                        windowCreationCommand = winCmd
                     })
+                else
+                vim.notify("grug-far not found")
                 end
-                -- if grug-far is not found do nothing
             end
 
             -- helper function for "reveal in Finder"

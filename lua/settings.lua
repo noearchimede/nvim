@@ -85,7 +85,7 @@ vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 999
 
 -- spelling: disabled by default, use `:set spell` when it is required
-vim.opt.spelllang = { "en_uk", "it", "de", "fr" }
+vim.opt.spelllang = { "en_gb", "it", "de", "fr" }
 -- spell check highligthing: only highlight errors, by underlining them
 -- rare, local, and capitalization mistakes are not highlighted
 vim.cmd([[hi clear SpellBad]])

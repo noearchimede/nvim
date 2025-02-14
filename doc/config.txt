@@ -46,7 +46,7 @@ Leader mappings ~
 |mymap_leader_f| ........ Telescope
 |mymap_leader_g| ........ Git
 |mymap_leader_h|
-|mymap_leader_i| ........ Alignement and indentation
+|mymap_leader_i| ........ Alignement, indentation, Insert attachments
 |mymap_leader_j|
 |mymap_leader_k|
 |mymap_leader_l| ........ Location list 
@@ -457,6 +457,9 @@ Alignment and Indentation                             *mylei*  *mymap_leader_i*
 
 Join/split objects ~
 *mymap_leader_ij*  n  \ij   Join or split arrays, functions, ... [treesj]
+
+Images ~
+*mymap_leader_ip*  n  \ip   Paste image from clipboard [img-clip]
 
 
 -----------------------------------------------------------------------------

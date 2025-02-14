@@ -889,6 +889,8 @@ Miscellaneous                                              *mymi*  *mymap_misc*
 
 Buffer navigation ~
 *mymap_bs*        n   <bs> jump to alternate buffer (alias: |CTRL-^|)
+*mymap_cr*        n   <cr> insert line below (maps to |o<esc>|)
+*mymap_s-cr*      n  <s-cr> insert line above (maps to |O<esc>|)
 
 
 

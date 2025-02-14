@@ -224,6 +224,10 @@ vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>")
 vim.keymap.set({ 'n', 'v' }, 'Y', '"*y')
 vim.keymap.set('n', 'YY', '"*yy')
 
+-- add new line without entering insert mode
+vim.keymap.set('n', '<cr>', 'o<esc>')
+vim.keymap.set('n', '<s-cr>', 'O<esc>')
+
 
 
 -- – Quick settings ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

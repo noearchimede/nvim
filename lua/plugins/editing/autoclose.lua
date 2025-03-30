@@ -5,7 +5,10 @@ return {
     keys = {
         {
             "<leader>yp",
-            function() require('autoclose').toggle() end,
+            function()
+                require('autoclose').toggle()
+                vim.notify("Autoclose toggled")
+            end,
             desc = "Autoclose: toggle"
         },
         -- lazy-load on inserting the characters tracked by autoclose (obviously overkill...)

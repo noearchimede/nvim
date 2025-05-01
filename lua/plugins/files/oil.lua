@@ -30,7 +30,7 @@ return {
 
         view_options = {
             -- Show files and directories that start with "."
-            show_hidden = true,
+            show_hidden = false, -- can toggle with g. by default
             -- This function defines what will never be shown, even when `show_hidden` is set
             is_always_hidden = function(name, bufnr)
                 return string.match(name, '.DS_Store')

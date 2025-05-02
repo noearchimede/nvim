@@ -87,10 +87,7 @@
       "\\begin{enumerate\\}",
       "\t\\item $0",
       "\\end{enumerate\\}"
-    ],
-    "luasnip": {
-      "autotrigger": true
-    }
+    ]
   },
 
   "item": {
@@ -100,10 +97,7 @@
       "\\begin{itemize\\}",
       "\t\\item $0",
       "\\end{itemize\\}"
-    ],
-    "luasnip": {
-      "autotrigger": true
-    }
+    ]
   },
 
   "pack": {
@@ -119,19 +113,13 @@
   "=>": {
     "prefix": "=>",
     "description": "implies",
-    "body": "\\implies",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\implies"
   },
 
   "=<": {
     "prefix": "=<",
     "description": "implied by",
-    "body": "\\impliedby",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\impliedby"
   },
 
   "dm": {
@@ -141,10 +129,7 @@
       "\\[",
       "${1:$TM_SELECTED_TEXT}",
       "\\] $0"
-    ],
-    "luasnip": {
-      "autotrigger": true
-    }
+    ]
   },
 
   "equation": {
@@ -192,19 +177,13 @@
   "//": {
     "prefix": "//",
     "description": "Simple fraction",
-    "body": "\\frac{$TM_SELECTED_TEXT\\}{$1\\}$0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\frac{$TM_SELECTED_TEXT\\}{$1\\}$0"
   },
 
   "frac": {
     "prefix": "frac",
     "description": "Fraction",
-    "body": "\\frac{$1\\}{$2\\}$0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\frac{$1\\}{$2\\}$0"
   },
 
   "sympy": {
@@ -216,19 +195,13 @@
   "pmat": {
     "prefix": "pmat",
     "description": "pmat",
-    "body": "\\begin{pmatrix\\} $1 \\end{pmatrix\\} $0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\begin{pmatrix\\} $1 \\end{pmatrix\\} $0"
   },
 
   "bmat": {
     "prefix": "bmat",
     "description": "bmat",
-    "body": "\\begin{bmatrix\\} $1 \\end{bmatrix\\} $0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\begin{bmatrix\\} $1 \\end{bmatrix\\} $0"
   },
 
   "sum": {
@@ -258,46 +231,31 @@
   "sqrt": {
     "prefix": "sqrt",
     "description": "\\sqrt{}",
-    "body": "\\sqrt{${1:$TM_SELECTED_TEXT}\\} $0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\sqrt{${1:$TM_SELECTED_TEXT}\\} $0"
   },
 
   "__": {
     "prefix": "__",
     "description": "subscript",
-    "body": "_{$1\\}$0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "_{$1\\}$0"
   },
 
   "EE": {
     "prefix": "EE",
     "description": "exists",
-    "body": "\\exists ",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\exists "
   },
 
   "AA": {
     "prefix": "AA",
     "description": "forall",
-    "body": "\\forall ",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\forall "
   },
 
   "xx": {
     "prefix": "xx",
     "description": "cross",
-    "body": "\\times ",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\times "
   },
 
   "**": {
@@ -305,7 +263,6 @@
     "description": "cdot",
     "body": "\\cdot ",
     "luasnip": {
-      "autotrigger": true,
       "priority": 100
     }
   },
@@ -313,10 +270,7 @@
   "norm": {
     "prefix": "norm",
     "description": "norm",
-    "body": "\\|$1\\|$0",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\|$1\\|$0"
   },
 
   "int": {
@@ -333,7 +287,6 @@
     "description": "leftrightarrow",
     "body": "\\leftrightarrow",
     "luasnip": {
-      "autotrigger": true,
       "priority": 200
     }
   },
@@ -371,19 +324,13 @@
       "\t$1: $2 &\\longrightarrow $3 \\\\",
       "\t$4 &\\longmapsto $1($4) = $0",
       ".\\end{align*\\}"
-    ],
-    "luasnip": {
-      "autotrigger": true
-    }
+    ]
   },
 
   "cvec": {
     "prefix": "cvec",
     "description": "column vector",
-    "body": "\\begin{pmatrix\\} ${1:x}_${2:1}\\\\ \\vdots\\\\ $1_${2:n} \\end{pmatrix\\}",
-    "luasnip": {
-      "autotrigger": true
-    }
+    "body": "\\begin{pmatrix\\} ${1:x}_${2:1}\\\\ \\vdots\\\\ $1_${2:n} \\end{pmatrix\\}"
   }
 
 }

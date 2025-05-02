@@ -194,7 +194,7 @@ return {
                 {
                     {
                         name = 'path',
-                        option = { trailing_slash = false }
+                        option = { trailing_slash = true }
                     },
                 }, {
                     { name = 'cmdline' }

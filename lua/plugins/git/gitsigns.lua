@@ -108,7 +108,15 @@ return {
             -- map('n', '<leader>gdi', gitsigns.diffthis, "diff file against the index")
             -- map('n', '<leader>gdc', function() gitsigns.diffthis('~') end, "diff file against the last commit")
 
-            map('n', '<leader>gx', gitsigns.toggle_deleted, "toggle view of deleted lines")
+            map('n', '<leader>gx', gitsigns.toggle_deleted, "toggle inline view of deleted lines")
+            map('n', '<leader>gw', gitsigns.toggle_word_diff, "toggle inline word diff view")
+            map('n', '<leader>gy', gitsigns.toggle_linehl, "toggle inline line change view")
+            map('n', '<leader>gi', function()
+                local new_val = gitsigns.toggle_linehl()
+                gitsigns.toggle_word_diff(new_val)
+                gitsigns.toggle_deleted(new_val) -- deprecated but still works for now 
+            end, "toggle full inline diff view")
+
         end,
     },
 

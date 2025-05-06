@@ -5,6 +5,23 @@ return {
     event = "VeryLazy",
 
     opts = {
+        search = {
+            exclude = {
+                -- defaults:
+                "notify",
+                "cmp_menu",
+                "noice",
+                "flash_prompt",
+                function(win)
+                    -- exclude non-focusable windows
+                    return not vim.api.nvim_win_get_config(win).focusable
+                end,
+                -- custom:
+                -- exclude quickfix because sometimes that leads to flash becoming stuck
+                -- (first noticed in the latex compilation output provided by the vimtex plugin)
+                "qf" 
+            },
+        },
         modes = {
             char = {
                 -- disable overriding default ftFT functionality

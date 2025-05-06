@@ -424,25 +424,25 @@ Hunk operations (gitsigns) ~
 
 Inline indicators (gitsigns) ~
 *mymap_leader_gb*  n  \gb   show blame window
-*mymap_leader_gx*  n  \gx   toggle inline view of deleted (X) lines
+*mymap_leader_gi*  n  \gi   toggle Inline diff view (linehl, word diff, deleted)
+*mymap_leader_gx*  n  \gx   toggle inline deleted (X) lines view only
+*mymap_leader_gw*  n  \gw   toggle inline Word diff view only
+*mymap_leader_gy*  n  \gy   toggle inline line change only
 
 Diff (diffview) ~
 *mymap_leader_gd*  n  \gd   open Diffview
-*mymap_leader_gh*  n  \gh   open file History
+*mymap_leader_gf*  n  \gf   open File history
+*mymap_leader_gh*  n  \gh   open History
 
 Unused ~
 *mymap_leader_ga*
 *mymap_leader_ge*
-*mymap_leader_gf*
-*mymap_leader_gi*
 *mymap_leader_gj*
 *mymap_leader_gk*
 *mymap_leader_gm*
 *mymap_leader_go*
 *mymap_leader_gq*
 *mymap_leader_gt*
-*mymap_leader_gw*
-*mymap_leader_gy*
 *mymap_leader_gz*
 
 
@@ -599,15 +599,35 @@ Nvim-tree ~
 *mymap_leader_tj*  n  \tj   Jump to current file in tree, but only in CWD
 *mymap_leader_tJ*  n  \tJ   Jump to current file in tree, even outside CWD
 
+Oil ~
+*mymap_leader_to*  n  \to   open Oil in current buffer
+
 Undotree ~
 *mymap_leader_tu*  n  \tu   open Undo history
 *mymap_leader_tU*  n  \tU   close Undo history
 
 Tabby ~
 *mymap_leader_tr*  n  \tr   Rename tab
-*mymap_leader_tn*  n  \tn   
-*mymap_leader_tp*  n  \tp   move Tab to Previous position
+*mymap_leader_tmn* n  \tmn  move Tab to Next position 
+*mymap_leader_tmp n  \tmp  move Tab to Previous position
 
+
+*mymap_leader_ta*
+*mymap_leader_tb*
+*mymap_leader_tc*
+*mymap_leader_te*
+*mymap_leader_tg*
+*mymap_leader_th*
+*mymap_leader_ti*
+*mymap_leader_tk*
+*mymap_leader_tl*
+*mymap_leader_tq*
+*mymap_leader_ts*
+*mymap_leader_tv*
+*mymap_leader_tw*
+*mymap_leader_tx*
+*mymap_leader_ty*
+*mymap_leader_tz*
 
 
 -----------------------------------------------------------------------------

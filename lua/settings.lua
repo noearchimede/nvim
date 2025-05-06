@@ -97,8 +97,8 @@ vim.cmd([[hi clear SpellLocal]])
 -- listchars: characters used to show invisible characters if 'list' is set
 vim.opt.listchars = { eol = "¶", tab = "–>", space = "•", trail = "~", extends = ">", precedes = "<", nbsp = "°" }
 
--- filler characters: in diff mode show diagonal lines insted of horizontal dashes
-vim.opt.fillchars:append { diff = "╱" }
+-- diff mode: use patience algorithm by default
+vim.opt.diffopt = { "internal", "filler", "closeoff", "algorithm:patience" }
 
 
 

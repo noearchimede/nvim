@@ -14,6 +14,13 @@ return {
 
         -- Latexmk variables: save output files in 'build' directory, disable continuous compilation
         vim.g.vimtex_compiler_latexmk = { build_dir = 'build', continuous = 0 }
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "tex",
+            callback = function(event)
+                vim.keymap.set("n", "<localleader><localleader>", ":wall<CR><Plug>(vimtex-compile)", { desc = "Vimtex: write and compile", buffer = event.buf })
+            end,
+        })
     end
 
 }

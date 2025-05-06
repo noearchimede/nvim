@@ -101,6 +101,18 @@ return {
                     follow = true,
                     -- show hidden files
                     hidden = true
+                },
+                -- buffer selection
+                buffers = {
+                    -- custom mappings for this picker
+                    mappings = {
+                        n = {
+                            ['<C-d>'] = require('telescope.actions').delete_buffer
+                        },
+                        i = {
+                            ['<C-d>'] = require('telescope.actions').delete_buffer
+                        }
+                    }
                 }
             },
 

@@ -15,6 +15,9 @@ return {
         -- Latexmk variables: save output files in 'build' directory, disable continuous compilation
         vim.g.vimtex_compiler_latexmk = { build_dir = 'build', continuous = 0 }
 
+        -- disable concealment
+        vim.g.vimtex_syntax_conceal_disable = true
+
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "tex",
             callback = function(event)

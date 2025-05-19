@@ -15,7 +15,7 @@ return {
         delete_to_trash = true,
 
         -- Oil will automatically delete hidden buffers after this delay
-        cleanup_delay_ms = false, -- default: 2000
+        cleanup_delay_ms = 5000, -- default: 2000
 
         -- Set to true to watch the filesystem for changes and reload oil
         watch_for_changes = true,

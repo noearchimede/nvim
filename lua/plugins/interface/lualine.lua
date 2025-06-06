@@ -13,7 +13,19 @@ return {
         vim.opt.showtabline = 2
     end,
 
-    opts = {
+    opts = function()
+
+        -- define function to print show word count for word count custom compoment
+        local function getWords()
+            return '[' .. tostring(vim.fn.wordcount().words) ..' w]'
+        end
+        -- define function to decide whether to show word count
+        local function showWords()
+            local ft = vim.bo.filetype
+            return ft == 'text' or ft == 'markdown' or ft == ''
+        end
+
+        return {
         options = {
             icons_enabled = false,
             theme = 'auto',
@@ -56,7 +68,7 @@ return {
                     return package.loaded["grapple"] and require("grapple").exists()
                 end
             } },
-            lualine_x = { 'encoding', 'filetype' },
+            lualine_x = { { getWords, cond = showWords }, 'encoding', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'searchcount', 'location' }
         },
@@ -93,5 +105,6 @@ return {
         extensions = {}
 
     }
+    end
 
 }

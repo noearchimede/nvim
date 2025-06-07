@@ -15,14 +15,24 @@ return {
 
     opts = function()
 
-        -- define function to print show word count for word count custom compoment
+        -- custom wordcount component
         local function getWords()
-            return '[' .. tostring(vim.fn.wordcount().words) ..' w]'
-        end
-        -- define function to decide whether to show word count
-        local function showWords()
             local ft = vim.bo.filetype
-            return ft == 'text' or ft == 'markdown' or ft == ''
+            local wordcount = nil
+            if ft == 'tex' then
+                local ok
+                ok, wordcount = pcall(vim.fn['vimtex#misc#wordcount'])
+                if not ok then
+                    wordcount = '???'
+                end
+            elseif ft == 'text' or ft == '' or ft == 'markdown' then
+                wordcount = tostring(vim.fn.wordcount().words)
+            end
+            if wordcount ~= nil then
+                return '[' .. wordcount ..' w]'
+            else
+                return ''
+            end
         end
 
         return {
@@ -68,7 +78,7 @@ return {
                     return package.loaded["grapple"] and require("grapple").exists()
                 end
             } },
-            lualine_x = { { getWords, cond = showWords }, 'encoding', 'filetype' },
+            lualine_x = { getWords, 'encoding', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'searchcount', 'location' }
         },

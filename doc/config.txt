@@ -424,7 +424,10 @@ Hunk operations (gitsigns) ~
 
 Inline indicators (gitsigns) ~
 *mymap_leader_gb*  n  \gb   show blame window
-*mymap_leader_gx*  n  \gx   toggle inline view of deleted (X) lines
+*mymap_leader_gi*  n  \gi   toggle Inline diff view (linehl, word diff, deleted)
+*mymap_leader_gx*  n  \gx   toggle inline deleted (X) lines view only
+*mymap_leader_gw*  n  \gw   toggle inline Word diff view only
+*mymap_leader_gy*  n  \gy   toggle inline line change only
 
 Diff (diffview) ~
 *mymap_leader_gd*  n  \gd   open Diffview
@@ -434,15 +437,12 @@ Unused ~
 *mymap_leader_ga*
 *mymap_leader_ge*
 *mymap_leader_gf*
-*mymap_leader_gi*
 *mymap_leader_gj*
 *mymap_leader_gk*
 *mymap_leader_gm*
 *mymap_leader_go*
 *mymap_leader_gq*
 *mymap_leader_gt*
-*mymap_leader_gw*
-*mymap_leader_gy*
 *mymap_leader_gz*
 
 

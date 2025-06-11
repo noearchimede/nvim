@@ -5,6 +5,11 @@ return {
     cmd = { 'Oil' },
 
     dependencies = { "nvim-tree/nvim-web-devicons" },
+
+    keys = {
+        { "<leader>to", "<cmd>Oil<cr>", { desc = "Open Oil in current buffer" } }
+    },
+
     opts = {
 
         -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)

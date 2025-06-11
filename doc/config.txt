@@ -599,6 +599,9 @@ Nvim-tree ~
 *mymap_leader_tj*  n  \tj   Jump to current file in tree, but only in CWD
 *mymap_leader_tJ*  n  \tJ   Jump to current file in tree, even outside CWD
 
+Oil ~
+*mymap_leader_to*  n  \to   open Oil in current buffer
+
 Undotree ~
 *mymap_leader_tu*  n  \tu   open Undo history
 *mymap_leader_tU*  n  \tU   close Undo history
@@ -618,7 +621,6 @@ Tabby ~
 *mymap_leader_ti*
 *mymap_leader_tk*
 *mymap_leader_tl*
-*mymap_leader_to*
 *mymap_leader_tq*
 *mymap_leader_ts*
 *mymap_leader_tv*

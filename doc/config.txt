@@ -589,7 +589,7 @@ File tree and other sidebar-based elements            *mylet*  *mymap_leader_t*
 
 Directory ~
 *mymap_leader_td*  n  \td   change the Tab Directory to current file parent
-*mymap_leader_to*  n  \to   move the Tab directory Out by one level
+*mymap_leader_tp*  n  \tp   move the Tab directory to Parent folder
 
 Nvim-tree ~
 *mymap_leader_tt*  n  \tt   open file Tree

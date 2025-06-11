@@ -618,7 +618,6 @@ Tabby ~
 *mymap_leader_ti*
 *mymap_leader_tk*
 *mymap_leader_tl*
-*mymap_leader_tm*
 *mymap_leader_to*
 *mymap_leader_tq*
 *mymap_leader_ts*

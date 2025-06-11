@@ -6,8 +6,8 @@ return {
 
     keys = {
         { "<leader>tr", function() vim.cmd("Tabby rename_tab " .. vim.fn.input("Rename tab: ")) end, desc = "Tabby: rename tab" },
-        { "<leader>tp", "<cmd>-tabmove<cr>", desc = "Tabby: move tab to next position" },
-        { "<leader>tn", "<cmd>+tabmove<cr>", desc = "Tabby: move tab to previous position" },
+        { "<leader>tmp", "<cmd>-tabmove<cr>", desc = "Tabby: move tab to next position" },
+        { "<leader>tmn", "<cmd>+tabmove<cr>", desc = "Tabby: move tab to previous position" },
     },
 
     dependencies = 'nvim-tree/nvim-web-devicons',

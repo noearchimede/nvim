@@ -605,9 +605,28 @@ Undotree ~
 
 Tabby ~
 *mymap_leader_tr*  n  \tr   Rename tab
-*mymap_leader_tn*  n  \tn   
-*mymap_leader_tp*  n  \tp   move Tab to Previous position
+*mymap_leader_tmn* n  \tmn  move Tab to Next position 
+*mymap_leader_tmp n  \tmp  move Tab to Previous position
 
+
+*mymap_leader_ta*
+*mymap_leader_tb*
+*mymap_leader_tc*
+*mymap_leader_te*
+*mymap_leader_tg*
+*mymap_leader_th*
+*mymap_leader_ti*
+*mymap_leader_tk*
+*mymap_leader_tl*
+*mymap_leader_tm*
+*mymap_leader_to*
+*mymap_leader_tq*
+*mymap_leader_ts*
+*mymap_leader_tv*
+*mymap_leader_tw*
+*mymap_leader_tx*
+*mymap_leader_ty*
+*mymap_leader_tz*
 
 
 -----------------------------------------------------------------------------

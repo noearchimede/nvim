@@ -188,7 +188,7 @@ vim.keymap.set('n', '<bs>', '<C-^>')
 -- Tab cd to the parent of the current file
 vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end)
 -- Tab cd up one directory
-vim.keymap.set('n', "<leader>to", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end)
+vim.keymap.set('n', "<leader>tp", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end)
 
 
 

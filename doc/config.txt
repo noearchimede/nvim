@@ -431,12 +431,12 @@ Inline indicators (gitsigns) ~
 
 Diff (diffview) ~
 *mymap_leader_gd*  n  \gd   open Diffview
-*mymap_leader_gh*  n  \gh   open file History
+*mymap_leader_gf*  n  \gf   open File history
+*mymap_leader_gh*  n  \gh   open History
 
 Unused ~
 *mymap_leader_ga*
 *mymap_leader_ge*
-*mymap_leader_gf*
 *mymap_leader_gj*
 *mymap_leader_gk*
 *mymap_leader_gm*

@@ -30,6 +30,8 @@ return {
             recent_commit_count = 30,
         },
 
+        log_date_format = "%Y-%m-%d %H:%M:%S",
+
         mappings = {
 
             status = {

@@ -140,7 +140,7 @@ return {
                 local ok, grug = pcall(require, 'grug-far')
                 if ok then
                     -- launch grug-far
-                    grug.grug_far({
+                    grug.open({
                         windowCreationCommand = 'tab split',
                         openTargetWindow = { preferredLocation = 'right' },
                         prefills = { paths = relpath },

@@ -2,9 +2,12 @@ return {
 
     'nvim-telescope/telescope.nvim',
 
-    branch = '0.1.x',
-
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+        'nvim-lua/plenary.nvim', -- required
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }, -- use fzf algorithm
+        'nvim-telescope/telescope-ui-select.nvim', -- extension to replace the vim.ui.select interface
+        -- note: other extensions might be added in dedicated plugin files
+    },
 
     keys = {
 
@@ -56,27 +59,16 @@ return {
                 -- mappings within the telescope window
                 mappings = {
                     i = {
-                        -- actions.which_key shows the mappings for your picker,
-                        -- Note: here "name" is a shortcut for telescope.actions.name
-                        ["<C-h>"] = "select_horizontal", -- default: show help
-                        ["<C-x>"] = false, -- default: select horizontal
-                        ["<C-?>"] = "which_key", -- default: show help
-
+                        ["<C-h>"] = "which_key",
+                        -- by default, n/p move selection and there is no history scroll
                         ["<C-j>"] = "move_selection_next",
                         ["<C-k>"] = "move_selection_previous",
-
                         ["<C-n>"] = "cycle_history_next",
                         ["<C-p>"] = "cycle_history_prev",
                     },
                     n = {
-                        -- actions.which_key shows the mappings for your picker,
-                        -- Note: here "name" is a shortcut for telescope.actions.name
-                        ["<C-h>"] = "select_horizontal",
-                        ["<C-x>"] = false, -- default: select horizontal
-
                         ["<C-j>"] = "move_selection_next",
                         ["<C-k>"] = "move_selection_previous",
-
                         ["<C-n>"] = "cycle_history_next",
                         ["<C-p>"] = "cycle_history_prev",
                     }
@@ -116,11 +108,17 @@ return {
                 }
             },
 
-            -- extensions
             extensions = {
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown({})
+                }
             }
 
         })
+
+        -- load extensions (must come after setup function)
+        require('telescope').load_extension('fzf')
+        require("telescope").load_extension("ui-select")
 
     end
 }

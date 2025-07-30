@@ -1,63 +1,46 @@
 return {
 
-    "williamboman/mason.nvim",
+    'mason-org/mason.nvim',
 
     dependencies = {
-        -- interface with nvim-lspconfig
-        "williamboman/mason-lspconfig.nvim",
-        -- install or upgrade third-party tools
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        -- use mason-tool-installer to install a predefined set of lsp servers and other tools
+        'WhoIsSethDaniel/mason-tool-installer.nvim'
     },
+
+    lazy = false, -- lazy loading is not recommended for mason
 
     config = function()
 
-        -- language-specific LSP settings are defined in this file
-        local my_config = require('semantic_tools')
-
-        -- get capabilities from lsp protocol
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-        ---- set up mason (must come first!) ----
-
+        -- first, setup mason
         require("mason").setup()
 
-        ---- setup non-LSP tools ----
-
-        require("mason-tool-installer").setup({
-            -- list of non-lsp tools that mason will make sure are installed
-            ensure_installed = my_config.mason_tools_ensure_installed,
-        })
-
-        ---- setup LSPs ----
-
-        -- The lspconfig setup is done here (not directly in the setup function
-        -- for lspconfig) because mason-lspconfig allows to define a default
-        -- trivial installer for LSP installed via Mason that don't have a
-        -- custom configuration
-
-        -- prepare the 'handlers' table (see :h mason-lspconfig.setup_handlers) based on the settings in the custom semantic toos configuration file
-        local handlers = {
-            -- provide a default installer for servers that are not set up manually
-            function(server_name)
-                require("lspconfig")[server_name].setup({ capabilities = capabilities })
+        -- get custom lists of servers and tools and merge them
+        local semantic_tools = require('semantic_tools')
+        local tools_list = {}
+        if semantic_tools.lsp_servers_auto_install then
+            for _, server_name in ipairs(semantic_tools.lsp_servers) do
+                table.insert(tools_list, server_name)
             end
-        }
-        -- programatically define setup functions for each LSP based on the settings table in the 'semantic_tools' file
-        for name, settings in pairs(my_config.lsp_settings(capabilities)) do
-            handlers[name] = function()
-                require('lspconfig')[name].setup(settings)
+        end
+        if semantic_tools.formatters_auto_install then
+            for _, formatter_list in pairs(semantic_tools.formatters_by_ft) do
+                for _, formatter_name in ipairs(formatter_list) do
+                    -- additional key-value options that might be present in the
+                    -- table for conform are automatically ingnored by ipairs
+                table.insert(tools_list, formatter_name)
+                end
             end
         end
 
-        require("mason-lspconfig").setup({
-            -- list of servers that mason will make sure are installed
-            ensure_installed = my_config.mason_lsp_ensure_installed,
-            -- setup of individual handlers
-            handlers = handlers
+        vim.print(tools_list)
+        -- then, setup the tool installer to enforce installing selected tools and lsp servers
+        require("mason-tool-installer").setup {
+            ensure_installed = tools_list
+        }
+
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'MasonToolsStartingInstall',
+            callback = function() vim.cmd("Mason") end
         })
-
     end
-
 }

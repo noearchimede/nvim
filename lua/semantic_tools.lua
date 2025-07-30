@@ -1,10 +1,82 @@
 local M = {}
 
 
+
+--------------------------------------------------------------------------------
+-- LSP Servers
+--------------------------------------------------------------------------------
+-- lsp servers are installed by mason.nvim and used natively by vim
+
+-- if this is set to true the servers below will be automatically installed,
+-- otherwise they must be installed manually (using Mason)
+M.lsp_servers_auto_install = true
+
+-- list of enabled LSP servers
+-- Note that installing a server through Mason is not enough, it is only
+-- available in neovim after 'vim.lsp.enable(server_name)' is called.
+-- The names in this list must match the ones presented in the Mason interface.
+-- For each server a configuration should be provided in a file of the same
+-- name in the 'lsp/' folder.
+M.lsp_servers = {
+    "lua-language-server",
+    "pyright",
+    "clangd",
+    "bash-language-server"
+} -- [for mason-toool-installer]
+
+
+-- enable all installed servers
+vim.lsp.enable(M.lsp_servers)
+
+
+
+--------------------------------------------------------------------------------
+-- Formatters
+--------------------------------------------------------------------------------
+-- formatters are installed by mason.nvim and used by conform.nvim
+
+
+-- if this is set to true the formatters below will be automatically installed,
+-- otherwise they must be installed manually (using Mason)
+M.formatters_auto_install = true
+
+-- list of formatters, grouped by language
+M.formatters_by_ft = {
+    lua = {
+        lsp_format = "prefer", -- use lua_ls (lsp)
+    },
+    python = {
+        "black",
+    },
+    sh = {
+        "shfmt",
+    },
+    markdown = {
+        "prettier",
+    },
+} -- [for conform.nvim and mason-toool-installer]
+
+-- formatter settings
+M.formatter_settings = function(conform_formatters)
+    -- example (from Conform README)
+    --[[
+    conform_formatters.yamlfix = {
+        env = {
+            YAMLFIX_SEQUENCE_STYLE = "block_style",
+        },
+    } ]]
+
+end -- [for conform.nvim]
+
+
+
 --------------------------------------------------------------------------------
 -- Treesitter
 --------------------------------------------------------------------------------
+-- treesitter parsers are installed by nvim-treesitter and used natively by neovim
 
+
+-- list of treesitter parsers that will be automatically installed
 M.treesitter_parsers = {
     "regex",
     "c",
@@ -18,116 +90,7 @@ M.treesitter_parsers = {
     "html",
     "markdown",
     "markdown_inline"
-}
-
-
-
---------------------------------------------------------------------------------
--- Non-LSP tools
---------------------------------------------------------------------------------
-
-
--- Tools that mason-tool-installer will install automatically if missing
-M.mason_tools_ensure_installed = {
-    "prettier", -- prettier formatter
-    "black", -- python formatter
-    "shfmt" -- shell scripting formatter
-}
-
--- Formatters used by Conform (they must also be added to to the 'mason_tools' list to enforce installation)
-M.conform_formatters_by_ft = function()
-    return {
-        lua = { lsp_format = "prefer" }, -- use lua_ls (lsp)
-        python = { "black" },
-        sh = { "shfmt" },
-        markdown = { "prettier" },
-    }
-end
-
-
--- formatter settings for conform.nvim
-M.formatter_settings = function(conform_formatters)
-
-    -- example (from Conform README)
-    --[[
-    conform_formatters.yamlfix = {
-        env = {
-            YAMLFIX_SEQUENCE_STYLE = "block_style",
-        },
-    } ]]
-
-end
-
-
-
---------------------------------------------------------------------------------
--- LSP
---------------------------------------------------------------------------------
-
-
--- Language servers that mason-lspconfig will install automatically if missing
-M.mason_lsp_ensure_installed = {
-    "lua_ls",
-    "pyright",
-    "clangd",
-    "bashls"
-}
-
-
--- Language server settings for lspconfig.
---  -  one entry per language server, with the name used in lspconfig (not mason)
---  -  if the default values are fine it is not necessary to write anything here
---  -  each entry contains a table; the table is passed to 'lspconfig.server.setup()'
---  -  this table is handled by mason-lspconfig in the setup_handlers method
---
--- For a list of available options see :lspconfig-setup
-M.lsp_settings = function(capabilities)
-
-    return {
-
-        lua_ls = {
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    workspace = {
-                        library = {
-                            -- make the language server recognize "vim" global
-                            vim.env.VIMRUNTIME
-                        }
-                    },
-                    format = {
-                        -- for defaults and a list of options see:
-                        -- https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig
-                        defaultConfig = {
-
-                            -- disable most alignment settings that are enabled by default
-                            align_continuous_assign_statement = "false",
-                            align_continuous_rect_table_field = "false",
-                            align_array_table = "false",
-                            align_continuous_inline_comment = "false",
-
-                            -- always prevent the formatter from adding/removing blank lines
-                            line_space_after_function_statement = "keep",
-                            line_space_around_block = "keep",
-
-                        }
-                    }
-                },
-            }
-        },
-
-        clangd = {
-            capabilities = capabilities,
-            cmd = {
-                "clangd",
-                -- use the WebKit format if there is no .clangd-format file in the project root
-                "--fallback-style=WebKit",
-            }
-        }
-
-    }
-
-end
+} -- [for nvim-treesitter]
 
 
 

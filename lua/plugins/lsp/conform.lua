@@ -13,14 +13,13 @@ return {
 
         -- conform options
         conform.setup({
+            -- set list of formatters for each filetype
+            formatters_by_ft = my_config.formatters_by_ft,
             -- always try to use 'vim.lsp.buf.format()' as a fallback
             default_format_opts = {
                 lsp_format = "fallback", -- default is 'never'
             },
         })
-
-        -- set list of formatters for each filetype
-        conform.formatters_by_ft = my_config.conform_formatters_by_ft()
 
         -- set options for individual formatters
         my_config.formatter_settings(conform.formatters)

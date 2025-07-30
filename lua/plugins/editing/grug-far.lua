@@ -21,7 +21,7 @@ return {
             {
                 "<leader>sg",
                 function()
-                    require('grug-far').grug_far(grug_opts())
+                    require('grug-far').open(grug_opts())
                 end,
                 desc = "Grug-far: launch"
             },
@@ -36,14 +36,14 @@ return {
             {
                 "<leader>sf",
                 function()
-                    require('grug-far').grug_far(grug_opts( { prefills = { paths = vim.fn.expand("%") } }))
+                    require('grug-far').open(grug_opts( { prefills = { paths = vim.fn.expand("%") } }))
                 end,
                 desc = "Grug-far: launch on current file"
             },
             {
                 "<leader>sf",
                 function()
-                    require('grug-far').grug_far(grug_opts( { prefills = { paths = vim.fn.expand("%") } }))
+                    require('grug-far').open(grug_opts( { prefills = { paths = vim.fn.expand("%") } }))
                 end,
                 mode = 'v',
                 desc = "Grug-far: launch on current file",

@@ -2,7 +2,9 @@ return {
 
     'nvim-telescope/telescope.nvim',
 
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+        'nvim-lua/plenary.nvim', -- required
+    },
 
     keys = {
 
@@ -54,27 +56,16 @@ return {
                 -- mappings within the telescope window
                 mappings = {
                     i = {
-                        -- actions.which_key shows the mappings for your picker,
-                        -- Note: here "name" is a shortcut for telescope.actions.name
-                        ["<C-h>"] = "select_horizontal", -- default: show help
-                        ["<C-x>"] = false, -- default: select horizontal
-                        ["<C-?>"] = "which_key", -- default: show help
-
+                        ["<C-h>"] = "which_key",
+                        -- by default, n/p move selection and there is no history scroll
                         ["<C-j>"] = "move_selection_next",
                         ["<C-k>"] = "move_selection_previous",
-
                         ["<C-n>"] = "cycle_history_next",
                         ["<C-p>"] = "cycle_history_prev",
                     },
                     n = {
-                        -- actions.which_key shows the mappings for your picker,
-                        -- Note: here "name" is a shortcut for telescope.actions.name
-                        ["<C-h>"] = "select_horizontal",
-                        ["<C-x>"] = false, -- default: select horizontal
-
                         ["<C-j>"] = "move_selection_next",
                         ["<C-k>"] = "move_selection_previous",
-
                         ["<C-n>"] = "cycle_history_next",
                         ["<C-p>"] = "cycle_history_prev",
                     }
@@ -113,10 +104,6 @@ return {
                     }
                 }
             },
-
-            -- extensions
-            extensions = {
-            }
 
         })
 

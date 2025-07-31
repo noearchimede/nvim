@@ -404,7 +404,8 @@ Git                                                   *myleg*  *mymap_leader_g*
 -----------------------------------------------------------------------------
 
 Git status (neogit) ~
-*mymap_leader_gg*  n  \gg   open Git status viewer
+*mymap_leader_gg*  n  \gg   open Git status
+*mymap_leader_gt*  n  \gt   open git status in new Tab
 *mymap_leader_gc*  n  \gc   Commit staged changes
 *mymap_leader_gl*  n  \gl   show Log
 
@@ -442,7 +443,6 @@ Unused ~
 *mymap_leader_gm*
 *mymap_leader_go*
 *mymap_leader_gq*
-*mymap_leader_gt*
 *mymap_leader_gz*
 
 
@@ -600,7 +600,7 @@ Nvim-tree ~
 *mymap_leader_tJ*  n  \tJ   Jump to current file in tree, even outside CWD
 
 Oil ~
-*mymap_leader_to*  n  \to   open Oil in current buffer
+*mymap_leader_to*  n  \to   open Oil in current buffer (alias: |mymap_-|)
 
 Undotree ~
 *mymap_leader_tu*  n  \tu   open Undo history
@@ -914,6 +914,7 @@ Buffer navigation ~
 *mymap_bs*        n   <bs> jump to alternate buffer (alias: |CTRL-^|)
 *mymap_cr*        n   <cr> insert line below (maps to |o<esc>|)
 *mymap_s-cr*      n  <s-cr> insert line above (maps to |O<esc>|)
+*mymap_-*         n    <-> open the parent directory in Oil (alias: |mymap_leader_to|)
 
 
 
@@ -1102,8 +1103,6 @@ General ~
 *Open*            Open current file in default app
 
 Treesittr ~
-*TSStop*          Stop treesitter on current buffer
-*TSStart*         Start treesitter on current buffer
 *TSInspect*       Show treesitter tree for current buffer
 
 Debugging ~

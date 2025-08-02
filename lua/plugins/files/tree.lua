@@ -30,9 +30,7 @@ return {
     },
 
 
-    config = function(_, opts)
-
-        require('nvim-tree').setup(opts)
+    config = function()
 
         local api = require('nvim-tree.api')
 
@@ -62,34 +60,7 @@ return {
             end
         end
 
-        -- mappings defined using the helper above.
-        -- I prefer this implementation over the default for
-        -- 'preserve_window_proportions = true', which leads to the right hand
-        -- side vertical split becoming too small and does not reset to the
-        -- previous proportions after the tree is opened and closed, and
-        -- 'preserve_window_proportions = false', which just equalizes all
-        -- windows
-        vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
-        vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end)
-        vim.keymap.set('n', '<leader>tf', function()
-            resize_wrapper(function() api.tree.find_file({ open = true, focus = false }) end)
-        end)
-        vim.keymap.set('n', '<leader>tF', function()
-            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = false }) end)
-        end)
-
-        vim.keymap.set('n', '<leader>tj', function()
-            resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
-        end)
-        vim.keymap.set('n', '<leader>tJ', function()
-            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = true }) end)
-        end)
-
-    end,
-
-    opts = {
-
-        on_attach = function(bufnr)
+        local on_attach_func = function(bufnr)
 
             -- import api for nvim-tree and dependencies
             local api = require "nvim-tree.api"
@@ -145,22 +116,23 @@ return {
 
             -- load default mappings
             api.config.mappings.default_on_attach(bufnr)
+
+            -- override quit to include custom 'resize_wrapper'
+            map('q', function() resize_wrapper(api.tree.close) end, 'Close')
+            -- help
+            map('?', api.tree.toggle_help, 'Show help') -- by default S is 'search_node'
             -- open nodes
             map('o', function(node)
                 api.node.open.edit(node)
                 api.tree.focus()
             end, 'Open file (keep focus)')
-            map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>'
-            map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>'
-            map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' -- not using 's' as that is used by leap
-            -- integration with other plugins
-            map('-', open_oil, 'Oil: open folder') -- by default this is 'api.tree.change_root_to_parent'
-            map('z', open_grug, 'Grug-far: search here')
-            -- create, delete and move nodes
-            map('d', api.fs.trash, 'Delete') -- default: D; default for d is 'remove'
-            unmap('D') -- moved to lowercase d
-            map('r', api.fs.rename, 'Rename') -- 'r'
-            -- change directory: also update working directory for the current tab
+            map('t', api.node.open.tab, 'Open: new tab') -- '<C-t>' also works (by default)
+            map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>' also works (by default)
+            map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' also works (by default)
+            -- delete nodes (change mapping)
+            unmap('D') -- D is default, use d instead
+            map('d', api.fs.trash, 'Delete')
+            -- cd: include function to cd whole tab
             map('cd', function()
                 api.tree.change_root_to_node()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
@@ -169,13 +141,17 @@ return {
                 api.tree.change_root_to_parent()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
             end, 'CD to root parent') -- same as default, but with addition of tcd
-            map('S', api.node.run.system, 'Run system') -- by default S is 'search_node'
-            map('s', function()
+            -- open in Finder
+            map('O', function()
                 local node = api.tree.get_node_under_cursor()
                 local abspath = node.absolute_path
                 vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
             end, 'Reveal in Finder') -- by default s is 'run system'
-            -- tab: if no preview open node, if preview toggle focus between tree and preview
+            -- Oil
+            map('-', open_oil, 'Oil: open folder')
+            -- Grug-far
+            map('s', open_grug, 'Grug-far: search here')
+            -- Preview
             map('<Tab>', function()
                 if preview.is_watching() then
                     local node = api.tree.get_node_under_cursor()
@@ -185,87 +161,115 @@ return {
                 end
             end, 'Preview: open/focus')
             map('<Esc>', preview.unwatch, 'Preview: close')
-            map('?', api.tree.toggle_help, 'Run system') -- by default S is 'search_node'
-        end,
+        end
 
-        hijack_cursor = true, -- keep the cursor on the first letter of the filename
-        disable_netrw = true, -- see :h nvim-tree-netrw
-        hijack_netrw = true, -- see :h nvim-tree-netrw
-        sync_root_with_cwd = true,
-        view = {
-            preserve_window_proportions = true,
-            -- ^^^ There are issues with this setting both enabled and disabled.
-            -- Problem when enabled: open two vertical splits of same width, open tree -> the rhs one will become way too narrow
-            -- Problem when disabled: open two unequally sized vertical splits, open tree, make a diagnostic error appear in one buffer -> the buffer sizes will equalize
-            width = {
-                min = 15,
-                max = 30,
-                padding = 1,
-            },
-        },
-        renderer = {
-            special_files = { "README.md", "readme.md" },
-            hidden_display = "simple",
-            symlink_destination = false,
-            icons = {
-                web_devicons = {
-                    file = { enable = false, },
-                    folder = { enable = false, },
+        -- mappings defined using the helper above.
+        -- I prefer this implementation over the default for
+        -- 'preserve_window_proportions = true', which leads to the right hand
+        -- side vertical split becoming too small and does not reset to the
+        -- previous proportions after the tree is opened and closed, and
+        -- 'preserve_window_proportions = false', which just equalizes all
+        -- windows
+        vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
+        vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end)
+        vim.keymap.set('n', '<leader>tf', function()
+            resize_wrapper(function() api.tree.find_file({ open = true, focus = false }) end)
+        end)
+        vim.keymap.set('n', '<leader>tF', function()
+            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = false }) end)
+        end)
+
+        vim.keymap.set('n', '<leader>tj', function()
+            resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
+        end)
+        vim.keymap.set('n', '<leader>tJ', function()
+            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = true }) end)
+        end)
+
+        require('nvim-tree').setup({
+
+            on_attach = on_attach_func,
+
+            hijack_cursor = true, -- keep the cursor on the first letter of the filename
+            disable_netrw = true, -- see :h nvim-tree-netrw
+            hijack_netrw = true, -- see :h nvim-tree-netrw
+            sync_root_with_cwd = true,
+            view = {
+                preserve_window_proportions = true,
+                -- ^^^ There are issues with this setting both enabled and disabled.
+                -- Problem when enabled: open two vertical splits of same width, open tree -> the rhs one will become way too narrow
+                -- Problem when disabled: open two unequally sized vertical splits, open tree, make a diagnostic error appear in one buffer -> the buffer sizes will equalize
+                width = {
+                    min = 15,
+                    max = 30,
+                    padding = 1,
                 },
-                glyphs = {
-                    default = "", -- "",
-                    symlink = "", -- "",
-                    folder = {
-                        default = "", -- "",
-                        open = "", -- "",
-                        empty = "", -- "",
-                        empty_open = "", -- "",
-                        symlink = "", -- "",
-                        symlink_open = "", -- "",
+            },
+            renderer = {
+                special_files = { "README.md", "readme.md" },
+                hidden_display = "simple",
+                symlink_destination = false,
+                icons = {
+                    web_devicons = {
+                        file = { enable = false, },
+                        folder = { enable = false, },
+                    },
+                    glyphs = {
+                        default = "", -- "",
+                        symlink = "", -- "",
+                        folder = {
+                            default = "", -- "",
+                            open = "", -- "",
+                            empty = "", -- "",
+                            empty_open = "", -- "",
+                            symlink = "", -- "",
+                            symlink_open = "", -- "",
+                        },
                     },
                 },
             },
-        },
-        hijack_directories = {
-            enable = false -- I'm using Oil.nvim for this
-        },
-        git = {
-            enable = true
-        },
-        diagnostics = {
-            enable = true,
-            severity = {
-                min = vim.diagnostic.severity.WARN,
+            hijack_directories = {
+                enable = false -- I'm using Oil.nvim for this
             },
-        },
-        modified = {
-            enable = true,
-        },
-        actions = {
-            use_system_clipboard = false,
-            open_file = {
-                resize_window = true,
-                window_picker = {
-                    enable = true,
-                    picker = function()
-                        local picked = require('window-picker').pick_window()
-                        if picked ~= nil then
-                            return picked
-                        else
-                            vim.cmd.vsplit()
-                            return vim.fn.win_getid()
-                        end
-                    end,
+            git = {
+                enable = true
+            },
+            diagnostics = {
+                enable = true,
+                severity = {
+                    min = vim.diagnostic.severity.WARN,
                 },
             },
-            remove_file = {
-              close_window = true,
+            modified = {
+                enable = true,
             },
-        },
-        trash = {
-            cmd = "trash",
-        },
-    },
+            actions = {
+                use_system_clipboard = false,
+                open_file = {
+                    resize_window = true,
+                    window_picker = {
+                        enable = true,
+                        picker = function()
+                            local picked = require('window-picker').pick_window()
+                            if picked ~= nil then
+                                return picked
+                            else
+                                vim.cmd.vsplit()
+                                return vim.fn.win_getid()
+                            end
+                        end,
+                    },
+                },
+                remove_file = {
+                    close_window = true,
+                },
+            },
+            trash = {
+                cmd = "trash",
+            },
+        })
+
+    end,
 
     init = function()
         -- disable netrw

@@ -10,9 +10,6 @@ return {
 
     init = function()
 
-        -- always display tabline, even with only one tab open
-        vim.opt.showtabline = 2
-    
         -- custom wordcount component: function to count words
         local function countWords()
             local ft = vim.bo.filetype
@@ -53,14 +50,10 @@ return {
 
     end,
 
-    opts = function()
+    opts = {
 
-        return {
         options = {
             icons_enabled = false,
-            theme = 'auto',
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' },
             disabled_filetypes = {
                 statusline = {
                     'NvimTree',
@@ -68,14 +61,7 @@ return {
                 },
                 winbar = {},
             },
-            ignore_focus = {},
             always_divide_middle = false,
-            globalstatus = false,
-            refresh = {
-                statusline = 1000,
-                tabline = 1000,
-                winbar = 1000,
-            }
         },
 
         sections = {
@@ -138,7 +124,7 @@ return {
                     cond = function()
                         return package.loaded["grapple"] and require("grapple").exists()
                     end
-                } 
+                }
             },
             lualine_c = {},
             lualine_x = {},
@@ -148,14 +134,6 @@ return {
             lualine_z = {}
         },
 
-        tabline = {},
-
-        winbar = {},
-        inactive_winbar = {},
-
-        extensions = {}
-
     }
-    end
 
 }

@@ -2,6 +2,10 @@ return {
 
     'nanozuki/tabby.nvim',
 
+    dependencies = {
+        'nvim-tree/nvim-web-devicons',
+    },
+
     lazy = false,
 
     keys = {
@@ -10,7 +14,12 @@ return {
         { "<leader>tmn", "<cmd>+tabmove<cr>", desc = "Tabby: move tab to previous position" },
     },
 
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    init = function()
+
+        -- always display tabline, even with only one tab open
+        vim.opt.showtabline = 2
+
+    end,
 
     opts = {
 
@@ -106,10 +115,8 @@ return {
 
             -- tabline layout
             return {
-
                 -- main background
                 hl = theme.fill,
-
                 -- leftmost element: total number of open buffers
                 {
                     { ' ' .. #vim.split(vim.fn.execute("ls"), "\n") - 1 .. ' ', hl = theme.head },

@@ -154,7 +154,7 @@ return {
             map('v', api.node.open.vertical, 'Open: vertical split') -- '<C-v>'
             map('h', api.node.open.horizontal, 'Open: horizontal split') -- '<C-x>' -- not using 's' as that is used by leap
             -- integration with other plugins
-            map('l', open_oil, 'Oil: open folder')
+            map('-', open_oil, 'Oil: open folder') -- by default this is 'api.tree.change_root_to_parent'
             map('z', open_grug, 'Grug-far: search here')
             -- create, delete and move nodes
             map('d', api.fs.trash, 'Delete') -- default: D; default for d is 'remove'
@@ -165,8 +165,8 @@ return {
                 api.tree.change_root_to_node()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
             end, 'CD') -- '<C-]>'
-            map('-', function()
-                api.three.change_root_to_parent()
+            map('..', function()
+                api.tree.change_root_to_parent()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
             end, 'CD to root parent') -- same as default, but with addition of tcd
             map('S', api.node.run.system, 'Run system') -- by default S is 'search_node'
@@ -225,6 +225,9 @@ return {
                     },
                 },
             },
+        },
+        hijack_directories = {
+            enable = false -- I'm using Oil.nvim for this
         },
         git = {
             enable = true

@@ -30,6 +30,18 @@ return {
             ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
             ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a vertical split" },
             ["<C-r>"] = "actions.refresh",
+            ["<C-s>"] = function()
+                local ok, grug = pcall(require, 'grug-far')
+                if ok then
+                    local entry = require('oil').get_cursor_entry()
+                    local dir = require('oil').get_current_dir()
+                    grug.open({
+                        windowCreationCommand = 'tab split',
+                        openTargetWindow = { preferredLocation = 'right' },
+                        prefills = { paths = dir .. entry.name },
+                    })
+                end
+            end
         },
     }
 

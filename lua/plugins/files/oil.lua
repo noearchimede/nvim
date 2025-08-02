@@ -2,6 +2,8 @@ return {
 
     'stevearc/oil.nvim',
 
+    lazy = false, -- if lazy-loaded, opening Oil on :edit <folder> doesn't seem to work
+
     cmd = { 'Oil' },
 
     dependencies = { "nvim-tree/nvim-web-devicons" },

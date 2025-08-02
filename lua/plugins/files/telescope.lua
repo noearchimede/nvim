@@ -4,6 +4,8 @@ return {
 
     dependencies = {
         'nvim-lua/plenary.nvim', -- required
+        'nvim-telescope/telescope-ui-select.nvim', -- extension to replace the vim.ui.select interface
+        -- note: other extensions might be added in dedicated plugin files
     },
 
     keys = {
@@ -105,7 +107,16 @@ return {
                 }
             },
 
+            extensions = {
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown({})
+                }
+            }
+
         })
+
+        -- load ui-select extension (must come after setup function)
+        require("telescope").load_extension("ui-select")
 
     end
 }

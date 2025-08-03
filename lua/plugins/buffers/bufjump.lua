@@ -10,10 +10,7 @@ return {
     opts = {
         on_success = function()
             -- jump to last cursor position (rather than last jumplist position)
-            -- NOTE: doesn't appear to work as expected, and neither does the way suggested in the docs...
-
-            ---@diagnostic disable-next-line: deprecated
-            table.unpack = table.unpack or unpack -- 5.1 compatibility
+            -- doesn't seem to work as expected...
             local row, col = table.unpack(vim.api.nvim_buf_get_mark(0, "\""))
             if { row, col } ~= { 0, 0 } then
                 vim.api.nvim_win_set_cursor(0, { row, 0 })

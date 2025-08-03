@@ -280,8 +280,8 @@ Buffers                                               *myleb*  *mymap_leader_b*
 -----------------------------------------------------------------------------
 
 Change buffer ~
-*mymap_leader_bo*  n  \bo   Move backwards in the window buffer history [bufsurf]
-*mymap_leader_bi*  n  \bi   Move forwards in the window buffer history [bufsurf]
+*mymap_leader_bo*  n  \bo   Move backwards in the window buffer history [bufjump]
+*mymap_leader_bi*  n  \bi   Move forwards in the window buffer history [bufjump]
 
 Delete buffers ~
 *mymap_leader_bu*  n  \bu   delete all "Untouched" buffers [hbac]

@@ -1,17 +1,10 @@
 return {
 
-    'numToStr/Comment.nvim',
+    'numToStr/comment.nvim',
 
     keys = {
-        { "gcc", mode = "n", desc = "Comment: linewise on line" },
-        { "gbc", mode = "n", desc = "Comment: blockwise on line" },
-
-        { "gc", mode = "v", desc = "Comment: linewise" },
-        { "gb", mode = "v", desc = "Comment: blockwise" },
-
-        { "gcO", mode = "n", desc = "Comment: add comment above line" },
-        { "gco", mode = "n", desc = "Comment: add comment below line" },
-        { "gcA", mode = "n", desc = "Comment: add comment at end of line" },
+        { "gc", desc = "Comment: line(s)" },
+        { "gb", desc = "Comment: block" },
     },
 
     opts = {

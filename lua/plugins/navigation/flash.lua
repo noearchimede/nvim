@@ -7,7 +7,6 @@ return {
     opts = {
         search = {
             exclude = {
-                -- defaults:
                 "notify",
                 "cmp_menu",
                 "noice",
@@ -16,17 +15,21 @@ return {
                     -- exclude non-focusable windows
                     return not vim.api.nvim_win_get_config(win).focusable
                 end,
-                -- custom:
                 -- exclude quickfix because sometimes that leads to flash becoming stuck
                 -- (first noticed in the latex compilation output provided by the vimtex plugin)
-                "qf" 
+                "qf"
             },
         },
         modes = {
             char = {
-                -- disable overriding default ftFT functionality
-                enabled = false,
+                -- enhanced f F t T: highlight matches and repeat f/t to go to next
+                enabled = true,
+                multi_line = false
             },
+            search = {
+                -- jump label next to search results
+                enabled = false
+            }
         },
     },
 

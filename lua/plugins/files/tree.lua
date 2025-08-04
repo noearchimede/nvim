@@ -63,7 +63,6 @@ return {
         local on_attach_func = function(bufnr)
 
             -- import api for nvim-tree and dependencies
-            local api = require "nvim-tree.api"
             local preview = require('nvim-tree-preview')
 
             -- define mapping functions used below
@@ -89,8 +88,10 @@ return {
                 if ok then
                     -- if oil.nvim is installed, open with oil
                     local win_id = require('window-picker').pick_window()
-                    vim.api.nvim_set_current_win(win_id)
-                    oil.open(path)
+                    if win_id ~= nil then
+                        vim.api.nvim_set_current_win(win_id)
+                        oil.open(path)
+                    end
                 else
                     -- otherwise open with netrw or any other default file explorer
                     vim.cmd(':e' .. path)
@@ -249,15 +250,29 @@ return {
                     resize_window = true,
                     window_picker = {
                         enable = true,
+                        -- pick_window returns 'nil' if no window has been picked, which causes nvim-tree
+                        -- to not open the file (allowing to hit <esc> to cancel)
                         picker = function()
-                            local picked = require('window-picker').pick_window()
-                            if picked ~= nil then
-                                return picked
+                            local win_id = require('window-picker').pick_window()
+                            if win_id ~= nil then
+                                return win_id
                             else
-                                vim.cmd.vsplit()
-                                return vim.fn.win_getid()
+                                -- The picker returns nil in two cases:
+                                -- 1. there are no windows that can be picked (based on the filter defined in picker config)
+                                -- 2. the user cancelled
+                                -- To differentiate those cases, run the picker filter manually on the windows in the
+                                -- current tab (from https://github.com/s1n7ax/nvim-window-picker/issues/51)
+                                local all_windows = vim.api.nvim_tabpage_list_wins(0)
+                                local filter = require('window-picker.filters.default-window-filter'):new()
+                                local fwindows = filter:filter_windows(all_windows)
+                                if #fwindows == 0 then
+                                    vim.cmd.vsplit()
+                                    return vim.fn.win_getid()
+                                else
+                                    return nil
+                                end
                             end
-                        end,
+                        end
                     },
                 },
                 remove_file = {

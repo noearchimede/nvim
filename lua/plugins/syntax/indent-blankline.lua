@@ -11,13 +11,5 @@ return {
         { '<leader>ys', '<cmd>IBLToggleScope<cr>', desc = "IBL: toggle scope guides" },
     },
 
-    opts = {
-        scope = {
-            show_start = false -- do not uderline start of scope
-        },
-        exclude = {
-            filetypes = {
-            }
-        }
-    },
+    opts = {},
 }

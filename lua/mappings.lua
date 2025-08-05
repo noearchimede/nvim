@@ -1,21 +1,10 @@
 --                              ┌──────────┐
 --                              │ Mappings │
 --                              └──────────┘
---
--- Sections:
---
---   Leader
---   Text Navigation
---   LSP
---   Editor Navigation
---   Searching
---   Editing
---   Quick settings
---   Abbreviations
---   Debug
 
 
 -- – Leader ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 
 -- NOTE: the leader itself is defined directly in init.lua
 
@@ -25,14 +14,27 @@ vim.keymap.set({ 'n', 'v', 'x' }, '\\<space>', '\\\\', { remap = true })
 
 
 
--- – Text navigation –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+-- – Editing –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
--- when moving between search results, move the current match to the center
--- vim.keymap.set('n', 'n', 'nzz')
--- vim.keymap.set('n', 'N', 'Nzz')
--- vim.keymap.set('n', '*', '*zt')
--- vim.keymap.set('n', '#', '#zt')
+-- yank to system clipboard
+vim.keymap.set({ 'n', 'v' }, 'Y', '"*y')
+vim.keymap.set('n', 'YY', '"*yy')
+
+-- delete and change to black hole register
+vim.keymap.set({ 'n', 'v' }, 'D', '"_d')
+vim.keymap.set('n', 'DD', '"_dd')
+vim.keymap.set({ 'n', 'v' }, 'C', '"_c')
+vim.keymap.set('n', 'CC', '"_cc')
+
+-- add new line without entering insert mode
+vim.keymap.set('n', '<cr>', 'o<esc>')
+vim.keymap.set('n', '<s-cr>', 'O<esc>')
+
+
+
+-- – Navigation ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 
 -- make single quote work as backtick, i.e. jump to exact position
 vim.keymap.set({ 'n', 'v', 'x', 'o' }, '\'', '`', { remap = true })
@@ -41,8 +43,25 @@ vim.keymap.set({ 'n', 'v', 'x', 'o' }, '\'', '`', { remap = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
 vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
 
+-- navigate between splits with a single keybinding
+vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>')
+vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>')
+vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>')
+vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>')
+vim.keymap.set('n', '<c-p>', '<cmd>wincmd p<cr>')
+
+-- jump to the alternate buffer
+vim.keymap.set('n', '<bs>', '<C-^>')
+
+-- Tab cd to the parent of the current file
+vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end)
+-- Tab cd up one directory
+vim.keymap.set('n', "<leader>tp", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end)
+
+
 
 -- – LSP --------–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 
 -- create autocommand for LSP attach to define (buffer-local) mappings etc.
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -55,23 +74,37 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         -- Insert mode mappings
+
         map({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help, "LSP: show signature help")
 
         -- Normal and Visual mode mappings
-        map("n", "<leader><leader>n", vim.diagnostic.goto_next, "Diagnostics: next")
-        map("n", "<leader><leader>p", vim.diagnostic.goto_prev, "Diagnostics: previous")
-        map("n", "]d", vim.diagnostic.goto_next, "Diagnostics: next") -- overwrite :h ]d-default to also show the diagnostic text
-        map("n", "[d", vim.diagnostic.goto_prev, "Diagnostics: previous") -- see above
-        map("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
-            "Diagnostics: next error")
-        map("n", "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
-            "Diagnostics: previous error")
-        map("n", "]w", function() vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.WARN } }) end,
-            "Diagnostics: next error or warning")
-        map("n", "[w", function() vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.WARN } }) end,
-            "Diagnostics: previous error or warning")
 
-        map("n", "<leader><leader>v", vim.diagnostic.open_float, "Diagnostics: show line diagnostics")
+        map("n", "<leader><leader>n", function()
+            vim.diagnostic.jump({ count = 1, float = true })
+        end, "Diagnostics: next")
+        map("n", "<leader><leader>p", function()
+            vim.diagnostic.jump({ count = -1, float = true })
+        end, "Diagnostics: previous")
+        map("n", "]d", function()
+            vim.diagnostic.jump({ count = 1, float = true })
+        end, "Diagnostics: next") -- overwrite :h ]d-default to also show the diagnostic text
+        map("n", "[d", function()
+            vim.diagnostic.jump({ count = -1, float = true })
+        end, "Diagnostics: previous") -- see above
+        map("n", "]e", function()
+            vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
+        end, "Diagnostics: next error")
+        map("n", "[e", function()
+            vim.diagnostic.jump({  count = -1, float = true,severity = vim.diagnostic.severity.ERROR })
+        end, "Diagnostics: previous error")
+        map("n", "]w", function()
+            vim.diagnostic.jump({ count = 1, float = true, severity = { min = vim.diagnostic.severity.WARN } })
+        end, "Diagnostics: next error or warning")
+        map("n", "[w", function()
+            vim.diagnostic.jump({ count = -1, float = true, severity = { min = vim.diagnostic.severity.WARN } })
+        end, "Diagnostics: previous error or warning")
+
+        map("n", "<leader><leader>v", vim.diagnostic.open_float, "Diagnostics: view line diagnostics")
         map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to K, see :h K-lsp-default
         map("n", "<leader><leader>j", vim.lsp.buf.signature_help, "LSP: show signature help")
         map("n", "<leader><leader>d", vim.lsp.buf.definition, "LSP: go to definition")
@@ -80,26 +113,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "<leader><leader>t", vim.lsp.buf.type_definition, "LSP: go to type definition")
         map("n", "<leader><leader>r", vim.lsp.buf.references, "LSP: go to references")
 
-        map("n", "<leader><leader>D", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.definition) end,
-            "LSP: go to definition")
-        map("n", "<leader><leader>L", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.declaration) end,
-            "LSP: go to declaration")
-        map("n", "<leader><leader>I", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.implementation) end,
-            "LSP: go to implementation")
-        map("n", "<leader><leader>T", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.type_definition) end,
-            "LSP: go to type definition")
+        map("n", "<leader><leader>D", function()
+            require('utils').lsp_goto_with_picker(vim.lsp.buf.definition)
+        end, "LSP: go to definition")
+        map("n", "<leader><leader>L", function()
+            require('utils').lsp_goto_with_picker(vim.lsp.buf.declaration)
+        end, "LSP: go to declaration")
+        map("n", "<leader><leader>I", function()
+            require('utils').lsp_goto_with_picker(vim.lsp.buf.implementation)
+        end, "LSP: go to implementation")
+        map("n", "<leader><leader>T", function()
+            require('utils').lsp_goto_with_picker(vim.lsp.buf.type_definition)
+        end, "LSP: go to type definition")
 
         map("n", "<leader><leader>c", vim.lsp.buf.rename, "LSP: rename")
         map({ "n", "v" }, "<leader><leader>a", vim.lsp.buf.code_action, "LSP: code actions")
         -- map({ "n", "v" }, "<leader><leader>f", vim.lsp.buf.format, "LSP: format") <<< handled by conform.nvim
 
-        -- stop/start/restart LPS
-        map("n", "<leader><leader>qq", ":LspStop<CR>", "LSP: stop")
-        map("n", "<leader><leader>qr", ":LspRestart<CR>", "LSP: restart")
-        map("n", "<leader><leader>qs", ":LspStart<CR>", "LSP: restart")
-
     end
 })
+
 
 
 -- – Quickfix and location list ––––––––––––––––––––––––––––––––––––––––––––––––
@@ -139,57 +172,34 @@ vim.api.nvim_create_autocmd("FileType", {
 
         -- if needed, use this to differentiate between quickfix and location list:
         -- if vim.fn.getwininfo(vim.fn.win_getid()).loclist ~= 1 then ...... end
-        vim.keymap.set('n', 'q', "<cmd>close<cr>", { buffer = true, desc = "Close" })
-        vim.keymap.set('n', 'o', "<cr><c-w>p", { buffer = true, desc = "Jump but keep focus" })
-        vim.keymap.set('n', '<cr>', "<cr>", { buffer = true, desc = "Jump" })
+        vim.keymap.set('n', 'q', "<cmd>close<cr>", { buffer = true, desc = "Close list" })
+        vim.keymap.set('n', 'o', "<cr><c-w>p", { buffer = true, desc = "Open list item but keep focus" })
+        vim.keymap.set('n', 'O', "<cr><c-w>p<cmd>close<cr>", { buffer = true, desc = "Open list item and close" })
+        vim.keymap.set('n', '<cr>', "<cr>", { buffer = true, desc = "Open list item" })
 
-        -- motions
+        -- implementation of an autojump feature (not needed if using nvim-bqf's preview feature)
+        --[[ helper for autojump motions defined below
         local function motion(key)
-            if vim.g.quickfix_auto_jump == true then
+            if vim.g.config_qf_autojump == true then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key .. '<cr><c-w>p', true, true, true), 'n', true)
             else -- this includes 'nil' when the control variable is not yet set
-                vim.g.quickfix_auto_jump = false -- set variable on first use
+                vim.g.config_qf_autojump = false -- set variable on first use
                 vim.api.nvim_feedkeys(key, 'n', true)
             end
         end
-
         -- note: 'not nil' is 'true', so this works even if the control variable is not yet set
-        vim.keymap.set('n', 'P', function() vim.g.quickfix_auto_jump = not vim.g.quickfix_auto_jump end,
+        vim.keymap.set('n', 'P', function() vim.g.config_qf_autojump = not vim.g.config_qf_autojump end,
             { buffer = true, desc = "Toggle autojump" })
         vim.keymap.set('n', 'j', function() motion('j') end, { buffer = true, desc = "Next" })
         vim.keymap.set('n', 'k', function() motion('k') end, { buffer = true, desc = "Previous" })
         vim.keymap.set('n', 'gg', function() motion('gg') end, { buffer = true, desc = "First" })
-        vim.keymap.set('n', 'G', function() motion('G') end, { buffer = true, desc = "Last" })
+        vim.keymap.set('n', 'G', function() motion('G') end, { buffer = true, desc = "Last" }) ]]
 
         -- quickfix history
         vim.keymap.set('n', '<C-n>', '<cmd>cnewer<cr>', { buffer = true, desc = "Next list" })
         vim.keymap.set('n', '<C-p>', '<cmd>colder<cr>', { buffer = true, desc = "Previous list" })
     end
 })
-
-
-
--- – Editor navigation –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
--- navigate between splits with a single keybinding
-vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>')
-vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>')
-vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>')
-vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>')
-vim.keymap.set('n', '<c-p>', '<cmd>wincmd p<cr>')
-
--- jump to the alternate buffer
-vim.keymap.set('n', '<bs>', '<C-^>')
-
-
--- – Directories –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
--- Tab cd to the parent of the current file
-vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end)
--- Tab cd up one directory
-vim.keymap.set('n', "<leader>tp", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end)
 
 
 
@@ -215,19 +225,6 @@ vim.keymap.set('n', '<leader>sc', ":nohlsearch<CR>")
 vim.keymap.set('n', '<leader>sh', ":set invhlsearch<CR>:set hlsearch?<CR>")
 -- Search Incremental: Toggle incsearch (:is)
 vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>")
-
-
-
--- – Editing –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
--- yank to system clipboard
-vim.keymap.set({ 'n', 'v' }, 'Y', '"*y')
-vim.keymap.set('n', 'YY', '"*yy')
-
--- add new line without entering insert mode
-vim.keymap.set('n', '<cr>', 'o<esc>')
-vim.keymap.set('n', '<s-cr>', 'O<esc>')
 
 
 
@@ -260,25 +257,3 @@ vim.keymap.set('n', '<leader>xm', function()
         vim.notify("Mouse disabled", vim.log.levels.INFO)
     end
 end)
-
-
-
--- – Debugging –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
-vim.keymap.set("n", "<leader>xys", function()
-    vim.cmd([[
-		:profile start /tmp/nvim-profile.log
-		:profile func *
-		:profile file *
-        :echo "Started profiling"
-	]])
-end, { desc = "Profile Start" })
-
-vim.keymap.set("n", "<leader>xye", function()
-    vim.cmd([[
-		:profile stop
-		:e /tmp/nvim-profile.log
-        :echo "Ended profiling"
-	]])
-end, { desc = "Profile End" })

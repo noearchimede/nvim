@@ -4,6 +4,7 @@ return {
 
     dependencies = {
         'nvim-lua/plenary.nvim', -- required
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }, -- use fzf algorithm
         'nvim-telescope/telescope-ui-select.nvim', -- extension to replace the vim.ui.select interface
         -- note: other extensions might be added in dedicated plugin files
     },
@@ -115,7 +116,8 @@ return {
 
         })
 
-        -- load ui-select extension (must come after setup function)
+        -- load extensions (must come after setup function)
+        require('telescope').load_extension('fzf')
         require("telescope").load_extension("ui-select")
 
     end

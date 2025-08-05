@@ -91,7 +91,7 @@ return {
                 button("n", "", "New file", "enew"),
                 button("w", "", "Workspaces", "Telescope workspaces"),
                 button("s", "󰦖", "Sessions", "Telescope possession"),
-                button("l", "", "Restore latest session", "PSLoad"),
+                button("l", "", "Restore latest session", "PossessionLoad"),
                 button("f", "󰮗", "Find file", "Telescope find_files"),
                 button("r", "", "Recent files", "Telescope oldfiles"),
                 button("t", "", "File tree", "NvimTreeOpen"),

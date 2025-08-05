@@ -172,11 +172,12 @@ vim.api.nvim_create_autocmd("FileType", {
 -- – Editor navigation –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
--- navigate between splits with a single keybinding, even from terminal windows
+-- navigate between splits with a single keybinding
 vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>')
 vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>')
 vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>')
 vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>')
+vim.keymap.set('n', '<c-p>', '<cmd>wincmd p<cr>')
 
 -- jump to the alternate buffer
 vim.keymap.set('n', '<bs>', '<C-^>')

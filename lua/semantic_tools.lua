@@ -1,5 +1,13 @@
-local M = {}
+--                          ┌────────────────┐
+--                          │ Semantic Tools │ 
+--                          └────────────────┘
 
+-- This file contains a list of all external semantic tools (LSPs, formatters,
+-- linters, and treesitter parsers) that should always be installed, along with
+-- some configuration for formatters and linters. LSP server configurations are
+-- in the 'lsp/' directory.
+
+local M = {}
 
 
 --------------------------------------------------------------------------------
@@ -29,12 +37,10 @@ M.lsp_servers = {
 vim.lsp.enable(M.lsp_servers)
 
 
-
 --------------------------------------------------------------------------------
 -- Formatters
 --------------------------------------------------------------------------------
 -- formatters are installed by mason.nvim and used by conform.nvim
-
 
 -- if this is set to true the formatters below will be automatically installed,
 -- otherwise they must be installed manually (using Mason)
@@ -69,12 +75,10 @@ M.formatter_settings = function(conform_formatters)
 end -- [for conform.nvim]
 
 
-
 --------------------------------------------------------------------------------
 -- Treesitter
 --------------------------------------------------------------------------------
 -- treesitter parsers are installed by nvim-treesitter and used natively by neovim
-
 
 -- list of treesitter parsers that will be automatically installed
 M.treesitter_parsers = {
@@ -91,7 +95,6 @@ M.treesitter_parsers = {
     "markdown",
     "markdown_inline"
 } -- [for nvim-treesitter]
-
 
 
 return M

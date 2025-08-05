@@ -1,15 +1,8 @@
 # TODO
 
+- remove workspace-diagnostigs when workspace diagnostics becomes an integrated fetaure of nvim
+
 ## Check config/updates for:
 
-- iron
-- overseer
-
-- workspaces
-- possession
-
 - aerial
-- bqf
-- quicker
-
-- all filetype-specific plugins
+- all filetype plugins

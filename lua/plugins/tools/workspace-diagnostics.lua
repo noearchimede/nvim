@@ -2,6 +2,9 @@ return {
 
     "artemave/workspace-diagnostics.nvim",
 
+    -- NOTE: when vim.lsp.buf.workspace_diagnostics() is released this plugin will become redundant
+    -- see https://github.com/artemave/workspace-diagnostics.nvim/issues/20
+
     keys = function()
         local function run_diagnostics()
             local out_text = {}

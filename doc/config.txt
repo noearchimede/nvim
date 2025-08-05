@@ -540,22 +540,41 @@ Terminal ~
                                                       *myler*  *mymap_leader_r*
 -----------------------------------------------------------------------------
 
-Iron: set-up ~
+Iron: set-up and navigation ~
 *mymap_leader_rs*  n  \rr   Start repl
-*mymap_leader_rn*  n  \rn   restart repl ("New")
-*mymap_leader_rc*  n  \rc   Close repl
+*mymap_leader_rl*  n  \rn   reLoad repl ("New")
+*mymap_leader_rq*  n  \rc   Close repl
 *mymap_leader_rj*  n  \rj   Jump to repl window
 *mymap_leader_rh*  n  \rh   hide repl window
 
-Iron: run ~
-*mymap_leader_r_*  n  \r{motion} run {motion}
+Iron: code execution ~
 *mymap_leader_rr*  n  \rr   run current line
                  v  \rr   run visual selection
 *mymap_leader_ra*  n  \ra   run all lines Above cursor
 *mymap_leader_rf*  n  \rf   run file
-*mymap_leader_r_cr* n \r<cr> send <CR>
+*mymap_leader_rb*  n  \rf   run Block
+*mymap_leader_rn*  n  \rf   run block and move to Next
+
+*mymap_leader_rc*  n  \rx   Clear
 *mymap_leader_rx*  n  \rx   send stop signal
-*mymap_leader_ri*  n  \ri   send arbitrary command
+
+*mymap_leader_r_cr* n \r<cr> send <CR>
+*mymap_leader_ri*  n  \ri   Insert arbitrary command
+
+*mymap_leader_rd*
+*mymap_leader_re*
+*mymap_leader_rg*
+*mymap_leader_rk*
+*mymap_leader_rm*
+*mymap_leader_ro*
+*mymap_leader_rp*
+*mymap_leader_rq*
+*mymap_leader_rt*
+*mymap_leader_ru*
+*mymap_leader_rv*
+*mymap_leader_rw*
+*mymap_leader_ry*
+*mymap_leader_rz*
 
 For help on the specific languages, see the |repl| help page.
 

@@ -23,7 +23,7 @@ return {
         modes = {
             char = {
                 -- enhanced f F t T: highlight matches and repeat f/t to go to next
-                enabled = true,
+                enabled = false,
                 multi_line = false
             },
             search = {

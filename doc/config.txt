@@ -241,10 +241,6 @@ Also see |mymap_]e| and |mymap_]w| for jumps limited to errors and warnings.
 
 *mymap_leader_leader_w*  n  \\w  get Workspace diagnostics [workspace-diagnostics]
 
-*mymap_leader_leader_qr* n  \\qr Restart LSP
-*mymap_leader_leader_qq* n  \\qq stop (Quit) LSP
-*mymap_leader_leader_qs* n  \\qs Start LSP
-
 Unused ~
 *mymap_leader_leader_b*
 *mymap_leader_leader_e*
@@ -252,6 +248,7 @@ Unused ~
 *mymap_leader_leader_h*
 *mymap_leader_leader_m*
 *mymap_leader_leader_o*
+*mymap_leader_leader_q*
 *mymap_leader_leader_s*
 *mymap_leader_leader_u*
 *mymap_leader_leader_x*

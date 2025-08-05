@@ -1,13 +1,6 @@
 --                              ┌──────────┐
 --                              │ Settings │
 --                              └──────────┘
---
--- Sections:
---   Editor Settings
---   Text Display
---   Text Navigation
---   Text Editing
-
 
 
 -- – Editor settings –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

@@ -2,99 +2,145 @@ return {
 
     "Vigemus/iron.nvim",
 
-    keys = {
-        { '<leader>rs', '<cmd>IronRepl<cr>', desc = "Iron: start" },
-        { '<leader>rn', '<cmd>IronRestart<cr>', desc = "Iron: restart" },
-        { '<leader>rj', '<cmd>IronFocus<cr>', desc = "Iron: jump to repl window" },
-        { '<leader>rh', '<cmd>IronHide<cr>', desc = "Iron: hide" },
-        { '<leader>ri', function()
-            vim.ui.input({ prompt = "Enter command (" .. vim.bo.filetype .. ")" }, function(input)
+    keys = function()
+        local iron = require('iron.core')
+        -- set of helper functions to make mapping definitions a bit less cluttered
+        local function if_repl(func)
+            -- execute function: only run function if a REPL is active
+            local ll = require('iron.lowlevel')
+            local ft = vim.bo.filetype
+            local meta = ll.get(ft)
+            if vim.bo.filetype == 'iron' or ll.repl_exists(meta) then
+                func()
+            else
+                vim.notify("No REPLs found for filetype " .. ft)
+            end
+        end
+        local function wrap_with_ft(func)
+            -- wrap functiont: return function wrapped with correct ft as first argument
+            local ft
+            if vim.bo.filetype == 'iron' then
+                local bufnr = vim.api.nvim_get_current_buf()
+                ft = require('iron.lowlevel').get_repl_ft_for_bufnr(bufnr)
+            else
+                ft = vim.bo.filetype
+            end
+            return function() func(ft) end
+        end
+        local function send_command()
+            vim.ui.input({ prompt = "Enter command (" .. vim.bo.filetype .. "): " }, function(input)
                 if input then
                     vim.cmd('IronSend ' .. input)
                 end
             end)
-        end, desc = "Iron: send arbitrary command" },
-    },
+        end
+        local function jump_to_iron_and_back()
+            if vim.bo.filetype == 'iron' then
+                vim.cmd('wincmd p')
+            else
+                iron.focus_on(vim.bo.filetype)
+                vim.cmd('startinsert')
+            end
+        end
+        local function quit_iron()
+            local bufnr, ft
+            if vim.bo.filetype == 'iron' then
+                bufnr = vim.api.nvim_get_current_buf()
+                ft = require('iron.lowlevel').get_repl_ft_for_bufnr(bufnr)
+            else
+                ft = vim.bo.filetype
+                iron.focus_on(ft)
+                bufnr = vim.api.nvim_get_current_buf()
+                vim.cmd('wincmd p')
+            end
+            iron.close_repl(ft)
+            vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+        return {
+            { '<leader>rs', '<cmd>IronRepl<cr><cmd>stopinsert<cr>', desc = "Iron: start" },
+            { '<leader>rl', function() if_repl(function()
+                    iron.repl_restart()
+                    vim.cmd('stopinsert')
+                end) end, desc = "Iron: restart" },
+            { '<leader>rq', function() if_repl(quit_iron) end, desc = "Iron: close" },
+            { '<leader>rj', function() if_repl(jump_to_iron_and_back) end, desc = "Iron: jump to repl window" },
+            { '<leader>rh', function() if_repl(wrap_with_ft(iron.hide_repl)) end, desc = "Iron: hide" },
+
+            { '<leader>rr', function() if_repl(iron.send_line) end, desc = "Iron: send line" },
+            { '<leader>rr', mode = { 'v' }, function() if_repl(iron.visual_send) end, desc = "Iron: send selection" },
+            { '<leader>rf', function() if_repl(iron.send_file) end, desc = "Iron: send file" },
+            { '<leader>rn', function() if_repl(function() iron.send_code_block(true) end) end, desc = "Iron: send block (advance)" },
+            { '<leader>rb', function() if_repl(function() iron.send_code_block(false) end) end, desc = "Iron: send block (stay)" },
+            { '<leader>ra', function() if_repl(iron.send_until_cursor) end, desc = "Iron: send file up to cursor" },
+
+            { '<leader>ri', function() if_repl(send_command) end, desc = "Iron: send arbitrary command" },
+            { '<leader>rx', function() if_repl(wrap_with_ft(function(ft) iron.send(ft, string.char(03)) end)) end, desc = "Iron: interrupt" },
+            { '<leader>rc', function() if_repl(wrap_with_ft(function(ft) iron.send(ft, string.char(12)) end)) end, desc = "Iron: clear" },
+            { '<leader>r<cr>', function() if_repl(wrap_with_ft(function(ft) iron.send(ft, string.char(13)) end)) end, desc = "Iron: send CR" },
+        }
+    end,
+
+    cmd = { "IronRepl" },
 
     config = function()
 
+        -- definition of REPLs for each filetype
+        local repls = {
+
+            sh = {
+                command = function(meta)
+                    local first_line = vim.api.nvim_buf_get_lines(meta.current_bufnr, 0, 2, false)[1]
+                    if string.sub(first_line, 1, 2) == '#!' then
+                        -- the first line is a shebang; try to use it
+                        vim.notify("REPL started with " .. first_line)
+                        return string.sub(first_line, 3, -1)
+                    end
+                    vim.notify("REPL started with default shell (no shebang found)")
+                    -- if nothing is specified use zsh
+                    return "$SHELL"
+                end
+            },
+
+            python = {
+                -- use a single ipython input for each input block (instead of an input for each line)
+                command = { "ipython", "--no-autoindent" },
+                format = require("iron.fts.common").bracketed_paste_python,
+                block_dividers = { "# %%", "#%%" },
+            },
+
+            cpp = {
+                command = { "cling" }
+            }
+
+        }
+
         require("iron.core").setup({
+
             config = {
-
-                -- Set how iron deal with windows for the repl (see :h iron-extending)
+                -- set how iron deal with windows for the repl (see :h iron-extending)
                 visibility = require("iron.visibility").single,
-
-                -- Scope of the repl: one repl per tab (see :h iron-extending)
+                -- scope of the repl: one repl per tab (see :h iron-extending)
                 scope = require("iron.scope").tab_based,
-
-                -- Whether the repl buffer is a "throwaway" buffer or not
-                scratch_repl = false,
-
-                -- Automatically closes the repl window on process end
-                close_window_on_exit = false,
-
-                repl_definition = {
-
-                    sh = {
-                        command = function(meta)
-                            local first_line = vim.api.nvim_buf_get_lines(meta.current_bufnr, 0, 2, false)[1]
-                            if string.sub(first_line, 1, 2) == '#!' then
-                                -- the first line is a shebang; try to use it
-                                vim.notify("REPL started with " .. first_line)
-                                return string.sub(first_line, 3, -1)
-                            end
-                            vim.notify("REPL started with default shell (no shebang found)")
-                            -- if nothing is specified use zsh
-                            return "$SHELL"
-                        end
-                    },
-
-                    python = {
-                        -- use a single ipython input for each input block (instead of an input for each line)
-                        command = { "ipython", "--no-autoindent" },
-                        format = require("iron.fts.common").bracketed_paste,
-                    },
-
-                    cpp = {
-                        command = { "cling" }
-                    }
-
-                },
-
-                -- Repl position. Check `iron.view` for more options,
+                -- whether the repl buffer is a "throwaway" buffer or not
+                scratch_repl = true,
+                -- set where to open a new repl
                 repl_open_cmd = require("iron.view").split.vertical.botright(60),
-
-                -- If the repl buffer is listed
+                -- automatically closes the repl window on process end
+                close_window_on_exit = false,
+                -- definitions of REPLs per filetype
+                repl_definition = repls,
+                -- if the repl buffer is listed
                 buflisted = false,
+                -- use nvim api, not <plug>
+                should_map_plug = false,
             },
-
-            -- All the keymaps are set individually
-            -- Below is a suggested default
-
-            keymaps = {
-
-                send_motion = "<leader>r",
-                send_line = "<leader>rr",
-                visual_send = "<leader>rr",
-                send_file = "<leader>rf",
-                send_until_cursor = "<leader>ra", -- "a" as in "above"
-
-                cr = "<leader>r<cr>",
-                interrupt = "<leader>rx",
-                exit = "<leader>rq",
-                -- 'clear' not mapped to prevent accidental clearing
-
-                -- marks: available but currently not used
-                -- send_mark = "<leader>cm",
-                -- mark_motion = "<leader>cn",
-                -- mark_visual = "<leader>cn",
-                -- remove_mark = "<leader>cd",
-            },
-
+            -- mappings are set explicitly above
+            keymaps = {},
             -- Highlights the last sent block with bold
             highlight_last = false,
             -- If the highlight is on, you can change how it looks (see nvim_set_hl)
-            highlight = { } -- e.g. { bold = true }
+            highlight = {} -- e.g. { bold = true }
         })
+
     end
 }

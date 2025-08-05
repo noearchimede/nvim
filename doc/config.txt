@@ -888,6 +888,7 @@ Window navigation  ~
 *mymap_CTRL-J*    n   <C-J>      remap to |CTRL-W_j|
 *mymap_CTRL-K*    n   <C-K>      remap to |CTRL-W_k|
 *mymap_CTRL-L*    n   <C-L>      remap to |CTRL-W_l|
+*mymap_CTRL-P*    n   <C-P>      remap to |CTRL-W_p|
 
 Window motions ~
 *mymap_CTRL-W_m*  n   <C-W>m     Move window (interactively) [winshift]

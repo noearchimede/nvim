@@ -9,6 +9,11 @@ return {
         { "<leader>nh", "<cmd>Fidget history<cr>", desc = "Fidget: show history" },
     },
 
-    opts = { },
+    opts = {
+        notification = {
+            --override vim.notify()
+            override_vim_notify = true
+        }
+    }
 
 }

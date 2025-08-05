@@ -9,7 +9,7 @@ return {
     version = '2.*',
 
     config = {
-        hint = 'floating-letter',
+        hint = 'floating-big-letter',
         show_prompt = false,
         filter_rules = {
             -- when there is only one window available to pick from, use it without prompting

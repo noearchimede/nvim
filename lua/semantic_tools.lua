@@ -23,8 +23,11 @@ M.lsp_servers_auto_install = true
 -- Note that installing a server through Mason is not enough, it is only
 -- available in neovim after 'vim.lsp.enable(server_name)' is called.
 -- The names in this list must match the ones presented in the Mason interface.
+--
 -- For each server a configuration should be provided in a file of the same
--- name in the 'lsp/' folder.
+-- name in the 'lsp/' folder. Sensible configuration defaults can be found at
+-- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
+-- (note that the server names might be different, check the 'command' option)
 M.lsp_servers = {
     "lua-language-server",
     "pyright",
@@ -55,6 +58,9 @@ M.formatters_by_ft = {
         "black",
     },
     sh = {
+        "shfmt",
+    },
+    zsh = {
         "shfmt",
     },
     markdown = {

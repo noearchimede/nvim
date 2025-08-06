@@ -25,16 +25,18 @@ if vim.g.neovide then
 
     -- mappings to copy-paste from system clipboard with cmd-v and cmd-c
     vim.keymap.set('v', '<D-c>', '"+y') -- Copy
-    vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
-    vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
+    vim.keymap.set({'n', 'v'}, '<D-v>', '"+P') -- Paste
+    vim.keymap.set({'t'}, '<D-v>', '<c-\\><c-n>"+Pi') -- Paste (terminal)
     vim.keymap.set('c', '<D-v>', '<C-r>+') -- Paste command mode
     vim.keymap.set('i', '<D-v>', '<esc>"+pa') -- Paste insert mode
 
-    -- mapping to open a new Neovide instance. This is a workaround from
-    -- [https://github.com/neovide/neovide/issues/2020#issuecomment-1714042856];
-    -- use until the feature is implemented directly.
-    vim.keymap.set("n", "<D-n>", ":silent exec '!neovide &'<cr>")
-
+    -- mapping to open a new Neovide instance.
+    vim.keymap.set("n", "<D-n>", function()
+        vim.system(
+            { "open", "--new", "-b", "com.neovide.neovide" },
+            { cwd = vim.fn.expand('~'), detach = true }
+        )
+    end, {silent = true})
 
     -- – neovide settings ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 

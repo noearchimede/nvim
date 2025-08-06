@@ -19,9 +19,17 @@ return {
         -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
         delete_to_trash = true,
         -- Oil will automatically delete hidden buffers after this delay
-        cleanup_delay_ms = 5000, -- default: 2000
+        cleanup_delay_ms = 0, -- default: 2000
         -- Set to true to watch the filesystem for changes and reload oil
         watch_for_changes = true,
+        -- Files and folders display
+        view_options = {
+            case_insensitive = true,
+            show_hidden = true,
+            is_always_hidden = function(name, bufnr)
+                return name == '.DS_Store' or name == '..'
+            end
+        },
         -- Keymaps (only different than defaults are listed)
         keymaps = {
             -- for consistency with other plugins

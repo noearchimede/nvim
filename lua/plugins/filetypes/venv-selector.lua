@@ -14,13 +14,14 @@ return {
     cmd = { "VenvSelect" },
 
     opts = {
+        options = {
+            -- show shorter names in the telescope picker
+            on_telescope_result_callback = function(filename)
+                return filename:gsub(os.getenv("HOME"), "~"):gsub("/bin/python", "")
+            end
+        },
         -- notifies user on activation of the virtual env
         notify_user_on_venv_activation = true,
-
-        search = {
-            -- disable the default cwd search. Re-enable it if existing envs are not found.
-            cwd = false
-        }
     },
 
 }

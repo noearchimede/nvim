@@ -315,38 +315,14 @@ Overseer ~
 Trouble                                               *myled*  *mymap_leader_d*
 -----------------------------------------------------------------------------
 
-*mymap_leader_dd*  n  \dd   focus trouble (if closed does nothing)
-*mymap_leader_dD*  n  \dD   close trouble
-
-*mymap_leader_db*  n  \db   show diagnostics for Buffer
+*mymap_leader_dd*  n  \dd   show diagnostics for Buffer
 *mymap_leader_dw*  n  \dw   show diagnostics for Workspace
-*mymap_leader_dr*  n  \dr   force Refresh
+*mymap_leader_dl*  n  \dr   reLoad manually
 
 *mymap_leader_dn*  n  \dn   jump to Next item
 *mymap_leader_dp*  n  \dp   jump to Previous item
 
-Unused ~
-*mymap_leader_da*  n  \da   
-*mymap_leader_dc*  n  \dc   
-*mymap_leader_de*  n  \de   
-*mymap_leader_df*  n  \df   
-*mymap_leader_dg*  n  \dg   
-*mymap_leader_dh*  n  \dh   
-*mymap_leader_di*  n  \di   
-*mymap_leader_dj*  n  \dj   
-*mymap_leader_dk*  n  \dk   
-*mymap_leader_dl*  n  \dl
-*mymap_leader_dm*  n  \dm   
-*mymap_leader_do*  n  \do   
-*mymap_leader_dq*  n  \dq   
-*mymap_leader_ds*  n  \ds
-*mymap_leader_dt*  n  \dt   
-*mymap_leader_du*  n  \du   
-*mymap_leader_dv*  n  \dv   
-*mymap_leader_dx*  n  \dx   
-*mymap_leader_dy*  n  \dy   
-*mymap_leader_dz*  n  \dz   
-
+*mymap_leader_dD*  n  \dD   close trouble
 
 -----------------------------------------------------------------------------
                                                       *mylee*  *mymap_leader_e*

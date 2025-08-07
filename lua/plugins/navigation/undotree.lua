@@ -28,6 +28,14 @@ return {
             endfunc
         ]], {})
 
+        -- set background color to same color as NivmTree
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = 'undotree',
+            callback = function(opts)
+                vim.wo.winhighlight = 'Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer'
+            end,
+        })
+
     end
 
 }

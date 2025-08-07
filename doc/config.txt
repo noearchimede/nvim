@@ -496,8 +496,7 @@ Motions                                               *mylem*  *mymap_leader_m*
                                                       *mylen*  *mymap_leader_n*
 -----------------------------------------------------------------------------
 
-Notifications (fidget) ~
-*mymap_leader_nc*  n  \nc   Clear notifications
+Notifications (noice) ~
 *mymap_leader_nh*  n  \nh   show notification History
 
 
@@ -717,8 +716,9 @@ Unused ~
 Plugin toggles                                        *myley*  *mymap_leader_y*
 -----------------------------------------------------------------------------
 
-Zen-mode ~
+UI
 *mymap_leader_yz*  n  \yx   toggle Zen mode
+*mymap_leader_yn*  n  \yn   toggle Noice
 
 Cmp ~
 *mymap_leader_yc*  n  \yc   toggle Completion
@@ -743,7 +743,6 @@ Unused ~
 *mymap_leader_yk*
 *mymap_leader_yl*
 *mymap_leader_ym*
-*mymap_leader_yn*
 *mymap_leader_yo*
 *mymap_leader_yq*
 *mymap_leader_yr*

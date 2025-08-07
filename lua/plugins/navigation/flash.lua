@@ -36,13 +36,13 @@ return {
     keys = {
         {
             "s", -- normal, visual, operator-pending modes
-            mode = { "n", "x", "o" },
+            mode = { "n", "x" },
             function() require("flash").jump() end,
             desc = "Flash",
         },
         {
-            "S", -- normal, visual, operator-pending modes
-            mode = { "n", "x", "o" },
+            "S", -- normal and operator-pending modes (visual is taken for nvim-surround
+            mode = { "n", "o" },
             function() require("flash").treesitter() end,
             desc = "Flash Treesitter",
         },
@@ -57,12 +57,6 @@ return {
             mode = { "o", "x" },
             function() require("flash").treesitter_search() end,
             desc = "Treesitter Search",
-        },
-        {
-            "<c-s>",
-            mode = { "c" }, -- command-line mode
-            function() require("flash").toggle() end,
-            desc = "Toggle Flash Search",
         },
     },
 }

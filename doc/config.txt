@@ -1,5 +1,4 @@
 *config.txt*  Help page for this nvim configuration.
-*conf* *confi*
 
 This help file contains a list of the main features implemented in my nvim
 configuration.

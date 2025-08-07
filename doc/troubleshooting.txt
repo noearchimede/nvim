@@ -1,5 +1,4 @@
 *troubleshooting.txt*  List of solutions to problems that may occur in Vim
-*tro* *trouble*
 
 This help file contains a random list of problems and the solutions I found.
 

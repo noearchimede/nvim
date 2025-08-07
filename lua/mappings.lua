@@ -17,6 +17,7 @@ vim.keymap.set({ 'n', 'v', 'x' }, '\\<space>', '\\\\', { remap = true })
 -- – Editing –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
+
 -- yank to system clipboard
 vim.keymap.set({ 'n', 'v' }, 'Y', '"*y')
 vim.keymap.set('n', 'YY', '"*yy')
@@ -43,11 +44,28 @@ vim.keymap.set({ 'n', 'v', 'x', 'o' }, '\'', '`', { remap = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
 vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
 
--- navigate between splits with a single keybinding
-vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>')
-vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>')
-vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>')
-vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>')
+-- navigate between windows, but skip over some selected buffers (accessed via their own mappings)
+local function winjump_skip_special(wincmd)
+    local function is_special(win)
+        local ft = vim.api.nvim_win_call(win, function() return vim.bo.filetype end)
+        return ft == 'NvimTree' or ft == 'undotree' or ft == 'aerial' or ft == 'trouble'
+    end
+    local function jump(key)
+        -- repeat :wincmd <key> until either the filetype is not "special" or an edge is reached
+        local win1 = vim.api.nvim_get_current_win()
+        vim.cmd('wincmd ' .. key)
+        local win2 = vim.api.nvim_get_current_win()
+        if win1 == win2 then return false end
+        if is_special(win2) then return jump(key) end
+        return true
+    end
+    -- look for a non-"special" window in the direction of :wincmd <key>, if that fails fallback to :wincmd w
+    if not jump(wincmd) then jump('w') end
+end
+vim.keymap.set('n', '<c-h>', function() winjump_skip_special('h') end)
+vim.keymap.set('n', '<c-j>', function() winjump_skip_special('j') end)
+vim.keymap.set('n', '<c-k>', function() winjump_skip_special('k') end)
+vim.keymap.set('n', '<c-l>', function() winjump_skip_special('l') end)
 vim.keymap.set('n', '<c-p>', '<cmd>wincmd p<cr>')
 
 -- jump to the alternate buffer

@@ -1,5 +1,4 @@
 *hints.txt*  List of hints about doing specific things in Vim
-*hin* *hint*
 
 This help file contains a random list of tips to use Vim in a more efficient
 way and ideas on how to perform specific actions.

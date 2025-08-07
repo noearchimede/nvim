@@ -10,22 +10,21 @@ return {
         -- NOTE: using the opening character of a pair will also insert a space, using the closing one won't
         keymaps = {
 
-            normal = "gz",
-            normal_line = "gZ",
+            insert = "<C-G>z",
+            Winsert_line = "<C-G>Z",
 
+            normal = "gz",
             normal_cur = "gzz",
+            normal_line = "gZ",
             normal_cur_line = "gZZ",
 
-            visual = "gz",
+            visual = "Z",
             visual_line = "gZ",
 
-            insert = "<C-G>z",
-            insert_line = "<C-G>Z",
+            delete = "dz",
 
-            delete = "gzd",
-
-            change = "gzc",
-            change_line = "gZc",
+            change = "cz",
+            change_line = "cZ",
 
         },
 

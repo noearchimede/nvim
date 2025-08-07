@@ -39,7 +39,7 @@ Leader mappings ~
 |mymap_leader_a| ........ Code outline
 |mymap_leader_b| ........ Buffer navigation
 -> |mymap_leader_#| ..... Quick buffer navigation
-|mymap_leader_c| ........ Compilers and visualizers
+|mymap_leader_c| ........ Compilation and task running
 |mymap_leader_d| ........ Trouble
 |mymap_leader_e|
 |mymap_leader_f| ........ Telescope
@@ -128,7 +128,7 @@ i_CTRL-B | scroll doc | X |     |                   |
 |i_CTRL-D| |            |   |     |                   | Decrease indent
 |i_CTRL-E| |            |   |     |                   | Insert character below
 |i_CTRL-F| | scroll doc | / |     |                   | (cinoptions) Indent
-|i_CTRL-G| | +surround   |   |     |                   | (iss) CTRL-G mappings
+|i_CTRL-G| | surround   |   |     |                   | (iss) CTRL-G mappings
 |i_CTRL-H| |            |   | bs  | Backspace         | Delete before cursor
 |i_CTRL-I| | next cmp   |   | tab | Tab               | Insert a tab
 |i_CTRL-J| |            |   | M lf| Line feed         | Begin new line
@@ -301,10 +301,11 @@ actions:
 
 
 -----------------------------------------------------------------------------
-                                                      *mylec*  *mymap_leader_c*
+Compilation and task running                          *mylec*  *mymap_leader_c*
 -----------------------------------------------------------------------------
 
 Overseer ~
+*mymap_leader_cc*  n  \ct   run overseer task
 *mymap_leader_cc*  n  \ct   run overseer task
 *mymap_leader_co*  n  \co   open overseer Overview
 *mymap_leader_cO*  n  \cO   close overseer Overview
@@ -770,19 +771,17 @@ Brackets and quotes                                          *mygz*  *mymap-gz*
 
 Implemented by the 'nvim-surround' plugin.
 
-*mymap_gz_*  n  gz{motion}{char}   insert pair of {char} (see note below)
-           v  gz{char}           in sert pair of {char} around selection
-*mymap_gZ_*  n  gZ{motion}{char}   insert multiline pair of {char} 
-           v  gZ{char}           in sert multiline pair of {char} around selection
+*mymap_gz_*  n  gz{motion}{char}  insert pair of {char} (see note below)
+           v  gz{char}          insert pair of {char} around selection
+*mymap_gzz*  n  gzz{char}         insert pair of {char} around current line
+*mymap_gZ_*  n  gZ{motion}{char}  insert multiline pair of {char} 
+           v  gZ{char}          insert multiline pair of {char} around selection
+*mymap_gZZ*  n  gZZ{char}         insert multiline pair of {char} around line
 
+*mymap_dz*  n  dz{char}          Delete a pair of {char} around the cursor
 
-*mymap_gzz*  n  gzz{char}          insert pair of {char} around current line
-*mymap_gZZ*  n  gZZ{char}          insert multiline pair of {char} around line
-
-*mymap_gzd*  n  gzd{char}          Delete a pair of {char} around the cursor
-
-*mymap_gzc*  n  gzr{char1}{char2}  Change a pair of {char1} to {char2}
-*mymap_gZc*  n  gZr{char1}{char2}  same as above, but multiline
+*mymap_cz*  n  cz{char1}{char2}  Change a pair of {char1} to {char2}
+*mymap_cZ*  n  cZ{char1}{char2}  same as above, but multiline
 
 NOTE: when inserting a pair, using the opening character will also insert a
 space, while using the closing one will only insert the pair.
@@ -819,7 +818,7 @@ Marks ~
 
 Jumps (flash) ~
 *mymap_s*         nxo s          jump to position
-*mymap_S*         nxo S          jump to treesitter node
+*mymap_S*         no  S          jump to treesitter node
 *mymap_r*         o   {action}r  perform action on remote position
 *mymap_R*         xo  {action}R  perform action on treesitter selection
 

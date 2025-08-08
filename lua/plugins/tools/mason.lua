@@ -32,7 +32,6 @@ return {
             end
         end
 
-        vim.print(tools_list)
         -- then, setup the tool installer to enforce installing selected tools and lsp servers
         require("mason-tool-installer").setup {
             ensure_installed = tools_list

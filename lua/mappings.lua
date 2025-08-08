@@ -32,6 +32,9 @@ vim.keymap.set('n', 'CC', '"_cc')
 vim.keymap.set('n', '<cr>', 'o<esc>')
 vim.keymap.set('n', '<s-cr>', 'O<esc>')
 
+-- repeat last replayed macro (instead of last recorded)
+vim.keymap.set({'n', 'v'}, 'Q', '@@')
+
 
 
 -- – Navigation ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

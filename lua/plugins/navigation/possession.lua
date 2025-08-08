@@ -34,11 +34,6 @@ return {
     },
 
     opts = {
-        autosave = {
-            cwd = true,
-            on_load = true,
-            on_quit = true,
-        },
         plugins = {
             close_windows = {
                 preserve_layout = false,
@@ -93,7 +88,7 @@ return {
         -- updated
         vim.api.nvim_create_autocmd('ExitPre', {
             callback = function()
-                vim.cmd("PossessionSave! " .. vim.fn.getcwd(-1, -1))
+                vim.cmd("PossessionSaveCwd!")
             end
         })
 

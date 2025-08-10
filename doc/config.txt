@@ -264,13 +264,13 @@ Buffers                                               *maleb*  *map_leader_b*
 -----------------------------------------------------------------------------
 
 Change buffer ~
-\bo   n  Move backwards in the window buffer history [bufjump]
-\bi   n  Move forwards in the window buffer history [bufjump]
+\bb   n  select buffer in interactive picker [telescope]
+\bo   n  move backwards in the window buffer history [bufjump]
+\bi   n  move forwards in the window buffer history [bufjump]
 
 Delete buffers ~
 \bu   n  delete all "Untouched" buffers [hbac]
-\bd   n  Same as |bd| but without closing window [bufdelete]
-\bw   n  Same as |bw| but without closing window [bufdelete]
+\bd   n  same as |bd| but without closing window [bbye]
 
 Grapple ~
 \ba   n  Add tag to current buffer

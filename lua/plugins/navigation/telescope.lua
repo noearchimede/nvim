@@ -22,7 +22,6 @@ return {
         },
         { '<leader>fg', function() require('telescope.builtin').live_grep() end, desc = "Telescope: live grep" },
         { '<leader>fw', function() require('telescope.builtin').grep_string() end, desc = "Telescope: live grep" },
-        { '<leader>fb', function() require('telescope.builtin').buffers({ sort_lastused = true }) end, desc = "Telescope: buffers" },
         { '<leader>fh', function() require('telescope.builtin').help_tags() end, desc = "Telescope: help tags" },
         { '<leader>fk', function() require('telescope.builtin').keymaps() end, desc = "Telescope: keymaps" },
         { '<leader>fo', function() require('telescope.builtin').oldfiles() end, desc = "Telescope: old files" },
@@ -35,6 +34,9 @@ return {
         { "<leader>ft", function() require('telescope.builtin').lsp_type_definitions() end, desc = "Telescope: LSP type definitions" },
         { "<leader>fl", function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end, desc = "Telescope: LSP document diagnostics" },
         { "<leader>fe", function() require('telescope.builtin').diagnostics() end, desc = "Telescope: LSP workspace diagnostics" },
+
+        -- buffers: use bb (insead of fb) for consistency with other buffer navigation mappings
+        { '<leader>bb', function() require('telescope.builtin').buffers({ sort_lastused = true }) end, desc = "Telescope: buffers" },
     },
 
     cmd = { "Telescope" },

@@ -41,9 +41,6 @@ end
 -- keep undo history across nvim sessions
 vim.opt.undofile = true
 
--- clear jumplist on nvim startup (changing the corresponding option in ':set shada' would also remove other things)
-vim.api.nvim_create_autocmd("VimEnter", { command = "clearjumps" })
-
 -- always show signcolumn by default
 vim.opt.signcolumn = 'yes'
 

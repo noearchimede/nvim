@@ -358,6 +358,7 @@ Git                                                   *maleg*  *map_leader_g*
 Git status (neogit) ~
 \gg   n  open Git status
 \gt   n  open git status in new Tab
+\ge   n  open git status in current window (hEre)
 \gc   n  Commit staged changes
 \gl   n  show Log
 
@@ -388,7 +389,7 @@ Diff (diffview) ~
 \gh   n  open History
 
 Unused ~
-\ga \ge \gj \gk \gm \go \gq \gz
+\ga \gj \gk \gm \go \gq \gz
 
 
 -----------------------------------------------------------------------------

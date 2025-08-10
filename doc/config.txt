@@ -607,9 +607,6 @@ Settings ~
 \xw   n  toggle 'wrap'
 \xe   n  toggle visibility of signcolumn ("Gutter")
 
-Theme ~
-\xt   n  change Theme
-
 Debugging ~
 \xys  n  Start performance Profiniling
 \xye  n  End performance Profiniling
@@ -623,6 +620,7 @@ Plugin toggles                                        *maley*  *map_leader_y*
 -----------------------------------------------------------------------------
 
 UI
+\xt   n  cycle Theme
 \yx   n  toggle Zen mode
 \yn   n  toggle Noice
 

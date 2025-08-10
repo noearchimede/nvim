@@ -14,7 +14,7 @@ return {
         cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
         -- toggle theme style ---
-        toggle_style_key = "<leader>xt", -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+        toggle_style_key = "<leader>yt",
         toggle_style_list = {
             'dark',
             'darker',

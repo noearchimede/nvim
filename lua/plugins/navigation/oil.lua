@@ -32,11 +32,10 @@ return {
         },
         -- Keymaps (only different than defaults are listed)
         keymaps = {
-            -- for consistency with other plugins
+            -- note: do not remap C-v and C-x (used to open in splits in other contexts), as the
+            -- block visual mode and number decrement operator are very useful in Oil!
             ["<C-h>"] = false, -- I use this to switch windows
             ["<C-l>"] = false, -- I use this to switch windows
-            ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-            ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a vertical split" },
             ["<C-r>"] = "actions.refresh",
             ["<C-s>"] = function()
                 local ok, grug = pcall(require, 'grug-far')

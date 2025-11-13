@@ -46,7 +46,7 @@ Leader mappings ~
 |map_leader_g| ........ Git
 |map_leader_h|
 |map_leader_i| ........ Alignement, indentation, Insert attachments
-|map_leader_j|
+|map_leader_j| ........ Notebook navigation and execution
 |map_leader_k|
 |map_leader_l| ........ Location list 
 |map_leader_m| ........ Motions
@@ -411,6 +411,23 @@ Images ~
 -----------------------------------------------------------------------------
                                                       *malej*  *map_leader_j*
 -----------------------------------------------------------------------------
+
+Notebook-navigator: cell navigation ~
+\jn   n  go to Next code block
+\jp   n  go to Previous code block
+
+Notebook-navigator: cell execution ~
+\jj   n  run cell and go to next
+\jr   n  run cell
+
+Notebook-navigator: cell editing ~
+\ja   n  add cell above
+\jb   n  add cell below
+\jm   n  merge with cell below
+\js   n  split cell
+\ju   n  swap with cell above
+\jd   n  swap with cell below
+\jc   n  comment cell
 
 
 -----------------------------------------------------------------------------
@@ -805,6 +822,10 @@ Quickfix/location list ~
 [q    n   move to previous quickfix item (alias: |map_leader_qp|)
 ]l    n   move to next location item (alias: |map_leader_qn|)
 [l    n   move to previous location item (alias: |map_leader_qp|)
+
+Code block ~
+]j    n   move to next code block (alias: |map_leader_jn|)
+[j    n   move to previous code block (alias: |map_leader_jp|)
 
 -----------------------------------------------------------------------------
 Miscellaneous                                              *mami*  *map_misc*

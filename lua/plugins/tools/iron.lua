@@ -118,6 +118,24 @@ return {
 
     config = function()
 
+        -- define commands used for interface with notebook-navigator (see notebook-navigator.lua)
+        local function send_code_for_nb_nav(selection, advance)
+            local iron = require('iron.core')
+            local ironll = require('iron.lowlevel')
+            local ft = vim.bo.filetype
+            local meta = ironll.get(ft)
+            if not (vim.bo.filetype == 'iron' or ironll.repl_exists(meta) ) then
+                vim.cmd("IronRepl")
+            end
+            if (selection == "block") then
+                iron.send_code_block(advance)
+            elseif (selection == "all") then
+                iron.send_file()
+            end
+        end
+        vim.api.nvim_create_user_command("ConfigNbnavIronSendBlockAdvance", function() send_code_for_nb_nav('block', true) end, {})
+        vim.api.nvim_create_user_command("ConfigNbnavIronSendBlock", function() send_code_for_nb_nav('block', false) end, {})
+        vim.api.nvim_create_user_command("ConfigNbnavIronSendAll", function() send_code_for_nb_nav('all') end, {})
 
         require("iron.core").setup({
 

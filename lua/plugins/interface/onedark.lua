@@ -62,6 +62,9 @@ return {
             -- this is used in the autocmd defined in the 'init' field below
             ["TerminalBaground"] = { bg = '$bg_d' },
 
+            -- do not show @spell highligt
+            ["@spell"] = { fg = 'NONE' },
+
         },
 
         -- Plugins Config --

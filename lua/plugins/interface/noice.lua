@@ -35,7 +35,7 @@ return {
             enabled = true,
             view = "mini",
             view_warn = "mini", -- view for errors
-            view_error = "mini", -- view for errors
+            view_error = "messages", -- view for errors
             view_search = false, -- view for search count messages
         },
         popupmenu = {

@@ -1,16 +1,50 @@
+-- definition of REPLs for each filetype
+local function repls()
+    return {
+        sh = {
+            command = function(meta)
+                local first_line = vim.api.nvim_buf_get_lines(meta.current_bufnr, 0, 2, false)[1]
+                if string.sub(first_line, 1, 2) == '#!' then
+                    -- the first line is a shebang; try to use it
+                    vim.notify("REPL started with " .. first_line)
+                    return string.sub(first_line, 3, -1)
+                end
+                vim.notify("REPL started with default shell (no shebang found)")
+                -- if nothing is specified use zsh
+                return "$SHELL"
+            end
+        },
+
+        python = {
+            -- use a single ipython input for each input block (instead of an input for each line)
+            command = { "ipython", "--no-autoindent" },
+            format = require("iron.fts.common").bracketed_paste,
+            block_dividers = { "# %%", "#%%" },
+        },
+
+        cpp = {
+            command = { "cling" }
+        }
+
+    }
+end
+
+
+
+
 return {
 
     "Vigemus/iron.nvim",
 
     keys = function()
         local iron = require('iron.core')
+        local ironll = require('iron.lowlevel')
         -- set of helper functions to make mapping definitions a bit less cluttered
         local function if_repl(func)
             -- execute function: only run function if a REPL is active
-            local ll = require('iron.lowlevel')
             local ft = vim.bo.filetype
-            local meta = ll.get(ft)
-            if vim.bo.filetype == 'iron' or ll.repl_exists(meta) then
+            local meta = ironll.get(ft)
+            if vim.bo.filetype == 'iron' or ironll.repl_exists(meta) then
                 func()
             else
                 vim.notify("No REPLs found for filetype " .. ft)
@@ -84,35 +118,6 @@ return {
 
     config = function()
 
-        -- definition of REPLs for each filetype
-        local repls = {
-
-            sh = {
-                command = function(meta)
-                    local first_line = vim.api.nvim_buf_get_lines(meta.current_bufnr, 0, 2, false)[1]
-                    if string.sub(first_line, 1, 2) == '#!' then
-                        -- the first line is a shebang; try to use it
-                        vim.notify("REPL started with " .. first_line)
-                        return string.sub(first_line, 3, -1)
-                    end
-                    vim.notify("REPL started with default shell (no shebang found)")
-                    -- if nothing is specified use zsh
-                    return "$SHELL"
-                end
-            },
-
-            python = {
-                -- use a single ipython input for each input block (instead of an input for each line)
-                command = { "ipython", "--no-autoindent" },
-                format = require("iron.fts.common").bracketed_paste_python,
-                block_dividers = { "# %%", "#%%" },
-            },
-
-            cpp = {
-                command = { "cling" }
-            }
-
-        }
 
         require("iron.core").setup({
 
@@ -128,7 +133,7 @@ return {
                 -- automatically closes the repl window on process end
                 close_window_on_exit = false,
                 -- definitions of REPLs per filetype
-                repl_definition = repls,
+                repl_definition = repls(),
                 -- if the repl buffer is listed
                 buflisted = false,
                 -- use nvim api, not <plug>

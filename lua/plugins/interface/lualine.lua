@@ -108,6 +108,10 @@ return {
             lualine_x = {
                 function() return vim.api.nvim_buf_get_var(0, 'lualine_word_count_string') end,
                 'encoding',
+                {
+                    'venv-selector',
+                    padding = { right = 0 }
+                }, -- depends on linux-cultist/venv-selector.nvim plugin
                 'filetype',
             },
             lualine_y = {
@@ -127,7 +131,7 @@ return {
                     path = 1,
                     shorting_target = 40,
                     symbols = { modified = '●' },
-                    separator = '' -- disable separator between filename and grapple handle
+                    separator = ''
                 },
                 { -- Grapple integration (2/2)
                     function()

@@ -1,8 +1,20 @@
 local my_vaults = {
     {
+        name = "no-vault",
+        path = function() return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0))) end
+    },
+    {
         -- keys required for the obsidian.nvim "workspaces" setting
         name = "personal",
         path = "~/Personale/Appunti",
+        overrides = {
+            templates = {
+                folder = "_templates",
+                date_format = "%Y-%m-%d",
+                time_format = "%H:%M",
+            },
+
+        },
         -- keys used in my custom functions
         index = "@Indice.md"
     }
@@ -10,14 +22,7 @@ local my_vaults = {
 
 return {
 
-    "epwalsh/obsidian.nvim",
-
-    version = "*", -- recommended, use latest release instead of latest commit
-
-    dependencies = {
-        -- Required.
-        "nvim-lua/plenary.nvim",
-    },
+    "obsidian-nvim/obsidian.nvim",
 
     -- load obsidian.nvim on any markdown file, but the plugin will only work
     -- inside the 'workspaces' defined in the options below
@@ -133,17 +138,9 @@ return {
                 },
             },
 
-            -- other settings (besides mappings) ------------------------------------
+            -- settings -------------------------------------------------------
 
             workspaces = my_vaults,
-
-            templates = {
-                folder = "_templates",
-                date_format = "%Y-%m-%d",
-                time_format = "%H:%M",
-                -- A map for custom variables, the key should be the variable and the value a function
-                substitutions = {},
-            },
 
             completion = {
                 -- Trigger completion immediately
@@ -194,9 +191,12 @@ return {
             callback = function()
                 local vault = nil
                 for _, v in ipairs(my_vaults) do
-                    if vim.v.event.cwd == vim.fn.fnamemodify(v.path, ':p:h') then
-                        vault = v
-                        break
+                    if type(v.path) == string then
+                        ---@diagnostic disable-next-line: param-type-mismatch
+                        if vim.v.event.cwd == vim.fn.fnamemodify(v.path, ':p:h') then
+                            vault = v
+                            break
+                        end
                     end
                 end
                 if vault then

@@ -70,14 +70,10 @@ return {
                 view = "split",
                 filter = { event = "msg_show", min_height = 8 },
             },
-            -- send selected errors to the 'mini' view (like warnings) instead of 'messages' (like other errors)
+            -- send single line errors to the 'mini' view
             {
                 view = "mini",
-                filter = {
-                    any = {
-                        { find = "E384" }, { find = "E385"}, -- "Search hit BOTTOM/TOP"
-                    },
-                },
+                filter = { event = "msg_show", max_height = 1 },
             },
         },
         presets = {

@@ -33,9 +33,9 @@ return {
         },
         messages = {
             enabled = true,
-            view = "mini",
+            view = "mini", -- default
             view_warn = "mini", -- view for errors
-            view_error = "messages", -- view for errors
+            view_error = "notify", -- view for errors
             view_search = false, -- view for search count messages
         },
         popupmenu = {
@@ -65,34 +65,38 @@ return {
             },
         },
         routes = {
-            -- always route any messages with more than X lines to the split view
-            {
-                view = "split",
-                filter = { event = "msg_show", min_height = 8 },
-            },
-            -- send single line errors to the 'mini' view
+            -- Errors downgraded to mini view
             {
                 view = "mini",
-                filter = { event = "msg_show", max_height = 1 },
+                filter = {
+                    any = {
+                        -- no write since last chage
+                        { find = "E162" }, { find = "E37" },
+                        -- search-related errors
+                        { event = "msg_show", find = "Search hit BOTTOM" },
+                        { event = "msg_show", find = "Search hit TOP" },
+                        -- no alternate file
+                        { kind = "emsg", find = "E23" },
+                        -- mark not set
+                        { kind = "emsg", find = "E20" },
+                    }
+                }
             },
         },
         presets = {
             command_palette = true,
+            long_message_to_split = true,
+            lsp_doc_border = true,
         },
         views = {
             mini = {
-                timeout = 5000,
                 win_options = {
                     winblend = 0
                 },
-                position = {
-                    row = -3,
-                    col = -3
-                },
                 border = {
-                    style = "rounded",
+                    style = "none",
                 },
-            }
+            },
         }
 
     }

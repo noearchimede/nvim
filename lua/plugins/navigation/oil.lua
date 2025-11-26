@@ -27,7 +27,7 @@ return {
             case_insensitive = true,
             show_hidden = true,
             is_always_hidden = function(name, bufnr)
-                return name == '.DS_Store' or name == '..'
+                return name == '..'
             end
         },
         -- Keymaps (only different than defaults are listed)

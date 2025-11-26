@@ -133,15 +133,19 @@ return {
             -- delete nodes (change mapping)
             unmap('D') -- D is default, use d instead
             map('d', api.fs.trash, 'Delete')
-            -- cd: include function to cd whole tab
-            map('cd', function()
+            -- cd: functions to cd whole tab
+            local tab_cd_here = function()
                 api.tree.change_root_to_node()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
-            end, 'CD') -- '<C-]>'
-            map('..', function()
+            end
+            local tab_cd_parent = function()
                 api.tree.change_root_to_parent()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
-            end, 'CD to root parent') -- same as default, but with addition of tcd
+            end
+            map('cd', tab_cd_here , 'CD') -- '<C-]>'
+            map('..', tab_cd_parent , 'CD to root parent') -- same as default, but with addition of tcd
+            map('~', tab_cd_here , 'CD') -- same as above, alternative mapping consistent with oil.nvim
+            map('-', tab_cd_parent , 'CD to root parent') -- same as above, alternative mapping consistent with oil.nvim
             -- open in Finder
             map('O', function()
                 local node = api.tree.get_node_under_cursor()
@@ -149,7 +153,7 @@ return {
                 vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
             end, 'Reveal in Finder') -- by default s is 'run system'
             -- Oil
-            map('-', open_oil, 'Oil: open folder')
+            map('l', open_oil, 'Oil: open folder')
             -- Grug-far
             map('s', open_grug, 'Grug-far: search here')
             -- Preview

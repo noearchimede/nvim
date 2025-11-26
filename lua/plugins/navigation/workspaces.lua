@@ -41,21 +41,21 @@ return {
                     vim.cmd("tabe")
                     vim.g.workspaces_opened_new_tab = true
                 end
+                -- record wether the current file is an instance of Alpha
+                vim.g.workspaces_opened_from_alpha = ( vim.bo.filetype == "alpha" )
             end,
             open = function()
-                -- open tree
-                vim.cmd("NvimTreeOpen")
-                -- focus main window, not tree, which would lead to problems if
-                -- a file is opened from outside the tree (e.g. with Telescope)
-                vim.cmd("wincmd l")
+                -- open Alpha to show that a workspace has been opened
+                if vim.g.workspaces_opened_from_alpha then
+                    vim.cmd("AlphaRedraw")
+                else
+                    vim.cmd("Alpha")
+                end
                 -- change the global cd to the tcd if the session was opened in
                 -- the existing tab (as opposed to creating a new one)
                 if not vim.g.workspaces_opened_new_tab then
                     vim.cmd("cd " .. vim.fn.getcwd(-1, 0))
                 end
-                -- notify
-                local tab_mess = (vim.g.workspaces_opened_new_tab and " in new tab" or "")
-                vim.notify("Workspace " .. (require('workspaces').name() or "???") .. " loaded" .. tab_mess)
             end
         },
     },

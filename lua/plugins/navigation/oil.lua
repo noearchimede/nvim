@@ -48,7 +48,11 @@ return {
                         prefills = { paths = dir .. entry.name },
                     })
                 end
-            end
+            end,
+            ["<S-cr>"] = function()
+                local abspath = require('oil').get_current_dir() .. require('oil').get_cursor_entry().name
+                vim.cmd('silent !open -R ' .. vim.fn.escape(abspath, ' \\'))
+            end,
         },
     }
 

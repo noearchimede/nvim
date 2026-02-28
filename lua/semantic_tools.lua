@@ -30,7 +30,7 @@ M.lsp_servers_auto_install = true
 -- (note that the server names might be different, check the 'command' option)
 M.lsp_servers = {
     "lua-language-server",
-    "pyright",
+    "basedpyright",
     "clangd",
     "bash-language-server"
 } -- [for mason-toool-installer]

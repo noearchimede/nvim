@@ -282,10 +282,7 @@ return {
                 remove_file = {
                     close_window = true,
                 },
-            },
-            trash = {
-                cmd = "trash",
-            },
+            }
         })
 
     end,

@@ -1,6 +1,7 @@
 return {
 
-    "GCBallesteros/NotebookNavigator.nvim",
+    -- note: this is a fork of the original repo 'GCBallesteros/NotebookNavigator.nvim' and might be merged back at any time
+    "vandalt/NotebookNavigator.nvim",
 
     dependencies = {
         "hkupty/iron.nvim", -- REPL

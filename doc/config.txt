@@ -383,13 +383,14 @@ Inline indicators (gitsigns) ~
 \gw   n  toggle inline Word diff view only
 \gy   n  toggle inline line change only
 
-Diff (diffview) ~
-\gd   n  open Diffview
-\gf   n  open File history
+Diff (CodeDiff) ~
+\gd   n  open Diff
+\ga   n  open diff against Arbitrary commit
+\gf   n  open File diff (against arbitrary commit)
 \gh   n  open History
 
 Unused ~
-\ga \gj \gk \gm \go \gq \gz
+\gj \gk \gm \go \gq \gz
 
 
 -----------------------------------------------------------------------------

@@ -22,6 +22,7 @@ return {
                     vim.cmd('RenderMarkdown enable')
                 end
             end,
+            desc = "RenderMarkdown: toggle",
             ft = 'markdown'
         },
         { '<localleader>e', '<cmd>RenderMarkdown expand<cr>', ft = 'markdown' },

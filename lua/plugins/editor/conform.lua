@@ -19,10 +19,9 @@ return {
             default_format_opts = {
                 lsp_format = "fallback", -- default is 'never'
             },
+            -- formatter settings
+            formatters = my_config.formatter_settings
         })
-
-        -- set options for individual formatters
-        my_config.formatter_settings(conform.formatters)
 
     end,
 }

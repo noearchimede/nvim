@@ -546,10 +546,12 @@ Options ~
 \si   n  toggle Incremental search
 
 Grug-far ~
-\sg   n  launch Grug-far
-      v  launch Grug-far with the current visual selection
-\sf   n  launch grug-far on current File
-      v  launch grug-far on current File with visual sel.
+\sg   n  open Grug-far
+      v  open Grug-far with the current visual selection
+\st   n  open Grug-far (in a new Tab)
+      v  open Grug-far with the current visual selection (in a tab)
+\sf   n  open grug-far on current File
+      v  open grug-far on current File with visual sel.
 
 
 

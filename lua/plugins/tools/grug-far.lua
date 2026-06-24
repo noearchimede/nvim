@@ -6,44 +6,68 @@ return {
 
     keys = function()
 
-        -- NOTE: when editing here, remember to also update the relevant section in the config file for nvim-tree and oil.nvim!
-
-        local function grug_opts(other_opts)
-            table.unpack = table.unpack or unpack -- 5.1 compatibility
-            return {
-                windowCreationCommand = 'tab split',
-                openTargetWindow = { preferredLocation = 'right' },
-                table.unpack(other_opts or {})
-            }
-        end
-
         return {
             {
                 "<leader>sg",
                 function()
-                    require('grug-far').open(grug_opts())
+                    require('grug-far').open({
+                        windowCreationCommand = 'split',
+                        openTargetWindow = { preferredLocation = 'above' },
+                    })
                 end,
-                desc = "Grug-far: launch"
+                desc = "Grug-far: open (split)"
             },
             {
                 "<leader>sg",
                 function()
-                    require('grug-far').with_visual_selection(grug_opts())
+                    require('grug-far').with_visual_selection({
+                        windowCreationCommand = 'split',
+                        openTargetWindow = { preferredLocation = 'above' },
+                    })
                 end,
                 mode = 'v',
-                desc = "Grug-far: launch",
+                desc = "Grug-far: open (split)",
+            },
+            {
+                "<leader>st",
+                function()
+                    require('grug-far').open({
+                        windowCreationCommand = 'tab split',
+                        openTargetWindow = { preferredLocation = 'right' },
+                    })
+                end,
+                desc = "Grug-far: open (tab)"
+            },
+            {
+                "<leader>st",
+                function()
+                    require('grug-far').with_visual_selection({
+                        windowCreationCommand = 'tab split',
+                        openTargetWindow = { preferredLocation = 'right' },
+                    })
+                end,
+                mode = 'v',
+                desc = "Grug-far: open (tab)",
             },
             {
                 "<leader>sf",
                 function()
-                    require('grug-far').open(grug_opts({ prefills = { paths = vim.fn.expand("%") } }))
+                    require('grug-far').open({
+                        windowCreationCommand = 'split',
+                        openTargetWindow = { preferredLocation = 'right' },
+                        prefills = { paths = vim.fn.expand("%") }
+                    })
                 end,
                 desc = "Grug-far: launch on current file"
             },
             {
                 "<leader>sf",
                 function()
-                    require('grug-far').open(grug_opts({ prefills = { paths = vim.fn.expand("%") } }))
+                    require('grug-far').open({
+                        windowCreationCommand = 'split',
+                        openTargetWindow = { preferredLocation = 'right' },
+                        prefills = { paths = vim.fn.expand("%") }
+                    })
                 end,
                 mode = 'v',
                 desc = "Grug-far: launch on current file",

@@ -69,16 +69,11 @@ M.formatters_by_ft = {
 } -- [for conform.nvim and mason-toool-installer]
 
 -- formatter settings
-M.formatter_settings = function(conform_formatters)
-    -- example (from Conform README)
-    --[[
-    conform_formatters.yamlfix = {
-        env = {
-            YAMLFIX_SEQUENCE_STYLE = "block_style",
-        },
-    } ]]
-
-end -- [for conform.nvim]
+M.formatter_settings = {
+    black = {
+        prepend_args = { "--line-length", "100" },
+    },
+}
 
 
 --------------------------------------------------------------------------------

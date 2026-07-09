@@ -176,7 +176,10 @@ return {
             sources = cmp.config.sources({
                 {
                     name = 'path',
-                    option = { trailing_slash = true }
+                    option = {
+                        trailing_slash = true,
+                        label_trailing_slash = true,
+                    }
                 },
             }, {
                 { name = 'cmdline' }

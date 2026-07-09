@@ -43,7 +43,7 @@ return {
                     local entry = require('oil').get_cursor_entry()
                     local dir = require('oil').get_current_dir()
                     grug.open({
-                        windowCreationCommand = 'tab split',
+                        windowCreationCommand = 'edit',
                         openTargetWindow = { preferredLocation = 'right' },
                         prefills = { paths = dir .. entry.name },
                     })

@@ -566,10 +566,7 @@ Directory ~
 Nvim-tree ~
 \tt   n  open file Tree
 \tT   n  close file Tree
-\tf   n  show (Find) current file in tree, but only in CWD
-\tF   n  show (Find) current file in tree, even outside CWD
-\tj   n  Jump to current file in tree, but only in CWD
-\tJ   n  Jump to current file in tree, even outside CWD
+\tf   n  Find current file in tree
 
 Oil ~
 \to   n  open Oil in current buffer (alias: |map_-|)

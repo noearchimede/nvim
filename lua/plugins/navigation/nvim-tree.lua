@@ -18,7 +18,6 @@ return {
         "<leader>tt",
         "<leader>tT",
         "<leader>tf",
-        "<leader>tF",
     },
 
     cmd = {
@@ -142,10 +141,10 @@ return {
                 api.tree.change_root_to_parent()
                 vim.cmd('tcd' .. vim.fn.fnameescape(vim.fn.getcwd())) -- note: sync_root_with_cwd must be true
             end
-            map('cd', tab_cd_here , 'CD') -- '<C-]>'
-            map('..', tab_cd_parent , 'CD to root parent') -- same as default, but with addition of tcd
-            map('~', tab_cd_here , 'CD') -- same as above, alternative mapping consistent with oil.nvim
-            map('-', tab_cd_parent , 'CD to root parent') -- same as above, alternative mapping consistent with oil.nvim
+            map('cd', tab_cd_here, 'CD') -- '<C-]>'
+            map('..', tab_cd_parent, 'CD to root parent') -- same as default, but with addition of tcd
+            map('~', tab_cd_here, 'CD') -- same as above, alternative mapping consistent with oil.nvim
+            map('-', tab_cd_parent, 'CD to root parent') -- same as above, alternative mapping consistent with oil.nvim
             -- open in Finder
             map('O', function()
                 local node = api.tree.get_node_under_cursor()
@@ -175,21 +174,12 @@ return {
         -- previous proportions after the tree is opened and closed, and
         -- 'preserve_window_proportions = false', which just equalizes all
         -- windows
-        vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end)
-        vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end)
+        vim.keymap.set('n', '<leader>tt', function() resize_wrapper(api.tree.open) end, { desc = "NvimTree: open" })
+        vim.keymap.set('n', '<leader>tT', function() resize_wrapper(api.tree.close) end, { desc = "NvimTree: close" })
         vim.keymap.set('n', '<leader>tf', function()
-            resize_wrapper(function() api.tree.find_file({ open = true, focus = false }) end)
-        end)
-        vim.keymap.set('n', '<leader>tF', function()
-            resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = false }) end)
-        end)
-
-        vim.keymap.set('n', '<leader>tj', function()
-            resize_wrapper(function() api.tree.find_file({ open = true, focus = true }) end)
-        end)
-        vim.keymap.set('n', '<leader>tJ', function()
             resize_wrapper(function() api.tree.find_file({ update_root = true, open = true, focus = true }) end)
-        end)
+        end, { desc = "NvimTree: focus current file" })
+        -- NOTE: if mappings are changed, remember to update the 'keys' field at the start of this file!
 
         require('nvim-tree').setup({
 

@@ -32,6 +32,8 @@ return {
         },
         -- Keymaps (only different than defaults are listed)
         keymaps = {
+            -- alias for g~, which is still available
+            ["gd"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
             -- note: do not remap C-v and C-x (used to open in splits in other contexts), as the
             -- block visual mode and number decrement operator are very useful in Oil!
             ["<C-h>"] = false, -- I use this to switch windows

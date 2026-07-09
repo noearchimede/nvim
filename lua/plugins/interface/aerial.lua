@@ -8,10 +8,14 @@ return {
     },
 
     keys = {
-        { '<leader>aa', '<cmd>AerialOpen<cr>', desc = "Aerial: open (no focus)" },
-        { '<leader>af', '<cmd>AerialOpen<cr>', desc = "Aerial: open and focus" },
+        { '<leader>aa', '<cmd>AerialOpen!<cr>', desc = "Aerial: open" },
+        { '<leader>ab', '<cmd>AerialOpen<cr>', desc = "Aerial: open (don't focus)" },
+
         { '<leader>aA', '<cmd>AerialClose<cr>', desc = "Aerial: close" },
+        { '<leader>aq', '<cmd>AerialClose<cr>', desc = "Aerial: close" },
+
         { '<leader>ag', '<cmd>AerialNavOpen<cr>', desc = "Aerial: open navigator" },
+
         { '<leader>an', '<cmd>AerialNext<cr>', desc = "Aerial: next" },
         { '[a', '<cmd>AerialNext<cr>', desc = "Aerial: next" },
         { '<leader>ap', '<cmd>AerialPrev<cr>', desc = "Aerial: prev" },
@@ -28,7 +32,9 @@ return {
         },
         keymaps = {
             ["<C-x>"] = "actions.jump_split",
-            ["<C-s>"] = false
+            ["<C-s>"] = false,
+            ["J"] = "actions.next",
+            ["K"] = "actions.prev",
         },
 
         -- Options for the floating nav windows

@@ -248,15 +248,15 @@ Code outline                                          *malea*  *map_leader_a*
 -----------------------------------------------------------------------------
 
 Aerial ~
-\aa   n  open Aerial (without focusing)
-\af   n  open aerial and Focus
-\aA   n  close Aerial
-
-\ag   n  open navigator ("Go to")
+\aa   n  open Aerial
+\ab   n  open aerial "in Background" (i.e. without focusing)
+\aA   n  close aerial
+\aq   n  close aerial
 
 \an   n  jump to Next symbol (alias: |map_]a|)
 \ap   n  jump to Previous symbol (alias: |map_[a|)
 
+\ag   n  open navigator ("Go to")
 
 
 -----------------------------------------------------------------------------

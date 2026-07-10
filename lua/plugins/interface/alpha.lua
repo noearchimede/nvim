@@ -96,6 +96,7 @@ return {
                 button("r", "", "Recent files", "Telescope oldfiles"),
                 button("t", "", "File tree", "NvimTreeOpen"),
                 button("o", "󰍜", "Oil", "Oil"),
+                button("g", "", "Git", "lua require('neogit').open{kind = 'replace'}"),
                 button("c", "", "Configuration", "cd ~/.config/nvim | edit README.md"),
                 button("h", "?", "Help", "vert help config.txt"),
                 button("q", "󰗼", "Quit", "quit"),

@@ -615,9 +615,12 @@ Possession ~
 \ws   n  show list of Sessions
 \wl   n  load Latest session
 \wd   n  load latest session for current Directory
+
 \wm   n  save session ("Mksession") 
 \wu   n  Update current session (i.e. overwite)
 \wi   n  get name ("Info") of current session
+
+\wq   n  Quit nvim (same as :qa, but keep layout if a buffer is unsaved)
 
 Workspaces ~
 \wp   n  Pick workspace

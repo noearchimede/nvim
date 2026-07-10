@@ -3,6 +3,30 @@
 --                              └──────────┘
 
 
+-- – Dependencies ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+local function get_python_host()
+    -- return the first python executable found from the following list:
+    local exec_path = {
+        "/opt/homebrew/bin/python3", -- macOS: homebrew on apple silicon
+        "/usr/local/bin/python3", -- macOS: homebrew on intel
+        "/usr/bin/python3", -- macOS: system python
+    }
+    for _, path in ipairs(exec_path) do
+        if vim.fn.executable(path) == 1 then
+            return path
+        end
+    end
+    return nil
+end
+vim.g.python3_host_prog = get_python_host()
+-- check that the requried pynvim package is installed in the selected python environment
+if vim.system({ vim.g.python3_host_prog, "-c", "import pynvim" }):wait().code ~= 0
+then
+    vim.notify("pynvim missing for "..vim.g.python3_host_prog, vim.log.levels.WARN)
+end
+
+
 -- – Editor settings –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 

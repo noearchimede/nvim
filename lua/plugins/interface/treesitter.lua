@@ -3,6 +3,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = 'main', -- the 'master' branch is frozen for backwards compatibility and quite different from 'main'
 
+    enabled = vim.fn.has("win32") == 0, -- disable on Windows (because I didn't manage to install treesitter on my Windows pc)
+    
     lazy = false, -- lazy-loading is not supported (nor desirable)
 
     build = ":TSUpdate",

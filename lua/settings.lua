@@ -2,6 +2,12 @@
 --                              │ Settings │
 --                              └──────────┘
 
+-- – OS-specific settings ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+if vim.fn.has("win32") == 1 then
+    vim.env.HOME = vim.env.USERPROFILE
+end
 
 -- – Dependencies ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 

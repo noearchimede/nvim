@@ -39,7 +39,7 @@ return {
         vim.keymap.set("n", "gZZ", "<Plug>(nvim-surround-normal-cur-line)", {
             desc = "Surround line (new line)",
         })
-        vim.keymap.set("x", "Z", "<Plug>(nvim-surround-visual)", {
+        vim.keymap.set("x", "gz", "<Plug>(nvim-surround-visual)", {
             desc = "Surround selection",
         })
         vim.keymap.set("x", "gZ", "<Plug>(nvim-surround-visual-line)", {

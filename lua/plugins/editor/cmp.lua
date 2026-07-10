@@ -40,6 +40,14 @@ return {
 
         cmp.setup({
 
+            --[[ uncomment this to show the source of each completion
+            formatting = {
+                format = function(entry, vim_item)
+                    vim_item.menu = entry.source.name
+                    return vim_item
+                end,
+            }, ]]
+
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)

@@ -28,77 +28,39 @@ return {
 
     opts = {
 
-        templates = { "builtin" },
-
         task_list = {
             max_height = { 20, 0.3 },
-            bindings = {
-                ["?"] = "ShowHelp",
-                ["g?"] = "ShowHelp",
-                ["<CR>"] = "RunAction",
-                ["e"] = "Edit", -- default <C-e>
-                ["o"] = "Open",
-                ["v"] = "OpenVsplit", -- default <C-v>
-                ["h"] = "OpenSplit", -- default <C-s>
-                ["f"] = "OpenFloat", -- default <C-f>
-                ["l"] = "OpenQuickFix", -- default <C-q>
-                ["P"] = "TogglePreview", -- default p
-                ["r"] = "IncreaseDetail", -- default <C-l>
-                ["m"] = "DecreaseDetail", -- default <C-h>
-                ["R"] = "IncreaseAllDetail", -- default L
-                ["M"] = "DecreaseAllDetail", -- default H
-                ["{"] = "DecreaseWidth", -- default [
-                ["}"] = "IncreaseWidth", -- default ]
-                ["["] = "PrevTask", -- default {
-                ["]"] = "NextTask", -- default }
-                ["p"] = "PrevTask", -- default {
-                ["n"] = "NextTask", -- default }
-                ["K"] = "ScrollOutputUp", -- default <C-k>
-                ["J"] = "ScrollOutputDown", -- default <C-j>
-                ["q"] = "Close",
+            keymaps = {
+
+                ["dd"] = { "keymap.run_action", opts = { action = "dispose" }, desc = "Dispose task" },
+                ["<C-e>"] = false,
+                ["e"] = { "keymap.run_action", opts = { action = "edit" }, desc = "Edit task" },
+                ["o"] = "keymap.open",
+                ["<C-v>"] = false,
+                ["v"] = { "keymap.open", opts = { dir = "vsplit" }, desc = "Open task output in vsplit" },
+                ["<C-s>"] = false,
+                ["s"] = { "keymap.open", opts = { dir = "split" }, desc = "Open task output in split" },
+                ["<C-t>"] = false,
+                ["t"] = { "keymap.open", opts = { dir = "tab" }, desc = "Open task output in tab" },
+                ["<C-f>"] = false,
+                ["f"] = { "keymap.open", opts = { dir = "float" }, desc = "Open task output in float" },
+                ["<C-q>"] = false,
+                ["q"] = {
+                    "keymap.run_action",
+                    opts = { action = "open output in quickfix" },
+                    desc = "Open task output in the quickfix",
+                },
+                ["p"] = "keymap.toggle_preview",
+                ["{"] = "keymap.prev_task",
+                ["}"] = "keymap.next_task",
+                ["<C-k>"] = false,
+                ["<C-j>"] = false,
+                ["g."] = "keymap.toggle_show_wrapped",
+                ["q"] = { "<CMD>close<CR>", desc = "Close task list" },
                 -- ["<esc>"] = "Close", // not mapped for now, as due to a bug insert mode is entered after launcing a task
             },
         },
 
-        task_launcher = {
-            bindings = {
-                i = {
-                    ["<C-s>"] = "Submit",
-                    ["<C-c>"] = "Cancel",
-                },
-                n = {
-                    ["<CR>"] = "Submit",
-                    ["<C-s>"] = "Submit",
-                    ["q"] = "Cancel",
-                    ["<esc>"] = "Cancel",
-                    ["g?"] = "ShowHelp",
-                    ["?"] = "ShowHelp",
-                },
-            },
-        },
-        task_editor = {
-            -- Set keymap to false to remove default behavior
-            -- You can add custom keymaps here as well (anything vim.keymap.set accepts)
-            bindings = {
-                i = {
-                    ["<CR>"] = "NextOrSubmit",
-                    ["<C-s>"] = "Submit",
-                    ["<Tab>"] = "Next",
-                    ["<S-Tab>"] = "Prev",
-                    ["<C-c>"] = "Cancel",
-                },
-                n = {
-                    ["<CR>"] = "NextOrSubmit",
-                    ["<C-s>"] = "Submit",
-                    ["<Tab>"] = "Next",
-                    ["<S-Tab>"] = "Prev",
-                    ["q"] = "Cancel",
-                    ["<esc>"] = "Cancel",
-                    ["g?"] = "ShowHelp",
-                    ["?"] = "ShowHelp",
-                },
-            },
-        },
         component_aliases = {
             -- Most tasks are initialized with the default components
             default = {

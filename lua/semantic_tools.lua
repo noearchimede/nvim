@@ -55,7 +55,8 @@ M.formatters_by_ft = {
         lsp_format = "prefer", -- use lua_ls (lsp)
     },
     python = {
-        "black",
+        -- "black",
+        "autopep8",
     },
     sh = {
         "shfmt",
@@ -72,6 +73,12 @@ M.formatters_by_ft = {
 M.formatter_settings = {
     black = {
         prepend_args = { "--line-length", "100" },
+    },
+    autopep8 = {
+        prepend_args = {
+            "--max-line-length", "100",
+            "--ignore", "E501", -- do not enforce "line too long" errors
+        }
     },
 }
 

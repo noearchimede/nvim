@@ -30,7 +30,8 @@ M.lsp_servers_auto_install = true
 -- (note that the server names might be different, check the 'command' option)
 M.lsp_servers = {
     "lua-language-server",
-    "basedpyright",
+    "basedpyright", -- main lsp for python
+    "jedi-language-server", -- only used for python completions (see jedi comfiguration)
     "clangd",
     "bash-language-server"
 } -- [for mason-toool-installer]

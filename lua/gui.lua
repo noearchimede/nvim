@@ -2,13 +2,13 @@
 
 if vim.g.neovide then
 
-    vim.cmd('cd ~')
+    vim.cmd.cd(vim.fn.expand("~"))
 
     -- NEOVIDE SETTINGS
     -- documentented on the official page: https://neovide.dev/configuration.html
 
 
-    -- – mappings ––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    -- – mappings ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
     -- mappings to change font size
@@ -23,20 +23,35 @@ if vim.g.neovide then
         vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * (1 / 1.05)
     end)
 
-    -- mappings to copy-paste from system clipboard with cmd-v and cmd-c
-    vim.keymap.set('v', '<D-c>', '"+y') -- Copy
-    vim.keymap.set({'n', 'v'}, '<D-v>', '"+P') -- Paste
-    vim.keymap.set({'t'}, '<D-v>', '<c-\\><c-n>"+Pi') -- Paste (terminal)
-    vim.keymap.set('c', '<D-v>', '<C-r>+') -- Paste command mode
-    vim.keymap.set('i', '<D-v>', '<esc>"+pa') -- Paste insert mode
+    -- mappings to copy-paste from system clipboard
+    if vim.fn.has("mac") == 1 then
+        -- macos: cmd-v (in all modes) and cmd-c (in visual mode)
+        vim.keymap.set('v', '<D-c>', '"+y')
+        vim.keymap.set({ 'n', 'v' }, '<D-v>', '"+P')
+        vim.keymap.set({ 't' }, '<D-v>', '<c-\\><c-n>"+Pi')
+        vim.keymap.set('c', '<D-v>', '<C-r>+')
+        vim.keymap.set('i', '<D-v>', '<esc>"+pa')
+    else
+        -- windows and linux: paste with ctrl-v in insert mode, ctrl-shift-v in normal mode
+        -- (since in normal mode ctrl-v is visual block). Copy with ctrl-c (in visual only)
+        vim.keymap.set('v', '<C-c>', '"+y')
+        vim.keymap.set('v', '<C-v>', '"+P')
+        vim.keymap.set('n', '<C-S-v>', '"+P')
+        vim.keymap.set({ 't' }, '<C-S-v>', '<c-\\><c-n>"+Pi')
+        vim.keymap.set('c', '<C-v>', '<C-r>+')
+        vim.keymap.set('i', '<C-v>', '<esc>"+pa')
+    end
 
-    -- mapping to open a new Neovide instance.
-    vim.keymap.set("n", "<D-n>", function()
-        vim.system(
-            { "open", "--new", "-b", "com.neovide.neovide" },
-            { cwd = vim.fn.expand('~'), detach = true }
-        )
-    end, {silent = true})
+
+    if vim.fn.has("mac") == 1 then
+        -- mapping to open a new Neovide instance.
+        vim.keymap.set("n", "<D-n>", function()
+            vim.system(
+                { "open", "--new", "-b", "com.neovide.neovide" },
+                { cwd = vim.fn.expand('~'), detach = true }
+            )
+        end, { silent = true })
+    end
 
     -- – neovide settings ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
@@ -65,8 +80,8 @@ if vim.g.neovide then
     -- disable cursor antialias to fix a small visual issue
     vim.g.neovide_cursor_antialiasing = true
 
-    -- set font (set in config.tomlile)
-    -- vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h12:#e-antialias:#h-full"
+    -- set font for Neovide (set in config.toml in the neovide config path)
+    -- vim.opt.guifont = "JetBrainsMono Nerd Font:h12:#e-antialias:#h-full"
 
     -- enable this to show a frametime graph in the upper left corner
     -- vim.g.neovide_profiler = true

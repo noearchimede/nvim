@@ -4,9 +4,9 @@ return {
     "vandalt/NotebookNavigator.nvim",
 
     dependencies = {
-        "hkupty/iron.nvim", -- REPL
         "numToStr/comment.nvim", -- for "comment block" action
         "nvimtools/hydra.nvim", -- for persistent mapping leader
+        "dangooddd/pyrepl.nvim", -- repl, better suited for notebooks than e.g. Iron.nvim
     },
 
     -- event = "VeryLazy",
@@ -21,56 +21,76 @@ return {
 
     config = function()
 
-        require('notebook-navigator').setup({})
+        require('notebook-navigator').setup({
+            syntax_highlight = true,
+        })
 
+        local nn = require("notebook-navigator")
+        local pyrepl = require("pyrepl")
         local Hydra = require('hydra')
+        -- define shift-enter to run current cell for consistency with usual jupyter keymappings
+        vim.keymap.set( { "n" }, "<S-cr>", function() pyrepl.send_cell() end, { desc = "Pyrepl: run cell" } )
+        -- define terminal mapping to enable focusing back to code (must match corresponding hydra mapping)
+        vim.keymap.set( { "t" }, "<leader>jt", function() pyrepl.toggle_repl_focus() end, { desc = "Pyrepl: toggle focus" } )
+        -- the jv mapping should also work in visual mode
+        vim.keymap.set( { "v" }, "<leader>jv", function() pyrepl.send_visual() end, { desc = "Pyrepl: send visual selection" } )
         Hydra({
             mode = 'n',
             body = '<leader>j',
             on_enter = function() require('which-key').show({ key = '<leader>j' }) end,
             heads = {
-                -- REPL commands: invoke mappings defined in iron.lua
-                -- notebook-navigator provides commands to interface with the REPL,
-                -- but my Iron mappings behave better with the rest of my Iron config
-                { "j", "<cmd>ConfigNbnavIronSendBlockAdvance<cr>", { exit = true  } },
-                { "J", "<cmd>ConfigNbnavIronSendBlockAdvance<cr>"  },
-                { "r",  "<cmd>ConfigNbnavIronSendBlock<cr>", { exit = true } },
-                { "R",  "<cmd>ConfigNbnavIronSendBlock<cr>", },
-                { "f", "<cmd>ConfigNbnavIronSendAll<cr>", { exit = true  } },
+                -- REPL commands: invoke mappings defined in pyrepl.nvim
+                -- notebook-navigator provides commands to interface with a REPL,
+                -- but pyrepl is not currently supported
+                { "J", function() pyrepl.send_cell() pyrepl.step_cell_forward() end, { exit = true  } },
+                { "j", function() pyrepl.send_cell() pyrepl.step_cell_forward() end  },
+                { "R", function() pyrepl.send_cell() end, { exit = true } },
+                { "r", function() pyrepl.send_cell() end, },
+                { "f", function() pyrepl.send_buffer() end, { exit = true } },
+                { "v", function() pyrepl.send_visual() end, { exit = true } },
+                { "i", function() pyrepl.open_image_history() end, { exit = true } },
+                { "o", function()
+                    vim.notify("To install Pyrepl rutime packages run ':PyreplInstall pip'.")
+                    pyrepl.open_repl()
+                end, { exit = true } },
+                { "h", function() pyrepl.hide_repl() end, { exit = true } },
+                { "q", function() pyrepl.close_repl() end, { exit = true } },
+                { "t", function() pyrepl.toggle_repl_focus() end, { exit = true } },
                 -- cell navigation and editing commands: implement here
-                { "n", function() require("notebook-navigator").move_cell("d") end, { exit = true } },
-                { "N", function() require("notebook-navigator").move_cell("d") end },
-                { "p", function() require("notebook-navigator").move_cell("u") end, { exit = true } },
-                { "P", function() require("notebook-navigator").move_cell("u") end },
-                { "a", function() require('notebook-navigator').add_cell_above() end, { exit = true } },
-                { "A", function() require('notebook-navigator').add_cell_above() end },
-                { "b", function() require('notebook-navigator').add_cell_below() end, { exit = true } },
-                { "B", function() require('notebook-navigator').add_cell_below() end },
-                { "m", function() require('notebook-navigator').merge_cell("d") end , { exit = true  } },
-                { "M", function() require('notebook-navigator').merge_cell("d") end },
-                { "s", function() require('notebook-navigator').split_cell() end , { exit = true  } },
-                { "S", function() require('notebook-navigator').split_cell() end },
-                { "u", function() require('notebook-navigator').swap_cell("u") end, { exit = true } },
-                { "U", function() require('notebook-navigator').swap_cell("u") end },
-                { "d", function() require('notebook-navigator').swap_cell("d") end, { exit = true } },
-                { "D", function() require('notebook-navigator').swap_cell("d") end },
-                { "c", function() require('notebook-navigator').comment_cell() end },
-                { "C", function() require('notebook-navigator').comment_cell() end, { exit = true } },
+                { "N", function() nn.move_cell("d") end, { exit = true } },
+                { "n", function() nn.move_cell("d") end },
+                { "P", function() nn.move_cell("u") end, { exit = true } },
+                { "p", function() nn.move_cell("u") end },
+                { "A", function() nn.add_cell_above() end, { exit = true } },
+                { "a", function() nn.add_cell_above() end },
+                { "B", function() nn.add_cell_below() end, { exit = true } },
+                { "b", function() nn.add_cell_below() end },
+                { "M", function() nn.merge_cell("d") end , { exit = true  } },
+                { "m", function() nn.merge_cell("d") end },
+                { "S", function() nn.split_cell() end , { exit = true  } },
+                { "s", function() nn.split_cell() end },
+                { "U", function() nn.swap_cell("u") end, { exit = true } },
+                { "u", function() nn.swap_cell("u") end },
+                { "D", function() nn.swap_cell("d") end, { exit = true } },
+                { "d", function() nn.swap_cell("d") end },
+                { "C", function() nn.comment_cell() end, { exit = true } },
+                { "c", function() nn.comment_cell() end },
 			    { '<Esc>', nil, { exit = true } }
             },
             hint = [[ Notebook cell navigation
-_j_/_J_: run (go to next)  _a_/_A_: add cell above    _u_/_U_: swap with cell above
-_r_/_R_: run (don't move)  _b_/_B_: add cell below    _d_/_D_: swap with cell below
-_n_/_N_: go to next cell   _m_/_M_: merge with next   _c_/_C_: comment cell
-_p_/_P_: go to previous    _s_/_S_: split cell        _f_:     run all cells
-                           _<Esc>_: exit
-            ]],
+_j_/_J_: run and go to next _a_/_A_: add cell above    _u_/_U_: swap with cell above
+_r_/_R_/<s-cr>: run         _b_/_B_: add cell below    _d_/_D_: swap with cell below
+_c_/_C_: comment cell       _n_/_N_: go to next cell   _m_/_M_: merge with next
+_f_: run all cells          _p_/_P_: go to previous    _s_/_S_: split cell        
+_v_: run visual _i_: image history _t_: focus terminal _o_|_h_|_q_: open|hide|quit REPL
+                               _<Esc>_: exit ]],
             config = {
                 invoke_on_body = true,
-                buffer = true, -- define hydra only for current buffer
+                buffer = true,
                 desc = "Notebook navigation Hydra",
+                color = "pink",
                 hint = {
-                    position = 'bottom',
+                    position = 'bottom-right',
                     float_opts = {
                         style = "minimal",
                     },

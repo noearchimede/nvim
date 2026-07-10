@@ -417,10 +417,6 @@ Notebook-navigator: cell navigation ~
 \jn   n  go to Next code block
 \jp   n  go to Previous code block
 
-Notebook-navigator: cell execution ~
-\jj   n  run cell and go to next
-\jr   n  run cell
-
 Notebook-navigator: cell editing ~
 \ja   n  add cell above
 \jb   n  add cell below
@@ -430,6 +426,22 @@ Notebook-navigator: cell editing ~
 \jd   n  swap with cell below
 \jc   n  comment cell
 
+Pyrepl: cell execution ~
+\jj   n  run cell and go to next
+\jr   n  run cell
+\jv   n  run Visual selection
+\jf   n  run entire File
+
+Pyrepl: repl management ~
+\ji   n  open Image history viewer
+\jo   n  Open repl
+\jh   n  Hide repl
+\jq   n  Quit repl
+\jt   n  toggle focus between code and Terminal
+
+
+Unused ~
+\je \jg \jk \jl \jw \jx \jy \jz
 
 -----------------------------------------------------------------------------
                                                       *malek*  *map_leader_k*

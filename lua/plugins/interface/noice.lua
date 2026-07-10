@@ -4,7 +4,6 @@ return {
 
     dependencies = {
         "MunifTanjim/nui.nvim",
-        "rcarriga/nvim-notify",
     },
 
     event = "VeryLazy",
@@ -26,24 +25,31 @@ return {
         { "<leader>nh", "<cmd>Noice<cr>", desc = "Noice: show history" }
     },
 
+    init = function()
+        -- use the new experimental ui2 interface
+        require('vim._core.ui2').enable()
+        vim.o.cmdheight = 0
+    end,
+
     opts = {
+        -- disable message and notification handling; use the native interface for those
+        -- if those are enabled again check the commit where this line was added for additional useful options!
+        messages = {
+            enabled = false,
+        },
+        notify = {
+            enabled = false,
+        },
+        confirm = {
+            enabled = false,
+        },
+        -- enable all other features
         cmdline = {
             enabled = true,
             view = "cmdline_popup",
         },
-        messages = {
-            enabled = true,
-            view = "mini", -- default
-            view_warn = "mini", -- view for errors
-            view_error = "notify", -- view for errors
-            view_search = false, -- view for search count messages
-        },
         popupmenu = {
-            enabled = false,
-        },
-        notify = {
             enabled = true,
-            view = "mini"
         },
         lsp = {
             progress = {
@@ -64,28 +70,8 @@ return {
                 ["cmp.entry.get_documentation"] = true,
             },
         },
-        routes = {
-            -- Errors downgraded to mini view
-            {
-                view = "mini",
-                filter = {
-                    any = {
-                        -- no write since last chage
-                        { find = "E162" }, { find = "E37" },
-                        -- search-related errors
-                        { event = "msg_show", find = "Search hit BOTTOM" },
-                        { event = "msg_show", find = "Search hit TOP" },
-                        -- no alternate file
-                        { kind = "emsg", find = "E23" },
-                        -- mark not set
-                        { kind = "emsg", find = "E20" },
-                    }
-                }
-            },
-        },
         presets = {
             command_palette = true,
-            long_message_to_split = true,
             lsp_doc_border = true,
         },
         views = {

@@ -46,7 +46,9 @@ return {
                         'undotree',
                         'help',
                         'oil',
-                        'iron'
+                        'iron',
+                        'OverseerList',
+                        'OverseerOutput'
                     },
                     buftype = {}
                 }

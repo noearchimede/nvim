@@ -13,8 +13,7 @@ return {
             '<leader>cc',
             function()
                 -- open the task selector and if a task is started open the overseer window to monitor its progress
-                -- (adapted rom https://github.com/stevearc/overseer.nvim/issues/36#issuecomment-1238715487)
-                require('overseer').run_template({ first = false }, function(task)
+                require('overseer').run_task({ first = false }, function(task)
                     if task then
                         require('overseer').open({ enter = true })
                     end
@@ -32,7 +31,6 @@ return {
             max_height = { 20, 0.3 },
             keymaps = {
 
-                ["dd"] = { "keymap.run_action", opts = { action = "dispose" }, desc = "Dispose task" },
                 ["<C-e>"] = false,
                 ["e"] = { "keymap.run_action", opts = { action = "edit" }, desc = "Edit task" },
                 ["o"] = "keymap.open",
@@ -45,7 +43,7 @@ return {
                 ["<C-f>"] = false,
                 ["f"] = { "keymap.open", opts = { dir = "float" }, desc = "Open task output in float" },
                 ["<C-q>"] = false,
-                ["q"] = {
+                ["c"] = {
                     "keymap.run_action",
                     opts = { action = "open output in quickfix" },
                     desc = "Open task output in the quickfix",
@@ -57,15 +55,11 @@ return {
                 ["<C-j>"] = false,
                 ["g."] = "keymap.toggle_show_wrapped",
                 ["q"] = { "<CMD>close<CR>", desc = "Close task list" },
-                -- ["<esc>"] = "Close", // not mapped for now, as due to a bug insert mode is entered after launcing a task
             },
         },
 
         component_aliases = {
-            -- Most tasks are initialized with the default components
             default = {
-                { "display_duration", detail_level = 1 },
-                "on_output_summarize",
                 "on_exit_set_status",
                 "on_complete_notify"
                 },

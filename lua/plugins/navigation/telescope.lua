@@ -52,6 +52,8 @@ return {
 
             -- defaults for telescope
             defaults = {
+                -- ignored files
+                file_ignore_patterns = { "/.git/", },
                 -- layout
                 layout_strategy = 'flex',
                 layout_config = {
@@ -81,7 +83,7 @@ return {
                 },
             },
 
-            -- vimgrep options
+            -- vimgrep options (for live_grep and grep_string)
             vimgrep_arguments = {
                 -- the following arguments are required (see docs)
                 "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column",

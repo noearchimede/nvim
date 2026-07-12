@@ -9,9 +9,14 @@ return {
     -- note: lualine integration defined in lualine.lua config file
 
     opts = {
-        picker = "native",
-        notify_user_on_venv_activation = true,
-        require_lsp_activation = false, -- enable venv selection even if no python file is open (and thus no lsp instance)
-    },
+        options = {
+            cached_venv_automatic_activation = false,
+            activate_venv_in_terminal = true,
+            notify_user_on_venv_activation = true,
+            log_level = "TRACE",
+            -- If true, wait for LSP workspace detection before applying environment (helps avoid premature activation).
+            require_lsp_activation = false,
+        }
+    }
 
 }

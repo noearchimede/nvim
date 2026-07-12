@@ -88,6 +88,7 @@ return {
             }),
             padding(3),
             group(1, {
+                -- available: a b d e g j k m p u v x y z
                 button("n", "", "New file", "enew"),
                 button("w", "", "Workspaces", "Telescope workspaces"),
                 button("s", "󰦖", "Sessions", "Telescope possession"),
@@ -96,7 +97,8 @@ return {
                 button("r", "", "Recent files", "Telescope oldfiles"),
                 button("t", "", "File tree", "NvimTreeOpen"),
                 button("o", "󰍜", "Oil", "Oil"),
-                button("g", "", "Git", "lua require('neogit').open{kind = 'replace'}"),
+                -- not using g for git because some g mappings are useful (e.g. gt)
+                button("i", "", "Git", "lua if vim.fs.root(0, '.git') ~= nil then require('neogit').open{kind = 'replace'} else vim.notify('Not a Git repo') end"),
                 button("c", "", "Configuration", "cd ~/.config/nvim | edit README.md"),
                 button("h", "?", "Help", "vert help config.txt"),
                 button("q", "󰗼", "Quit", "quit"),

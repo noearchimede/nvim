@@ -8,8 +8,8 @@ return {
     },
 
     keys = {
-        { '<leader>aa', '<cmd>AerialOpen!<cr>', desc = "Aerial: open" },
-        { '<leader>ab', '<cmd>AerialOpen<cr>', desc = "Aerial: open (don't focus)" },
+        { '<leader>aa', '<cmd>AerialOpen<cr>', desc = "Aerial: open" },
+        { '<leader>ab', '<cmd>AerialOpen!<cr>', desc = "Aerial: open (don't focus)" },
 
         { '<leader>aA', '<cmd>AerialClose<cr>', desc = "Aerial: close" },
         { '<leader>aq', '<cmd>AerialClose<cr>', desc = "Aerial: close" },

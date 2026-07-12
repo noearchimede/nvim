@@ -28,7 +28,7 @@ return {
     init = function()
         -- use the new experimental ui2 interface
         require('vim._core.ui2').enable()
-        vim.o.cmdheight = 0
+        -- vim.o.cmdheight = 0
     end,
 
     opts = {
@@ -53,7 +53,7 @@ return {
         },
         lsp = {
             progress = {
-                enabled = true,
+                enabled = false,
                 view = "mini",
             },
             message = {

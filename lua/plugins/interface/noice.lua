@@ -31,6 +31,7 @@ return {
         -- vim.o.cmdheight = 0
     end,
 
+
     opts = {
         -- disable message and notification handling; use the native interface for those
         -- if those are enabled again check the commit where this line was added for additional useful options!

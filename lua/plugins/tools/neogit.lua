@@ -11,11 +11,11 @@ return {
 
     keys = {
         { "<leader>gg", function() require("neogit").open({ kind = "split" }) end,
-            desc = "Neogit: open status tab" },
+            desc = "Neogit: open status (split)" },
         { "<leader>gt", function() require("neogit").open({ kind = "tab" }) end,
-            desc = "Neogit: open status tab" },
+            desc = "Neogit: open status (tab)" },
         { "<leader>ge", function() require("neogit").open({ kind = "replace" }) end,
-            desc = "Neogit: open status tab" },
+            desc = "Neogit: open status (replace)" },
         { "<leader>gc", function() require("neogit").open({ "commit" }) end,
             desc = "Neogit: commit staged changes" },
         { "<leader>gl", function() require("neogit").open({ "log" }) end,

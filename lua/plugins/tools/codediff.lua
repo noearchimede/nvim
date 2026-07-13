@@ -7,8 +7,8 @@ return {
     keys = {
         { '<leader>gd', '<cmd>CodeDiff<cr>', desc = "CodeDiff: open" },
         { '<leader>ga', ':<C-U>CodeDiff ', desc = "CodeDiff: select commit" },
-        { '<leader>gf', '<cmd>CodeDiff file ', desc = "CodeDiff: open file diff" },
         { '<leader>gh', '<cmd>CodeDiff history<cr>', desc = "CodeDiff: history" },
+        { '<leader>gf', '<cmd>CodeDiff file %<cr>', desc = "CodeDiff: file history" },
     },
 
     opts = {
@@ -38,4 +38,22 @@ return {
             },
         },
     },
+
+    config = function(_, opts)
+
+        require('codediff').setup(opts)
+
+        -- add additional custom mappings
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "CodeDiffOpen",
+            callback = function(args)
+                -- in history mode: use J/K to go up/down and select immediately
+                if args.data.mode == "history" then
+                    local buf = vim.api.nvim_get_current_buf()
+                    vim.keymap.set("n", "J", "j<CR>", { buffer = buf, remap = true })
+                    vim.keymap.set("n", "K", "k<CR>", { buffer = buf, remap = true })
+                end
+            end,
+        })
+    end
 }

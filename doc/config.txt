@@ -386,8 +386,8 @@ Inline indicators (gitsigns) ~
 Diff (CodeDiff) ~
 \gd   n  open Diff
 \ga   n  open diff against Arbitrary commit
-\gf   n  open File diff (against arbitrary commit)
 \gh   n  open History
+\gf   n  open File history
 
 Unused ~
 \gj \gk \gm \go \gq \gz

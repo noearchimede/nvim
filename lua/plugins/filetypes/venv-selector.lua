@@ -16,6 +16,13 @@ return {
             log_level = "TRACE",
             -- If true, wait for LSP workspace detection before applying environment (helps avoid premature activation).
             require_lsp_activation = false,
+            on_venv_activate_callback = function()
+                vim.defer_fn(function()
+                    if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
+                        vim.cmd("lsp restart")
+                    end
+                end, 100)
+            end,
         }
     }
 

@@ -45,6 +45,9 @@ A list of all custom mappings is available in the `:h config.txt` help page.
 ## Dependencies
 
 
+- **pynvim** (for pytohn provider)
+    - on macOS with homebrew python: `pipx install pynvim` (after `brew install pipx` if not already installed)
+
 - **tree-sitter-cli** (for treesitter)
     - `brew install tree-sitter-cli` (NOT `tree-sitter`!)
     - NOTE: treesitter will not complain if it is missing (except in `:healthcheck`), but will not be able to install languages.

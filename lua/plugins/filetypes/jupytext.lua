@@ -1,9 +1,9 @@
 return {
 
-    "goerz/jupytext.nvim",
+    "GCBallesteros/jupytext.nvim",
 
     opts = {
-        format = 'script'
+        format = "py:percent",
     },
 
 }

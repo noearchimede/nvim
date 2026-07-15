@@ -6,6 +6,10 @@ return {
 
     cmd = { "VenvSelect" },
 
+    keys = {
+        { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Change python virtualenv" }
+    },
+
     -- note: lualine integration defined in lualine.lua config file
 
     init = function()

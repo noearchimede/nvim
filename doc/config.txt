@@ -298,6 +298,9 @@ Overseer ~
 \co   n  open overseer Overview
 \cO   n  close overseer Overview
 
+Venv-selector ~
+\cv   n  change python Virtualenv
+
 
 -----------------------------------------------------------------------------
 Trouble                                               *maled*  *map_leader_d*

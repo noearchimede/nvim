@@ -40,7 +40,7 @@ Leader mappings ~
 |map_leader_b| ........ Buffer navigation
 -> |map_leader_#| ..... Quick buffer navigation
 |map_leader_c| ........ Compilation and task running
-|map_leader_d| ........ Trouble
+|map_leader_d| ........ Diagnostics
 |map_leader_e|
 |map_leader_f| ........ Telescope
 |map_leader_g| ........ Git
@@ -613,6 +613,10 @@ Unused ~
 Workspace and sessions                                *malew*  *map_leader_w*
 -----------------------------------------------------------------------------
 
+General ~
+\wa   n  write all buffers (same as :wa)
+\wq   n  close all windows and exit neovim
+
 Possession ~
 \ws   n  show list of Sessions
 \wl   n  load Latest session
@@ -626,7 +630,6 @@ Possession ~
 
 Workspaces ~
 \wp   n  Pick workspace
-\wa   n  prefill command line to perform a workspace Action
 
 
 -----------------------------------------------------------------------------

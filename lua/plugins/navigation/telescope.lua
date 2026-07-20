@@ -53,7 +53,7 @@ return {
             -- defaults for telescope
             defaults = {
                 -- ignored files
-                file_ignore_patterns = { "/.git/", },
+                file_ignore_patterns = { ".git/", },
                 -- layout
                 layout_strategy = 'flex',
                 layout_config = {

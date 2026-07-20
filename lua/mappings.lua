@@ -44,8 +44,8 @@ vim.keymap.set({'n', 'v'}, 'Q', '@@')
 vim.keymap.set({ 'n', 'v', 'x', 'o' }, '\'', '`', { remap = true })
 
 -- move up or down to next non-blank character in same column
-vim.keymap.set({ 'n', 'v' }, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>")
-vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>")
+vim.keymap.set({ 'n', 'v' }, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'W')<CR>", { desc = "move down to next non-space char"})
+vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>", { desc = "move up to next non-space char"})
 
 -- navigate between windows, but skip over some selected buffers (accessed via their own mappings)
 local function winjump_skip_special(wincmd)
@@ -65,19 +65,19 @@ local function winjump_skip_special(wincmd)
     -- look for a non-"special" window in the direction of :wincmd <key>, if that fails fallback to :wincmd w
     if not jump(wincmd) then jump('w') end
 end
-vim.keymap.set('n', '<c-h>', function() winjump_skip_special('h') end)
-vim.keymap.set('n', '<c-j>', function() winjump_skip_special('j') end)
-vim.keymap.set('n', '<c-k>', function() winjump_skip_special('k') end)
-vim.keymap.set('n', '<c-l>', function() winjump_skip_special('l') end)
-vim.keymap.set('n', '<c-p>', '<cmd>wincmd p<cr>')
+vim.keymap.set('n', '<c-h>', function() winjump_skip_special('h') end, { desc = "go to win. left"})
+vim.keymap.set('n', '<c-j>', function() winjump_skip_special('j') end, { desc = "go to win. up"})
+vim.keymap.set('n', '<c-k>', function() winjump_skip_special('k') end, { desc = "go to win. down"})
+vim.keymap.set('n', '<c-l>', function() winjump_skip_special('l') end, { desc = "go to win. right"})
+vim.keymap.set('n', '<c-p>', '<cmd>wincmd p<cr>', { desc = "go to previous window"})
 
 -- jump to the alternate buffer
-vim.keymap.set('n', '<bs>', '<C-^>')
+vim.keymap.set('n', '<bs>', '<C-^>', { desc = "jump to alternate buffer" })
 
 -- Tab cd to the parent of the current file
-vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end)
+vim.keymap.set('n', "<leader>td", function() vim.cmd("tcd %:p:h") end, { desc = ":tcd to folder of current file" })
 -- Tab cd up one directory
-vim.keymap.set('n', "<leader>tp", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end)
+vim.keymap.set('n', "<leader>tp", function() vim.cmd("tcd " .. vim.fn.getcwd() .. "/..") end, { desc = ":tcd to the parent of cwd" })
 
 
 
@@ -228,24 +228,24 @@ vim.api.nvim_create_autocmd("FileType", {
 
 
 -- Search: higlight all matches of word under cursor
-vim.keymap.set('n', '<leader>ss', ":let @/ = '\\C\\<' . expand('<cword>') . '\\>' | set hls<CR>")
+vim.keymap.set('n', '<leader>ss', ":let @/ = '\\C\\<' . expand('<cword>') . '\\>' | set hls<CR>", { desc = "Search: word under cursor"})
 -- -> visual: higlight all matches of selected text
 vim.keymap.set('v', '<leader>ss',
-    ":<C-u>let @/ = '\\C\\V' . escape(luaeval(\"require('utils').get_visual_selection()\"), '\\') | set hls<CR>")
+    ":<C-u>let @/ = '\\C\\V' . escape(luaeval(\"require('utils').get_visual_selection()\"), '\\') | set hls<CR>", { desc = "Search: visual selection"})
 
 -- Search Replace: replace word under cursor, then return to starting position
-vim.keymap.set('n', '<leader>sr', function() require("utils").replace_in_file(vim.fn.expand('<cword>'), true) end)
+vim.keymap.set('n', '<leader>sr', function() require("utils").replace_in_file(vim.fn.expand('<cword>'), true) end, { desc = "Search: replace under cursor"})
 -- -> visual: replace the sected text, then return to starting position
 vim.keymap.set('v', '<leader>sr',
-    function() require("utils").replace_in_file(require("utils").get_visual_selection(), false) end)
+    function() require("utils").replace_in_file(require("utils").get_visual_selection(), false) end, { desc = "Search: replace visual selection"})
 
 -- Search Clear: clear the contents of the search register
 -- Note that this is not the same as ':set nohlsearch'
-vim.keymap.set('n', '<leader>sc', ":nohlsearch<CR>")
+vim.keymap.set('n', '<leader>sc', ":nohlsearch<CR>", { desc = "Search: clear"})
 -- Search Highlight: Toggle hlsearch (:hls)
-vim.keymap.set('n', '<leader>sh', ":set invhlsearch<CR>:set hlsearch?<CR>")
+vim.keymap.set('n', '<leader>sh', ":set invhlsearch<CR>:set hlsearch?<CR>", { desc = "Search: toggle highlight"})
 -- Search Incremental: Toggle incsearch (:is)
-vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>")
+vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>", { desc = "Search: toggle incremental search"})
 
 
 
@@ -253,13 +253,13 @@ vim.keymap.set('n', '<leader>si', ":set invincsearch<CR>:set incsearch?<CR>")
 
 
 -- toggle soft wrapping
-vim.keymap.set('n', '<leader>xw', ':set invwrap<CR>:set wrap?<CR>')
+vim.keymap.set('n', '<leader>xw', ':set invwrap<CR>:set wrap?<CR>', { desc = "Toggle soft wrapping"})
 -- toggle autoread
-vim.keymap.set('n', '<leader>xa', ':set invautoread<CR>:set autoread?<CR>')
+vim.keymap.set('n', '<leader>xa', ':set invautoread<CR>:set autoread?<CR>', { desc = "Toggle autoread"})
 -- toggle spelling check
-vim.keymap.set('n', '<leader>xs', ':set invspell<CR>:set spell?<CR>')
+vim.keymap.set('n', '<leader>xs', ':set invspell<CR>:set spell?<CR>', { desc = "Toggle spellcheck"})
 -- toggle list mode
-vim.keymap.set('n', '<leader>xl', ':set invlist<CR>:set list?<CR>')
+vim.keymap.set('n', '<leader>xl', ':set invlist<CR>:set list?<CR>', { desc = "Toggle hidden characters view"})
 -- toggle signcolumn visibility when no signs are present
 vim.keymap.set('n', '<leader>xg', function()
     if vim.opt.signcolumn:get() == 'auto' then ---@diagnostic disable-line: undefined-field
@@ -267,7 +267,7 @@ vim.keymap.set('n', '<leader>xg', function()
     elseif vim.opt.signcolumn:get() == 'yes' then ---@diagnostic disable-line: undefined-field
         vim.opt.signcolumn = 'auto'
     end
-end)
+end, { desc = "Toggle signcolumn mode"})
 -- toggle mouse integration between 'all' and disabled
 vim.keymap.set('n', '<leader>xm', function()
     if vim.opt.mouse:get()['a'] == nil then ---@diagnostic disable-line: undefined-field
@@ -277,4 +277,4 @@ vim.keymap.set('n', '<leader>xm', function()
         vim.opt.mouse = ''
         vim.notify("Mouse disabled", vim.log.levels.INFO)
     end
-end)
+end, { desc = "Toggle mouse"})

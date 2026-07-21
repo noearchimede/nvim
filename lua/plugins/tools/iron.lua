@@ -99,6 +99,7 @@ return {
             { '<leader>rq', function() if_repl(quit_iron) end, desc = "Iron: close" },
             { '<leader>rj', function() if_repl(jump_to_iron_and_back) end, desc = "Iron: jump to repl window" },
             { '<leader>rh', function() if_repl(wrap_with_ft(iron.hide_repl)) end, desc = "Iron: hide" },
+            { '<leader>re', '<cmd>IronReplHere<cr>', desc = "Iron: open in current window" },
 
             { '<leader>rr', function() if_repl(iron.send_line) end, desc = "Iron: send line" },
             { '<leader>rr', mode = { 'v' }, function() if_repl(iron.visual_send) end, desc = "Iron: send selection" },
@@ -147,7 +148,7 @@ return {
                 -- whether the repl buffer is a "throwaway" buffer or not
                 scratch_repl = true,
                 -- set where to open a new repl
-                repl_open_cmd = require("iron.view").split.vertical.botright(60),
+                repl_open_cmd = require("iron.view").split.vertical.botright("30%"),
                 -- automatically closes the repl window on process end
                 close_window_on_exit = false,
                 -- definitions of REPLs per filetype

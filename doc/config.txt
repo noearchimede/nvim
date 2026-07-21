@@ -519,28 +519,26 @@ Terminal ~
 -----------------------------------------------------------------------------
 
 Iron: set-up and navigation ~
-\rr   n  Start repl
-\rn   n  reLoad repl ("New")
-\rc   n  Close repl
+\rs   n  Start repl
+\rl   n  reLoad repl
+\rq   n  Quit repl
 \rj   n  Jump to repl window
-\rh   n  hide repl window
+\rh   n  Hide repl window
+\re   n  open repl hEre (in current window)
 
 Iron: code execution ~
 \rr   n  run current line
-                 v  \rr   run visual selection
+      v  run visual selection
 \ra   n  run all lines Above cursor
 \rf   n  run file
-\rf   n  run Block
-\rf   n  run block and move to Next
+\rb   n  run Block
+\rn   n  run block and go to Next
 
-\rx   n  Clear
+\rc   n  Clear
 \rx   n  send stop signal
 
 \r<cr> n send <CR>
 \ri   n  Insert arbitrary command
-
-Unused ~
-\rd \re \rg \rk \rm \ro \rp \rq \rt \ru \rv \rw \ry \rz
 
 For help on the specific languages, see the |repl| help page.
 

@@ -17,7 +17,7 @@ local function repls()
 
         python = {
             -- use a single ipython input for each input block (instead of an input for each line)
-            command = { "ipython", "--no-autoindent" },
+            command = { "python", "-m", "IPython", "--no-autoindent" },
             format = require("iron.fts.common").bracketed_paste,
             block_dividers = { "# %%", "#%%" },
         },

@@ -8,10 +8,6 @@ return {
 
     keys = {
         { '<leader>wp', '<cmd>Telescope workspaces<cr>', desc = 'Workspaces: open telescope picker' },
-        { '<leader>wa', function()
-            -- use feedkeys to start the autocompletion menu with <tab>
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":Workspaces<Tab>", true, true, true), 'tn', false)
-        end, desc = 'Workspaces: prepopulate command line' },
     },
 
     opts = {

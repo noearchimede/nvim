@@ -32,7 +32,9 @@ return {
         },
         commit_editor = {
             -- "vsplit" if window would have 80 cols, otherwise "split"
-            staged_diff_split_kind = "auto"
+            staged_diff_split_kind = "auto",
+            -- I don't need spellceck, and it causes problems if a dictioanry is missing
+            spell_check = false,
         },
         -- show absolute date in logs (by default uses relative date like everywhere else)
         log_date_format = "%Y-%m-%d %H:%M:%S",

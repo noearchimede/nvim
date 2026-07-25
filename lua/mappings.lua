@@ -13,6 +13,23 @@ vim.keymap.set({ 'n', 'v', 'x' }, '<space>', '\\', { remap = true })
 vim.keymap.set({ 'n', 'v', 'x' }, '\\<space>', '\\\\', { remap = true })
 
 
+-- – General –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+vim.keymap.set("n", "<leader>wq", function()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modified then
+                vim.notify("At least one buffer has unsaved changes. Save or use :qa!.", vim.log.levels.WARN)
+                return
+            end
+        end
+        vim.cmd("qa")
+    end,
+    { desc = "Close all windows and quit" }
+)
+-- define \wa as alias of :wa for consistency with \wq (save and quit -> \wa\wq)
+vim.keymap.set("n", "<leader>wa", function() vim.cmd("wall") end, {desc = "Write all buffers" })
+
+
 
 -- – Editing –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 

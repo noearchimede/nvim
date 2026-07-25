@@ -6,18 +6,17 @@ return {
 
     cmd = { "VenvSelect" },
 
+    keys = {
+        { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Change python virtualenv" }
+    },
+
     -- note: lualine integration defined in lualine.lua config file
 
     init = function()
         if vim.fn.has("win32") == 1 then
             -- this is necessary to make conda accessible from within nvim if it is not run from the anaconda prompt
             local conda = vim.fn.expand("$LOCALAPPDATA") .. [[\miniconda3]]
-            vim.env.PATH = table.concat({
-                conda .. [[\condabin]],
-                conda .. [[\Scripts]],
-                conda .. [[\Library\bin]],
-                vim.env.PATH,
-            }, ";")
+            vim.env.PATH = conda .. [[\condabin;]] .. vim.env.PATH
         end
     end,
 
@@ -35,6 +34,15 @@ return {
                         vim.cmd("lsp restart")
                     end
                 end, 100)
+                if vim.fn.has("win32") then
+                    local env = vim.fn.fnamemodify(vim.fn.exepath("python"), ":h")
+                    vim.env.PATH = table.concat({
+                        env,
+                        env .. [[\Scripts]],
+                        env .. [[\Library\bin]],
+                        vim.env.PATH,
+                    }, ";")
+                end
             end,
         },
 
@@ -43,7 +51,7 @@ return {
                 return {
                     miniconda_envs = {
                         command =
-                        "$FD python.exe$ $HOME\\AppData\\Local\\miniconda3\\envs --no-ignore-vcs --full-path -a -E Lib",
+                        "$FD python.exe$ $HOME\\AppData\\Local\\miniconda3\\envs --no-ignore-vcs --full-path -a -E Lib -E Scripts",
                         type = "anaconda",
                     },
                     miniconda_base = {

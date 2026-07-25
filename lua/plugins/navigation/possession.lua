@@ -31,16 +31,6 @@ return {
             desc = "Possession: update session" },
         { "<leader>wi", function() vim.notify("Session: " .. (require('possession.session').get_session_name() or "–"), vim.log.levels.INFO) end,
             desc = "Possession: get session info" },
-        { "<leader>wq", function()
-            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modified then
-                    vim.notify("At least one buffer has unsaved changes. Save or use :qa!.", vim.log.levels.WARN)
-                    return
-                end
-            end
-            vim.cmd("qa")
-        end,
-            desc = ":qa (preserve window layout)" }
     },
 
     opts = {

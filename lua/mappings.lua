@@ -65,22 +65,25 @@ vim.keymap.set({ 'n', 'v' }, '<leader>mj', ":<C-u>call search('\\%' . virtcol('.
 vim.keymap.set({ 'n', 'v' }, '<leader>mk', ":<C-u>call search('\\%' . virtcol('.') . 'v\\S', 'bW')<CR>", { desc = "move up to next non-space char"})
 
 -- navigate between windows, but skip over some selected buffers (accessed via their own mappings)
+-- unless this function is called twice from the same buffer in the same direction
 local function winjump_skip_special(wincmd)
     local function is_special(win)
         local ft = vim.api.nvim_win_call(win, function() return vim.bo.filetype end)
         return ft == 'NvimTree' or ft == 'undotree' or ft == 'aerial' or ft == 'trouble'
     end
-    local function jump(key)
-        -- repeat :wincmd <key> until either the filetype is not "special" or an edge is reached
-        local win1 = vim.api.nvim_get_current_win()
-        vim.cmd('wincmd ' .. key)
-        local win2 = vim.api.nvim_get_current_win()
-        if win1 == win2 then return false end
-        if is_special(win2) then return jump(key) end
-        return true
+    -- repeat :wincmd <key> until either the filetype is not "special" or an edge is reached
+    local win1 = vim.api.nvim_get_current_win()
+    vim.cmd('wincmd ' .. wincmd)
+    local win2 = vim.api.nvim_get_current_win()
+    -- if the newly focused window is "special" go back to the previous one ...
+    if is_special(win2) then
+        -- ... unless this is the second attempt from the same original window in the same direction
+        if not (vim.g.config_winjump_last_cmd == wincmd and vim.g.config_winjump_last_win == win1) then
+            vim.api.nvim_set_current_win(win1)
+        end
     end
-    -- look for a non-"special" window in the direction of :wincmd <key>, if that fails fallback to :wincmd w
-    if not jump(wincmd) then jump('w') end
+    vim.g.config_winjump_last_cmd = wincmd
+    vim.g.config_winjump_last_win = win1
 end
 vim.keymap.set('n', '<c-h>', function() winjump_skip_special('h') end, { desc = "go to win. left"})
 vim.keymap.set('n', '<c-j>', function() winjump_skip_special('j') end, { desc = "go to win. up"})

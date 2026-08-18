@@ -33,7 +33,7 @@ return {
     basedpyright = {
       analysis = {
         autoSearchPaths = true,
-        diagnosticMode = 'openFilesOnly',
+        diagnosticMode = "workspace", -- 'workspace' requires init_options.disablePullDiagnostics to work, see below (alternative is 'openFilesOnly')
         typeCheckingMode = "standard", -- match pyright defaults
         -- https://docs.basedpyright.com/latest/configuration/language-server-settings/
         -- Explicitly setting `basedpyright.analysis.useLibraryCodeForTypes` is **discouraged** by the official docs.
@@ -41,6 +41,10 @@ return {
         -- If left unset, its default value is `true`, and it can be correctly overridden by project config files.
       },
     },
+  },
+-- workaround to get workspace diagnostics to work, see https://github.com/neovim/neovim/issues/37150#issuecomment-4248816355
+  init_options = {
+    disablePullDiagnostics = true
   },
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {

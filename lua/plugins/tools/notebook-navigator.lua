@@ -98,6 +98,22 @@ _v_: run visual _i_: image history _t_: focus terminal _o_|_h_|_q_: open|hide|qu
                             style = "minimal",
                         },
                     },
+                    -- autocmd to close the hydra when the buffer is left (does not work, hydra:exit() appears to have a bug)
+                    -- on_enter = function()
+                    --     local bufnr = vim.api.nvim_get_current_buf()
+                    --     vim.api.nvim_create_autocmd("BufLeave", {
+                    --         buffer = bufnr,
+                    --         once = true,
+                    --         callback = function()
+                    --             vim.schedule(function()
+                    --                 -- exception: since the hydra might create a promt, don't exit if the new buffer is a prompt
+                    --                 if vim.bo.buftype ~= "prompt" then
+                    --                     require('hydra'):exit()
+                    --                 end
+                    --             end)
+                    --         end,
+                    --     })
+                    -- end,
                 }
             })
         end

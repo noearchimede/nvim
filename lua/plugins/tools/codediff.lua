@@ -8,7 +8,7 @@ return {
         { '<leader>gd', '<cmd>CodeDiff<cr>', desc = "CodeDiff: open" },
         { '<leader>ga', ':<C-U>CodeDiff ', desc = "CodeDiff: select commit" },
         { '<leader>gh', '<cmd>CodeDiff history<cr>', desc = "CodeDiff: history" },
-        { '<leader>gf', '<cmd>CodeDiff file %<cr>', desc = "CodeDiff: file history" },
+        { '<leader>gf', '<cmd>CodeDiff history %<cr>', desc = "CodeDiff: file history" },
     },
 
     opts = {

@@ -34,7 +34,9 @@ return {
         basedpyright = {
             analysis = {
                 autoSearchPaths = true,
-                diagnosticMode = "workspace", -- 'workspace' requires init_options.disablePullDiagnostics to work, see below (alternative is 'openFilesOnly')
+                -- diagnosticMode = 'workspace' does not appear to work. Adding init_options = { disablePullDiagnostics = true }
+                -- below (same level as settings = {...}) appears to work at first, but diagnostics do not update after opening files.
+                diagnosticMode = "openFilesOnly", -- 'openFilesOnly' (default) or 'workspace'  
                 typeCheckingMode = "standard", -- match pyright defaults
                 -- https://docs.basedpyright.com/latest/configuration/language-server-settings/
                 -- Explicitly setting `basedpyright.analysis.useLibraryCodeForTypes` is **discouraged** by the official docs.

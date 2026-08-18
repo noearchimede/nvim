@@ -52,10 +52,7 @@ return {
                     { "f", function() pyrepl.send_buffer() end, { exit = true } },
                     { "v", function() pyrepl.send_visual() end, { exit = true } },
                     { "i", function() pyrepl.open_image_history() end, { exit = true } },
-                    { "o", function()
-                        vim.notify("To install Pyrepl rutime packages run ':PyreplInstall pip'.")
-                        pyrepl.open_repl()
-                    end, { exit = true } },
+                    { "o", function() pyrepl.open_repl() end, { exit = true } },
                     { "h", function() pyrepl.hide_repl() end, { exit = true } },
                     { "q", function() pyrepl.close_repl() end, { exit = true } },
                     { "t", function() pyrepl.toggle_repl_focus() end, { exit = true } },

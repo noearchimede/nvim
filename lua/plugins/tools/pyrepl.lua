@@ -4,6 +4,8 @@ return {
 
     dependencies = { "nvim-treesitter/nvim-treesitter" },
 
+    lazy = true,
+
     -- note: keymaps are defined in notebook-navigator.lua, inside the nn Hydra cluster of mappings
 
     config = function()
@@ -27,6 +29,13 @@ return {
             -- creating a py file in the same folder)
             jupytext_hook = false,
         })
+
+        vim.defer_fn(function() vim.notify(
+            "To install Pyrepl rutime packages run ':PyreplInstall pip'."
+        ) end, 5000)
+        vim.defer_fn(function() vim.notify(
+            "If inline images are not supported, select a backed with e.g. %matplotlib qt (or macosx, tk, ...)"
+        ) end, 10000)
 
     end,
 

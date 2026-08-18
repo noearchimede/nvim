@@ -59,7 +59,6 @@ return {
                 comparators = {
                     cmp.config.compare.offset,
                     cmp.config.compare.exact,
-                    cmp.config.compare.score,
                     -- put completions starting with underscore lower on the list
                     function(entry1, entry2)
                         local _, entry1_under = entry1.completion_item.label:find "^_+"
@@ -72,6 +71,7 @@ return {
                             return true
                         end
                     end,
+                    cmp.config.compare.score,
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,

@@ -1,9 +1,10 @@
 return {
 
-    "GCBallesteros/jupytext.nvim",
+    "goerz/jupytext.nvim",
 
     opts = {
-        format = "py:percent",
+        format = 'py:percent',
+        update = true, -- preserve cell outputs in the .ipynb file on save
     },
 
 }

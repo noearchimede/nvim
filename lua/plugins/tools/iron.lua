@@ -38,13 +38,14 @@ return {
 
     keys = function()
         local iron = require('iron.core')
-        local ironll = require('iron.lowlevel')
+        local ll = require('iron.lowlevel')
+        local state = require('iron.state')
         -- set of helper functions to make mapping definitions a bit less cluttered
         local function if_repl(func)
             -- execute function: only run function if a REPL is active
             local ft = vim.bo.filetype
-            local meta = ironll.get(ft)
-            if vim.bo.filetype == 'iron' or ironll.repl_exists(meta) then
+            local meta = state.get_repl(ft)
+            if vim.bo.filetype == 'iron' or ll.repl_exists(meta) then
                 func()
             else
                 vim.notify("No REPLs found for filetype " .. ft)

@@ -10,7 +10,7 @@ return {
 
     keys = {
         {
-            "<leader>yn",
+            "<leader>zn",
             function()
                 if require('noice.config')._running then
                     require('noice').disable()

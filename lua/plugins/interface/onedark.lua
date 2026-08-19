@@ -14,7 +14,7 @@ return {
         cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
         -- toggle theme style ---
-        toggle_style_key = "<leader>yt",
+        toggle_style_key = "<leader>zt",
         toggle_style_list = {
             'dark',
             'darker',

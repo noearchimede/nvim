@@ -61,8 +61,8 @@ Leader mappings ~
 |map_leader_v| ........ Interface ("View")
 |map_leader_w| ........ Workspace and sessions
 |map_leader_x| ........ Quick Settings
-|map_leader_y| ........ Plugin toggles
-|map_leader_z|
+|map_leader_y| ........ Advanced yank
+|map_leader_z| ........ Plugin toggles
                                                                *mag*  *map_g*
 G mappings ~
 |map_gb| .............. Comments
@@ -652,33 +652,32 @@ Unused ~
 
 
 -----------------------------------------------------------------------------
-Plugin toggles                                        *maley*  *map_leader_y*
+Advanced yank                                             *maley*  *map_leader_y*
 -----------------------------------------------------------------------------
 
-UI
-\xt   n  cycle Theme
-\yx   n  toggle Zen mode
-\yn   n  toggle Noice
+
+-----------------------------------------------------------------------------
+Plugin toggles                                        *malez*  *map_leader_z*
+-----------------------------------------------------------------------------
+
+UI ~
+\zt   n  cycle Theme
+\zx   n  toggle Zen mode
+\zn   n  toggle Noice
 
 Cmp ~
-\yc   n  toggle Completion
+\zc   n  toggle Completion
 
 Autoclose ~
-\yp   n  toggle Autopair
+\zp   n  toggle Autopair
 
 Indent-blankline ~
-\yi   n  toggle Indent guides
-\ys   n  toggle Scope guides
+\zi   n  toggle Indent guides
+\zs   n  toggle Scope guides
 
 
 Unused ~
-\ya \yb \yd \ye \yf \yg \yh \yj \yk \yl \ym \yo \yq \yr \yt \yu \yv \yw \yy
-
-
------------------------------------------------------------------------------
-                                                      *malez*  *map_leader_z*
------------------------------------------------------------------------------
-
+\za \zb \zd \ze \zf \zg \zh \zj \zk \zl \zm \zo \zq \zr \zt \zu \zv \zw \zy
 
 
 

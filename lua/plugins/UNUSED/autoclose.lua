@@ -4,7 +4,7 @@ return {
 
     keys = {
         {
-            "<leader>yp",
+            "<leader>zp",
             function()
                 require('autoclose').toggle()
                 vim.notify("Autoclose toggled")

@@ -78,7 +78,10 @@ M.formatter_settings = {
     autopep8 = {
         prepend_args = {
             "--max-line-length", "100",
-            "--ignore", "E501", -- do not enforce "line too long" errors
+            -- E501: "line too long"
+            -- E701: "multiple statements on one line (colon)" -> allow oneline if statements
+            -- E731: do not assign a lambda expression, use a def
+            "--ignore", "E501,E701,E731",
         }
     },
 }

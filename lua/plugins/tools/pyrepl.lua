@@ -17,8 +17,8 @@ return {
             split_ratio = 0.5,
             style_treesitter = true,
             image_max_history = 50,
-            image_width_ratio = 1,
-            image_height_ratio = 1,
+            image_width_ratio = 0.5,
+            image_height_ratio = 0.5,
             -- built-in provider, works best for ghostty and kitty
             -- for other terminals use "image" instead of "placeholders"
             image_provider = "placeholders",

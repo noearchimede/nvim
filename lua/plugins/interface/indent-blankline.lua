@@ -11,5 +11,10 @@ return {
         { '<leader>zs', '<cmd>IBLToggleScope<cr>', desc = "IBL: toggle scope guides" },
     },
 
-    opts = {},
+    opts = {
+        scope = {
+            show_start = false,
+            show_end = false,
+        }
+    },
 }

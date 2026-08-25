@@ -655,6 +655,12 @@ Unused ~
 Advanced yank                                             *maley*  *map_leader_y*
 -----------------------------------------------------------------------------
 
+Yank ~
+\yp   n  yank file path to system clipboard
+\yd   n  yank working directory to system clipboard
+\yf   n  yank file content to system clipboard
+
+
 
 -----------------------------------------------------------------------------
 Plugin toggles                                        *malez*  *map_leader_z*

@@ -53,6 +53,13 @@ vim.keymap.set('n', '<s-cr>', 'O<esc>')
 vim.keymap.set({'n', 'v'}, 'Q', '@@')
 
 
+-- – Yanking –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+vim.keymap.set('n', '<leader>yp', ':let @+ = expand("%:p")<CR>', { desc = "Yank file path (system clipboard)" })
+vim.keymap.set('n', '<leader>yd', ':let @+ = getcwd()<CR>', { desc = "Yank file directory (system clipboard)" })
+vim.keymap.set('n', '<leader>yf', ':%y+<CR>', { desc = "Yank whole file" })
+
 
 -- – Navigation ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 

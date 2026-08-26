@@ -1,6 +1,7 @@
 return {
     -- see the image.nvim readme for more information about configuring this plugin
     "3rd/image.nvim",
+    enabled = false,
 
     opts = {
         backend = "kitty", -- Kitty's image protocol, available in Kitty, Ghostty, ...

@@ -41,7 +41,8 @@ return {
         nav = {
             keymaps = {
                 ["<C-x>"] = "actions.jump_split",
-                ["<C-s>"] = false
+                ["<C-s>"] = false,
+                ["<esc>"] = "actions.close"
             },
         },
 

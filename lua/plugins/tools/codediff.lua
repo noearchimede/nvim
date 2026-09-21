@@ -37,12 +37,12 @@ return {
             },
             explorer = {
                 refresh = "<CTRL-R>",
-                toggle_view_mode = "<localleader>t",
+                toggle_view_mode = "<localleader>v",
                 toggle_changes = false,
                 toggle_staged = false,
             },
             history = {
-                toggle_view_mode = "<localleader>v",
+                toggle_view_mode = "<localleader>h",
             },
             conflict = {
                 accept_incoming = "<localleader>t",

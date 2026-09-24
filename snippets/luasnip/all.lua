@@ -2,7 +2,6 @@ local ls = require("luasnip")
 local fmt = require("luasnip.extras.fmt").fmt
 local s, f, i, t, c = ls.s, ls.f, ls.i, ls.t, ls.c
 
-M = {}
 -- s: define a snippet (trigger + body)
 --    s({ trig = "hello" }, ...)
 -- i: insert node (editable field)
@@ -30,10 +29,11 @@ M = {}
 
 
 
----––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
----  Boxes
----––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+local M = {}
 
+-- -------------------------------------------------------------------------------------------------
+--  Boxes
+-- -------------------------------------------------------------------------------------------------
 
 local function box_snip(h, v, tl, tr, bl, br)
     return fmt(tl .. h .. '{line}' .. h .. tr .. '\n' .. '{prefix}' .. v .. ' {text} ' .. v .. '\n' .. '{prefix}' .. bl .. h .. '{line}' .. h .. br .. '\n' .. '{exit}', {
@@ -51,16 +51,13 @@ table.insert(M, s({ trig = 'box'}, box_snip('─', '│', '┌', '┐', '└', '
 table.insert(M, s({ trig = 'boxs'}, box_snip('-', '|', '+', '+', '+', '+')))
 table.insert(M, s({ trig = 'box#'}, box_snip('#', '#', '#', '#', '#', '#')))
 
-
-
---–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+-- -------------------------------------------------------------------------------------------------
 --  Horizontal lines
---–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+-- -------------------------------------------------------------------------------------------------
 
+-- single line -------------------------------------------------------------------------------------
 
---– single line –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
--- insert an horizontal line as wide as 'tw' containing the snippet text
+-- insert a horizontal line as wide as 'tw' containing the snippet text
 local function line_snip(line_char)
     return {
         f(function(args)
@@ -83,10 +80,9 @@ table.insert(M, s({ trig = '--n' }, line_snip('–')))
 table.insert(M, s({ trig = '--m' }, line_snip('—')))
 table.insert(M, s({ trig = '###' }, line_snip('#')))
 
+-- double line -------------------------------------------------------------------------------------
 
---– double line –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
--- insert an horizontal line as wide as 'tw' above and below the snippet text
+-- insert a horizontal line as wide as 'tw' above and below the snippet text
 local function line_above_below_snip(line_char)
     return fmt('{hline}\n{prefix}  {text}\n{prefix}{hline}\n', {
         prefix = f(function(_, parent)
@@ -107,7 +103,4 @@ table.insert(M, s({ trig = '--n2' }, line_above_below_snip('–')))
 table.insert(M, s({ trig = '--m2' }, line_above_below_snip('—')))
 table.insert(M, s({ trig = '###2' }, line_above_below_snip('#')))
 
-
 return M
-
-

@@ -1,9 +1,10 @@
----@diagnostic disable: undefined-global
+local ls = require("luasnip")
+local fmt = require("luasnip.extras.fmt").fmt
+local s, sn, c, t, i = ls.s, ls.sn, ls.c, ls.t, ls.i
 
 return {
-
-    -- format snippet 
-    s("snipf", fmt([[ 
+    -- format snippet
+    s("snipf", fmt([[
     <>({ trig='<>', name='<>', dscr='<>'},
     fmt(<>,
     { <> },
@@ -13,12 +14,11 @@ return {
         { delimiters='<>' }
     )),
 
-    -- simple text snippet 
-    s("snipt", fmt([[ 
+    -- simple text snippet
+    s("snipt", fmt([[
     <>(<>, {t('<>')}<>
     <>)<>,]],
         { c(1, {t("s"), t("autosnippet")}), c(2, {i(nil, "trig"), sn(nil, {t("{trig='"), i(1), t("'}")})}), i(3, "text"), i(4, "opts"), i(5), i(0)},
         { delimiters='<>' }
     )),
-
 }

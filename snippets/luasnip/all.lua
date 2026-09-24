@@ -3,6 +3,30 @@ local fmt = require("luasnip.extras.fmt").fmt
 local s, f, i, t, c = ls.s, ls.f, ls.i, ls.t, ls.c
 
 M = {}
+-- s: define a snippet (trigger + body)
+--    s({ trig = "hello" }, ...)
+-- i: insert node (editable field)
+--    i(index)
+--    - the index defines the jump order: i(1) -> i(2) -> ... -> i(0)
+--    - i(0) represents the final cursor position
+-- t: text node (static, non-editable text)
+--    t(string)
+-- c: choice node (choose between alternatives)
+--    c(index, { option1, option2, ...}
+--    - options are other nodes (usually 'c' or 'i' nodex)
+-- f: function node (dynamically generated text)
+--    - f(function(args) ... end, {index1, index2, ...})
+--    - index1, ... (all optional) make the content of the corresponding
+--      indexed nodes avalable within the function through args[index] (a table
+--      of lines, use args[index][1] for the first line)
+--    - when a linke node changes, the f() node is re-evaluated and its text updates
+--
+-- Example:
+-- s({ trig = "hello" }, {
+--    i(1),
+--    f(function(args) return args[1][1]:upper() end, {1}),
+--    i(0),
+-- })
 
 
 

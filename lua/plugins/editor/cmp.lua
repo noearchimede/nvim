@@ -87,25 +87,21 @@ return {
                     function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                        elseif luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
                         else
                             fallback()
                         end
                     end,
-                    { 'i', 'c' }
+                    { 'i', 's', 'c' }
                 ),
                 ["<S-Tab>"] = cmp.mapping(
                     function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                        elseif luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
                         else
                             fallback()
                         end
                     end,
-                    { 'i', 'c' }
+                    { 'i', 's', 'c' }
                 ),
                 ['<Down>'] = cmp.mapping(
                     function(fallback)
@@ -147,37 +143,6 @@ return {
                         end
                     end,
                     { 'i', 'c' }
-                ),
-                ['<C-l>'] = cmp.mapping(
-                    function(fallback)
-                        if luasnip.expandable() then
-                            luasnip.expand()
-                        else
-                            fallback()
-                        end
-                    end,
-                    { 'i' }
-                ),
-                -- jump to snippet marks
-                ['<C-n>'] = cmp.mapping(
-                    function(fallback)
-                        if luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
-                        else
-                            fallback()
-                        end
-                    end,
-                    { 'i' }
-                ),
-                ['<C-p>'] = cmp.mapping(
-                    function(fallback)
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end,
-                    { 'i' }
                 ),
             },
 

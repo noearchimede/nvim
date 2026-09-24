@@ -163,16 +163,15 @@ Autocompletion and snippets                      *maic*  *map_i_autocomplete*
 -----------------------------------------------------------------------------
 
 Selection ~
-<tab>       i  select next completion or jump to snippet tag
+<tab>       i  select next completion
 <S-tab>     i  select previous completion
 
 <Down>      i  select next completion (go down in menu)
 <Up>        i  select previous completion (go up in menu)
 
-Snipptes ~
-<C-L>       i  expand snippet ("Luasnip")
-<C-N>       i  jump to Next snippet tag
-<C-P>       i  jump to Previous snippet tag
+Snippets ~
+<C-L>       i  expand snippet or jump to next field within current snippet
+<C-H>       i  jump to previous field within current snippet
 
 Documentation ~
 <C-B>       i  scroll the doc popup upwards ("Backwards")

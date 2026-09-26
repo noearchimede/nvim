@@ -580,9 +580,6 @@ Nvim-tree ~
 \tT   n  close file Tree
 \tf   n  Find current file in tree
 
-Oil ~
-\to   n  open Oil in current buffer (alias: |map_-|)
-
 Undotree ~
 \tu   n  open Undo history
 \tU   n  close Undo history

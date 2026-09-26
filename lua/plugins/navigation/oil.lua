@@ -9,7 +9,6 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
 
     keys = {
-        { "<leader>to", "<cmd>Oil<cr>", { desc = "Open Oil" } },
         { "-", "<cmd>Oil<cr>", { desc = "Open Oil" } }
     },
 

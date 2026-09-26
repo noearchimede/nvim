@@ -56,7 +56,7 @@ Leader mappings ~
 |map_leader_q| ........ Quickfix lists and terminal
 |map_leader_r| ........ REPL
 |map_leader_s| ........ Search
-|map_leader_t| ........ File tree, sidebars, tabs
+|map_leader_t| ........ File tree, undotree, terminal, tabs
 |map_leader_u|
 |map_leader_v| ........ Interface ("View")
 |map_leader_w| ........ Workspace and sessions
@@ -506,12 +506,6 @@ Note: analoguous mappings for the location list listed in |map_leader_l|
 \qN   n  move to first quickfix item in the next file
 \qP   n  move to last quickfix item in the previous file
 
-Terminal ~
-\qo   n  Open a new terminal in the current window
-\qh   n  open a new terminal in a Horizontal split
-\qv   n  open a new terminal in a Vertical split
-\qt   n  open a new terminal in a new tab
-
 
 -----------------------------------------------------------------------------
                                                       *maler*  *map_leader_r*
@@ -568,7 +562,7 @@ Grug-far ~
 
 
 -----------------------------------------------------------------------------
-File tree and other sidebar-based elements            *malet*  *map_leader_t*
+File tree, Undotree, Termnal, Tabs                    *malet*  *map_leader_t*
 -----------------------------------------------------------------------------
 
 Directory ~
@@ -584,13 +578,19 @@ Undotree ~
 \tu   n  open Undo history
 \tU   n  close Undo history
 
+Terminal ~
+\te   n  Open a new terminal in the current window
+\th   n  open a new terminal in a Horizontal split
+\tv   n  open a new terminal in a Vertical split
+\tn   n  open a new terminal in a new tab
+
 Tabby ~
 \tr   n  Rename tab
 \tmn  n  move Tab to Next position 
 \tmp  n  move Tab to Previous position
 
 Unused ~
-\ta \tb \tc \te \tg \th \ti \tk \tl \tq \ts \tv \tw \tx \ty \tz
+\ta \tb \tc \tg \ti \tj \tk \tl \to \tq \ts \tw \tx \ty \tz
 
 
 -----------------------------------------------------------------------------

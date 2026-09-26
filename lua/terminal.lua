@@ -35,7 +35,7 @@ vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('t', '<c-esc>', '<esc>')
 
 -- open a new terminal in a split
-vim.keymap.set('n', '<leader>qo', '<cmd>terminal<cr>')
-vim.keymap.set('n', '<leader>qv', '<cmd>vertical terminal<cr>')
-vim.keymap.set('n', '<leader>qh', '<cmd>horizontal terminal<cr>')
-vim.keymap.set('n', '<leader>qt', '<cmd>tab terminal<cr>')
+vim.keymap.set('n', '<leader>te', '<cmd>terminal<cr>')
+vim.keymap.set('n', '<leader>tv', '<cmd>vertical terminal<cr>')
+vim.keymap.set('n', '<leader>th', '<cmd>horizontal terminal<cr>')
+vim.keymap.set('n', '<leader>tn', '<cmd>tab terminal<cr>')

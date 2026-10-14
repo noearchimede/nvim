@@ -182,6 +182,74 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 
+local function diag_qf_update()
+    -- set default config values (in case the 'settings' function has not been called yet)
+    vim.g.config_diag_qf_severity = vim.g.config_diag_qf_severity or vim.diagnostic.severity.HINT
+    vim.g.config_diag_qf_scope = vim.g.config_diag_qf_scope or "workspace"
+    -- get diagnostics
+    local diagnostics = vim.diagnostic.get(
+        vim.g.config_diag_qf_scope == "buffer" and 0 or nil,
+        { severity = { min = vim.g.config_diag_qf_severity } }
+    )
+    -- convert to qf list format (for setqflist)
+    local items = vim.diagnostic.toqflist(diagnostics)
+    -- set list title
+    local title = nil
+    if vim.g.config_diag_qf_severity == vim.diagnostic.severity.HINT then
+        title = "Diagnostics"
+    elseif vim.g.config_diag_qf_severity == vim.diagnostic.severity.INFO then
+        title = "Diagnostics (info)"
+    elseif vim.g.config_diag_qf_severity == vim.diagnostic.severity.WARN then
+        title = "Diagnostics (warn)"
+    elseif vim.g.config_diag_qf_severity == vim.diagnostic.severity.ERROR then
+        title = "Diagnostics (errors)"
+    end
+    -- always update the same quickfix list, to minimize interference with other lists
+    if not vim.g.config_diag_qf_id then -- create new list
+        vim.fn.setqflist({}, " ", {
+            items = items,
+            title = title,
+        })
+        vim.g.config_diag_qf_id = vim.fn.getqflist({ id = 0 }).id
+    else -- update current quickfix, but try to preserve selection ("u" action, see :h setqflist)
+        vim.fn.setqflist({}, "u", {
+            id = vim.g.config_diag_qf_id,
+            items = items,
+            title = title,
+        })
+    end
+end
+
+local function diag_qf_settings(scope, severity)
+    -- set scope
+    if scope then
+        vim.g.config_diag_qf_scope = scope
+    end
+    -- set min severtity
+    if severity == "toggle_error" then
+        vim.g.config_diag_qf_severity =
+            vim.g.config_diag_qf_severity == vim.diagnostic.severity.ERROR
+                and vim.diagnostic.severity.HINT
+                or vim.diagnostic.severity.ERROR
+    elseif severity == "cycle" then
+        vim.g.config_diag_qf_severity = vim.g.config_diag_qf_severity % 4 + 1
+    elseif severity then
+        vim.g.config_diag_qf_severity = severity
+    end
+    -- reload diagnostics into quickfix
+    diag_qf_update()
+    vim.cmd("copen")
+end
+
+vim.keymap.set("n", "<leader><leader>q", function() diag_qf_settings("workspace", nil) end, { desc = "LSP-qf: toggle errors-only mode" })
+vim.keymap.set("n", "<leader><leader>b", function() diag_qf_settings("buffer", nil) end, { desc = "LSP-qf: toggle errors-only mode" })
+vim.keymap.set("n", "<leader><leader>e", function() diag_qf_settings(nil, "toggle_error") end, { desc = "LSP-qf: toggle errors-only mode" })
+
+-- autocmd to auto-update quickfix list with LSP diagnostics
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+    callback = diag_qf_update
+})
+
 
 -- – Quickfix and location list ––––––––––––––––––––––––––––––––––––––––––––––––
 
@@ -248,6 +316,9 @@ vim.api.nvim_create_autocmd("FileType", {
         -- quickfix history
         vim.keymap.set('n', '<C-n>', '<cmd>cnewer<cr>', { buffer = true, desc = "Next list" })
         vim.keymap.set('n', '<C-p>', '<cmd>colder<cr>', { buffer = true, desc = "Previous list" })
+
+        -- LSP-quickfix integration
+        vim.keymap.set("n", "S", function() diag_qf_settings(nil, "cycle") end, { desc = "LSP-qf: toggle severity" })
     end
 })
 

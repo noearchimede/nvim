@@ -231,6 +231,10 @@ Also see |map_]e| and |map_]w| for jumps limited to errors and warnings.
 \\T  n  go to Type definition in selected window
 
 \\r  n  list References in quicfix list
+Diagnostics ~
+\\q  n  list all diagnostics in Quickfix
+\\b  n  list all Buffer diagnostics in quickfix
+\\e  n  toggle error-only view in quickfix
 
 \\a  n  code Actions
 \\c  n  Change name

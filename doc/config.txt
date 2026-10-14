@@ -204,46 +204,47 @@ LEADER MAPPINGS                                                  |map_leader|
 -----------------------------------------------------------------------------
 
 
-
 -----------------------------------------------------------------------------
 LSP                                             *malele*  *map_leader_leader*
 -----------------------------------------------------------------------------
 
+Navigation ~
 \\n  n  Next diagnostic (alias: |map_]d|)
 \\p  n  Previous diagnostic (alias: |map_[d|)
 Also see |map_]e| and |map_]w| for jumps limited to errors and warnings.
 
-\\v  n  View line diagnostic
-
+Inspect ~
 \\k  n  show Documentation
 \\j  n  show signature help
+\\v  n  View diagnostics for current line
+\\r  n  list References in quicfix list
 
+Jump ~
 \\d  n  go to Definition
 \\D  n  go to Definition in selected window
-
 \\l  n  go to decLaration
 \\L  n  go to decLaration in selected window
-
 \\i  n  go to Implementation
 \\I  n  go to Implementation in selected window
-
 \\t  n  go to Type definition
 \\T  n  go to Type definition in selected window
 
-\\r  n  list References in quicfix list
+
 Diagnostics ~
 \\q  n  list all diagnostics in Quickfix
 \\b  n  list all Buffer diagnostics in quickfix
 \\e  n  toggle error-only view in quickfix
 
+Actions ~
 \\a  n  code Actions
 \\c  n  Change name
 \\f  n  Format
 
-\\w  n  get Workspace diagnostics [workspace-diagnostics]
+Workspace ~
+\\w  n  Load all workspace diagnostics [workspace-diagnostics]
 
 Unused ~
-\\b \\e \\g \\h \\m \\o \\q \\s \\u \\x \\y \\z
+\\b \\g \\h \\m \\o \\s \\u \\x \\y \\z
 
 
 -----------------------------------------------------------------------------

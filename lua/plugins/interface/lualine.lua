@@ -92,7 +92,14 @@ return {
                     path = 1,
                     shorting_target = 40,
                     symbols = { modified = '●' },
-                    separator = '' -- disable separator between filename and grapple handle
+                    separator = '', -- disable separator between filename and grapple handle
+                    fmt = function(name)
+                        -- if the buffer is a quickfix list, show its title instead of the buffern name
+                        if vim.bo.filetype == 'qf' then
+                            return vim.fn.getqflist({ title = 1 }).title
+                        end
+                        return name
+                    end,
                 },
                 { -- Grapple integration (1/2)
                     padding = { left = 0 },
@@ -131,7 +138,14 @@ return {
                     path = 1,
                     shorting_target = 40,
                     symbols = { modified = '●' },
-                    separator = ''
+                    separator = '',
+                    fmt = function(name)
+                        -- if the buffer is a quickfix list, show its title instead of the buffern name
+                        if vim.bo.filetype == 'qf' then
+                            return vim.fn.getqflist({ title = 1 }).title
+                        end
+                        return name
+                    end,
                 },
                 { -- Grapple integration (2/2)
                     function()

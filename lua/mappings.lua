@@ -143,7 +143,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
         end, "Diagnostics: next error")
         map("n", "[e", function()
-            vim.diagnostic.jump({  count = -1, float = true,severity = vim.diagnostic.severity.ERROR })
+            vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
         end, "Diagnostics: previous error")
         map("n", "]w", function()
             vim.diagnostic.jump({ count = 1, float = true, severity = { min = vim.diagnostic.severity.WARN } })
@@ -152,7 +152,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.diagnostic.jump({ count = -1, float = true, severity = { min = vim.diagnostic.severity.WARN } })
         end, "Diagnostics: previous error or warning")
 
-        map("n", "<leader><leader>v", vim.diagnostic.open_float, "Diagnostics: view line diagnostics")
+        map("n", "<leader><leader>v", vim.diagnostic.open_float, "LSP: view line diagnostics")
         map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to K, see :h K-lsp-default
         map("n", "<leader><leader>j", vim.lsp.buf.signature_help, "LSP: show signature help")
         map("n", "<leader><leader>d", vim.lsp.buf.definition, "LSP: go to definition")
@@ -185,6 +185,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- – Quickfix and location list ––––––––––––––––––––––––––––––––––––––––––––––––
 
+-- Refer to :h map_quickfix for a full list of mappings (and keep it up to date!)
+-- Additional mappings are defined in the bqf plugin config
 
 -- toggle quickfix and location lists
 vim.keymap.set('n', '<leader>qq', "<cmd>botright copen<cr>", { desc = "Quickfix: open" })
@@ -225,23 +227,23 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set('n', 'O', "<cr><c-w>p<cmd>close<cr>", { buffer = true, desc = "Open list item and close" })
         vim.keymap.set('n', '<cr>', "<cr>", { buffer = true, desc = "Open list item" })
 
-        -- implementation of an autojump feature (not needed if using nvim-bqf's preview feature)
-        --[[ helper for autojump motions defined below
-        local function motion(key)
-            if vim.g.config_qf_autojump == true then
+        -- helper for autojump motions defined below
+        local function motion(key, force_autojump)
+            if force_autojump or vim.g.config_qf_autojump == true then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key .. '<cr><c-w>p', true, true, true), 'n', true)
             else -- this includes 'nil' when the control variable is not yet set
                 vim.g.config_qf_autojump = false -- set variable on first use
                 vim.api.nvim_feedkeys(key, 'n', true)
             end
         end
-        -- note: 'not nil' is 'true', so this works even if the control variable is not yet set
-        vim.keymap.set('n', 'P', function() vim.g.config_qf_autojump = not vim.g.config_qf_autojump end,
+        vim.keymap.set('n', '<localleader>a', function() vim.g.config_qf_autojump = not vim.g.config_qf_autojump end,
             { buffer = true, desc = "Toggle autojump" })
-        vim.keymap.set('n', 'j', function() motion('j') end, { buffer = true, desc = "Next" })
-        vim.keymap.set('n', 'k', function() motion('k') end, { buffer = true, desc = "Previous" })
-        vim.keymap.set('n', 'gg', function() motion('gg') end, { buffer = true, desc = "First" })
-        vim.keymap.set('n', 'G', function() motion('G') end, { buffer = true, desc = "Last" }) ]]
+        vim.keymap.set('n', 'j', function() motion('j', false) end, { buffer = true, desc = "Next" })
+        vim.keymap.set('n', 'J', function() motion('j', true) end, { buffer = true, desc = "Next (autojump)" })
+        vim.keymap.set('n', 'k', function() motion('k', false) end, { buffer = true, desc = "Previous" })
+        vim.keymap.set('n', 'K', function() motion('k', true) end, { buffer = true, desc = "Previous (autojump)" })
+        vim.keymap.set('n', 'gg', function() motion('gg', false) end, { buffer = true, desc = "First" })
+        vim.keymap.set('n', 'G', function() motion('G', false) end, { buffer = true, desc = "Last" })
 
         -- quickfix history
         vim.keymap.set('n', '<C-n>', '<cmd>cnewer<cr>', { buffer = true, desc = "Next list" })

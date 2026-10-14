@@ -462,8 +462,8 @@ Location list                                         *malel*  *map_leader_l*
 Note: analoguous mappings for the quickfix list listed in |map_leader_q|
 \ll   n  open Location list
 \lL   n  close Location list
-\ln   n  move to next location item (alias: |map_]q|)
-\lp   n  move to previous location item (alias: |map_[q|)
+\ln   n  move to next location item (alias: |]l|)
+\lp   n  move to previous location item (alias: |[l|)
 \lf   n  move to first location item
 \le   n  move to last location item
 \lN   n  move to first location item in the next file
@@ -504,13 +504,15 @@ Quickfix list ~
 Note: analoguous mappings for the location list listed in |map_leader_l|
 \qq   n  open Quickfix list
 \qQ   n  close Quickfix list
-\qn   n  move to next quickfix item (alias: |map_]q|)
-\qp   n  move to previous quickfix item (alias: |map_[q|)
+\qn   n  move to next quickfix item (alias: |]q|)
+\qp   n  move to previous quickfix item (alias: |[q|)
 \qf   n  move to first quickfix item
 \qe   n  move to last quickfix item
 \qN   n  move to first quickfix item in the next file
 \qP   n  move to last quickfix item in the previous file
 
+Unused ~
+\qa \qb \qc \qd \qg \qi \qj \qk \ql \qm \qr \qs \qu \qw \qx \qy \qz
 
 -----------------------------------------------------------------------------
                                                       *maler*  *map_leader_r*
@@ -874,50 +876,52 @@ Quickfix and location lists                            *maqf*  *map_quickfix*
 -----------------------------------------------------------------------------
 
 Window ~
-q     n   Quit quickfix window
+q     n  Quit quickfix window
 
 Open items ~
-<cr>  n   Open item under cursor
-o     n   Open item under cursor without losing focus
+<cr>  n  Open item under cursor
+o     n  Open item under cursor without losing focus
 
-Motions with auto-open ~
-P     n   toggle auto-open mode for mappings below
-j     n   go to next item (optional auto-open)
-k     n   go to previous item (optional auto-open)
-gg    n   go to first item (optional auto-open)
-G     n   go to last item (optional auto-open)
+Motions ~
+j     n  go to next item (optional auto-open)
+k     n  go to previous item (optional auto-open)
+gg    n  go to first item (optional auto-open)
+G     n  go to last item (optional auto-open)
+,A    n  toggle auto-open mode for the mappings above
+J     n  go to next item and open
+K     n  go to previous item and open
 
 Other motions [bqf] ~
-J     n   go to first item in next file
-K     n   go to last item in previous file
-,l    n  go to the last selected item
+]f    n  go to first item in next file
+[f    n  go to last item in previous file
+'"    n  go to the last selected item
 
 Lists history ~
-<c-n> n   switch to the next quickfix list (|cnewer|)
-<c-p> n   switch to the previous quickfix list (|colder|)
+<c-n> n  switch to the next quickfix list (|cnewer|)
+<c-p> n  switch to the previous quickfix list (|colder|)
 
 Signs [bqf] ~
-<tab> n   toggle the sign of the current item
-      v   toggle the sign of the selected items
-<s-tab> n   toggle the sign of all items in the current file
-,c    n  Clear all signs
+m     n  toggle the sign of the current item
+      v  toggle the sign of the selected items
+M     n  toggle the sign of all items in the current file
+,m    n  Clear all signs
 ,f    n  Filter all items with sign
 ,F    n  Filter all items without sign
+,s    n  Search and filter with fzf
 
 Preview [bqf] ~
-p    n   toggle preview
-,p    n  toggle preview for a single item
-,h    n  toggle zoom level of the preview
-<c-f> n   scroll up in the preview
-<c-b> n   scroll down in the preview
+<Tab> n  toggle preview mode
+<c-f> n  scroll up in the preview
+<c-b> n  scroll down in the preview
 ,r    n  reset position of the preview
+,f    n  toggle full screen mode
 
 Inline preview [quicker] ~
 zr   n   expand inline context aroune all items ("Reduce fold")
 zm   n   collapse inline context aroune all items ("More fold")
 
 Sync [quicker] ~
-<c-r> n   Refresh current quickfix
+<c-r> n  Refresh current quickfix
 
 
 -----------------------------------------------------------------------------

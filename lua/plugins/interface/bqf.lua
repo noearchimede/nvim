@@ -20,35 +20,38 @@ return {
         preview = {
             auto_preview = false
         },
+        -- Note: many quickfix-related mappings are defined in mappings.lua
+        -- Some of those could also be defined here, but when given the choice use mappings.lua
         func_map = {
-            open = '', -- defined in mappings.lua
-            openc = '', -- defined in mappings.lua
-            drop = '', -- not used
-            tabdrop = '', -- not used
+            -- Refer to :h map_quickfix for a full list of mappings (and keep it up to date!)
+            open = '', -- mappings.lua
+            openc = '', -- mappings.lua
+            drop = '', -- mappings.lua
+            tabdrop = '', -- mappings.lua
             split = '<C-x>',
             vsplit = '<C-v>',
             tab = '<C-t>',
             tabb = '', -- not used
             tabc = '', -- not used
-            prevfile = 'K',
-            nextfile = 'J',
-            prevhist = '', -- defined in mappings.lua
-            nexthist = ' ', -- defined in mappings.lua
+            prevfile = ']f',
+            nextfile = '[f',
+            prevhist = '', -- mappings.lua
+            nexthist = '', -- mappings.lua
             lastleave = [['"]],
-            stoggleup = '<S-Tab>',
-            stoggledown = '<Tab>',
-            stogglevm = '<Tab>',
-            stogglebuf = [['<Tab>]],
-            sclear = 'z<Tab>',
+            stoggleup = '',
+            stoggledown = 'm',
+            stogglevm = 'm',
+            stogglebuf = 'M',
+            sclear = '<localleader>m',
             pscrollup = '<C-b>',
             pscrolldown = '<C-f>',
-            pscrollorig = 'zo',
-            ptogglemode = 'zp',
-            ptoggleitem = 'p',
-            ptoggleauto = 'P',
-            filter = 'zn',
-            filterr = 'zN',
-            fzffilter = 'zf'
+            pscrollorig = '<localleader>r',
+            ptogglemode = '<localleader>p',
+            ptoggleitem = '',
+            ptoggleauto = '<Tab>',
+            filter = '<localleader>f',
+            filterr = '<localleader>F',
+            fzffilter = '<localleader>s'
         },
     },
 

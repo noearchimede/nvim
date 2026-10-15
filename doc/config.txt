@@ -645,13 +645,14 @@ Settings ~
 \xs   n  toggle 'spell'
 \xw   n  toggle 'wrap'
 \xe   n  toggle visibility of signcolumn ("Gutter")
+\xf   n  toggle 'winfixwidth' and 'winfixheight' (none>width>both>height>...)
 
 Debugging ~
 \xys  n  Start performance Profiniling
 \xye  n  End performance Profiniling
 
 Unused ~
-\xb \xc \xd \xf \xh \xi \xj \xk \xn \xo \xp \xq \xr \xu \xv \xx \xz
+\xb \xc \xd \xh \xi \xj \xk \xn \xo \xp \xq \xr \xu \xv \xx \xz
 
 
 -----------------------------------------------------------------------------

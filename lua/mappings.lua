@@ -378,3 +378,21 @@ vim.keymap.set('n', '<leader>xm', function()
         vim.notify("Mouse disabled", vim.log.levels.INFO)
     end
 end, { desc = "Toggle mouse"})
+-- toggle windows size fix mode
+vim.keymap.set('n', '<leader>xf', function()
+    local fw = vim.opt.winfixwidth:get()
+    local fh = vim.opt.winfixheight:get()
+    if fh and fw then
+        vim.opt.winfixwidth = false
+        vim.notify("Fixed height", vim.log.levels.INFO)
+    elseif fw == true then
+        vim.opt.winfixheight = true
+        vim.notify("Fixed width and height", vim.log.levels.INFO)
+    elseif fh then
+        vim.opt.winfixheight = false
+        vim.notify("Disable fixed window size", vim.log.levels.INFO)
+    else
+        vim.opt.winfixwidth = true
+        vim.notify("Fixed width", vim.log.levels.INFO)
+    end
+end, { desc = "Toggle window fixed size fix"})

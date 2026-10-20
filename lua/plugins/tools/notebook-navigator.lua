@@ -38,6 +38,9 @@ return {
             vim.keymap.set( { "t" }, "<leader>jt", function() pyrepl.toggle_repl_focus() end, { desc = "Pyrepl: toggle focus" } )
             -- the jv mapping should also work in visual mode
             vim.keymap.set( { "v" }, "<leader>jv", function() pyrepl.send_visual() end, { desc = "Pyrepl: send visual selection" } )
+            -- text shown on repl open
+            local open_msg = "If Pyrepl rutime packages are not installed yet, run ':PyreplInstall pip'.\n"
+            .. "To show matploblib images in a separate window, use %matplotlib qt (or macosx, tk, ...).\n"
             Hydra({
                 mode = 'n',
                 body = '<leader>j',
@@ -52,7 +55,7 @@ return {
                     { "f", function() pyrepl.send_buffer() end, { exit = true } },
                     { "v", function() pyrepl.send_visual() end, { exit = true } },
                     { "i", function() pyrepl.open_image_history() end, { exit = true } },
-                    { "o", function() pyrepl.open_repl() end, { exit = true } },
+                    { "o", function() pyrepl.open_repl() vim.defer_fn(function() vim.notify(open_msg) end, 500) end, { exit = true } },
                     { "h", function() pyrepl.hide_repl() end, { exit = true } },
                     { "q", function() pyrepl.close_repl() end, { exit = true } },
                     { "t", function() pyrepl.toggle_repl_focus() end, { exit = true } },
@@ -78,11 +81,11 @@ return {
                     { '<Esc>', nil, { exit = true } }
                 },
                 hint = [[ Notebook cell navigation
-_j_/_J_: run and go to next _a_/_A_: add cell above    _u_/_U_: swap with cell above
-_r_/_R_/<s-cr>: run         _b_/_B_: add cell below    _d_/_D_: swap with cell below
-_c_/_C_: comment cell       _n_/_N_: go to next cell   _m_/_M_: merge with next
+_j_/_J_: run and go to next   _a_/_A_: add cell above    _u_/_U_: swap with cell above
+_r_/_R_/<s-cr>: run           _b_/_B_: add cell below    _d_/_D_: swap with cell below
+_v_: run visual selection   _n_/_N_: go to next cell   _m_/_M_: merge with next
 _f_: run all cells          _p_/_P_: go to previous    _s_/_S_: split cell        
-_v_: run visual _i_: image history _t_: focus terminal _o_|_h_|_q_: open|hide|quit REPL
+_c_/_C_: comment  _t_: go to terminal  _i_: view images  _o_|_h_|_q_: open|hide|quit REPL
                                _<Esc>_: exit ]],
                 config = {
                     invoke_on_body = true,

@@ -64,8 +64,9 @@ return {
         -- create autocmd to delete jump points if Insert mode is exited and the cursor is outside the snippet
         vim.api.nvim_create_autocmd("InsertLeave", {
             callback = function()
-                if not require("luasnip").in_snippet() then
-                    require("luasnip").unlink_current()
+                local ls = require("luasnip")
+                if ls.get_active_snip() and not ls.in_snippet() then
+                    ls.unlink_current()
                 end
             end,
         })

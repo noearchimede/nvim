@@ -104,7 +104,14 @@ return {
 
             { '<leader>rr', function() if_repl(iron.send_line) end, desc = "Iron: send line" },
             { '<leader>rr', mode = { 'v' }, function() if_repl(iron.visual_send) end, desc = "Iron: send selection" },
-            { '<leader>rf', function() if_repl(iron.send_file) end, desc = "Iron: send file" },
+            { '<leader>rf', function()
+                    if vim.bo.filetype == "python" then
+                        if_repl(function() iron.send("python", { "%run -i " .. vim.fn.json_encode(vim.api.nvim_buf_get_name(0)) }) end)
+                    else
+                        if_repl(iron.send_file)
+                    end
+                end, desc = "Iron: run file"
+            },
             { '<leader>rn', function() if_repl(function() iron.send_code_block(true) end) end, desc = "Iron: send block (advance)" },
             { '<leader>rb', function() if_repl(function() iron.send_code_block(false) end) end, desc = "Iron: send block (stay)" },
             { '<leader>ra', function() if_repl(iron.send_until_cursor) end, desc = "Iron: send file up to cursor" },

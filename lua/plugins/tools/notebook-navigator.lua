@@ -26,21 +26,43 @@ return {
     config = function(_, opts)
 
         local nn = require("notebook-navigator")
-        local pyrepl = require("pyrepl")
         local Hydra = require('hydra')
 
         nn.setup(opts)
 
+        local function repl_action(action)
+            local pyrepl = require("pyrepl")
+            if action == 'run cell' then
+                pyrepl.send_cell()
+            elseif action == 'run file' then
+                pyrepl.send_buffer()
+            elseif action == 'run visual' then
+                pyrepl.send_visual()
+            elseif action == 'open repl' then
+                pyrepl.open_repl()
+                local open_msg = "If Pyrepl rutime packages are not installed yet, run ':PyreplInstall pip'.\n"
+                .. "To show matploblib images in a separate window, use %matplotlib qt (or macosx, tk, ...).\n"
+                vim.defer_fn(function() vim.notify(open_msg) end, 500)
+            elseif action == 'hide repl' then
+                pyrepl.hide_repl()
+            elseif action == 'close repl' then
+                pyrepl.close_repl()
+            elseif action == 'focus repl' then
+                pyrepl.toggle_repl_focus()
+            elseif action == 'image history' then
+                pyrepl.open_image_history()
+            else
+                vim.notify("Unknown REPL action: " .. action)
+            end
+        end
+
         local function define_custom_hydra()
             -- define shift-enter to run current cell for consistency with usual jupyter keymappings
-            vim.keymap.set( { "n" }, "<S-cr>", function() pyrepl.send_cell() end, { desc = "Pyrepl: run cell" } )
+            vim.keymap.set( { "n" }, "<S-cr>", function() repl_action('run cell') end, { desc = "Pyrepl: run cell" } )
             -- define terminal mapping to enable focusing back to code (must match corresponding hydra mapping)
-            vim.keymap.set( { "t" }, "<leader>jt", function() pyrepl.toggle_repl_focus() end, { desc = "Pyrepl: toggle focus" } )
+            vim.keymap.set( { "t" }, "<leader>jt", function() repl_action('focus repl') end, { desc = "Pyrepl: toggle focus" } )
             -- the jv mapping should also work in visual mode
-            vim.keymap.set( { "v" }, "<leader>jv", function() pyrepl.send_visual() end, { desc = "Pyrepl: send visual selection" } )
-            -- text shown on repl open
-            local open_msg = "If Pyrepl rutime packages are not installed yet, run ':PyreplInstall pip'.\n"
-            .. "To show matploblib images in a separate window, use %matplotlib qt (or macosx, tk, ...).\n"
+            vim.keymap.set( { "v" }, "<leader>jv", function() repl_action('run visual') end, { desc = "Pyrepl: send visual selection" } )
             Hydra({
                 mode = 'n',
                 body = '<leader>j',
@@ -48,17 +70,21 @@ return {
                     -- REPL commands: invoke mappings defined in pyrepl.nvim
                     -- notebook-navigator provides commands to interface with a REPL,
                     -- but pyrepl is not currently supported
-                    { "j", function() pyrepl.send_cell() pyrepl.step_cell_forward() end, { exit = true  } },
-                    { "J", function() pyrepl.send_cell() pyrepl.step_cell_forward() end  },
-                    { "r", function() pyrepl.send_cell() end, { exit = true } },
-                    { "R", function() pyrepl.send_cell() end, },
-                    { "f", function() pyrepl.send_buffer() end, { exit = true } },
-                    { "v", function() pyrepl.send_visual() end, { exit = true } },
-                    { "i", function() pyrepl.open_image_history() end, { exit = true } },
-                    { "o", function() pyrepl.open_repl() vim.defer_fn(function() vim.notify(open_msg) end, 500) end, { exit = true } },
-                    { "h", function() pyrepl.hide_repl() end, { exit = true } },
-                    { "q", function() pyrepl.close_repl() end, { exit = true } },
-                    { "t", function() pyrepl.toggle_repl_focus() end, { exit = true } },
+                    { "j", function() repl_action('run cell') nn.move_cell('d') end, { exit = true  } },
+                    { "J", function() repl_action('run cell') nn.move_cell('d') end  },
+                    { "r", function() repl_action('run cell') end, { exit = true } },
+                    { "R", function() repl_action('run cell') end, },
+                    { "f", function() repl_action('run file') end, { exit = true } },
+                    { "e", function() repl_action('run above') end, { exit = true } },
+                    { "E", function() repl_action('run above') end },
+                    { "v", function() repl_action('run visual') end, { exit = true } },
+                    { "i", function() repl_action('image history') end, { exit = true } },
+                    { "o", function() repl_action('open repl') end, { exit = true } },
+                    { "h", function() repl_action('hide repl') end, { exit = true } },
+                    { "q", function() repl_action('close repl') end, { exit = true } },
+                    { "t", function() repl_action('focus repl') end, { exit = true } },
+                    { "l", function() repl_action('open jl') end, { exit = true } },
+                    { "k", function() repl_action('restart kernel') end, { exit = true } },
                     -- cell navigation and editing commands: implement here
                     { "n", function() nn.move_cell("d") end, { exit = true } },
                     { "N", function() nn.move_cell("d") end },
@@ -83,9 +109,10 @@ return {
                 hint = [[ Notebook cell navigation
 _j_/_J_: run and go to next   _a_/_A_: add cell above    _u_/_U_: swap with cell above
 _r_/_R_/<s-cr>: run           _b_/_B_: add cell below    _d_/_D_: swap with cell below
-_v_: run visual selection   _n_/_N_: go to next cell   _m_/_M_: merge with next
-_f_: run all cells          _p_/_P_: go to previous    _s_/_S_: split cell        
-_c_/_C_: comment  _t_: go to terminal  _i_: view images  _o_|_h_|_q_: open|hide|quit REPL
+_e_/_E_: run all cells above  _n_/_N_: go to next cell   _m_/_M_: merge with next
+_v_: run visual selection   _p_/_P_: go to previous    _s_/_S_: split cell        
+_f_: run all cells          _c_/_C_: comment cell
+Pyrepl        _o_|_h_|_q_: open|hide|quit   REPL _t_: go to terminal   _i_: view images  
                                _<Esc>_: exit ]],
                 config = {
                     invoke_on_body = true,
@@ -128,11 +155,11 @@ _c_/_C_: comment  _t_: go to terminal  _i_: view images  _o_|_h_|_q_: open|hide|
                     define_custom_hydra()
                 else
                     -- mappings for other python files
-                    vim.keymap.set("n", "<leader>jj", function() vim.cmd.normal("V") pyrepl.send_visual() end, { buffer = true, desc = "Pyrepl: send current line" })
-                    vim.keymap.set("v", "<leader>jj", function() pyrepl.send_visual() end, { buffer = true, desc = "Pyrepl: send visual selection" })
-                    vim.keymap.set("n", "<leader>jf", function() pyrepl.send_buffer() end, { buffer = true, desc = "Pyrepl: send file" })
-                    vim.keymap.set("n", "<leader>jt", function() pyrepl.toggle_repl_focus() end, { buffer = true, desc = "Pyrepl: focus terminal" })
-                    vim.keymap.set("n", "<leader>ji", function() pyrepl.open_image_history() end, { buffer = true, desc = "Pyrepl: open image viewer" })
+                    vim.keymap.set("n", "<leader>jj", function() vim.cmd.normal("V") repl_action("run visual") end, { buffer = true, desc = "Pyrepl: send current line" })
+                    vim.keymap.set("v", "<leader>jj", function() repl_action("run visual") end, { buffer = true, desc = "Pyrepl: send visual selection" })
+                    vim.keymap.set("n", "<leader>jf", function() repl_action("run buffer") end, { buffer = true, desc = "Pyrepl: send file" })
+                    vim.keymap.set("n", "<leader>jt", function() repl_action("focus repl") end, { buffer = true, desc = "Pyrepl: focus terminal" })
+                    vim.keymap.set("n", "<leader>ji", function() repl_action("image history") end, { buffer = true, desc = "Pyrepl: open image viewer" })
                 end
             end
         })

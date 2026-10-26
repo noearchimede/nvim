@@ -31,14 +31,31 @@ return {
         nn.setup(opts)
 
         local function repl_action(action)
+            local run_with_pyrepl = vim.g.config_nbnav_active_repl == "pyrepl"
+            local run_with_neopyter = vim.g.config_nbnav_active_repl == "neopyter"
+
+            -- actions for both pyrepl and neopyter
             local pyrepl = require("pyrepl")
             if action == 'run cell' then
-                pyrepl.send_cell()
+                if run_with_pyrepl then pyrepl.send_cell()
+                elseif run_with_neopyter then require("neopyter.jupyter").notebook:run_selected_cell()
+                end
             elseif action == 'run file' then
-                pyrepl.send_buffer()
+                if run_with_pyrepl then pyrepl.send_buffer()
+                elseif run_with_neopyter then require("neopyter.jupyter").notebook:run_all()
+                end
+            elseif action == 'run above' then
+                if run_with_pyrepl then vim.notify("Running cells above in Pyrepl is not implemented, do it manually")
+                elseif run_with_neopyter then require("neopyter.jupyter").notebook:run_all_above()
+                end
             elseif action == 'run visual' then
-                pyrepl.send_visual()
+                if run_with_pyrepl then pyrepl.send_visual()
+                elseif run_with_neopyter then vim.notify("Can't run arbitrary code selections in Jupyter")
+                end
+
+            -- pyrepl only
             elseif action == 'open repl' then
+                vim.g.config_nbnav_active_repl = "pyrepl"
                 pyrepl.open_repl()
                 local open_msg = "If Pyrepl rutime packages are not installed yet, run ':PyreplInstall pip'.\n"
                 .. "To show matploblib images in a separate window, use %matplotlib qt (or macosx, tk, ...).\n"
@@ -51,6 +68,38 @@ return {
                 pyrepl.toggle_repl_focus()
             elseif action == 'image history' then
                 pyrepl.open_image_history()
+
+            -- jupyterlab only
+            elseif action == 'open jl' then
+                vim.g.config_nbnav_active_repl = "neopyter"
+                local jsonlist = vim.system({ "jupyter", "server", "list", "--jsonlist" }, { text = true }):wait().stdout
+                local servers = vim.json.decode(jsonlist or '{}')
+                if #servers > 0 then
+                    vim.notify("Jupyter Lab is already running", vim.log.levels.INFO)
+                else
+                    -- launch jupyter lab in a terminal split (the user may hide it with :q)
+                    vim.cmd("botright 15 new")
+                    local py_env = require("venv-selector").venv() or vim.env.VIRTUAL_ENV
+                    vim.g.config_nbnav_jl_job = vim.fn.jobstart({ vim.fs.joinpath(py_env, "bin", "python"), "-m", "jupyterlab" }, {
+                        term = true,
+                        cwd = vim.fn.expand("~"),
+                        on_exit = function() vim.g.config_nbnav_jl_job = nil end,
+                    })
+                end
+                vim.cmd("Neopyter connect")
+                require("neopyter.async").run(function()
+                    -- async context
+                    local lab = require("neopyter.jupyter")
+                    local notebook = lab:get_notebook(0) -- Get notebook for current buffer 
+                    notebook:attach()
+                end)
+            elseif action == 'close jl' then
+                vim.cmd("Neopyter disconnect")
+                if vim.g.config_nbnav_jl_job then
+                    vim.fn.jobstop(vim.g.config_nbnav_jl_job)
+                end
+            elseif action == 'restart kernel' then
+
             else
                 vim.notify("Unknown REPL action: " .. action)
             end
@@ -84,6 +133,7 @@ return {
                     { "q", function() repl_action('close repl') end, { exit = true } },
                     { "t", function() repl_action('focus repl') end, { exit = true } },
                     { "l", function() repl_action('open jl') end, { exit = true } },
+                    { "x", function() repl_action('close jl') end, { exit = true } },
                     { "k", function() repl_action('restart kernel') end, { exit = true } },
                     -- cell navigation and editing commands: implement here
                     { "n", function() nn.move_cell("d") end, { exit = true } },
@@ -113,6 +163,7 @@ _e_/_E_: run all cells above  _n_/_N_: go to next cell   _m_/_M_: merge with nex
 _v_: run visual selection   _p_/_P_: go to previous    _s_/_S_: split cell        
 _f_: run all cells          _c_/_C_: comment cell
 Pyrepl        _o_|_h_|_q_: open|hide|quit   REPL _t_: go to terminal   _i_: view images  
+JupyterLab    _l_|_x_: link|unlink jupyterlab   _k_: restart kernel
                                _<Esc>_: exit ]],
                 config = {
                     invoke_on_body = true,
@@ -149,8 +200,8 @@ Pyrepl        _o_|_h_|_q_: open|hide|quit   REPL _t_: go to terminal   _i_: view
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "python",
             callback = function()
-                local extension = vim.fn.expand("%:e")
-                if extension == "ipynb" then
+                local extension = vim.fn.expand("%:e:e") -- allow two extensions for "ju.*"
+                if extension == "ipynb" or extension:match("^ju%.") then
                     -- mappings for jupyter notebooks
                     define_custom_hydra()
                 else

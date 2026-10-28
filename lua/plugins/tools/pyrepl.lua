@@ -5,6 +5,10 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
 
     lazy = true,
+    
+    cmd = {
+        "PyreplConvert", -- allows to load the plugin to convert a notebook
+    },
 
     -- note: keymaps are defined in notebook-navigator.lua, inside the nn Hydra cluster of mappings
 

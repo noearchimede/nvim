@@ -148,6 +148,7 @@ return {
 
             sources = cmp.config.sources({
                 -- NOTE: remember to update the buffer and filetype specific settings below if this is modified
+                { name = 'jupynium' },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
                 -- completion from all buffers (see :h cmp-buffer-all-buffers)

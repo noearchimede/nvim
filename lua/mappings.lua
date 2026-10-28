@@ -5,12 +5,11 @@
 
 -- – Leader ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
+-- NOTE: the actual leader is defined in init.lua because it needs to be defined before loading Lazy
 
--- NOTE: the leader itself is defined directly in init.lua
-
--- allow using space as leader in normal, visual and op. pending modes
-vim.keymap.set({ 'n', 'v', 'x' }, '<space>', '\\', { remap = true })
-vim.keymap.set({ 'n', 'v', 'x' }, '\\<space>', '\\\\', { remap = true })
+-- allow using backslash as leader in normal, visual and op. pending modes
+vim.keymap.set({ 'n', 'v', 'x' }, '\\', '<space>', { remap = true })
+vim.keymap.set({ 'n', 'v', 'x' }, '<space>\\', '<space><space>', { remap = true })
 
 
 -- – General –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

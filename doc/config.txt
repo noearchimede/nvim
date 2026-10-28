@@ -23,8 +23,9 @@ MAPPINGS                                             *map*    *config-mappings*
 
 This section contains all custom mappings in this nvim configuration.
 
-The leader key is `\` (backslash) with `<space>` as alias. Any one of those
-two keys can be used in place of <leader> in all "leader mappings".
+The leader key is `<space>` (backslash), but here `\` is used it its place for
+compactness. Any one of those two keys can be used in place of <leader> in all
+"leader mappings".
 
                                                                *mai*  *map_i*
 Insert mode mappings ~

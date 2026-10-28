@@ -306,6 +306,10 @@ Overseer ~
 Venv-selector ~
 \cv   n  change python Virtualenv
 
+Jupyter bnotebooks ~
+\cj   n  toggle in-place Jupyter notebook conversion (jupytext)
+\cs   n  convert Jupyter notebook to Script (pyrepl)
+
 
 -----------------------------------------------------------------------------
 Trouble                                               *maled*  *map_leader_d*
@@ -438,18 +442,23 @@ Pyrepl: cell execution ~
 \jj   n  run cell and go to next
 \jr   n  run cell
 \jv   n  run Visual selection
+\je   n  run all cells above
 \jf   n  run entire File
 
-Pyrepl: repl management ~
-\ji   n  open Image history viewer
-\jo   n  Open repl
+Pyrepl/Jupynium: repl/jupyter live view ~
+\jl   n  Link to notebook in browser (Jupynium)
+\jo   n  Open repl (Pyrepl)
 \jh   n  Hide repl
 \jq   n  Quit repl
+\jk   n  restart Kernel
 \jt   n  toggle focus between code and Terminal
+\ji   n  open Image history viewer
+\jx   n  other actions
 
+-> additional mappings: see |map_leader_c|
 
 Unused ~
-\je \jg \jk \jl \jw \jx \jy \jz
+\jg \jw \jy \jz
 
 -----------------------------------------------------------------------------
                                                       *malek*  *map_leader_k*

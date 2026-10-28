@@ -672,7 +672,7 @@ Plugin toggles                                        *malez*  *map_leader_z*
 
 UI ~
 \zt   n  cycle Theme
-\zx   n  toggle Zen mode
+\zz   n  toggle Zen mode
 \zn   n  toggle Noice
 
 Cmp ~

@@ -10,8 +10,7 @@ TABLE OF CONTENTS
 
     1. General                         |troubleshooting-general|
     2. Plugins                         |troubleshooting-plugins|
-        2.1 VimTeX                     |troubleshooting-vimtex|
-        2.2 Livedown                   |troubleshooting-livedown|
+    3. REPLs                           |troubleshooting-repls|
 
 
 
@@ -58,75 +57,23 @@ Vim is slow while typing
        they each took. The problem may be solved definitevly by manually
        disabling some syntax highlighting rules for a specific filetype.
 
-    3. Check if a plugin is responsible. Some that have been found to cause
-       problems are:
-       - UltiSnips: if |g:UltiSnipsSnippetDirectories| is incorrectly set to
-         single value (instead of being a list) UltiSnips will cause Vim to
-         lag considerably in Insert mode
-
-
-
+    3. Check if a plugin is responsible.
 
 
 
 =============================================================================
 PLUGINS                                               *troubleshooting-plugins*
 
-
-=============================================================================
-VimTeX~
-                                                       *troubleshooting-vimtex*
-
-help: |VimTeX| (vim-plug only loads this when a .tex file is opened!)
-
-
 -----------------------------------------------------------------------------
-Vimtex does not appear to be loaded. Only the command `VimtexInverseSearch` is
-available.
+Iron.nvim                                                *troubleshooting-iron*
 
-    Run `:call vimtex#init()` . If the problem is solved (temporarily), then
-    check that there is not a ftplugin for Vim which prevents Vimtex from
-    loading its own.
+Hints about various REPLs available through Iron.nvim
 
+C++: cling
 
+Documentation: https://root.cern/manual/cling/
 
-
-=============================================================================
-Livedown~
-                                                     *troubleshooting-livedown*
-
-help: no help page available, see https://github.com/shime/vim-livedown
-
-
------------------------------------------------------------------------------
-Livedown doesn't work but also doesn't display any error.
-
-    Run Livedown from the terminal, e.g. `!livedown start %` . There any error
-    should be printed out.
-    -> If the error is `Error: listen EADDRINUSE: address already in use :::1337` open a terminal and run `lsof -i :1337`, which among other
-       returns a PID, and kill that process with `kill -9 {PID}` (check that
-       this does not do any harm before killing)
-
-
-
-=============================================================================
-Coc.nvim~
-                                                          *troubleshooting-coc*
-
-Coc is a highly featured and complex plugin. Always refer to the main GitHub
-page in case of issues, which has a Wiki and many discussion threads:
-https://github.com/neoclide/coc.nvim/
-
-Some settings may interfere with the operation of Coc:
-- |nobackup| and |nowritebackup| are suggested as workarounds to solve bugs with
-  some language servers. However, be creful if you choose to apply this
-  workaround (especially when disabling write backups) and read the
-  documentation before doing so.
-- |encoding|: the documentation (and the example configuration on the GitHub
-  page) suggests putting `set encoding=utf8` in Vimrc "since coc.nvim calculates
-  byte offset by count utf-8 byte sequence".
-- |updatetime|: coc.nvim may not work well for long updatetime. Suggested
-  value is 300.
+Add an include path: `.I <path>`
 
 
 _____________________________________________________________________________

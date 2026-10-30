@@ -37,15 +37,13 @@ return {
     "Vigemus/iron.nvim",
 
     keys = function()
-        local iron = require('iron.core')
-        local ll = require('iron.lowlevel')
-        local state = require('iron.state')
+
         -- set of helper functions to make mapping definitions a bit less cluttered
         local function if_repl(func)
             -- execute function: only run function if a REPL is active
             local ft = vim.bo.filetype
-            local meta = state.get_repl(ft)
-            if vim.bo.filetype == 'iron' or ll.repl_exists(meta) then
+            local meta = require('iron.state').get_repl(ft)
+            if vim.bo.filetype == 'iron' or require('iron.lowlevel').repl_exists(meta) then
                 func()
             else
                 vim.notify("No REPLs found for filetype " .. ft)
@@ -73,7 +71,7 @@ return {
             if vim.bo.filetype == 'iron' then
                 vim.cmd('wincmd p')
             else
-                iron.focus_on(vim.bo.filetype)
+                require('iron.core').focus_on(vim.bo.filetype)
                 vim.cmd('startinsert')
             end
         end
@@ -84,48 +82,49 @@ return {
                 ft = require('iron.lowlevel').get_repl_ft_for_bufnr(bufnr)
             else
                 ft = vim.bo.filetype
-                iron.focus_on(ft)
+                require('iron.core').focus_on(ft)
                 bufnr = vim.api.nvim_get_current_buf()
                 vim.cmd('wincmd p')
             end
-            iron.close_repl(ft)
+            require('iron.core').close_repl(ft)
             vim.api.nvim_buf_delete(bufnr, { force = true })
         end
+
         return {
             { '<leader>rs', '<cmd>IronRepl<cr><cmd>stopinsert<cr>', desc = "Iron: start" },
             { '<leader>rl', function() if_repl(function()
-                    iron.repl_restart()
+                    require('iron.core').repl_restart()
                     vim.cmd('stopinsert')
                 end) end, desc = "Iron: restart" },
             { '<leader>rq', function() if_repl(quit_iron) end, desc = "Iron: close" },
             { '<leader>rj', function() if_repl(jump_to_iron_and_back) end, desc = "Iron: jump to repl window" },
-            { '<leader>rh', function() if_repl(wrap_with_ft(iron.hide_repl)) end, desc = "Iron: hide" },
+            { '<leader>rh', function() if_repl(wrap_with_ft(require('iron.core').hide_repl)) end, desc = "Iron: hide" },
             { '<leader>re', '<cmd>IronReplHere<cr>', desc = "Iron: open in current window" },
 
-            { '<leader>rr', function() if_repl(iron.send_line) end, desc = "Iron: send line" },
-            { '<leader>rr', mode = { 'v' }, function() if_repl(iron.visual_send) end, desc = "Iron: send selection" },
+            { '<leader>rr', function() if_repl(require('iron.core').send_line) end, desc = "Iron: send line" },
+            { '<leader>rr', mode = { 'v' }, function() if_repl(require('iron.core').visual_send) end, desc = "Iron: send selection" },
             { '<leader>rf', function()
                     if vim.bo.filetype == "python" then
-                        if_repl(function() iron.send("python", { "%run -i " .. vim.fn.json_encode(vim.api.nvim_buf_get_name(0)) }) end)
+                        if_repl(function() require('iron.core').send("python", { "%run -i " .. vim.fn.json_encode(vim.api.nvim_buf_get_name(0)) }) end)
                     else
-                        if_repl(iron.send_file)
+                        if_repl(require('iron.core').send_file)
                     end
                 end, desc = "Iron: run file"
             },
-            { '<leader>rn', function() if_repl(function() iron.send_code_block(true) end) end, desc = "Iron: send block (advance)" },
-            { '<leader>rb', function() if_repl(function() iron.send_code_block(false) end) end, desc = "Iron: send block (stay)" },
-            { '<leader>ra', function() if_repl(iron.send_until_cursor) end, desc = "Iron: send file up to cursor" },
+            { '<leader>rn', function() if_repl(function() require('iron.core').send_code_block(true) end) end, desc = "Iron: send block (advance)" },
+            { '<leader>rb', function() if_repl(function() require('iron.core').send_code_block(false) end) end, desc = "Iron: send block (stay)" },
+            { '<leader>ra', function() if_repl(require('iron.core').send_until_cursor) end, desc = "Iron: send file up to cursor" },
 
             { '<leader>ri', function() if_repl(send_command) end, desc = "Iron: send arbitrary command" },
-            { '<leader>rx', function() if_repl(wrap_with_ft(function(ft) iron.send(ft, string.char(03)) end)) end, desc = "Iron: interrupt" },
-            { '<leader>rc', function() if_repl(wrap_with_ft(function(ft) iron.send(ft, string.char(12)) end)) end, desc = "Iron: clear" },
-            { '<leader>r<cr>', function() if_repl(wrap_with_ft(function(ft) iron.send(ft, string.char(13)) end)) end, desc = "Iron: send CR" },
+            { '<leader>rx', function() if_repl(wrap_with_ft(function(ft) require('iron.core').send(ft, string.char(03)) end)) end, desc = "Iron: interrupt" },
+            { '<leader>rc', function() if_repl(wrap_with_ft(function(ft) require('iron.core').send(ft, string.char(12)) end)) end, desc = "Iron: clear" },
+            { '<leader>r<cr>', function() if_repl(wrap_with_ft(function(ft) require('iron.core').send(ft, string.char(13)) end)) end, desc = "Iron: send CR" },
         }
     end,
 
     cmd = { "IronRepl" },
 
-    config = function()
+    opts = function()
 
         -- define commands used for interface with notebook-navigator (see notebook-navigator.lua)
         local function send_code_for_nb_nav(selection, advance)
@@ -146,7 +145,7 @@ return {
         vim.api.nvim_create_user_command("ConfigNbnavIronSendBlock", function() send_code_for_nb_nav('block', false) end, {})
         vim.api.nvim_create_user_command("ConfigNbnavIronSendAll", function() send_code_for_nb_nav('all') end, {})
 
-        require("iron.core").setup({
+        return {
 
             config = {
                 -- set how iron deal with windows for the repl (see :h iron-extending)
@@ -172,7 +171,7 @@ return {
             highlight_last = false,
             -- If the highlight is on, you can change how it looks (see nvim_set_hl)
             highlight = {} -- e.g. { bold = true }
-        })
+        }
 
     end
 }

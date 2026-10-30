@@ -1,13 +1,4 @@
 {
-  "vvv": {
-    "prefix": "vvv",
-    "description": "Volts",
-    "body": "\\SI{$1}{\\volt}$0",
-    "luasnip": {
-      "autotrigger": true
-    }
-  },
-
   "template": {
     "prefix": "template",
     "description": "Basic template",

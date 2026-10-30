@@ -1,12 +1,10 @@
 {
-
-  "partit": {
+  "paragraph title": {
     "prefix": "partit",
     "description": "Paragraph title",
     "body": "**$1** $0"
   },
-
-  "sref": {
+  "slide reference": {
     "prefix": "sref",
     "description": "reference to slide",
     "body": "**|Slide $1|** $0",
@@ -14,14 +12,12 @@
       "autotrigger": true
     }
   },
-
-  "bref": {
+  "book reference": {
     "prefix": "bref",
     "description": "reference to book",
     "body": "**|Book $1|** $0"
   },
-
-  "ddd": {
+  "ellipsis": {
     "prefix": "ddd",
     "description": "dot dot dot",
     "body": "[...] $0",
@@ -29,8 +25,7 @@
       "autotrigger": true
     }
   },
-
-  "DDD": {
+  "bold ellipsis": {
     "prefix": "DDD",
     "description": "bold dot dot dot",
     "body": "**[...]** $0",
@@ -38,8 +33,7 @@
       "autotrigger": true
     }
   },
-
-  "kk": {
+  "inline code block": {
     "prefix": "kk",
     "description": "inline code block",
     "body": "`$1` $0",
@@ -47,5 +41,4 @@
       "autotrigger": true
     }
   }
-
 }

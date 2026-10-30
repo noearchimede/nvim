@@ -4,6 +4,17 @@ return {
 
     event = "VeryLazy",
 
+    keys = {
+        -- normal, visual, operator-pending modes
+        { "s", mode = { "n", "x" }, function() require("flash").jump() end, desc = "Flash" },
+        -- normal and operator-pending modes (visual is taken for nvim-surround
+        { "S", mode = { "n", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+        -- only operator-pending mode
+        { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+        -- operator-pending and visual (not select) modes
+        { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    },
+
     opts = {
         search = {
             exclude = {
@@ -33,30 +44,4 @@ return {
         },
     },
 
-    keys = {
-        {
-            "s", -- normal, visual, operator-pending modes
-            mode = { "n", "x" },
-            function() require("flash").jump() end,
-            desc = "Flash",
-        },
-        {
-            "S", -- normal and operator-pending modes (visual is taken for nvim-surround
-            mode = { "n", "o" },
-            function() require("flash").treesitter() end,
-            desc = "Flash Treesitter",
-        },
-        {
-            "r",
-            mode = "o", -- only operator-pending mode
-            function() require("flash").remote() end,
-            desc = "Remote Flash",
-        },
-        {
-            "R", -- operator-pending and visual (not select) modes
-            mode = { "o", "x" },
-            function() require("flash").treesitter_search() end,
-            desc = "Treesitter Search",
-        },
-    },
 }

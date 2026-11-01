@@ -6,17 +6,52 @@ return {
     -- inside the 'workspaces' defined in the options below
     ft = "markdown",
 
-    event = { "User EnteredObsidianVault" },
+    cmd = { "Obsidian", "ConfigObsidianSetupVault" },
 
-    cmd = { "ObsidianQuickSwitch", "ObsidianNew" },
+    opts = {
 
-    config = function()
+        legacy_commands = false,
 
-        -- Structure of this config function:
-        --  - helpers used to define mappings
-        --  - obsidian.setup()
-        --     - mappings
-        --     - other settings
+        workspaces = {
+            {
+                name = "auto",
+                path = function()
+                    local root = vim.fs.root(0, '.obsidian')
+                    return root
+                end
+            }
+        },
+
+        completion = {
+            -- Trigger completion immediately
+            min_chars = 0,
+        },
+
+        open = {
+            -- enable if you use the advanced-uri plugin in the Obsidian app
+            use_advanced_uri = true,
+        },
+
+        -- do not handle frontmatter (I'm not using it at the moment)
+        frontmatter = {
+            enabled = false,
+        },
+
+        -- Specify how to handle attachments.
+        attachments = {
+            -- The default folder to place images in via `:ObsidianPasteImg`, relative to the vault root
+            folder = "@new_attachments/",
+            img_name_func = function()
+                -- Prefix image names with timestamp.
+                return string.format("%s-", os.time())
+            end,
+        },
+
+    },
+
+    config = function(_, opts)
+
+        require('obsidian').setup(opts)
 
         local function follow_closest_link()
             local line = vim.api.nvim_get_current_line()
@@ -40,110 +75,56 @@ return {
             end
         end
 
-        -- helpers for other mappings
-        local obsidian = require('obsidian')
-        local function opts(desc)
-            return { buffer = true, desc = desc }
+        local function open_index()
+            local root = vim.fs.root(vim.fn.getcwd(), '.obsidian')
+            if not root then return end
+            local index_file_keywords = { "index", "indice" }
+            for name, type in vim.fs.dir(root) do
+                if type == "file" then
+                    for _, pattern in ipairs(index_file_keywords) do
+                        if name:lower():find(pattern, 1, true) then
+                            vim.cmd.edit(vim.fs.joinpath(root, name))
+                            vim.bo.filetype = 'markdown'
+                        end
+                    end
+                end
+            end
         end
+
+        vim.api.nvim_create_user_command("ConfigObsidianSetupVault", function()
+            -- set workspace explicitly to load Obsidian if not already loaded and ensure the state is set correctly
+            vim.cmd('Obsidian workspace auto')
+            -- attempt to open index file
+            open_index()
+            -- this appears to be necessary to ensure the obsidian lsp is attached
+            vim.schedule(function() vim.cmd('edit') end)
+        end, {})
 
         vim.api.nvim_create_autocmd("User", {
             pattern = "ObsidianNoteEnter",
             callback = function(_)
-                vim.keymap.set("n", "gf",
-                    function() return obsidian.util.gf_passthrough() end,
-                    { buffer = true, desc = "Obsidian: default gf + resolve links", noremap = false }
-                )
-                vim.keymap.set("n", "<cr>",
-                    function() return obsidian.util.smart_action() end,
-                    { buffer = true, desc = "Obsidian: smart action", expr = true }
-                )
-                vim.keymap.set("n", "<localleader>a",
-                    function() return vim.cmd('Obsidian open') end,
-                    opts("Obsidian: open in app")
-                )
-                vim.keymap.set("n", "<localleader>n",
-                    function() return vim.cmd('Obsidian new') end,
-                    opts("Obsidian: new note")
-                )
-                vim.keymap.set("n", "<localleader>o",
-                    function() return vim.cmd('Obsidian quick_switch') end,
-                    opts("Obsidian: switch to or open note")
-                )
-                vim.keymap.set("n", "<localleader>f",
-                    follow_closest_link,
-                    opts("Obsidian: follow closest link")
-                )
-                vim.keymap.set("n", "<localleader>b",
-                    function() return vim.cmd('Obsidian backlinks') end,
-                    opts("Obsidian: get list of backlinks")
-                )
-                vim.keymap.set("n", "<localleader>l",
-                    function() return vim.cmd('Obsidian links') end,
-                    opts("Obsidian: get list of (forward) links in file")
-                )
-                vim.keymap.set("n", "<localleader>g",
-                    function() return vim.cmd('Obsidian tags') end,
-                    opts("Obsidian: get list of occurrences of current tag")
-                )
-                vim.keymap.set("n", "<localleader>t",
-                    function() return vim.cmd('Obsidian template') end,
-                    opts("Obsidian: insert template")
-                )
-                vim.keymap.set("n", "<localleader>s",
-                    function() return vim.cmd('Obsidian search') end,
-                    opts("Obsidian: search")
-                )
-                vim.keymap.set("n", "<localleader>i",
-                    function() return vim.cmd('Obsidian paste_img') end,
-                    opts("Obsidian: paste image")
-                )
-                vim.keymap.set("n", "<localleader>c",
-                    function() return vim.cmd('Obsidian toc') end,
-                    opts("Obsidian: get table of contents")
-                )
+                print("done")
+                local function map(key, callback, desc)
+                    vim.keymap.set("n", key, callback, { buffer = true, desc = desc })
+                end
+                local obsidian = require('obsidian')
+                map("gf", function() obsidian.util.gf_passthrough() end, "Obsidian: default gf + resolve links")
+                map("<cr>", function() obsidian.util.smart_action() end, "Obsidian: smart action")
+                map("<localleader>a", function() vim.cmd('Obsidian open') end, "Obsidian: open in app")
+                map("<localleader>n", function() vim.cmd('Obsidian new') end, "Obsidian: new note")
+                map("<localleader>o", function() vim.cmd('Obsidian quick_switch') end, "Obsidian: switch to or open note")
+                map("<localleader>f", function() follow_closest_link() end, "Obsidian: follow closest link")
+                map("<localleader>b", function() vim.cmd('Obsidian backlinks') end, "Obsidian: get list of backlinks")
+                map("<localleader>l", function() vim.cmd('Obsidian links') end, "Obsidian: get list of (forward) links in file")
+                map("<localleader>g", function() vim.cmd('Obsidian tags') end, "Obsidian: get list of occurrences of current tag")
+                map("<localleader>t", function() vim.cmd('Obsidian template') end, "Obsidian: insert template")
+                map("<localleader>s", function() vim.cmd('Obsidian search') end, "Obsidian: search")
+                map("<localleader>i", function() vim.cmd('Obsidian paste_img') end, "Obsidian: paste image")
+                map("<localleader>c", function() vim.cmd('Obsidian toc') end, "Obsidian: get table of contents")
+                map("<localleader>h", function() open_index() end, "Obsidian: get table of contents")
             end
         })
 
-        obsidian.setup({
-
-            legacy_commands = false,
-
-            workspaces = {
-                {
-                    name = "auto",
-                    path = function()
-                        local root = vim.fs.root(0, '.obsidian')
-                        return root
-                    end
-                }
-            },
-
-            completion = {
-                -- Trigger completion immediately
-                min_chars = 0,
-            },
-
-            open = {
-                -- enable if you use the advanced-uri plugin in the Obsidian app
-                use_advanced_uri = true,
-            },
-
-            -- do not handle frontmatter (I'm not using it at the moment)
-            frontmatter = {
-                enabled = false,
-            },
-
-            -- Specify how to handle attachments.
-            attachments = {
-                -- The default folder to place images in via `:ObsidianPasteImg`, relative to the vault root
-                folder = "@new_attachments/",
-                img_name_func = function()
-                    -- Prefix image names with timestamp.
-                    return string.format("%s-", os.time())
-                end,
-            },
-
-        })
     end,
 
     init = function()
@@ -165,20 +146,7 @@ return {
                 local root = vim.fs.root(vim.fn.getcwd(), '.obsidian')
                 if root then
                     vim.notify("Entered Obsidian Vault")
-                    -- attempt to open index file (any file with one of the following keywords in its name)
-                    local index_file_keywords = { "index", "indice" }
-                    for name, type in vim.fs.dir(root) do
-                        if type == "file" then
-                            for _, pattern in ipairs(index_file_keywords) do
-                                if name:lower():find(pattern, 1, true) then
-                                    vim.cmd.edit(vim.fs.joinpath(root, name))
-                                    vim.bo.filetype = 'markdown'
-                                end
-                            end
-                        end
-                    end
-                    -- trigger custom event that loads Obsidian.nvim (there isn't any associated autocmd)
-                    vim.api.nvim_exec_autocmds("User", { pattern = "EnteredObsidianVault" })
+                    vim.cmd("ConfigObsidianSetupVault")
                 end
             end
         })

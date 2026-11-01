@@ -695,6 +695,9 @@ Indent-blankline ~
 \zi   n  toggle Indent guides
 \zs   n  toggle Scope guides
 
+Illuminate ~
+\zh   n  toggle same word highlight
+
 
 Unused ~
 \za \zb \zd \ze \zf \zg \zh \zj \zk \zl \zm \zo \zq \zr \zt \zu \zv \zw \zy
@@ -835,7 +838,7 @@ LSP ~
 <C-S>      n   show Signature help (alias: |map_i_CTRL-S|)
 
 -----------------------------------------------------------------------------
-Bracket mappings                                         *ma[*  *map_bracket*
+Bracket mappings                                      *map_[*  *ma[*  *map_bracket*
 -----------------------------------------------------------------------------
 
 Git ~
@@ -864,6 +867,10 @@ Quickfix/location list ~
 Code block ~
 ]j    n   move to next code block (alias: |map_leader_jn|)
 [j    n   move to previous code block (alias: |map_leader_jp|)
+
+Similar words (Illuminate) ~
+]i    n   go to next "illuminated" word
+[i    n   go to previous "illuminated" word
 
 -----------------------------------------------------------------------------
 Miscellaneous                                              *mami*  *map_misc*

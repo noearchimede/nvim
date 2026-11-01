@@ -119,7 +119,7 @@ return {
                 hl = theme.fill,
                 -- leftmost element: total number of open buffers
                 {
-                    { ' ' .. #vim.split(vim.fn.execute("ls"), "\n") - 1 .. ' ', hl = theme.head },
+                    { ' ' .. #vim.split(vim.fn.execute("ls"), "\n") .. ' ', hl = theme.head },
                     line.sep('', theme.head, theme.fill),
                 },
                 -- tabs

@@ -41,9 +41,9 @@ return {
                 vim.g.workspaces_opened_from_alpha = ( vim.bo.filetype == "alpha" )
             end,
             open = function()
-                -- open Alpha to show that a workspace has been opened
+                -- open Alpha to show that a workspace has been opened, unless a new window has already replaced alpha
                 if vim.g.workspaces_opened_from_alpha then
-                    vim.cmd("AlphaRedraw")
+                    if vim.bo.filetype == "alpha" then vim.cmd("AlphaRedraw") end
                 else
                     vim.cmd("Alpha")
                 end

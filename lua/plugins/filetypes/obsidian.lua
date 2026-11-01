@@ -1,25 +1,3 @@
-local my_vaults = {
-    {
-        name = "no-vault",
-        path = function() return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0))) end
-    },
-    {
-        -- keys required for the obsidian.nvim "workspaces" setting
-        name = "personal",
-        path = "~/Personale/Appunti",
-        overrides = {
-            templates = {
-                folder = "_templates",
-                date_format = "%Y-%m-%d",
-                time_format = "%H:%M",
-            },
-
-        },
-        -- keys used in my custom functions
-        index = "@Indice.md"
-    }
-}
-
 return {
 
     "obsidian-nvim/obsidian.nvim",
@@ -28,7 +6,7 @@ return {
     -- inside the 'workspaces' defined in the options below
     ft = "markdown",
 
-    event = "User EnteredObsidianVault",
+    event = { "User EnteredObsidianVault" },
 
     cmd = { "ObsidianQuickSwitch", "ObsidianNew" },
 
@@ -70,7 +48,7 @@ return {
 
         vim.api.nvim_create_autocmd("User", {
             pattern = "ObsidianNoteEnter",
-            callback = function(ev)
+            callback = function(_)
                 vim.keymap.set("n", "gf",
                     function() return obsidian.util.gf_passthrough() end,
                     { buffer = true, desc = "Obsidian: default gf + resolve links", noremap = false }
@@ -130,7 +108,15 @@ return {
 
             legacy_commands = false,
 
-            workspaces = my_vaults,
+            workspaces = {
+                {
+                    name = "auto",
+                    path = function()
+                        local root = vim.fs.root(0, '.obsidian')
+                        return root
+                    end
+                }
+            },
 
             completion = {
                 -- Trigger completion immediately
@@ -142,14 +128,6 @@ return {
                 use_advanced_uri = true,
             },
 
-            -- do not prepend note id or path to wikilinks
-            link = {
-                style = "wiki",
-                wiki = {
-                    use_alias_only = true,
-                },
-            },
-
             -- do not handle frontmatter (I'm not using it at the moment)
             frontmatter = {
                 enabled = false,
@@ -157,12 +135,8 @@ return {
 
             -- Specify how to handle attachments.
             attachments = {
-                -- The default folder to place images in via `:ObsidianPasteImg`.
-                -- If this is a relative path it will be interpreted as relative to the vault root.
+                -- The default folder to place images in via `:ObsidianPasteImg`, relative to the vault root
                 folder = "@new_attachments/",
-
-                -- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
-                ---@return string
                 img_name_func = function()
                     -- Prefix image names with timestamp.
                     return string.format("%s-", os.time())
@@ -188,37 +162,23 @@ return {
         -- load Obsidian if CWD is changed to a vault directory
         vim.api.nvim_create_autocmd('DirChanged', {
             callback = function()
-                local vault = nil
-                for _, v in ipairs(my_vaults) do
-                    if type(v.path) == string then
-                        ---@diagnostic disable-next-line: param-type-mismatch
-                        if vim.v.event.cwd == vim.fn.fnamemodify(v.path, ':p:h') then
-                            vault = v
-                            break
+                local root = vim.fs.root(vim.fn.getcwd(), '.obsidian')
+                if root then
+                    vim.notify("Entered Obsidian Vault")
+                    -- attempt to open index file (any file with one of the following keywords in its name)
+                    local index_file_keywords = { "index", "indice" }
+                    for name, type in vim.fs.dir(root) do
+                        if type == "file" then
+                            for _, pattern in ipairs(index_file_keywords) do
+                                if name:lower():find(pattern, 1, true) then
+                                    vim.cmd.edit(vim.fs.joinpath(root, name))
+                                    vim.bo.filetype = 'markdown'
+                                end
+                            end
                         end
                     end
-                end
-                if vault then
-                    vim.g.obsidian_current_vault_spec = vault
-                    vim.notify("Entered Obsidian Vault")
+                    -- trigger custom event that loads Obsidian.nvim (there isn't any associated autocmd)
                     vim.api.nvim_exec_autocmds("User", { pattern = "EnteredObsidianVault" })
-                    vim.api.nvim_exec_autocmds("User", { pattern = "EnteredObsidianVaultAfterLoad" })
-                end
-            end
-        })
-
-        -- autocmd executed after the DirChanged autocmd above is triggered
-        -- EnteredObsidianVault, which loads Obsidian.nvim
-        vim.api.nvim_create_autocmd('User', {
-            pattern = "EnteredObsidianVaultAfterLoad",
-            callback = function()
-                if require("utils").tab_is_empty(0) then
-                    if vim.g.obsidian_current_vault_spec.index then
-                        -- if the vault setting table contains an "index" file open it
-                        vim.cmd.edit(vim.g.obsidian_current_vault_spec.index)
-                        -- set filetype markdown, as it is not set automatically
-                        vim.bo.filetype = 'markdown'
-                    end
                 end
             end
         })

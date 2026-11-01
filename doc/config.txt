@@ -959,8 +959,8 @@ Rendering ~
                                                   *maftob*  *map_ft_obsidian*
 Obsidian ~
 The following mappings only work in buffers containing a file in an Obsidian
-vault. The directories containing Obsidian vaults are listed in the
-configuration file for the obsidian.nvim plugin.
+vault. An obsidian vault is defined by the presence of a '.obsidian/'
+directory in its root.
 
 ,o   n  Open note picker
 ,s   n  Search

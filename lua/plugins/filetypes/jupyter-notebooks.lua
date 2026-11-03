@@ -59,10 +59,11 @@ local code_actions = {
         if use_pyrepl() then
             require("pyrepl").send_buffer()
         elseif use_jupynium() then
-            local save_cursor = vim.fn.getpos(".")
-            vim.cmd('normal ggVG<Esc>')
-            vim.cmd(":JupyniumExecuteSelectedCells")
-            vim.fn.setpos('.', save_cursor)
+            vim.notify("Broken implementation, run cells manually")
+            -- local save_cursor = vim.fn.getpos(".")
+            -- vim.cmd('normal ggVG\\<Esc>')
+            -- vim.cmd(":JupyniumExecuteSelectedCells")
+            -- vim.fn.setpos('.', save_cursor)
         end
     end,
 
@@ -76,15 +77,17 @@ local code_actions = {
 
     run_above = function()
         if use_pyrepl() then
-            local save_cursor = vim.fn.getpos(".")
-            vim.cmd('normal! Vgg<Esc>')
-            require("pyrepl").send_visual()
-            vim.fn.setpos('.', save_cursor)
+            vim.notify("Broken implementation, run cells manually")
+            -- local save_cursor = vim.fn.getpos(".")
+            -- vim.cmd('normal! Vgg\\<Esc>')
+            -- require("pyrepl").send_visual()
+            -- vim.fn.setpos('.', save_cursor)
         elseif use_jupynium() then
-            local save_cursor = vim.fn.getpos(".")
-            vim.cmd('normal Vgg<Esc>')
-            vim.cmd(":JupyniumExecuteSelectedCells")
-            vim.fn.setpos('.', save_cursor)
+            vim.notify("Broken implementation, run cells manually")
+            -- local save_cursor = vim.fn.getpos(".")
+            -- vim.cmd('normal! Vgg\\<Esc>')
+            -- vim.cmd(":JupyniumExecuteSelectedCells")
+            -- vim.fn.setpos('.', save_cursor)
         end
     end,
 
@@ -186,6 +189,14 @@ local code_actions = {
         end
     end,
 
+    cell_focus_mode = function()
+        if use_pyrepl() then
+            vim.notify("Cell focus mode only available in Jupynium")
+        elseif use_jupynium() then
+            vim.cmd("JupyniumShortsightedToggle")
+        end
+    end,
+
     ipynb2py = function()
         vim.cmd("PyreplConvert")
     end
@@ -244,6 +255,7 @@ table.insert(M, {
                     { "l", function() code_actions.open_jupynium() end, { exit = true } },
                     { "k", function() code_actions.restart_kernel() end, { exit = true } },
                     { "x", function() code_actions.actions_menu() end, { exit = true } },
+                    { "w", function() code_actions.cell_focus_mode() end },
                     -- cell navigation and editing commands: implement here
                     { "n", function() nn.move_cell("d") end, { exit = true } },
                     { "N", function() nn.move_cell("d") end },
@@ -271,8 +283,8 @@ _r_/_R_/<s-cr>: run           _b_/_B_: add cell below    _d_/_D_: swap with cell
 _e_/_E_: run all cells above  _n_/_N_: go to next cell   _m_/_M_: merge with next
 _v_: run visual selection   _p_/_P_: go to previous    _s_/_S_: split cell
 _f_: run all cells          _c_/_C_: comment cell
-REPLs:   _o_: pyrepl   _l_: live jupyter view                                _q_: close
-_h_: hide   _t_: focus repl   _i_: view images   _k_: restart kernel   _x_: other actions
+REPLs:   _o_: pyrepl   _l_: live jupyter view          _q_: close        _x_: other actions
+_h_: hide   _t_: focus repl   _i_: view images   _k_: restart kernel   _w_: cell focus mode
 
                                _<Esc>_: exit ]],
                 config = {

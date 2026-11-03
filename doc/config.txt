@@ -454,11 +454,12 @@ Pyrepl/Jupynium: repl/jupyter live view ~
 \jt   n  toggle focus between code and Terminal
 \ji   n  open Image history viewer
 \jx   n  other actions
+\jw   n  cell focus mode
 
 -> additional mappings: see |map_leader_c|
 
 Unused ~
-\jg \jw \jy \jz
+\jg \jy \jz
 
 -----------------------------------------------------------------------------
                                                       *malek*  *map_leader_k*

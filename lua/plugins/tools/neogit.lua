@@ -51,6 +51,7 @@ return {
             status = {
                 ["="] = "Toggle", -- synonim to <tab>
                 ["o"] = "GoToFile", -- default is <cr>
+                ["-"] = false, -- used to toggle Oil
             },
             rebase_editor = {
                 -- The following keys by default map to 'pick', 'reword', ecc.

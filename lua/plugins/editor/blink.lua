@@ -30,12 +30,24 @@ return {
             },
 
             sources = {
+                default = {
+                    'lsp',
+                    'path',
+                    'snippets',
+                    'buffer',
+                    'jupynium' -- jupynium.nvim plugin
+                },
                 providers = {
                     snippets = {
                         opts = {
                             -- show labels for snippets
                             use_label_description = true,
                         }
+                    },
+                    jupynium = { -- jupynium.nvim plugin
+                        name = "Jupynium",
+                        module = "jupynium.blink_cmp",
+                        score_offset = 100,
                     }
                 }
             },

@@ -215,8 +215,8 @@ Navigation ~
 Also see |map_]e| and |map_]w| for jumps limited to errors and warnings.
 
 Inspect ~
-\\k  n  show Documentation
-\\j  n  show signature help
+\\k  n  show Documentation (alias: |CTRL-K|)
+\\j  n  show signature help (alias: |CTRL-S| and |i_CTRL-S|)
 \\v  n  View diagnostics for current line
 \\r  n  list References in quicfix list
 

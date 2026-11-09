@@ -153,7 +153,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("n", "<leader><leader>v", vim.diagnostic.open_float, "LSP: view line diagnostics")
         map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to K, see :h K-lsp-default
-        map("n", "<leader><leader>j", vim.lsp.buf.signature_help, "LSP: show signature help")
         map("n", "<leader><leader>d", vim.lsp.buf.definition, "LSP: go to definition")
         map("n", "<leader><leader>l", vim.lsp.buf.declaration, "LSP: go to declaration")
         map("n", "<leader><leader>i", vim.lsp.buf.implementation, "LSP: go to implementation")
@@ -177,6 +176,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map({ "n", "v" }, "<leader><leader>a", vim.lsp.buf.code_action, "LSP: code actions")
         -- map({ "n", "v" }, "<leader><leader>f", vim.lsp.buf.format, "LSP: format") <<< handled by conform.nvim
 
+        map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to S-K, see :h K-lsp-default
+        map("n", "C-S", vim.lsp.buf.signature_help, "LSP: show signature help")
+        map("n", "<leader><leader>j", vim.lsp.buf.signature_help, "LSP: show signature help") -- equivalent to C-K defined above
     end
 })
 

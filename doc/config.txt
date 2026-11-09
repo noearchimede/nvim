@@ -218,7 +218,10 @@ Inspect ~
 \\k  n  show Documentation (alias: |CTRL-K|)
 \\j  n  show signature help (alias: |CTRL-S| and |i_CTRL-S|)
 \\v  n  View diagnostics for current line
-\\r  n  list References in quicfix list
+
+Glance ~
+\\r  n  navigate References
+\\g  n  resume Glance
 
 Jump ~
 \\d  n  go to Definition
@@ -227,9 +230,8 @@ Jump ~
 \\L  n  go to decLaration in selected window
 \\i  n  go to Implementation
 \\I  n  go to Implementation in selected window
-\\t  n  go to Type definition
-\\T  n  go to Type definition in selected window
-
+\\y  n  go to Type definition
+\\Y  n  go to Type definition in selected window
 
 Diagnostics ~
 \\q  n  list all diagnostics in Quickfix
@@ -245,7 +247,7 @@ Workspace ~
 \\w  n  Load all workspace diagnostics [workspace-diagnostics]
 
 Unused ~
-\\b \\g \\h \\m \\o \\s \\u \\x \\y \\z
+\\b \\h \\m \\o \\s \\t \\u \\x \\z
 
 
 -----------------------------------------------------------------------------

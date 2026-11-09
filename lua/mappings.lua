@@ -152,25 +152,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end, "Diagnostics: previous error or warning")
 
         map("n", "<leader><leader>v", vim.diagnostic.open_float, "LSP: view line diagnostics")
-        map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to K, see :h K-lsp-default
         map("n", "<leader><leader>d", vim.lsp.buf.definition, "LSP: go to definition")
         map("n", "<leader><leader>l", vim.lsp.buf.declaration, "LSP: go to declaration")
         map("n", "<leader><leader>i", vim.lsp.buf.implementation, "LSP: go to implementation")
-        map("n", "<leader><leader>t", vim.lsp.buf.type_definition, "LSP: go to type definition")
-        map("n", "<leader><leader>r", vim.lsp.buf.references, "LSP: go to references")
-
-        map("n", "<leader><leader>D", function()
-            require('utils').lsp_goto_with_picker(vim.lsp.buf.definition)
-        end, "LSP: go to definition")
-        map("n", "<leader><leader>L", function()
-            require('utils').lsp_goto_with_picker(vim.lsp.buf.declaration)
-        end, "LSP: go to declaration")
-        map("n", "<leader><leader>I", function()
-            require('utils').lsp_goto_with_picker(vim.lsp.buf.implementation)
-        end, "LSP: go to implementation")
-        map("n", "<leader><leader>T", function()
-            require('utils').lsp_goto_with_picker(vim.lsp.buf.type_definition)
-        end, "LSP: go to type definition")
+        map("n", "<leader><leader>y", vim.lsp.buf.type_definition, "LSP: go to type definition")
+        -- map("n", "<leader><leader>r", vim.lsp.buf.references, "LSP: go to references") <<-- this is handled by Glance
+        map("n", "<leader><leader>D", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.definition) end, "LSP: go to definition")
+        map("n", "<leader><leader>L", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.declaration) end, "LSP: go to declaration")
+        map("n", "<leader><leader>I", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.implementation) end, "LSP: go to implementation")
+        map("n", "<leader><leader>T", function() require('utils').lsp_goto_with_picker(vim.lsp.buf.type_definition) end, "LSP: go to type definition")
 
         map("n", "<leader><leader>c", vim.lsp.buf.rename, "LSP: rename")
         map({ "n", "v" }, "<leader><leader>a", vim.lsp.buf.code_action, "LSP: code actions")
@@ -179,6 +169,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "<leader><leader>k", vim.lsp.buf.hover, "LSP: show documentation hover") -- equivalent to S-K, see :h K-lsp-default
         map("n", "C-S", vim.lsp.buf.signature_help, "LSP: show signature help")
         map("n", "<leader><leader>j", vim.lsp.buf.signature_help, "LSP: show signature help") -- equivalent to C-K defined above
+
     end
 })
 
